@@ -1,0 +1,481 @@
+      <!-- Background & Challenge Section -->
+      <section id="challenge">
+        <p class="section-label">Background</p>
+        <h2 class="section-title">The Challenge</h2>
+        <p class="section-text">Serano Cafe's original website did not reflect the warm, inviting nature of the bakery. The outdated design lacked cohesive branding, had a cluttered navigation system, and did not effectively showcase the bakery's artisanal products.</p>
+        <p class="section-text">My goal was to create a visually appealing, user-friendly website that enhances the online presence and improves customer engagement.</p>
+
+        <h3 class="subsection-header">Business Goals</h3>
+        <p class="section-text">Through initial conversations with the bakery owners and analyzing customer feedback, we established several key objectives:</p>
+
+        <div class="design-decisions">
+          <div class="decision-item">
+            <div class="decision-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </div>
+            <div class="decision-content">
+              <h4>Capture the Atmosphere</h4>
+              <p>Create a digital experience that authentically captures the bakery's warm, inviting atmosphere</p>
+            </div>
+          </div>
+          <div class="decision-item">
+            <div class="decision-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div class="decision-content">
+              <h4>Intuitive Navigation</h4>
+              <p>Develop an intuitive navigation system that helps visitors find information effortlessly</p>
+            </div>
+          </div>
+          <div class="decision-item">
+            <div class="decision-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21,15 16,10 5,21"/>
+              </svg>
+            </div>
+            <div class="decision-content">
+              <h4>Showcase Products</h4>
+              <p>Showcase their artisanal products with high-quality imagery and compelling descriptions</p>
+            </div>
+          </div>
+          <div class="decision-item">
+            <div class="decision-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="decision-content">
+              <h4>Emotional Connection</h4>
+              <p>Strengthen the emotional connection with customers through storytelling elements</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Motivation Section -->
+      <section id="motivation">
+        <p class="section-label">Motivation</p>
+        <h2 class="section-title">Why Not Just Use a Template?</h2>
+        <p class="section-text">In theory, a template-based website builder could have provided a quick, inexpensive solution for Serano Cafe. But would a cookie-cutter approach truly capture their unique character and craftsmanship?</p>
+        <p class="section-text">For a bakery that prides itself on handcrafted, made-from-scratch products, a generic template would contradict their core values. Their digital presence needed to reflect the same attention to detail and quality that went into their pastries.</p>
+
+        <div class="user-quote-blue">
+          <p>Just as Serano Cafe carefully selects ingredients and perfects their recipes, we needed to thoughtfully design every element of their digital experience to create something truly special.</p>
+        </div>
+
+        <div class="image-container" style="margin-top: var(--space-2xl);">
+          <p class="image-label">Customer Journey Map</p>
+          <div class="image-placeholder" style="width: 100%; min-height: 300px;">
+            [Customer journey map showing friction points in the original website experience - from discovery to browsing to visiting in-store]
+          </div>
+        </div>
+      </section>
+
+      <!-- Brainstorming Section -->
+      <section id="brainstorming">
+        <p class="section-label">Brainstorming</p>
+        <h2 class="section-title">Diving Deeper Into Concepts</h2>
+        <p class="section-text">The redesign process began with a brainstorming session with stakeholders, where I explored brand identity, emotion & design objectives, and moodboard creation.</p>
+      </section>
+
+      <!-- Brand Exploration Section -->
+      <section id="brand-exploration" class="collapsible-section" data-default-state="collapsed">
+        <div class="section-header" onclick="toggleSection('brand-exploration')">
+          <div>
+            <p class="section-label">Brand Exploration</p>
+            <h2 class="section-title">Defining Our Approach</h2>
+            <p class="section-subtitle">A collaborative workshop with the bakery owners to understand their vision, values, and customers.</p>
+          </div>
+          <span class="chevron">↓</span>
+        </div>
+        <div class="section-content" style="display: none;">
+          <p class="section-text">To set a strong foundation for the redesign, I facilitated a collaborative workshop with the bakery owners. We used various exercises to extract meaningful insights that would guide our design decisions.</p>
+
+          <h3 class="subsection-header">Brand Attributes Exercise</h3>
+          <p class="section-text">I led a "This-Not That" activity to define the brand's character more precisely:</p>
+
+          <div class="image-container">
+            <p class="image-label">Brand Attributes Exercise</p>
+            <div class="image-placeholder" style="width: 100%; min-height: 300px;">
+              [Brand attributes exercise showing four columns: "I don't want people to say", "I want the brand to feel", "I don't want people to feel", "This could be a mix of" - with words like Gothic vibes, cozy, elegance, on edge, uncomfortable, friendly editorial design, etc.]
+            </div>
+          </div>
+
+          <p class="section-text" style="margin-top: var(--space-xl);"><strong>Key words from our brand exploration sessions:</strong></p>
+          <ul class="tldr-list">
+            <li><strong>Warm</strong> and <strong>inviting</strong></li>
+            <li><strong>Artisanal</strong> craftsmanship</li>
+            <li><strong>Authentic</strong></li>
+            <li><strong>Uniquely</strong> tasteful</li>
+            <li><strong>Elegant</strong> simplicity</li>
+            <li><strong>Community</strong> oriented</li>
+          </ul>
+
+          <p class="section-text">This exercise helped clarify the delicate balance we needed to strike in the visual design - warm and inviting without feeling messy, sophisticated without seeming unapproachable.</p>
+        </div>
+      </section>
+
+      <!-- Visual Direction Section -->
+      <section id="visual-direction" class="collapsible-section" data-default-state="collapsed">
+        <div class="section-header" onclick="toggleSection('visual-direction')">
+          <div>
+            <p class="section-label">Visual Direction</p>
+            <h2 class="section-title">Establishing a Visual Language</h2>
+            <p class="section-subtitle">A cohesive visual language to bring Serano Cafe's character to life online.</p>
+          </div>
+          <span class="chevron">↓</span>
+        </div>
+        <div class="section-content" style="display: none;">
+          <div class="image-container">
+            <p class="image-label">Mood Board</p>
+            <div class="image-placeholder" style="width: 100%; min-height: 350px;">
+              [Mood board showing elegant website inspirations with keywords: Elegant, Organized, Uniquely tasteful]
+            </div>
+          </div>
+
+          <div class="two-column" style="margin-top: var(--space-2xl);">
+            <div class="column">
+              <h3>Color Palette</h3>
+              <p><strong>Primary:</strong> Dark blue with gold accents - A sophisticated combination that conveys elegance and trust.</p>
+              <p><strong>Secondary:</strong> Light blue as a shadow element - Used subtly to add depth without overpowering.</p>
+              <p><strong>Base:</strong> White backgrounds with dark blue gradients - Creates a clean, minimalistic, yet rich atmosphere.</p>
+              <p><strong>Accents:</strong> Gold-accented text - Adds a refined touch, enhancing readability and contrast.</p>
+            </div>
+            <div class="column">
+              <h3>Typography</h3>
+              <p><strong>Primary Font:</strong> Fanwood Text - Elegant serif for headings</p>
+              <p><strong>Secondary Font:</strong> DM Sans - Clean sans-serif for body text</p>
+              <p>Paired with a handwritten accent font to maintain a personal, welcoming feel.</p>
+            </div>
+          </div>
+
+          <div class="image-container" style="background: #1a1a1a; margin-top: var(--space-xl);">
+            <p class="image-label" style="color: #888;">Typography & Color System</p>
+            <div class="image-placeholder" style="width: 100%; min-height: 350px; color: #888;">
+              [Typography system showing Fanwood Text and DM Sans with heading styles, and color swatches showing dark blue, navy, light blue, and gold tones]
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ideation Section -->
+      <section id="ideation">
+        <p class="section-label">Ideation</p>
+        <h2 class="section-title">From Concept to Structure</h2>
+
+        <div class="hmw-statement">
+          <p>How might we reimagine Serano Cafe's digital storefront to evoke the same sensory delight and artisanal craftsmanship that customers experience in-store, while creating intuitive pathways that guide visitors from discovery to purchase with the warmth and care of a personal recommendation?</p>
+        </div>
+      </section>
+
+      <!-- User Flow Section -->
+      <section id="user-flow" class="collapsible-section" data-default-state="collapsed">
+        <div class="section-header" onclick="toggleSection('user-flow')">
+          <div>
+            <p class="section-label">Website Evaluation</p>
+            <h2 class="section-title">User Flow Redesign</h2>
+            <p class="section-subtitle">Restructuring pages for clarity and ease of use.</p>
+          </div>
+          <span class="chevron">↓</span>
+        </div>
+        <div class="section-content" style="display: none;">
+          <p class="section-text">I started by redesigning the site map to improve user flow, making navigation more intuitive and ensuring essential information was easy to find. Key improvements included:</p>
+
+          <ul class="tldr-list">
+            <li>Enhanced user flow by restructuring pages for clarity and ease of use</li>
+            <li>Added website hours and dietary tags on menu items to help customers make informed choices</li>
+            <li>Implemented a chat/send-a-message section for direct customer engagement</li>
+            <li>Refined the menu structure to make it easier for users to browse food items</li>
+          </ul>
+
+          <div class="image-container" style="margin-top: var(--space-xl);">
+            <p class="image-label">Sitemap Comparison: Before vs After</p>
+            <div class="image-placeholder" style="width: 100%; min-height: 400px;">
+              [Side-by-side sitemap comparison showing the original flat structure vs the redesigned hierarchical structure with About Us > Origins/Team, Menu > Dietary Restrictions, Contact > Hours/Chat sections]
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Wireframes Section -->
+      <section id="wireframes" class="collapsible-section" data-default-state="collapsed">
+        <div class="section-header" onclick="toggleSection('wireframes')">
+          <div>
+            <p class="section-label">Design Process</p>
+            <h2 class="section-title">From Wireframes to High-Fidelity</h2>
+            <p class="section-subtitle">Following a structured design process to bring changes to life.</p>
+          </div>
+          <span class="chevron">↓</span>
+        </div>
+        <div class="section-content" style="display: none;">
+          <h3 class="subsection-header">Low-Fidelity Wireframes</h3>
+          <p class="section-text">Sketching out layout ideas to explore usability before committing to visual design.</p>
+
+          <div class="image-container">
+            <p class="image-label">Low-Fidelity Wireframes</p>
+            <div class="image-placeholder" style="width: 100%; min-height: 350px;">
+              [Low-fidelity wireframes showing homepage, about us, gallery, and contact page layouts with placeholder boxes for content]
+            </div>
+          </div>
+
+          <h3 class="subsection-header">High-Fidelity Prototypes</h3>
+          <p class="section-text">Refining the design with full-color elements, typography, and interactive features.</p>
+
+          <div class="image-container">
+            <p class="image-label">High-Fidelity Designs</p>
+            <div class="image-placeholder" style="width: 100%; min-height: 350px;">
+              [High-fidelity mockups showing the final homepage, about us, menu, gallery, and contact pages with actual imagery and content]
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Challenges Section -->
+      <section id="design-challenges">
+        <p class="section-label">Challenges</p>
+        <h2 class="section-title">Balancing Aesthetics and Functionality</h2>
+        <p class="section-text">As I began translating our structural plans into visual designs, I encountered several challenges that required thoughtful solutions:</p>
+
+        <div class="design-decisions" style="margin-top: var(--space-xl);">
+          <div class="decision-item">
+            <div class="decision-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+            <div class="decision-content">
+              <h4>Creating an Intuitive Navigation System</h4>
+              <p>The original site had a confusing navigation structure. I tested several navigation patterns with users and ultimately settled on a streamlined main menu with clear labels, persistent access to hours and location, and contextual sub-navigation.</p>
+            </div>
+          </div>
+          <div class="decision-item">
+            <div class="decision-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21,15 16,10 5,21"/>
+              </svg>
+            </div>
+            <div class="decision-content">
+              <h4>Showcasing Products Authentically</h4>
+              <p>How could we represent the sensory experience digitally? I developed a strategy combining high-quality photography capturing texture and detail, descriptive language evoking flavor and aroma, and testimonials highlighting customer experiences.</p>
+            </div>
+          </div>
+          <div class="decision-item">
+            <div class="decision-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                <path d="M2 2l7.586 7.586"/>
+                <circle cx="11" cy="11" r="2"/>
+              </svg>
+            </div>
+            <div class="decision-content">
+              <h4>Illustrative Accents</h4>
+              <p>To enhance the bakery's digital presence, I incorporated hand-drawn vector elements in light blue to add character and accessibility icons. Initially explored 3D modeling in Blender, but transitioned to Illustrator for greater flexibility.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Before & After Section -->
+      <section id="before-after">
+        <p class="section-label">Comparison</p>
+        <h2 class="section-title">Website Before & After</h2>
+
+        <div class="comparison-container" style="margin-top: var(--space-xl);">
+          <div class="comparison-grid">
+            <div class="comparison-item">
+              <h4>Navigation - Before</h4>
+              <p>Confusing, cluttered, multiple clicks needed</p>
+            </div>
+            <div class="comparison-item">
+              <h4>Navigation - After</h4>
+              <p>Streamlined, intuitive layout, easy access to menu</p>
+            </div>
+            <div class="comparison-item">
+              <h4>Mobile Usability - Before</h4>
+              <p>Poor formatting, slow loading times</p>
+            </div>
+            <div class="comparison-item">
+              <h4>Mobile Usability - After</h4>
+              <p>Fully responsive, optimized for speed</p>
+            </div>
+            <div class="comparison-item">
+              <h4>Visual Identity - Before</h4>
+              <p>Generic template, lacked warmth</p>
+            </div>
+            <div class="comparison-item">
+              <h4>Visual Identity - After</h4>
+              <p>Custom design reflecting bakery's charm</p>
+            </div>
+            <div class="comparison-item">
+              <h4>Accessibility - Before</h4>
+              <p>No color contrast optimization</p>
+            </div>
+            <div class="comparison-item">
+              <h4>Accessibility - After</h4>
+              <p>Passed WCAG contrast tests for readability</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="image-container" style="margin-top: var(--space-2xl);">
+          <p class="image-label">Original Website</p>
+          <div class="image-placeholder" style="width: 100%; min-height: 350px;">
+            [Screenshots of the original Serano Cafe website showing the old homepage with dark overlays, basic navigation, and outdated design]
+          </div>
+        </div>
+
+        <div class="image-container">
+          <p class="image-label">Redesigned Website</p>
+          <div class="image-placeholder" style="width: 100%; min-height: 350px;">
+            [Screenshots of the redesigned website showing the new homepage, about us, gallery, menu, and contact pages with warm imagery and modern design]
+          </div>
+        </div>
+      </section>
+
+      <!-- Final Design Section -->
+      <section id="final-design">
+        <p class="section-label">Final Design</p>
+        <h2 class="section-title">Let's Explore the Final</h2>
+        <p class="section-text">The final design brings together all our research, strategy, and iteration into a cohesive experience that authentically represents Serano Cafe online.</p>
+
+        <h3 class="subsection-header">Homepage: Creating an Inviting First Impression</h3>
+        <p class="section-text">The homepage serves as a digital storefront, immediately immersing visitors in the cafe's warm atmosphere:</p>
+        <ul class="tldr-list">
+          <li>Hero section featuring signature pastries with subtle animation</li>
+          <li>Concise value proposition highlighting artisanal quality</li>
+          <li>Quick access to hours, location, and online ordering</li>
+          <li>Featured products showcasing seasonal specialties</li>
+          <li>Story snippet introducing the bakery's heritage and values</li>
+        </ul>
+
+        <h3 class="subsection-header">Menu: Showcasing Artisanal Products</h3>
+        <p class="section-text">The menu transforms from a simple list into an engaging showcase:</p>
+        <ul class="tldr-list">
+          <li>Beautiful photography highlighting texture and detail</li>
+          <li>Clear categorization making browsing effortless</li>
+          <li>Dietary information helping visitors make informed choices</li>
+          <li>Descriptive copy evoking flavor and ingredients</li>
+        </ul>
+
+        <div class="skip-buttons" style="margin-top: var(--space-xl);">
+          <a href="https://www.figma.com/proto/iBo2ULQN0z6sS1nr6TZspL/serano-cafe?page-id=115%3A1757&node-id=115-1894&viewport=843%2C507%2C0.1&t=bd3CleIt1jni231j-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=115%3A1894" target="_blank" class="skip-button primary">View Figma Prototype</a>
+        </div>
+      </section>
+
+      <!-- Impact Section -->
+      <section id="impact">
+        <p class="section-label">Impact</p>
+        <h2 class="section-title">Reception and Results</h2>
+        <p class="section-text">The redesigned website launched to enthusiastic feedback from both the cafe owners and their customers.</p>
+
+        <h3 class="subsection-header">User Feedback</h3>
+        <div class="quote-cards">
+          <div class="quote-card">
+            <p class="speaker">Customer</p>
+            <p class="quote-text">"The new site feels just like walking into the bakery - warm and inviting!"</p>
+          </div>
+          <div class="quote-card">
+            <p class="speaker">Customer</p>
+            <p class="quote-text">"I can finally find what I'm looking for without frustration."</p>
+          </div>
+          <div class="quote-card">
+            <p class="speaker">Customer</p>
+            <p class="quote-text">"The photos make me want to try everything on the menu!"</p>
+          </div>
+        </div>
+
+        <h3 class="subsection-header">Business Impact</h3>
+        <p class="section-text">Beyond metrics, the redesign supported important business outcomes:</p>
+        <ul class="tldr-list">
+          <li>Increased first-time visitor conversion to in-store customers</li>
+          <li>Enhanced perception of brand quality and craftsmanship</li>
+          <li>Improved operational efficiency through clearer information</li>
+          <li>Strengthened community engagement through storytelling</li>
+          <li>Expanded customer base through improved online discovery</li>
+        </ul>
+      </section>
+
+      <!-- Learnings Section -->
+      <section id="learnings" style="margin-bottom: 0;">
+        <p class="section-label">Takeaways</p>
+        <h2 class="section-title">What I Learned</h2>
+
+        <div class="design-decisions">
+          <div class="decision-item">
+            <div class="decision-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21,15 16,10 5,21"/>
+              </svg>
+            </div>
+            <div class="decision-content">
+              <h4>Visual Design</h4>
+              <p>Through this project, I honed my skills in visual design. I learned that balancing aesthetics with functionality is crucial in web design.</p>
+            </div>
+          </div>
+          <div class="decision-item">
+            <div class="decision-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+              </svg>
+            </div>
+            <div class="decision-content">
+              <h4>Project Management & Sprint Planning</h4>
+              <p>This project provided valuable experience in project management, particularly in sprint planning. Breaking down the project into manageable tasks helped me stay organized and meet goals.</p>
+            </div>
+          </div>
+          <div class="decision-item">
+            <div class="decision-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="decision-content">
+              <h4>User Feedback</h4>
+              <p>Incorporating user feedback was essential for refining the designs and ensuring they resonated with the target audience. Designing for both digital and physical assets ensures brand consistency across all touchpoints.</p>
+            </div>
+          </div>
+          <div class="decision-item">
+            <div class="decision-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23,4 23,10 17,10"/>
+                <polyline points="1,20 1,14 7,14"/>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+              </svg>
+            </div>
+            <div class="decision-content">
+              <h4>Iterative Design Process</h4>
+              <p>Through the iterative design process, I learned the importance of continuously refining designs based on feedback and insights. This approach allowed me to deliver high-quality deliverables.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="subsection-header">What I'd Do Differently</h3>
+        <p class="section-text">If I were to approach this project again, I would:</p>
+        <ul class="tldr-list">
+          <li>Conduct user interviews earlier in the process to gather more direct insights</li>
+          <li>Create a more detailed content strategy document to guide future updates</li>
+          <li>Develop a more comprehensive analytics plan to track specific user behaviors</li>
+          <li>Include A/B testing of key conversion elements to optimize performance</li>
+        </ul>
+      </section>
+

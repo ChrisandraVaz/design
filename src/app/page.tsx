@@ -1,65 +1,88 @@
-import Image from "next/image";
+import GradientBlob from "@/components/GradientBlob";
+import SocialLinks from "@/components/SocialLinks";
+import WorkExperience from "@/components/WorkExperience";
+import ProjectGallery from "@/components/ProjectGallery";
+import Link from "next/link";
+
+const currentExperience = [
+  { company: "Figma", role: "Campus Leader" },
+];
+
+const previousExperience = [
+  { company: "TD Bank", role: "UX Developer" },
+  { company: "IBM", role: "Design Fellow" },
+  { company: "TD Bank", role: "Product Design Intern" },
+  { company: "TD Bank", role: "Product Design Intern" },
+];
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen md:h-screen flex flex-col md:flex-row overflow-auto md:overflow-hidden">
+      {/* Left Side - Info Section */}
+      <div className="w-full md:w-[45%] md:h-full flex flex-col p-6 md:p-[56px]">
+        {/* Logo/Blob */}
+        <div className="mb-8 md:mb-[40px]">
+          <GradientBlob />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Hero Text */}
+        <h1 className="text-[24px] md:text-[34px] font-normal tracking-tight mb-6 md:mb-[32px]" style={{ lineHeight: '1.2' }}>
+          Chrisandra <span className="inline-block">✐</span> is a designer at
+          <br className="hidden md:block" />
+          <span className="md:hidden"> </span>waterloo who ships products that
+          <br className="hidden md:block" />
+          <span className="md:hidden"> </span>click <span className="inline-block">✦</span> and cultivates thriving
+          <br className="hidden md:block" />
+          <span className="md:hidden"> </span>design communities <span className="inline-block">✧</span>.
+        </h1>
+
+        {/* Social Links and Status Badge row */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
+          <SocialLinks />
+          <span className="status-badge text-[12px] md:text-[14px]">
+            Seeking W26 & S26 Internships
+          </span>
         </div>
-      </main>
+
+        {/* First Divider */}
+        <div className="border-t border-gray-200 my-6 md:my-[24px]"></div>
+
+        {/* CTA Section with About Me button */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
+          <div>
+            <p className="text-[14px] md:text-[15px] text-black mb-1">Interested in working together?</p>
+            <p className="text-[14px] md:text-[15px] text-[#646464]">
+              Book a time{" "}
+              <Link href="https://calendly.com/chrisandravaz12/30min" className="link-pink">
+                here
+              </Link>{" "}
+              if you&apos;d like to chat.
+            </p>
+          </div>
+          <Link href="https://vazzy.framer.website/about">
+            <button className="about-btn">About Me</button>
+          </Link>
+        </div>
+
+        {/* Second Divider */}
+        <div className="border-t border-gray-200 my-6 md:my-[24px]"></div>
+
+        {/* Work Experience */}
+        <div>
+          <WorkExperience title="CURRENT" experiences={currentExperience} />
+          <WorkExperience title="PREVIOUS" experiences={previousExperience} />
+        </div>
+
+        {/* Footer signature - hidden on mobile */}
+        <div className="hidden md:block mt-auto text-right">
+          <span className="text-[14px] text-black">क्रिसेंद्रा.</span>
+        </div>
+      </div>
+
+      {/* Right Side - Project Gallery */}
+      <div className="w-full md:w-[55%] md:h-full px-6 md:px-0 md:pr-[56px] pb-6 md:pb-0">
+        <ProjectGallery />
+      </div>
     </div>
   );
 }

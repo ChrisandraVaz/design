@@ -1925,6 +1925,7 @@ export default function SeranoCafeCaseStudy() {
                   <p>Crazy 8 ideation, low-fidelity wireframes, sitemap restructuring, and iterative layout testing.</p>
                 </div>
               </div>
+
               <div className="process-step">
                 <div className="process-step-number">4</div>
                 <div className="process-step-content">

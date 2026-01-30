@@ -10,8 +10,23 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chrisandra | Designer at Waterloo",
+  title: "Vaz Portfolio",
   description: "Designer at Waterloo who ships products that click and cultivates thriving design communities.",
+  icons: {
+    icon: "/favicon.png",
+  },
+  openGraph: {
+    title: "Vaz Portfolio",
+    description: "Designer at Waterloo who ships products that click and cultivates thriving design communities.",
+    type: "website",
+    images: [{ url: "/favicon.png", width: 512, height: 512, alt: "Vaz Portfolio" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vaz Portfolio",
+    description: "Designer at Waterloo who ships products that click and cultivates thriving design communities.",
+    images: ["/favicon.png"],
+  },
 };
 
 export default function RootLayout({
@@ -21,6 +36,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.png" type="image/png" />
+      </head>
       <body className={`${ibmPlexMono.variable} antialiased`}>
         <CustomCursor />
         {children}

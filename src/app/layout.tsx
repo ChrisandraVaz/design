@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
       </head>
       <body className={`${ibmPlexMono.variable} antialiased`}>
         <CustomCursor />

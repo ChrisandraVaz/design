@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function FontContextCaseStudy() {
   const [currentPolaroid, setCurrentPolaroid] = useState(0);
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
+  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
+  const [isHeroPlaying, setIsHeroPlaying] = useState(false);
 
   useEffect(() => {
     const sections = ['validation', 'built-first', 'competitors', 'two-bar', 'who-for', 'modal-song', 'scoping', 'craft', 'didnt-solve'];
@@ -16,6 +18,15 @@ export default function FontContextCaseStudy() {
       savedStates[id] = saved === 'true';
     });
     setExpandedSections(savedStates);
+
+    // Avoid a Safari/Chromium quirk where <video> can paint a stale frame
+    // before its source is fully loaded (looks like the "wrong image" flashing).
+    setIsHeroPlaying(false);
+    try {
+      heroVideoRef.current?.load();
+    } catch {
+      // no-op
+    }
   }, []);
 
   const toggleSection = (sectionId: string) => {
@@ -40,18 +51,18 @@ export default function FontContextCaseStudy() {
   return (
     <div className="min-h-screen bg-white text-gray-800">
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
         .fc-container { display: flex; min-height: 100vh; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
         .fc-sidebar { position: fixed; left: 0; top: 0; width: 240px; height: 100vh; padding: 40px 24px; background: #fff; z-index: 100; border-right: 1px solid #f0f0f0; }
         .fc-back-link { display: flex; align-items: center; gap: 8px; color: #666; text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.5px; margin-bottom: 48px; transition: color 0.2s; }
-        .fc-back-link:hover { color: #111; }
+        .fc-back-link:hover { color: #0C8CE9; }
         .fc-back-link:focus-visible {
           outline: 2px solid #999;
           outline-offset: 2px;
         }
         .fc-nav-links { display: flex; flex-direction: column; gap: 4px; }
         .fc-nav-links a { color: #999; text-decoration: none; font-size: 14px; font-weight: 400; padding: 8px 0; transition: color 0.2s; }
-        .fc-nav-links a:hover { color: #666; }
+        .fc-nav-links a:hover { color: #0C8CE9; }
         .fc-nav-links a:focus-visible {
           outline: 2px solid #999;
           outline-offset: 2px;
@@ -61,7 +72,9 @@ export default function FontContextCaseStudy() {
         .fc-project-meta { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: #999; text-transform: uppercase; margin-bottom: 16px; }
         .fc-project-title { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 48px; font-weight: 600; line-height: 1.08; color: #111; margin-bottom: 48px; letter-spacing: -0.03em; }
         .fc-hero-image { width: 100%; background: transparent; border-radius: 0; padding: 0; margin-bottom: 48px; display: block; height: 420px; overflow: hidden; position: relative; }
-        .fc-hero-image video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+        .fc-hero-image .fc-hero-poster { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 2; opacity: 1; transition: opacity 180ms ease; pointer-events: none; }
+        .fc-hero-image video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 1; }
+        .fc-hero-image.is-playing .fc-hero-poster { opacity: 0; }
         .fc-project-info { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-bottom: 48px; }
         .fc-info-item h4 { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 8px; }
         .fc-info-item p { font-size: 14px; color: #111; line-height: 1.7; font-weight: 450; }
@@ -218,17 +231,20 @@ export default function FontContextCaseStudy() {
           <p className="fc-project-meta">FontContext · Shipped 2026</p>
           <h1 className="fc-project-title">The Context Aware<br/>Font Editor for Figma</h1>
 
-          <div className="fc-hero-image">
+          <div className={`fc-hero-image ${isHeroPlaying ? "is-playing" : ""}`}>
+            <img src="/assets/The Live Preview Engine.png" alt="FontContext live preview" className="fc-hero-poster" />
             <video
+              ref={heroVideoRef}
               autoPlay
               loop
               muted
               playsInline
               preload="auto"
+              poster="/assets/The Live Preview Engine.png"
               style={{ borderRadius: 4 }}
+              src="/assets/figma.mp4"
+              onPlaying={() => setIsHeroPlaying(true)}
             >
-              <source src="/assets/figma.mov" type="video/quicktime" />
-              <source src="/assets/figma.mov" type="video/mp4" />
             </video>
           </div>
 

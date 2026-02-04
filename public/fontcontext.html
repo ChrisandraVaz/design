@@ -30,7 +30,7 @@
       --font-caption: 12px;
       --font-micro: 11px;
 
-      /* Spacing Scale */
+      /* Spacing Scale (use these for all margins, padding, gaps) */
       --space-xs: 4px;
       --space-sm: 8px;
       --space-md: 16px;
@@ -38,6 +38,8 @@
       --space-xl: 32px;
       --space-2xl: 48px;
       --space-3xl: 64px;
+      --content-max: 900px;
+      --text-max: 720px;
 
       /* Border Radius */
       --radius-sm: 8px;
@@ -75,7 +77,7 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 64px;
+      height: var(--space-3xl);
       background: var(--bg-primary);
       z-index: 100;
       display: flex;
@@ -133,7 +135,7 @@
 
     /* Main Content */
     .main-content {
-      margin-top: 64px;
+      margin-top: var(--space-3xl);
       padding: var(--space-2xl) var(--space-xl);
       max-width: none;
       width: 100%;
@@ -144,13 +146,13 @@
 
     .main-content > * {
       width: 100%;
-      max-width: 900px;
+      max-width: var(--content-max);
     }
 
     /* Left Tree Navigation */
     .tree-nav {
       position: fixed;
-      left: 32px;
+      left: var(--space-xl);
       top: 50%;
       transform: translateY(-50%);
       opacity: 0;
@@ -165,7 +167,7 @@
 
     .tree-section {
       position: relative;
-      margin-bottom: 4px;
+      margin-bottom: var(--space-xs);
     }
 
     .tree-section-link {
@@ -176,7 +178,7 @@
       text-transform: uppercase;
       color: var(--text-tertiary);
       text-decoration: none;
-      padding: 4px 0;
+      padding: var(--space-xs) 0;
       transition: color 0.2s;
       cursor: pointer;
     }
@@ -218,7 +220,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      margin-right: 8px;
+      margin-right: var(--space-sm);
     }
 
     .tree-connector-vertical {
@@ -285,7 +287,7 @@
       font-weight: 600;
       line-height: 1.08;
       color: var(--text-primary);
-      margin-bottom: var(--space-2xl);
+      margin-bottom: var(--space-xl);
       letter-spacing: -0.03em;
     }
 
@@ -295,13 +297,25 @@
       background: transparent;
       border-radius: 0;
       padding: 0;
-      margin-bottom: var(--space-2xl);
+      margin-bottom: var(--space-xl);
       display: block;
       height: 420px;
       overflow: hidden;
+      position: relative;
     }
-    
+    .hero-image .hero-poster {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
     .hero-image video {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -335,7 +349,7 @@
       grid-template-columns: repeat(4, 1fr);
       gap: var(--space-xl);
       padding: 0;
-      margin-bottom: var(--space-2xl);
+      margin-bottom: var(--space-xl);
     }
 
     .info-item h4 {
@@ -357,7 +371,7 @@
 
     /* Section Styling */
     section {
-      margin-bottom: var(--space-2xl);
+      margin-bottom: var(--space-xl);
     }
 
     .section-label {
@@ -384,8 +398,61 @@
       font-size: var(--font-body);
       color: var(--text-secondary);
       line-height: 1.75;
-      max-width: 720px;
+      max-width: var(--text-max);
       margin-bottom: var(--space-md);
+    }
+
+    .story-beat {
+      margin-bottom: var(--space-xl);
+    }
+    .story-beat:last-of-type { margin-bottom: 0; }
+    .story-beat .section-text { margin-bottom: 0; }
+
+    /* MVP reflection block: use full content width */
+    .mvp-reflection-block .section-text,
+    .mvp-reflection-block .numbered-feature p {
+      max-width: 100%;
+    }
+
+    /* It's Broken section: numbered problems + smaller image */
+    .its-broken-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--space-xl);
+      align-items: start;
+      margin-top: var(--space-2xl);
+    }
+    .broken-problem {
+      font-size: var(--font-body);
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: var(--space-lg);
+      padding-left: var(--space-xl);
+      position: relative;
+    }
+    .broken-problem:last-of-type { margin-bottom: 0; }
+    .broken-problem .num {
+      position: absolute;
+      left: 0;
+      top: 2px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      width: 20px;
+      text-align: right;
+    }
+    .broken-image-wrap {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+    .broken-image-wrap img {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+      border-radius: 8px;
     }
 
     .competitor-analysis-layout .section-text {
@@ -411,16 +478,17 @@
       font-size: var(--font-subsection);
       font-weight: 600;
       color: var(--text-primary);
-      margin-top: var(--space-2xl);
+      margin-top: var(--space-xl);
       margin-bottom: var(--space-md);
       letter-spacing: -0.01em;
     }
+    .subsection-header:first-child { margin-top: 0; }
 
     /* Key Insight Callout */
     .key-insight {
       border-left: 3px solid var(--figma-blue);
       padding-left: var(--space-lg);
-      margin: var(--space-2xl) 0;
+      margin: var(--space-xl) 0;
     }
 
     .key-insight p {
@@ -498,7 +566,7 @@
       left: 0;
       width: 100%;
       background: #ffffff;
-      padding: var(--space-md) var(--space-md) 40px var(--space-md);
+      padding: var(--space-md) var(--space-md) var(--space-xl) var(--space-md);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
       border: 1px solid rgba(0, 0, 0, 0.06);
       border-radius: 2px;
@@ -761,6 +829,112 @@
       font-size: var(--font-small);
       color: var(--text-secondary);
       line-height: 1.7;
+    }
+
+    /* Two Bar section: intro row (text left, image right, no frame) + 3-column attempts */
+    .two-bar-intro {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: var(--space-xl);
+      align-items: start;
+      margin-bottom: var(--space-xl);
+    }
+    .two-bar-hello-wrap {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+    .two-bar-hello-wrap img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--radius-sm);
+    }
+    .two-bar-attempts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xl);
+      margin-top: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+    .two-bar-attempt {
+      padding: var(--space-xl);
+      background: var(--bg-primary);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      transition: border-color 0.2s ease;
+    }
+    .two-bar-attempt:hover {
+      border-color: var(--border-subtle, #e8e8e8);
+    }
+    .two-bar-attempts-grid .two-bar-attempt:nth-child(1),
+    .two-bar-attempts-grid .two-bar-attempt:nth-child(2) {
+      opacity: 0.72;
+      background: #f8f8f8;
+    }
+    .two-bar-attempts-grid .two-bar-attempt:nth-child(1) .attempt-visual,
+    .two-bar-attempts-grid .two-bar-attempt:nth-child(2) .attempt-visual {
+      background: #eee;
+      color: #999;
+    }
+    .two-bar-attempts-grid .two-bar-attempt:nth-child(1) h3,
+    .two-bar-attempts-grid .two-bar-attempt:nth-child(2) h3 {
+      color: #888;
+    }
+    .two-bar-attempts-grid .two-bar-attempt:nth-child(1) .attempt-summary,
+    .two-bar-attempts-grid .two-bar-attempt:nth-child(1) .attempt-body,
+    .two-bar-attempts-grid .two-bar-attempt:nth-child(2) .attempt-summary,
+    .two-bar-attempts-grid .two-bar-attempt:nth-child(2) .attempt-body {
+      color: #999;
+    }
+    .two-bar-attempts-grid .two-bar-attempt:nth-child(3) {
+      background: #fff;
+      border-color: var(--border-subtle, #e0e0e0);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .attempt-visual {
+      width: 48px;
+      height: 48px;
+      margin-bottom: var(--space-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-sm);
+      color: var(--text-tertiary);
+    }
+    .attempt-visual svg { width: 28px; height: 28px; }
+    .two-bar-attempt h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+    .attempt-summary {
+      font-size: var(--font-small);
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: var(--space-md);
+    }
+    .two-bar-attempt .attempt-body {
+      font-size: var(--font-small);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .two-bar-resolution {
+      margin-bottom: var(--space-xl);
+    }
+    .two-bar-resolution .section-text { margin-bottom: var(--space-md); }
+    .two-bar-resolution .section-text:last-of-type { margin-bottom: 0; }
+    @media (max-width: 900px) {
+      .two-bar-intro { grid-template-columns: 1fr; }
+      .two-bar-hello-wrap img { max-width: 100%; }
+      .two-bar-attempts-grid { grid-template-columns: 1fr; }
     }
 
     /* Image Containers */
@@ -1046,7 +1220,7 @@
     /* 2x2 Value Preference Grid */
 
     .value-grid-container {
-      padding: var(--space-2xl) var(--space-2xl) var(--space-xl) 60px;
+      padding: var(--space-2xl) var(--space-2xl) var(--space-xl) var(--space-2xl);
       background: var(--bg-primary);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-md);
@@ -1092,10 +1266,11 @@
     }
 
     .grid-axis-label.y-axis {
-      left: -90px;
+      left: -63px;
       top: 50%;
       transform: translateY(-50%) rotate(-90deg);
       transform-origin: center;
+      white-space: nowrap;
     }
 
     .grid-quadrant-label {
@@ -1228,7 +1403,7 @@
       background: var(--bg-primary);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-md);
-      margin: 40px 0;
+      margin: var(--space-xl) 0;
       transition: all 0.2s ease;
     }
 
@@ -1266,7 +1441,7 @@
       display: flex;
       flex-direction: column;
       gap: var(--space-md);
-      margin: 40px auto;
+      margin: var(--space-xl) auto;
       align-items: center;
     }
 
@@ -1319,7 +1494,7 @@
 
     /* Footer */
     footer {
-      margin-top: 40px;
+      margin-top: var(--space-xl);
       padding: 0;
       display: flex;
       justify-content: space-between;
@@ -1377,6 +1552,10 @@
       transform: translateY(-1px);
     }
 
+    .pdf-link:hover {
+      background: var(--figma-blue-hover);
+    }
+
     .skip-button.secondary {
       background: var(--bg-tertiary);
       color: var(--text-primary);
@@ -1419,7 +1598,7 @@
       border: 1px solid var(--border-light);
       border-radius: var(--radius-md);
       padding: var(--space-lg);
-      margin: 40px 0;
+      margin: var(--space-xl) 0;
       transition: border-color 0.2s ease;
     }
 
@@ -1806,10 +1985,11 @@
       <p class="project-meta">FontContext · Shipped 2026</p>
       <h1 class="project-title">The Context Aware<br>Font Editor for Figma</h1>
 
-      <!-- Hero Image -->
+      <!-- Hero Image (poster shows when video doesn't load; many browsers don't play .mov) -->
       <div class="hero-image">
-        <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 4;">
-          <source src="/assets/figma.mov" type="video/quicktime">
+        <img src="/assets/The Live Preview Engine.png" alt="FontContext live preview" class="hero-poster" />
+        <video autoplay loop muted playsinline poster="/assets/The Live Preview Engine.png">
+          <source src="/assets/figma.mp4" type="video/mp4">
         </video>
       </div>
 
@@ -1847,7 +2027,7 @@
 
         <div class="feature-showcase">
           <div class="feature-image" style="border: none; background: transparent;">
-            <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: 5px; display: flex; align-items: center; justify-content: center;">
+            <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: var(--space-sm); display: flex; align-items: center; justify-content: center;">
               <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
                 <source src="/assets/Selection Synchronization.mov" type="video/mp4">
                 Your browser does not support the video tag.
@@ -1874,7 +2054,7 @@
 
         <div class="feature-showcase">
           <div class="feature-image" style="border: none; background: transparent;">
-            <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: 5px; display: flex; align-items: center; justify-content: center;">
+            <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: var(--space-sm); display: flex; align-items: center; justify-content: center;">
               <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
                 <source src="/assets/Standardized Favoriting.mov" type="video/mp4">
                 Your browser does not support the video tag.
@@ -1889,7 +2069,7 @@
 
         <div class="feature-showcase reverse">
           <div class="feature-image" style="border: none; background: transparent;">
-            <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: 5px; display: flex; align-items: center; justify-content: center;">
+            <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: var(--space-sm); display: flex; align-items: center; justify-content: center;">
               <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
                 <source src="/assets/Adaptive Workspace Layouts.mov" type="video/mp4">
                 Your browser does not support the video tag.
@@ -1972,7 +2152,7 @@
             </div>
           </div>
 
-          <p class="research-label" style="margin-top: 32px;">Quantifying the Pain</p>
+          <p class="research-label" style="margin-top: var(--space-xl);">Quantifying the Pain</p>
           <p class="section-text">The data from our sessions was stark. The friction wasn't just annoying; it was costly.</p>
 
           <div class="stats-grid-simple">
@@ -2041,32 +2221,34 @@
           <span class="chevron">↓</span>
         </div>
         <div class="section-content" style="display: block;">
-        <p class="section-text">I had a hunch that live preview was the answer. But a hunch means nothing until you build it and feel it. So I opened VS Code that night and started, a light mode MVP, bare bones, just to answer one question: can I render a user's text across multiple fonts inside a Figma plugin?</p>
-        <p class="section-text">That was the technical risk. If that didn't work, nothing else mattered.</p>
-        <p class="section-text">Problem was, I didn't know how to do it.</p>
+        <div class="story-beat">
+          <p class="section-label">The hunch</p>
+          <p class="section-text">I had a hunch that live preview was the answer. But a hunch means nothing until you build it and feel it. The problem was, I didn't know if I could even render the fonts. So I opened VS Code that night and started small: a light mode MVP, bare bones, just to answer one question: can I render a user's text live across multiple fonts inside a Figma plugin?</p>
+        </div>
+        <div class="story-beat">
+          <div class="user-quote-blue" style="margin-top: 0;">
+            <p>That was the technical doubt. If that didn't work, nothing else mattered.</p>
+          </div>
+        </div>
+        <div class="story-beat">
+          <p class="section-text">The MVP worked. Ugly UI. Slow. But functional with the main features google fonts loading and being able to type characters to preview them in the input bar… it worked after the first 3 stints.</p>
+        </div>
 
-        <div class="image-container" style="background: var(--figma-blue-light);">
-          <p class="image-label">Early MVP</p>
-          <div class="image-placeholder" style="height: 300px;">
-            [Minimal white interface with unstyled font list, basic search bar, simple text input showing core functionality before design polish]
+        <div class="story-beat">
+          <p class="section-label">Early MVP</p>
+          <div style="border-radius: var(--radius-sm); overflow: hidden;">
+            <img src="/assets/mvp.png" alt="Early MVP" style="width: 100%; height: auto; display: block; vertical-align: top;" />
           </div>
         </div>
 
-        <div class="numbered-feature compact">
-          <p>I'm a designer who's learned some coding, enough to build small tools and read documentation, but not to ship production-grade plugins entirely on my own.</p>
-          <p>For FontContext, I built the first section of the interface myself with the front-end skills I already had. Where I got stuck was everything deeper: injecting Google Fonts into Figma's iframe sandbox, wiring up selection sync, and connecting cleanly to the plugin API.</p>
-          <div class="section-break"></div>
-          <p>I treated AI as a coding assistant, not a teacher. I used Claude Code in my terminal to sanity-check approaches, generate example patterns, and explain concepts I didn't know yet.</p>
-          <p>I would ask targeted questions (&quot;How do I inject fonts into an iframe?&quot;, &quot;How do I virtualize this scrolling list without jank?&quot;), integrate the suggestions, break them, then refine with follow-up questions until the behavior matched what I wanted.</p>
-          <p>The integration logic, how the plugin listens to selection changes, switches modes, and keeps the UI in sync, was written by me, with AI filling in the low-level patterns I didn't know yet.</p>
+        <div class="mvp-reflection-block">
+          <p class="section-text">Now I had something real to react to, not a wireframe, not a mockup, but an actual interface I could use and feel.</p>
+          <div class="numbered-feature compact">
+            <p>For FontContext I built the first mvp of the interface myself with the limited frontend knowledge I have from past experiences. Where I got stuck and used claude code and engineer friend for tips was the deeper stuff: injecting Google Fonts into Figma's iframe sandbox, wiring selection sync, and connecting cleanly to the plugin API.</p>
+            <p>The integration logic (selection changes, mode switching, UI in sync) was mine; AI filled in the low-level patterns I didn't know.</p>
+            <p>Before shipping through different stages I had an engineer friend do a mentor style code review: edge cases, sanity check on patterns, and a quick pass so I wasn't shipping something that only worked on my machine. AI compressed my learning loop. It didn't replace the need to understand what I was building or to treat the codebase as something that should hold up over time.</p>
+          </div>
         </div>
-
-        <div class="key-insight">
-          <p>AI compressed my learning loop here, but it didn't replace an engineer. I still had to understand what I was building, make the design decisions, and test and refine until it felt inevitable inside Figma. Before shipping, I also had a friend who’s an engineer do a quick mentor-style code review to catch edge cases and sanity-check the patterns.</p>
-        </div>
-
-        <p class="section-text">The MVP worked. Ugly. Slow. But functional.</p>
-        <p class="section-text">Now I had something real to react to, not a wireframe, not a mockup, but an actual interface I could use and feel.</p>
         </div>
       </section>
 
@@ -2081,47 +2263,47 @@
           <span class="chevron">→</span>
         </div>
         <div class="section-content" style="display: none;">
-        <p class="section-text">At the same time I was building, I was Googling "Figma font picker alternatives." Not sequential. Simultaneous. I was coding the bare bones while asking, this isn't a crazy idea, right? Preview mode is obvious. So why hasn't anyone solved this properly?</p>
+        <p class="section-text">At the same time I was building, I was Googling "Figma font picker alternatives." Simultaneous. I was coding the bare bones while asking, this isn't a crazy idea, right? Preview mode is obvious. So why hasn't anyone solved this properly?</p>
         <p class="section-text">I found three attempts:</p>
 
         <!-- The Market Gap Section with Two Columns -->
-        <div style="margin-top: 48px; margin-bottom: 48px;">
+        <div style="margin-top: var(--space-xl); margin-bottom: var(--space-xl);">
           <p class="section-label">The Market Gap</p>
-          <h3 class="subsection-header" style="margin-top: 8px; font-size: 24px;">The Market Gap: High Frequency + High Value</h3>
-          <p class="section-text" style="margin-top: 16px; margin-bottom: 32px;">I'd learned from YC founders and mentors: you want to be in the high frequency, high-value quadrant. Build something people use often that actually solves the problem well. Don't end up in Q2 or Q3,tools people rarely need, or tools that work but nobody uses.</p>
-          <p class="section-text" style="margin-bottom: 40px;">I mapped where competitors sat so I didn't build in the wrong quadrant.</p>
+          <h3 class="subsection-header" style="margin-top: var(--space-sm); font-size: var(--font-subsection);">The Market Gap: High Frequency + High Value</h3>
+          <p class="section-text" style="margin-top: var(--space-md); margin-bottom: var(--space-xl);">I'd learned from YC founders and mentors: you want to be in the high frequency, high-value quadrant. Build something people use often that actually solves the problem well. Don't end up in Q2 or Q3,tools people rarely need, or tools that work but nobody uses.</p>
+          <p class="section-text" style="margin-bottom: var(--space-xl);">I mapped where competitors sat so I didn't build in the wrong quadrant.</p>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;">
-            <!-- Left: Competitor Cards -->
-            <div style="display: flex; flex-direction: column; gap: 32px;">
+          <div style="display: grid; grid-template-columns: 1fr 1.25fr; gap: var(--space-xl); align-items: start;">
+            <!-- Left: Competitor Cards (each card only as tall as its content) -->
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-xl); min-width: 0;">
               <!-- Native Figma -->
-              <div style="padding-bottom: 24px; border-bottom: 1px solid var(--border-light);">
-                <h4 style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Native Figma Dropdown</h4>
-                <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin: 0;">Reliable but "blind." It forces users to guess. High frequency because it's built in, but low value because you can't see your text in the font before committing.</p>
+              <div style="padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border-light);">
+                <h4 style="font-size: var(--font-small); font-weight: 600; color: var(--text-primary); margin-bottom: var(--space-sm);">Native Figma Dropdown</h4>
+                <p style="font-size: var(--font-small); color: var(--text-secondary); line-height: 1.65; margin: 0;">Reliable but "blind." You pick without seeing your text in the font before committing. High frequency because it's built in, but low value.</p>
               </div>
 
               <!-- Adobe Fonts -->
-              <div style="padding-bottom: 24px; border-bottom: 1px solid var(--border-light);">
-                <h4 style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Adobe Fonts</h4>
-                <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin: 0;">While Adobe provides robust web-based previews, the internal integration within design software still requires sequential context switching. You have to leave Figma, browse externally, then come back. High value preview system, but low frequency because of context switching.</p>
+              <div style="padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border-light);">
+                <h4 style="font-size: var(--font-small); font-weight: 600; color: var(--text-primary); margin-bottom: var(--space-sm);">Adobe Fonts</h4>
+                <p style="font-size: var(--font-small); color: var(--text-secondary); line-height: 1.65; margin: 0;">Robust web-based previews, but you have to leave Figma, browse externally, then come back. High value preview system, but low frequency because of context switching.</p>
               </div>
 
               <!-- Canva -->
-              <div style="padding-bottom: 24px; border-bottom: 1px solid var(--border-light);">
-                <h4 style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Canva</h4>
-                <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin: 0;">Currently lacks a native, built-in panel that automatically shows a typed phrase rendered in dozens of fonts simultaneously. You must still click fonts one by one or manually create multiple text boxes for comparison. Low frequency, low value. It's a manual workaround, not a solution.</p>
+              <div style="padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border-light);">
+                <h4 style="font-size: var(--font-small); font-weight: 600; color: var(--text-primary); margin-bottom: var(--space-sm);">Canva</h4>
+                <p style="font-size: var(--font-small); color: var(--text-secondary); line-height: 1.65; margin: 0;">Lacks a native panel that shows your phrase in dozens of fonts at once. You still click one by one or duplicate text boxes for comparison. Low frequency, low value.</p>
               </div>
 
               <!-- Font Preview (Figma Plugin) -->
               <div>
-                <h4 style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Font Preview (Figma Plugin)</h4>
-                <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin: 0;">Failed our 2026 audit. While it had preview mode, it lacked key Google Fonts, showed constant "Failed" error states, and used non standard "Star" icons for favorites. Its design was dated, feels chunky, and lacks a sleek, integrated Dark Mode experience. Medium frequency because it's native to Figma, but low value because half the features are broken.</p>
+                <h4 style="font-size: var(--font-small); font-weight: 600; color: var(--text-primary); margin-bottom: var(--space-sm);">Font Preview (Figma Plugin)</h4>
+                <p style="font-size: var(--font-small); color: var(--text-secondary); line-height: 1.65; margin: 0;">Had preview mode but lacked key Google Fonts, showed constant "Failed" states, and used non-standard star icons for favorites. Dated design, late dark mode. Medium frequency (in Figma), low value because half the features are broken.</p>
               </div>
             </div>
 
-            <!-- Right: Graph -->
-            <div class="value-grid-container" style="margin: 0; padding: 32px;">
-              <p class="image-label" style="text-align: center; margin-bottom: 24px; font-size: 11px;">COMPETITIVE POSITIONING</p>
+            <!-- Right: Graph (wider column so graph isn't smaller than left cards) -->
+            <div class="value-grid-container" style="margin: 0; padding: var(--space-xl); min-width: 0;">
+              <p class="image-label" style="text-align: center; margin-bottom: var(--space-lg); font-size: var(--font-micro);">COMPETITIVE POSITIONING</p>
 
               <div class="value-grid">
                 <div class="grid-canvas">
@@ -2145,7 +2327,7 @@
               </div>
 
               <!-- Legend -->
-              <div class="grid-legend" style="margin-top: 24px;">
+              <div class="grid-legend" style="margin-top: var(--space-lg);">
                 <div class="legend-item">
                   <span class="legend-dot fontcontext"></span>
                   <span style="font-weight: 600;">FontContext</span>
@@ -2170,22 +2352,31 @@
             </div>
           </div>
 
-          <p class="section-text" style="margin-top: 40px;">I installed it immediately.</p>
+          <p class="section-text" style="margin-top: var(--space-xl);">I installed it immediately.</p>
         </div>
 
         <!-- It's Broken Section -->
-        <h3 class="subsection-header">It's Broken</h3>
-        <p class="section-text">I opened it expecting to find the answer already built.</p>
-        <p class="section-text">First thing I saw, error states. Big red boxes. "Failed to load font." Half the Google Fonts library just broken. Every third font wouldn't render. I looked for favorites. Couldn't find the section at first. Eventually spotted a star icon above each font name, floating in space. Wrong icon, wrong placement.</p>
-        <p class="section-text">Search was hidden behind a tab. Preview input on a separate bar. Two bars that didn't talk to each other. I typed in search, nothing happened in preview. Typed in preview, search didn't update. Fragmented.</p>
-        <p class="section-text">The design felt dated. Chunky buttons. Harsh borders. They didn't add dark mode until 2022, years after Figma had it. The UX made you think, where's search? Which input? What does this star mean? Users shouldn't have to figure out your tool.</p>
-        <p class="section-text">3.2 stars. Same complaints everywhere: fonts don't load, can't find search, looks outdated, doesn't work in dark mode. <strong>Six years old. Fifty thousand downloads. Still broken.</strong></p>
-
-        <div class="key-insight">
-          <p>That's when the real question hit: why would anyone switch from a broken but familiar tool to mine? Status quo bias is real. People stick with things that kind of work, even when they're frustrating. Switching costs are high. I couldn't be marginally better. I had to be obviously better, enough to overcome the inertia.</p>
+        <div class="its-broken-grid">
+          <div class="broken-image-wrap" style="min-width: 0;">
+            <img src="/assets/broken.png" alt="Font Preview plugin: broken states and fragmented UI" />
+          </div>
+          <div style="min-width: 0;">
+            <h3 class="subsection-header" style="margin-top: 0;">It's Broken</h3>
+            <p class="section-text" style="margin-bottom: var(--space-xl);">I opened it expecting to find the answer already built.</p>
+            <p class="broken-problem"><span class="num">1.</span> Error states. "Failed to load font." Half the Google Fonts library broken. Favorites hidden behind a floating star icon: wrong icon, wrong placement.</p>
+            <p class="broken-problem"><span class="num">2.</span> Search behind a tab, preview on a separate bar. Two bars that didn't sync. Fragmented.</p>
+            <p class="broken-problem"><span class="num">3.</span> Dated design. Chunky buttons, harsh borders. No dark mode until 2022. Confusing: where's search? Which input?</p>
+            <p class="broken-problem"><span class="num">4.</span> 3.2 stars. Same complaints: fonts don't load, can't find search, outdated, no dark mode. Six years old. Fifty thousand downloads. Still broken.</p>
+          </div>
         </div>
 
-        <p class="section-text" style="margin-top: 48px;">The gap: High frequency + high value. Native to Figma. Actually works. Reliable preview. Shows your actual text across all fonts.</p>
+        <p class="section-text" style="margin-top: var(--space-xl);">That's when the real question hit:</p>
+        <div class="user-quote-blue" style="margin-top: var(--space-md);">
+          <p>Why would anyone switch from a broken but familiar tool to mine? Status quo bias is real.</p>
+        </div>
+        <p class="section-text">People stick with things that kind of work, even when they're frustrating. Switching costs are high. I couldn't be marginally better. I had to be obviously better, enough to overcome the inertia.</p>
+
+        <p class="section-text" style="margin-top: var(--space-xl);">The gap: High frequency + high value. Native to Figma. Actually works. Reliable preview. Shows your actual text across all fonts.</p>
         <p class="section-text">That's where FontContext needed to sit.</p>
         </div>
       </section>
@@ -2201,33 +2392,72 @@
           <span class="chevron">↓</span>
         </div>
         <div class="section-content" style="display: block;">
-        <p class="section-text">The core UX challenge: search and preview are different intents, but both involve typing into a field.</p>
-        <p class="section-text">Font Preview fragmented this completely. I watched five people use it for the first time. All five clicked the wrong input field first. Three of them said "wait, which one do I type in?" One person tried typing in both fields to see what would happen. Another person just gave up and closed the plugin.</p>
-        <p class="section-text">That's not a design opinion. That's a usability failure.</p>
+        <div class="two-bar-intro">
+          <div>
+            <p class="section-text">The core UX challenge: search and preview are different intents, but both involve typing into a field.</p>
+            <p class="section-text">Font Preview fragmented this completely. I watched five people use it for the first time. All five clicked the wrong input field first. Three of them said "wait, which one do I type in?" One person tried typing in both fields to see what would happen. Another person just gave up and closed the plugin.</p>
+            <p class="section-text">That's not a design opinion. That's a usability failure.</p>
+          </div>
+          <div class="two-bar-hello-wrap">
+            <img src="/assets/helloworld.png" alt="Hello World preview and search in one input" />
+          </div>
+        </div>
+
         <p class="section-text">I tried fixing this three ways.</p>
 
-        <div class="numbered-feature">
-          <h3>Attempt 1: Two Labeled Inputs</h3>
-          <p>Two inputs, clearly labeled. "Search fonts" on top, "Preview text" below. I built it, used it, felt the friction immediately. Too much cognitive load. Eyes bouncing between fields. Which one do I type in? What's the difference? Do I need both?</p>
+        <div class="two-bar-attempts-grid">
+          <div class="two-bar-attempt">
+            <div class="attempt-visual" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <rect x="2" y="4" width="20" height="5" rx="1"/>
+                <rect x="2" y="13" width="20" height="5" rx="1"/>
+              </svg>
+            </div>
+            <h3>Two labeled inputs</h3>
+            <p class="attempt-summary">"Search fonts" on top, "Preview text" below. Same affordance, same action.</p>
+            <p class="attempt-body">Users asked which one to type in. Ambiguous affordances (Don Norman). Good UI makes the next action obvious; this didn't. Unnecessary cognitive load.</p>
+          </div>
+          <div class="two-bar-attempt">
+            <div class="attempt-visual" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <line x1="2" y1="7" x2="22" y2="7"/>
+                <rect x="2" y="12" width="10" height="5" rx="1"/>
+                <rect x="12" y="12" width="10" height="5" rx="1"/>
+              </svg>
+            </div>
+            <h3>Two inputs</h3>
+            <p class="attempt-summary">Search on the left, preview dropdown on the right. User still sees two text inputs side by side.</p>
+            <p class="attempt-body">Same confusion as stacking them. Two inputs, same affordance. Still taxing mental load.</p>
+          </div>
+          <div class="two-bar-attempt">
+            <div class="attempt-visual" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <rect x="2" y="9" width="20" height="5" rx="1"/>
+                <circle cx="20" cy="11" r="2.5"/>
+              </svg>
+            </div>
+            <h3>One input, eye toggle</h3>
+            <p class="attempt-summary">One field. Type a font name to search; type a phrase to preview. The system infers intent.</p>
+            <p class="attempt-body">Eye icon overrides when the guess is wrong. One input, two modes, zero extra choices.</p>
+          </div>
         </div>
 
-        <div class="numbered-feature">
-          <h3>Attempt 2: Tab Toggle</h3>
-          <p>"Search mode" and "Preview mode" as separate views. Cleaner conceptually, but constant clicking between them. I tested this with three people. All three kept clicking the tab toggle trying to figure out what it did. Every click is friction. Friction adds up.</p>
-        </div>
-
-        <div class="numbered-feature">
-          <h3>Attempt 3: One Input, Eye Toggle</h3>
-          <p>One input field with an eye icon toggle.</p>
-          <p>Type a font name,"Roboto," "Playfair",it searches the library. Type a phrase that isn't a font name,"Hello World," "Welcome to Our Wedding",and the system detects that's not a font and switches to preview mode automatically. Every font renders your text. The eye icon lets you override manually if the detection gets it wrong.</p>
-          <p>I jammed with Claude on the icon choice. Should it be a pencil or an eye?</p>
-          <p>Pencil means "edit." But I wasn't building an editor,I was building a previewer. Eye means "visibility," "show/hide." That's exactly what preview mode does. It's the same icon Figma uses in the layers panel, the same icon Photoshop uses for layer visibility. Users already know what it means. Pattern matching.</p>
-          <p>Eye won.</p>
-          <p>I tested the final version with four people. Nobody asked how it worked. They just typed and it did what they expected.</p>
+        <div class="two-bar-resolution">
+          <p class="section-text">Of the three options, the third made the most sense: one field that syncs whether you type a font name or a phrase to preview.</p>
+          <p class="section-text">For the icon in the input I debated between a pencil and an eye. Pencil would mean "edit," but I wasn't building an editor; I was building a previewer. Eye means "visibility," "show/hide." That's exactly what preview mode does. It's the same icon Figma uses in the layers panel, the same icon Photoshop uses for layer visibility. Users already know what it means. Pattern matching.</p>
+          <p class="section-text">Eye won.</p>
+          <p class="section-text">I tested the final version with four people. Nobody asked how it worked. They just typed and it did what they expected.</p>
         </div>
 
         <div class="key-insight">
           <p>One input. Two modes. Zero choice overload.</p>
+        </div>
+
+        <div style="margin-top: var(--space-xl);">
+          <video autoplay loop muted playsinline style="width: 100%; border-radius: var(--radius-sm); display: block;">
+            <source src="/assets/twobar.mov" type="video/mp4">
+            <source src="/assets/twobar.mov" type="video/quicktime">
+          </video>
         </div>
         </div>
       </section>
@@ -2268,12 +2498,12 @@
           </div>
         </div>
 
-        <p class="section-text" style="margin-top: 40px;">That reframed everything.</p>
+        <p class="section-text" style="margin-top: var(--space-xl);">That reframed everything.</p>
 
         <div class="numbered-feature">
           <h3>This Isn't a "Junior Designer Problem"</h3>
           <p>Some might say "font selection is a junior designer problem." That misses the point.</p>
-          <p><strong>High frequency, real friction = not a junior problem.</strong></p>
+          <p>High frequency, real friction = not a junior problem.</p>
           <p>Every designer, junior, senior, staff, picks fonts. Multiple times per project. For years. The friction compounds. A junior designer wastes 30 minutes because they don't know font names yet. A senior designer wastes 10 minutes because they're exploring outside their usual favorites. An engineer wastes 5 minutes because they just need something decent to ship.</p>
           <p>The problem scales with everyone. The solution needed to work for everyone.</p>
         </div>
@@ -2384,7 +2614,7 @@
           <p>Preview mode shows your text instead of font names. So how do you know what font you're looking at?</p>
           <p>I added a tooltip that shows the font name on hover. But what's the right delay?</p>
           <p>I tested three timings:</p>
-          <ul style="margin-left: 20px; margin-top: 10px;">
+          <ul style="margin-left: var(--space-lg); margin-top: var(--space-sm);">
             <li>200ms felt sluggish. You hover, wait, then the name appears. Felt unresponsive.</li>
             <li>100ms triggered accidentally while scrolling. Your cursor passes over rows and tooltips pop up everywhere. Chaotic.</li>
             <li>120ms was the sweet spot. Fast enough to feel immediate. Slow enough to not trigger by accident.</li>
@@ -2420,7 +2650,7 @@
           <p>I added theme detection that matches Figma's interface setting. Light or dark, FontContext blends in. Feels native.</p>
         </div>
 
-        <h3 class="subsection-header" style="margin-top: 40px;">Performance as Craft</h3>
+        <h3 class="subsection-header" style="margin-top: var(--space-xl);">Performance as Craft</h3>
         <p class="section-text">Scroll has to feel instant or users won't trust it.</p>
         <p class="section-text">The preview engine worked, but it stuttered. Scroll fast and fonts popped in with visible lag. Half second delays. Text flickering. Janky.</p>
         <p class="section-text">Users anchor on first impressions. If the tool feels slow on first scroll, they won't trust it. The native dropdown is blind, but at least it's instant.</p>
@@ -2449,7 +2679,7 @@
           </div>
         </div>
 
-        <p class="section-text" style="margin-top: 40px;">I spent more time on scroll performance than any single feature. That's the cost of entry. You can't ship something that stutters and expect people to trust it.</p>
+        <p class="section-text" style="margin-top: var(--space-xl);">I spent more time on scroll performance than any single feature. That's the cost of entry. You can't ship something that stutters and expect people to trust it.</p>
         </div>
       </section>
 
@@ -2479,7 +2709,7 @@
           </div>
         </div>
 
-        <a href="https://www.figma.com/community/plugin/1595278086629925626/fontcontext" target="_blank" class="story-block" style="margin-top: 48px; text-decoration: none; cursor: pointer;">
+        <a href="https://www.figma.com/community/plugin/1595278086629925626/fontcontext" target="_blank" class="story-block" style="margin-top: var(--space-2xl); text-decoration: none; cursor: pointer;">
           <div class="story-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>

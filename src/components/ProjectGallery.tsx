@@ -7,7 +7,7 @@ const projects = [
   {
     title: "FontContext",
     subtitle: "The Context Aware Font Editor for Figma",
-    image: "/assets/figma.mov",
+    image: "/assets/figma.mp4",
     bgColor: "#e8f4f8",
     href: "/fontcontext.html",
   },

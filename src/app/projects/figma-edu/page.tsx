@@ -242,7 +242,7 @@ export default function FontContextCaseStudy() {
           <h1 className="fc-project-title">The Context Aware<br/>Font Editor for Figma</h1>
 
           <div className={`fc-hero-image ${isHeroPlaying ? "is-playing" : ""}`}>
-            <img src="/assets/The Live Preview Engine.png" alt="FontContext live preview" className="fc-hero-poster" />
+            <div className="fc-hero-poster" style={{ background: '#000' }} />
             <video
               ref={heroVideoRef}
               autoPlay
@@ -250,7 +250,6 @@ export default function FontContextCaseStudy() {
               muted
               playsInline
               preload="auto"
-              poster="/assets/The Live Preview Engine.png"
               style={{ borderRadius: 4 }}
               src="/assets/figma.mp4"
               onPlaying={() => setIsHeroPlaying(true)}

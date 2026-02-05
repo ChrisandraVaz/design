@@ -4,10 +4,19 @@ import { useEffect, useState } from "react";
 
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // Hide cursor on touch devices
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) {
+      setIsVisible(false);
+      return;
+    }
+
     const updatePosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
+      setIsVisible(true);
     };
 
     window.addEventListener("mousemove", updatePosition);
@@ -16,6 +25,8 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", updatePosition);
     };
   }, []);
+
+  if (!isVisible) return null;
 
   return (
     <div

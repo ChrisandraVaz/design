@@ -1,438 +1,366 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaArrowLeft } from "react-icons/fa";
 
 export default function IBMAccelerateCaseStudy() {
-  const [activeSection, setActiveSection] = useState("overview");
+  const [activeTopNav, setActiveTopNav] = useState('overview');
+  const [activeTreeSection, setActiveTreeSection] = useState('overview');
   const [treeVisible, setTreeVisible] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setTreeVisible(scrollY > 300);
+  const allSections = ['overview', 'responsibilities', 'highlights', 'closing'];
 
-      const sectionIds = ["overview", "solution", "outcome", "takeaways"];
-      let current = "overview";
-      const viewportOffset = 200;
+  const topNavMap: Record<string, string> = {
+    'overview': 'overview',
+    'responsibilities': 'overview',
+    'highlights': 'highlights',
+    'closing': 'closing',
+  };
 
-      sectionIds.forEach((id) => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= viewportOffset && rect.bottom >= viewportOffset) {
-          current = id;
+  const updateActiveLinks = useCallback(() => {
+    let current = 'overview';
+    allSections.forEach(sectionId => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= sectionTop - 200) {
+          current = sectionId;
         }
-      });
+      }
+    });
 
-      setActiveSection(current);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    setActiveTreeSection(current);
+    setActiveTopNav(topNavMap[current] || current);
+    setTreeVisible(window.scrollY > 50);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const headerOffset = 80;
-    const elementPosition = el.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: elementPosition - headerOffset, behavior: "smooth" });
+  useEffect(() => {
+    window.addEventListener('scroll', updateActiveLinks);
+    updateActiveLinks();
+    return () => window.removeEventListener('scroll', updateActiveLinks);
+  }, [updateActiveLinks]);
+
+  const scrollToSection = (targetId: string) => {
+    if (targetId === 'overview') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const target = document.getElementById(targetId);
+    if (target) {
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
   };
 
   return (
-    <div className="container">
+    <div className="min-h-screen bg-white text-gray-800">
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
-
-        :root {
-          --text-primary: #111;
-          --text-secondary: #666;
-          --text-tertiary: #999;
-          --bg-primary: #fff;
-          --bg-tertiary: #f5f5f7;
-          --border-light: #e5e5e5;
-          --border-subtle: #f0f0f0;
-
-          --font-hero: 48px;
-          --font-section: 28px;
-          --font-subsection: 20px;
-          --font-body: 16px;
-          --font-small: 14px;
-          --font-micro: 11px;
-
-          --space-xs: 4px;
-          --space-sm: 8px;
-          --space-md: 16px;
-          --space-lg: 24px;
-          --space-xl: 32px;
-          --space-2xl: 48px;
-          --space-3xl: 64px;
-
-          --radius-sm: 8px;
-          --radius-md: 12px;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body {
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          background: var(--bg-primary);
-          color: #333;
-          line-height: 1.6;
-          -webkit-font-smoothing: antialiased;
-        }
+        body { -webkit-font-smoothing: antialiased; }
 
-        .container { display: flex; flex-direction: column; min-height: 100vh; }
+        .ibm-container { display: flex; flex-direction: column; min-height: 100vh; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
 
-        .top-nav {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 64px;
-          background: var(--bg-primary);
-          z-index: 100;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0 var(--space-xl);
-          border-bottom: 1px solid var(--border-subtle);
-        }
+        /* Top Navigation - Pill Style */
+        .ibm-top-nav { position: fixed; top: 0; left: 0; right: 0; height: 64px; background: #fff; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 0 32px; border-bottom: 1px solid #f0f0f0; }
+        .ibm-back-link { position: absolute; left: 32px; display: flex; align-items: center; gap: 8px; color: #111; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        .ibm-back-link:hover { color: #666; }
+        .ibm-nav-pills { display: flex; align-items: center; gap: 4px; background: #f5f5f7; padding: 4px; border-radius: 100px; }
+        .ibm-nav-pills a { color: #666; text-decoration: none; font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: 100px; transition: all 0.2s; cursor: pointer; }
+        .ibm-nav-pills a:hover { color: #111; }
+        .ibm-nav-pills a.active { color: #111; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
 
-        .back-link {
-          position: absolute;
-          left: var(--space-xl);
-          display: inline-flex;
-          align-items: center;
-          gap: var(--space-sm);
-          color: var(--text-primary);
-          text-decoration: none;
-          font-size: var(--font-small);
-          font-weight: 500;
-          transition: color 0.2s;
-        }
-        .back-link:hover { color: var(--text-secondary); }
-        .back-link:focus-visible {
-          outline: 2px solid var(--text-secondary);
-          outline-offset: 2px;
-        }
+        /* Left Tree Navigation */
+        .ibm-tree-nav { position: fixed; left: 32px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.3s ease; z-index: 50; font-family: 'IBM Plex Mono', monospace; }
+        .ibm-tree-nav.visible { opacity: 1; }
+        .ibm-tree-section { position: relative; margin-bottom: 4px; }
+        .ibm-tree-section-link { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: #999; text-decoration: none; padding: 4px 0; transition: color 0.2s; cursor: pointer; background: none; border: none; font-family: 'IBM Plex Mono', monospace; }
+        .ibm-tree-section-link:hover { color: #666; }
+        .ibm-tree-section.active > .ibm-tree-section-link { color: #111; }
 
-        .nav-links {
-          display: flex;
-          align-items: center;
-          gap: var(--space-xs);
-          background: var(--bg-tertiary);
-          padding: 4px;
-          border-radius: 999px;
-        }
-        .nav-links a {
-          color: var(--text-secondary);
-          text-decoration: none;
-          font-size: var(--font-small);
-          font-weight: 500;
-          padding: 8px 16px;
-          border-radius: 999px;
-          transition: all 0.2s;
-        }
-        .nav-links a:hover { color: var(--text-primary); }
-        .nav-links a:focus-visible {
-          outline: 2px solid var(--text-secondary);
-          outline-offset: 2px;
-        }
+        /* Main Content */
+        .ibm-main-content { margin-top: 64px; padding: 48px 32px; max-width: none; width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .ibm-main-content > * { width: 100%; max-width: 880px; }
 
-        .main-content {
-          margin-top: 64px;
-          margin-left: 240px;
-          padding: 48px 80px;
-          max-width: none;
-          width: calc(100% - 240px);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        .main-content > * { width: 100%; max-width: 900px; }
+        .ibm-project-meta { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: #999; text-transform: uppercase; margin-bottom: 16px; }
+        .ibm-project-title { font-family: 'Instrument Sans', 'Inter', -apple-system, sans-serif; font-size: 48px; font-weight: 600; line-height: 1.08; color: #111; margin-bottom: 16px; letter-spacing: -0.03em; }
+        .ibm-project-subtitle { font-size: 16px; color: #666; line-height: 1.75; margin-bottom: 48px; max-width: 720px; }
 
-        .tree-nav {
-          position: fixed;
-          left: 32px;
-          top: 50%;
-          transform: translateY(-50%);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          z-index: 50;
-          font-family: 'IBM Plex Mono', monospace;
-        }
-        .tree-nav.visible { opacity: 1; }
-        .tree-section {
-          position: relative;
-          margin-bottom: 4px;
-        }
-        .tree-section-link {
-          display: block;
-          font-size: 10px;
-          font-weight: 600;
-          letter-spacing: 0.5px;
-          text-transform: uppercase;
-          color: var(--text-tertiary);
-          text-decoration: none;
-          padding: 4px 0;
-          transition: color 0.2s;
-          cursor: pointer;
-        }
-        .tree-section-link:hover { color: var(--text-secondary); }
-        .tree-section-link:focus-visible {
-          outline: 2px solid var(--text-tertiary);
-          outline-offset: 2px;
-        }
-        .tree-section.active > .tree-section-link { color: var(--text-primary); }
+        .ibm-hero-image { width: 100%; background: #0052ff; border-radius: 4px; padding: 0; margin-bottom: 48px; display: block; height: 420px; overflow: hidden; position: relative; }
+        .ibm-hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block; }
 
-        .project-meta {
-          font-family: 'IBM Plex Mono', monospace;
-          font-size: 12px;
-          font-weight: 600;
-          letter-spacing: 1px;
-          color: var(--text-tertiary);
-          text-transform: uppercase;
-          margin-bottom: var(--space-md);
-        }
-        .project-title {
-          font-size: var(--font-hero);
-          font-weight: 600;
-          line-height: 1.08;
-          color: var(--text-primary);
-          margin-bottom: var(--space-2xl);
-          letter-spacing: -0.03em;
-        }
+        .ibm-tags { display: flex; gap: 8px; margin-bottom: 48px; flex-wrap: wrap; }
+        .ibm-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: #0C8CE9; background: #E8F4FD; padding: 6px 14px; border-radius: 100px; }
 
-        .hero-image {
-          width: 100%;
-          height: 420px;
-          overflow: hidden;
-          border-radius: 4px;
-          background: #0052ff;
-          margin-bottom: var(--space-2xl);
-        }
-        .hero-image img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-        }
+        .ibm-project-info { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-bottom: 48px; }
+        .ibm-info-item h4 { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 8px; }
+        .ibm-info-item p { font-size: 14px; color: #111; line-height: 1.7; font-weight: 450; }
 
-        .project-info {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: var(--space-xl);
-          margin-bottom: var(--space-2xl);
-        }
-        .info-item h4 {
-          font-family: 'IBM Plex Mono', monospace;
-          font-size: var(--font-micro);
-          font-weight: 600;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          color: var(--text-tertiary);
-          margin-bottom: var(--space-sm);
-        }
-        .info-item p {
-          font-size: var(--font-small);
-          color: var(--text-primary);
-          line-height: 1.7;
-          font-weight: 450;
-        }
+        .ibm-section { margin-bottom: 48px; }
+        .ibm-section-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #999; margin-bottom: 16px; }
+        .ibm-section-title { font-family: 'Instrument Sans', 'Inter', -apple-system, sans-serif; font-size: 28px; font-weight: 600; line-height: 1.35; color: #111; margin-bottom: 24px; letter-spacing: -0.015em; }
+        .ibm-section-text { font-size: 16px; color: #666; line-height: 1.75; max-width: 720px; margin-bottom: 16px; }
+        .ibm-section-text:last-child { margin-bottom: 0; }
+        .ibm-subsection-header { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 20px; font-weight: 600; color: #111; margin-top: 48px; margin-bottom: 16px; letter-spacing: -0.01em; }
 
-        section { margin-bottom: var(--space-2xl); }
-        .section-label {
-          font-family: 'IBM Plex Mono', monospace;
-          font-size: var(--font-micro);
-          font-weight: 600;
-          letter-spacing: 1.5px;
-          text-transform: uppercase;
-          color: var(--text-tertiary);
-          margin-bottom: var(--space-md);
-        }
-        .section-title {
-          font-size: var(--font-section);
-          font-weight: 600;
-          line-height: 1.35;
-          color: var(--text-primary);
-          margin-bottom: var(--space-lg);
-          letter-spacing: -0.015em;
-        }
-        .section-text {
-          font-size: var(--font-body);
-          color: var(--text-secondary);
-          line-height: 1.75;
-          max-width: 720px;
-          margin-bottom: var(--space-md);
-        }
-        .section-text:last-child { margin-bottom: 0; }
+        /* Quote */
+        .ibm-key-insight { border-left: 3px solid #0C8CE9; padding-left: 24px; margin: 48px 0; }
+        .ibm-key-insight p { font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; font-style: italic; color: #111; line-height: 1.5; font-weight: 400; }
+        .ibm-key-insight .ibm-quote-author { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-style: normal; font-weight: 600; color: #999; letter-spacing: 0.5px; margin-top: 12px; display: block; }
 
-        .footer {
-          margin-top: var(--space-lg);
-          padding: 0;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-top: 1px solid var(--border-subtle);
-          padding-top: var(--space-xl);
-        }
-        .footer-credit {
-          font-size: var(--font-caption, 12px);
-          color: var(--text-tertiary);
-        }
-        .footer-links {
-          display: flex;
-          gap: var(--space-lg);
-        }
-        .footer-links a {
-          font-size: var(--font-caption, 12px);
-          color: var(--text-secondary);
-          text-decoration: none;
-          transition: color 0.2s;
-        }
-        .footer-links a:hover { color: var(--text-primary); }
+        /* Locked card */
+        .ibm-locked-card { display: flex; gap: 16px; padding: 24px; background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; margin: 32px 0; transition: border-color 0.2s; align-items: center; }
+        .ibm-locked-card:hover { border-color: #0C8CE9; }
+        .ibm-locked-icon { width: 44px; height: 44px; background: #E8F4FD; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #0C8CE9; flex-shrink: 0; }
+        .ibm-locked-content p { font-size: 14px; color: #666; line-height: 1.65; margin: 0; }
+        .ibm-locked-content a { color: #0C8CE9; text-decoration: none; font-weight: 500; }
+        .ibm-locked-content a:hover { text-decoration: underline; }
+
+        /* Highlight cards */
+        .ibm-highlight-item { display: flex; gap: 16px; padding: 24px; margin-bottom: 16px; background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; transition: border-color 0.2s; }
+        .ibm-highlight-item:hover { border-color: #0C8CE9; }
+        .ibm-highlight-item:last-child { margin-bottom: 0; }
+        .ibm-highlight-icon { width: 44px; height: 44px; background: #E8F4FD; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #0C8CE9; flex-shrink: 0; }
+        .ibm-highlight-content h4 { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 14px; font-weight: 600; color: #111; margin-bottom: 4px; }
+        .ibm-highlight-content p { font-size: 14px; color: #666; line-height: 1.65; }
+
+        /* Footer */
+        .ibm-footer { margin-top: 40px; padding: 0; display: flex; justify-content: space-between; align-items: center; }
+        .ibm-footer-credit { font-size: 12px; color: #999; }
+        .ibm-footer-links { display: flex; gap: 24px; }
+        .ibm-footer-links a { font-size: 12px; color: #666; text-decoration: none; transition: color 0.2s; }
+        .ibm-footer-links a:hover { color: #0C8CE9; }
 
         @media (max-width: 1200px) {
-          .tree-nav { display: none; }
-          .main-content {
-            margin-left: 0;
-            width: 100%;
-          }
+          .ibm-tree-nav { display: none; }
         }
         @media (max-width: 1024px) {
-          .main-content { padding: 40px 32px; }
-          .project-title { font-size: 40px; }
-          .project-info { grid-template-columns: repeat(2, 1fr); }
+          .ibm-top-nav { padding: 0 16px; }
+          .ibm-back-link { display: none; }
+          .ibm-main-content { padding: 48px 16px; }
+          .ibm-project-title { font-size: 40px; }
+          .ibm-project-info { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 600px) {
-          .nav-links { display: none; }
-          .project-title { font-size: 32px; }
-          .project-info { grid-template-columns: 1fr; }
+          .ibm-project-info { grid-template-columns: 1fr; }
+          .ibm-project-title { font-size: 32px; }
+          .ibm-section-title { font-size: 28px; }
         }
       `}</style>
 
-      <nav className="top-nav">
-        <Link href="/" className="back-link">
-          <FaArrowLeft size={12} />
-          Back
-        </Link>
-        <div className="nav-links">
-          <a href="#overview">Overview</a>
-          <a href="#solution">Solution</a>
-          <a href="#outcome">Outcome</a>
-          <a href="#takeaways">Takeaways</a>
-        </div>
-      </nav>
+      <div className="ibm-container">
+        {/* Top Pill Navigation */}
+        <nav className="ibm-top-nav">
+          <Link href="/" className="ibm-back-link">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Back to Home
+          </Link>
+          <div className="ibm-nav-pills">
+            <a className={activeTopNav === 'overview' ? 'active' : ''} onClick={() => scrollToSection('overview')}>Overview</a>
+            <a className={activeTopNav === 'highlights' ? 'active' : ''} onClick={() => scrollToSection('highlights')}>Highlights</a>
+            <a className={activeTopNav === 'closing' ? 'active' : ''} onClick={() => scrollToSection('closing')}>Closing</a>
+          </div>
+        </nav>
 
-      <div className={`tree-nav ${treeVisible ? "visible" : ""}`}>
-        <div className={`tree-section ${activeSection === "overview" ? "active" : ""}`}>
-          <button type="button" className="tree-section-link" onClick={() => scrollToSection("overview")}>
-            Overview
-          </button>
-        </div>
-        <div className={`tree-section ${activeSection === "solution" ? "active" : ""}`}>
-          <button type="button" className="tree-section-link" onClick={() => scrollToSection("solution")}>
-            Solution
-          </button>
-        </div>
-        <div className={`tree-section ${activeSection === "outcome" ? "active" : ""}`}>
-          <button type="button" className="tree-section-link" onClick={() => scrollToSection("outcome")}>
-            Outcome
-          </button>
-        </div>
-        <div className={`tree-section ${activeSection === "takeaways" ? "active" : ""}`}>
-          <button type="button" className="tree-section-link" onClick={() => scrollToSection("takeaways")}>
-            Takeaways
-          </button>
-        </div>
+        {/* Left Tree Navigation */}
+        <nav className={`ibm-tree-nav ${treeVisible ? 'visible' : ''}`}>
+          <div className={`ibm-tree-section ${activeTreeSection === 'overview' ? 'active' : ''}`}>
+            <button className="ibm-tree-section-link" onClick={() => scrollToSection('overview')}>Overview</button>
+          </div>
+          <div className={`ibm-tree-section ${activeTreeSection === 'responsibilities' ? 'active' : ''}`}>
+            <button className="ibm-tree-section-link" onClick={() => scrollToSection('responsibilities')}>Responsibilities</button>
+          </div>
+          <div className={`ibm-tree-section ${activeTreeSection === 'highlights' ? 'active' : ''}`}>
+            <button className="ibm-tree-section-link" onClick={() => scrollToSection('highlights')}>Highlights</button>
+          </div>
+          <div className={`ibm-tree-section ${activeTreeSection === 'closing' ? 'active' : ''}`}>
+            <button className="ibm-tree-section-link" onClick={() => scrollToSection('closing')}>Closing</button>
+          </div>
+        </nav>
+
+        <main className="ibm-main-content">
+          <p className="ibm-project-meta">Case Study</p>
+          <h1 className="ibm-project-title">IBM Accelerate</h1>
+
+          <div className="ibm-hero-image">
+            <Image
+              src="/assets/ibm.gif"
+              alt="IBM Accelerate preview"
+              width={1200}
+              height={800}
+              unoptimized
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 50%", display: "block" }}
+            />
+          </div>
+
+          <div className="ibm-project-info">
+            <div className="ibm-info-item">
+              <h4>Role</h4>
+              <p>Design Fellow</p>
+            </div>
+            <div className="ibm-info-item">
+              <h4>Timeline</h4>
+              <p>8 weeks<br/>(Summer 2023)</p>
+            </div>
+            <div className="ibm-info-item">
+              <h4>Team</h4>
+              <p>1 Chief Architect<br/>&amp; 2 Product Designers</p>
+            </div>
+            <div className="ibm-info-item">
+              <h4>Tools</h4>
+              <p>Figma<br/>Carbon Design System</p>
+            </div>
+          </div>
+
+          <div className="ibm-key-insight">
+            <p>&ldquo;Good Design is Good Business&rdquo;</p>
+            <span className="ibm-quote-author">Thomas John Watson - Chairman and CEO of IBM</span>
+          </div>
+
+          {/* Locked Card */}
+          <div className="ibm-locked-card">
+            <div className="ibm-locked-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <div className="ibm-locked-content">
+              <p>My projects at IBM are currently <strong>in development</strong>. If you&apos;d like to know more about my fellowship experience or the project I worked on, <a href="https://calendly.com/chrisandravaz12/30min" target="_blank" rel="noopener noreferrer">feel free to schedule a call with me!</a></p>
+            </div>
+          </div>
+
+          {/* ============ OVERVIEW ============ */}
+          <section id="overview" className="ibm-section">
+            <p className="ibm-section-label">Overview</p>
+            <h2 className="ibm-section-title">Top 5% of over 10,000 applicants</h2>
+            <p className="ibm-section-text">
+              During the summer of 2023 I placed in the top 5% of over 10,000 applicants to participate in an 8-week design training and mentorship program - IBM Accelerate - that covered design on an intermediate scale from industry professionals with over 10+ years of experience and mentors.
+            </p>
+            <p className="ibm-section-text">
+              While being on a study term that summer I could not do an internship and so I wanted to brush up my skills and this program ended up being the perfect opportunity.
+            </p>
+
+            <h3 className="ibm-subsection-header">My Role</h3>
+            <p className="ibm-section-text">
+              Product Designer - ManageIQ project (IBM Open Source Community) &amp; IBM Accelerate Fellow
+            </p>
+          </section>
+
+          {/* ============ RESPONSIBILITIES ============ */}
+          <section id="responsibilities" className="ibm-section">
+            <p className="ibm-section-label">Responsibilities</p>
+            <h2 className="ibm-section-title">Design challenges, weekly meetings, and open-source contribution</h2>
+            <p className="ibm-section-text">
+              From starting the program to the very end, everyone was so kind - especially the IBM employees running the program. They pushed for all fellows&apos; personal growth. My responsibilities for the program were attending weekly meetings hosted by professionals at IBM on a specific topic on design, completing design challenges and tasks, and at the end presenting a term-end design report to managers and directors including learnings with IBM Design principles, design methodologies, accessibility guidelines, wireframing, prototyping and more.
+            </p>
+            <p className="ibm-section-text">
+              While my responsibilities with the ManageIQ team were to help facilitate weekly design scrum meetings, document any UX bugs, find ways to improve the current system&apos;s outdated design, and address any bugs.
+            </p>
+          </section>
+
+          {/* ============ HIGHLIGHTS ============ */}
+          <section id="highlights" className="ibm-section">
+            <p className="ibm-section-label">Highlights</p>
+            <h2 className="ibm-section-title">Key learnings from the program</h2>
+
+            <div>
+              <div className="ibm-highlight-item">
+                <div className="ibm-highlight-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                  </svg>
+                </div>
+                <div className="ibm-highlight-content">
+                  <h4>Designing for Enterprise Scale</h4>
+                  <p>Working on the ManageIQ open-source project taught me how to design for large-scale, complex systems. The focus was on building user-friendly solutions that could scale seamlessly across diverse user needs in an enterprise environment.</p>
+                </div>
+              </div>
+
+              <div className="ibm-highlight-item">
+                <div className="ibm-highlight-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+                <div className="ibm-highlight-content">
+                  <h4>Collaboration with IT / Chief Architect Professionals</h4>
+                  <p>This program gave me my first chance to work closely with a Chief Architect, rather than just developers and PMs. This shift helped me understand how architecture impacts design decisions, and how to align design with long-term technical strategies.</p>
+                </div>
+              </div>
+
+              <div className="ibm-highlight-item">
+                <div className="ibm-highlight-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                  </svg>
+                </div>
+                <div className="ibm-highlight-content">
+                  <h4>Leveraging the IBM Design System</h4>
+                  <p>I quickly learned to leverage the IBM Design System, integrating its pre-designed components to ensure consistency while customizing them for specific project needs. This experience reinforced the importance of systemized design in creating cohesive user experiences.</p>
+                </div>
+              </div>
+
+              <div className="ibm-highlight-item">
+                <div className="ibm-highlight-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                  </svg>
+                </div>
+                <div className="ibm-highlight-content">
+                  <h4>Navigating Outdated Systems</h4>
+                  <p>One of the biggest challenges I faced was working with outdated systems. Integrating modern design principles into legacy platforms required creative problem-solving and an understanding of technical debt. I learned the importance of balancing the need for innovation with the constraints of existing systems, ensuring that designs were both feasible and forward-thinking.</p>
+                </div>
+              </div>
+
+              <div className="ibm-highlight-item">
+                <div className="ibm-highlight-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                </div>
+                <div className="ibm-highlight-content">
+                  <h4>Leveraging Your Resources</h4>
+                  <p>Putting yourself out there and staying curious is so important. That&apos;s how I learned about the program in the first place. It also led me to volunteering for the IBM open-source community which turned out to be an invaluable experience.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ============ CLOSING ============ */}
+          <section id="closing" className="ibm-section" style={{ marginBottom: 0 }}>
+            <p className="ibm-section-label">Overall</p>
+            <h2 className="ibm-section-title">A wonderful summer experience</h2>
+            <p className="ibm-section-text">
+              This summer was an incredible learning journey, where I had the privilege of working alongside industry professionals, particularly a UX expert with over 10 years of experience at IBM. Their guidance and insights were invaluable in shaping my understanding of user experience design. IBM, a pioneer in human-computer interaction, design, and technology, provided me with a unique opportunity to deepen my knowledge in a company that has played a significant role in shaping the design landscape. It was truly inspiring to learn from both the leaders and the history that has made IBM a key player in the design and tech world.
+            </p>
+          </section>
+
+          {/* Footer */}
+          <footer className="ibm-footer">
+            <p className="ibm-footer-credit">Crafted by Chrisandra Vaz</p>
+            <div className="ibm-footer-links">
+              <a href="https://ca.linkedin.com/in/chrisandra-vaz" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="mailto:chrisandravaz12@gmail.com">Email</a>
+              <a href="https://github.com/ChrisandraVaz" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </footer>
+        </main>
       </div>
-
-      <main className="main-content">
-        <p className="project-meta">IBM Accelerate</p>
-        <h1 className="project-title">ManageIQ System Revamp</h1>
-
-        <div className="hero-image">
-          <Image
-            src="/assets/ibm.gif"
-            alt="ManageIQ System Revamp preview"
-            width={1200}
-            height={800}
-            unoptimized
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-        </div>
-
-        <div className="project-info">
-          <div className="info-item">
-            <h4>Role</h4>
-            <p>Design Fellow</p>
-          </div>
-          <div className="info-item">
-            <h4>Timeline</h4>
-            <p>2023</p>
-          </div>
-          <div className="info-item">
-            <h4>Team</h4>
-            <p>IBM Accelerate</p>
-          </div>
-          <div className="info-item">
-            <h4>Tools</h4>
-            <p>Figma<br />Carbon Design System</p>
-          </div>
-        </div>
-
-        <section id="overview">
-          <p className="section-label">Overview</p>
-          <h2 className="section-title">Modernizing a cloud management UI without breaking power workflows.</h2>
-          <p className="section-text">
-            As a Design Fellow in IBM&apos;s Accelerate program, I worked on redesigning the ManageIQ cloud management platform interface. The goal was to improve usability and modernize the experience while staying consistent with IBM&apos;s Carbon Design System.
-          </p>
-        </section>
-
-        <section id="solution">
-          <p className="section-label">Solution</p>
-          <h2 className="section-title">Carbon-first patterns, clearer hierarchy, and less cognitive load.</h2>
-          <p className="section-text">
-            I redesigned key workflows and screens using Carbon components, with progressive disclosure to reduce information overload. The result is a more cohesive, scannable interface that supports both quick checks and deep management tasks.
-          </p>
-        </section>
-
-        <section id="outcome">
-          <p className="section-label">Outcome</p>
-          <h2 className="section-title">A UI that feels modern, consistent, and easier to navigate.</h2>
-          <p className="section-text">
-            The revamp focused on clarity: tighter layout rhythm, more predictable interaction patterns, and a hierarchy that makes complex pages feel less intimidating.
-          </p>
-        </section>
-
-        <section id="takeaways" style={{ marginBottom: 0 }}>
-          <p className="section-label">Takeaways</p>
-          <h2 className="section-title">Design systems are leverage—when you use them intentionally.</h2>
-          <p className="section-text">
-            Carbon gave us speed and consistency, but the real work was deciding what to show by default, what to hide until needed, and how to make power features feel approachable.
-          </p>
-        </section>
-
-        <footer className="footer">
-          <p className="footer-credit">Crafted by Chrisandra Vaz</p>
-          <div className="footer-links">
-            <a href="https://ca.linkedin.com/in/chrisandra-vaz" target="_blank" rel="noopener noreferrer">
-              LinkedIn
-            </a>
-            <a href="mailto:chrisandravaz12@gmail.com">
-              Email
-            </a>
-            <a href="https://github.com/ChrisandraVaz" target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
-          </div>
-        </footer>
-      </main>
     </div>
   );
 }

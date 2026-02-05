@@ -22,10 +22,20 @@ export default function FontContextCaseStudy() {
     // Avoid a Safari/Chromium quirk where <video> can paint a stale frame
     // before its source is fully loaded (looks like the "wrong image" flashing).
     setIsHeroPlaying(false);
-    try {
-      heroVideoRef.current?.load();
-    } catch {
-      // no-op
+    const video = heroVideoRef.current;
+    if (video) {
+      video.load();
+      // Explicitly call play() after a short delay to ensure autoplay works
+      const playVideo = () => {
+        video.play().catch(() => {
+          // Autoplay blocked - that's ok, poster will show
+        });
+      };
+      if (video.readyState >= 3) {
+        playVideo();
+      } else {
+        video.addEventListener('canplay', playVideo, { once: true });
+      }
     }
   }, []);
 

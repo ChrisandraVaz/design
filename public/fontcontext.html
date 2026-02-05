@@ -42,8 +42,8 @@
       --text-max: 720px;
 
       /* Border Radius */
-      --radius-sm: 8px;
-      --radius-md: 12px;
+      --radius-sm: 4px;
+      --radius-md: 4px;
     }
 
     * {
@@ -310,7 +310,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: var(--radius-sm);
+      z-index: 1;
+      transition: opacity 0.3s ease;
     }
     .hero-image video {
       position: absolute;
@@ -319,7 +321,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: var(--radius-sm);
+      z-index: 2;
     }
 
     .image-placeholder {
@@ -452,7 +455,7 @@
       max-width: 280px;
       height: auto;
       display: block;
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
     }
 
     .competitor-analysis-layout .section-text {
@@ -952,8 +955,8 @@
     }
 
     .image-container.dark {
-      background: #1a1a1a;
-      border-color: #333;
+      background: #F5F5F7;
+      border-color: var(--border-light);
     }
 
     .image-label {
@@ -967,7 +970,7 @@
     }
 
     .image-container.dark .image-label {
-      color: #888;
+      color: var(--text-tertiary);
     }
 
     /* Feature Showcase */
@@ -1654,7 +1657,7 @@
       display: flex;
       gap: var(--space-md);
       padding: var(--space-md);
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       transition: background-color 0.15s ease;
     }
 
@@ -1752,6 +1755,32 @@
     .collapsible-section .section-content {
       transition: all 0.3s ease;
       overflow: hidden;
+    }
+
+    /* Coming Soon Sections */
+    .collapsible-section.coming-soon .section-header {
+      cursor: default;
+      opacity: 0.7;
+    }
+
+    .collapsible-section.coming-soon .section-header:hover {
+      opacity: 0.7;
+    }
+
+    .collapsible-section.coming-soon .section-content {
+      display: none !important;
+    }
+
+    .coming-soon-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--font-caption);
+      font-weight: 500;
+      color: var(--text-tertiary);
+      border: 1px solid var(--border-light);
+      border-radius: 100px;
+      padding: 4px 12px;
+      white-space: nowrap;
+      align-self: center;
     }
 
 
@@ -1985,13 +2014,24 @@
       <p class="project-meta">FontContext · Shipped 2026</p>
       <h1 class="project-title">The Context Aware<br>Font Editor for Figma</h1>
 
-      <!-- Hero Image (poster shows when video doesn't load; many browsers don't play .mov) -->
+      <!-- Hero Image (poster shows until video loads) -->
       <div class="hero-image">
-        <img src="/assets/The Live Preview Engine.png" alt="FontContext live preview" class="hero-poster" />
-        <video autoplay loop muted playsinline poster="/assets/The Live Preview Engine.png">
+        <img src="/assets/The Live Preview Engine.png" alt="FontContext live preview" class="hero-poster" id="hero-poster" />
+        <video autoplay loop muted playsinline id="hero-video">
           <source src="/assets/figma.mp4" type="video/mp4">
         </video>
       </div>
+      <script>
+        (function() {
+          var video = document.getElementById('hero-video');
+          var poster = document.getElementById('hero-poster');
+          if (video && poster) {
+            video.addEventListener('playing', function() {
+              poster.style.opacity = '0';
+            });
+          }
+        })();
+      </script>
 
       <!-- Project Info -->
       <div class="project-info">
@@ -2028,7 +2068,7 @@
         <div class="feature-showcase">
           <div class="feature-image" style="border: none; background: transparent;">
             <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: var(--space-sm); display: flex; align-items: center; justify-content: center;">
-              <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+              <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm);">
                 <source src="/assets/Selection Synchronization.mov" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -2055,7 +2095,7 @@
         <div class="feature-showcase">
           <div class="feature-image" style="border: none; background: transparent;">
             <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: var(--space-sm); display: flex; align-items: center; justify-content: center;">
-              <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+              <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm);">
                 <source src="/assets/Standardized Favoriting.mov" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -2070,7 +2110,7 @@
         <div class="feature-showcase reverse">
           <div class="feature-image" style="border: none; background: transparent;">
             <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: var(--space-sm); display: flex; align-items: center; justify-content: center;">
-              <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+              <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm);">
                 <source src="/assets/Adaptive Workspace Layouts.mov" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -2514,16 +2554,16 @@
       </section>
 
       <!-- HeatMapping -->
-      <section id="modal-song" class="collapsible-section" data-default-state="expanded">
-        <div class="section-header" onclick="toggleSection('modal-song')">
+      <section id="modal-song" class="collapsible-section coming-soon" data-default-state="collapsed">
+        <div class="section-header">
           <div>
             <p class="section-label">HeatMapping</p>
             <h2 class="section-title">The Modal as a Song</h2>
             <p class="section-subtitle">Heat map thinking: where users' eyes go first, second, third.</p>
           </div>
-          <span class="chevron">↓</span>
+          <span class="coming-soon-badge">Coming Soon</span>
         </div>
-        <div class="section-content" style="display: block;">
+        <div class="section-content" style="display: none;">
         <p class="section-text">I think about interfaces in terms of where users' eyes go first, second, third. Heat map thinking.</p>
         <p class="section-text">I recorded sessions with the MVP. Twelve people, different skill levels. I watched where their eyes went when the modal opened.</p>
         <p class="section-text">Eleven out of twelve looked top center first. Then scanned left to right. One person, an engineer, went straight to the font list in the middle and ignored everything else. But the pattern was clear: top center gets attention first. Middle is the main content. Right edge is where actions go. Left is utility. Bottom corner is rarely looked at.</p>
@@ -2564,14 +2604,14 @@
       </section>
 
       <!-- Taking a Step Back -->
-      <section id="scoping" class="collapsible-section" data-default-state="collapsed">
-        <div class="section-header" onclick="toggleSection('scoping')">
+      <section id="scoping" class="collapsible-section coming-soon" data-default-state="collapsed">
+        <div class="section-header">
           <div>
             <p class="section-label">Taking a Step Back</p>
             <h2 class="section-title">Scoping as Taste</h2>
             <p class="section-subtitle">Font picker, not typography editor.</p>
           </div>
-          <span class="chevron">→</span>
+          <span class="coming-soon-badge">Coming Soon</span>
         </div>
         <div class="section-content" style="display: none;">
         <p class="section-text">I got confused early on. Was I building a font picker or a typography editor?</p>
@@ -2591,14 +2631,14 @@
       </section>
 
       <!-- Craft in the Details -->
-      <section id="craft" class="collapsible-section" data-default-state="collapsed">
-        <div class="section-header" onclick="toggleSection('craft')">
+      <section id="craft" class="collapsible-section coming-soon" data-default-state="collapsed">
+        <div class="section-header">
           <div>
             <p class="section-label">The Craft</p>
             <h2 class="section-title">Micro Interactions</h2>
             <p class="section-subtitle">Every micro interaction came from using the tool or watching someone hesitate.</p>
           </div>
-          <span class="chevron">→</span>
+          <span class="coming-soon-badge">Coming Soon</span>
         </div>
         <div class="section-content" style="display: none;">
 
@@ -2697,15 +2737,15 @@
 
         <div class="image-container dark">
           <p class="image-label">Final UI: Dark Mode</p>
-          <div class="image-placeholder" style="height: 400px; background: #2a2a2a; border-color: #444;">
-            [Complete dark mode interface: Search bar with eye icon, "Hello World" previewed across multiple fonts (Playfair Display, Roboto, Montserrat), heart icons, three-dot menu, layout toggles]
+          <div class="image-placeholder" style="height: auto; background: #F5F5F7;">
+            <img src="/assets/darkmode.png" alt="FontContext dark mode interface" style="width: 100%; height: auto; display: block; border-radius: var(--radius-sm);">
           </div>
         </div>
 
-        <div class="image-container">
-          <p class="image-label">Final UI: Light Mode</p>
-          <div class="image-placeholder" style="height: 400px;">
-            [Same interface in light mode: Clean white background, black text, subtle borders, all controls visible and accessible]
+        <div class="image-container" style="background: #2B2B2B; border-color: #2B2B2B;">
+          <p class="image-label" style="color: #888;">Final UI: Light Mode</p>
+          <div class="image-placeholder" style="height: auto;">
+            <img src="/assets/lightmode.png" alt="FontContext light mode interface" style="width: 100%; height: auto; display: block; border-radius: var(--radius-sm);">
           </div>
         </div>
 

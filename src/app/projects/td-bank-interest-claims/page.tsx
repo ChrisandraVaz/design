@@ -146,6 +146,42 @@ export default function TDBankInterestClaimsCaseStudy() {
           margin-bottom: 16px;
         }
 
+        .td-locked-card {
+          display: flex;
+          gap: 16px;
+          padding: 24px;
+          background: #fff;
+          border: 1px solid #e5e5e5;
+          border-radius: 12px;
+          margin: 32px 0;
+          transition: border-color 0.2s;
+          align-items: center;
+        }
+        .td-locked-card:hover { border-color: #2D8A4E; }
+        .td-locked-icon {
+          width: 44px;
+          height: 44px;
+          background: #e8f5e8;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #2D8A4E;
+          flex-shrink: 0;
+        }
+        .td-locked-content p {
+          font-size: 14px;
+          color: #666;
+          line-height: 1.65;
+          margin: 0;
+        }
+        .td-locked-content a {
+          color: #2D8A4E;
+          text-decoration: none;
+          font-weight: 500;
+        }
+        .td-locked-content a:hover { text-decoration: underline; }
+
         .td-takeaway-item {
           display: flex;
           gap: 16px;
@@ -386,13 +422,13 @@ export default function TDBankInterestClaimsCaseStudy() {
 
         {/* Hero Image */}
         <div className="max-w-6xl mx-auto mb-16">
-          <div className="h-[420px] rounded-2xl overflow-hidden bg-[#e8f5e8]">
+          <div className="rounded-2xl overflow-hidden bg-[#e8f5e8]">
             <Image
               src="/assets/td.png"
               alt="TD Bank Interest Claims Tool"
               width={1200}
               height={800}
-              className="w-full h-full object-cover"
+              className="w-full h-auto block"
             />
           </div>
         </div>
@@ -406,6 +442,18 @@ export default function TDBankInterestClaimsCaseStudy() {
               Designed and developed an internal tool for TD Securities to streamline the interest claims
               process, reducing manual work and improving accuracy for the operations team.
             </p>
+
+            <div className="td-locked-card">
+              <div className="td-locked-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div className="td-locked-content">
+                <p>This project is currently <strong>locked</strong>. To view the full case study and design files, <a href="https://www.figma.com/design/ELwpccTPf9f4mlvkop55RA/TD---Atomic-Summer-2025?node-id=0-1&t=pWAgmDksnmq7jC0T-1" target="_blank" rel="noopener noreferrer">visit the Figma file</a>.</p>
+              </div>
+            </div>
           </section>
 
           {/* Problem Section */}
@@ -436,9 +484,9 @@ export default function TDBankInterestClaimsCaseStudy() {
             <div className="td-image-container">
               <p className="td-image-label">Claims Dashboard</p>
               <Image
-                src="/assets/td.png"
+                src="/assets/claimsdashboard.png"
                 alt="Claims Dashboard Interface"
-                width={800}
+                width={1200}
                 height={500}
                 style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
               />

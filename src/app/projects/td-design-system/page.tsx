@@ -154,12 +154,14 @@ export default function TDDesignSystemCaseStudy() {
         .td-user-quote-blue p { font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; font-style: italic; color: #111; line-height: 1.5; margin: 0; }
 
         /* Disclaimer banner */
-        .td-disclaimer { display: flex; gap: 12px; padding: 16px 20px; background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; margin-bottom: 48px; align-items: flex-start; }
-        .td-disclaimer-icon { width: 20px; height: 20px; color: #D97706; flex-shrink: 0; margin-top: 1px; }
-        .td-disclaimer p { font-size: 13px; color: #92400E; line-height: 1.6; margin: 0; }
+        .td-disclaimer { display: flex; gap: 16px; padding: 24px; background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; margin-bottom: 48px; align-items: center; transition: border-color 0.2s; }
+        .td-disclaimer:hover { border-color: #0C8CE9; }
+        .td-disclaimer-icon-wrap { width: 44px; height: 44px; background: #E8F4FD; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .td-disclaimer-icon-wrap svg { width: 20px; height: 20px; color: #0C8CE9; }
+        .td-disclaimer p { font-size: 14px; color: #666; line-height: 1.65; margin: 0; }
 
         /* Locked project card */
-        .td-locked-card { display: flex; gap: 16px; padding: 24px; background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; margin: 32px 0; transition: border-color 0.2s; }
+        .td-locked-card { display: flex; gap: 16px; padding: 24px; background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; margin: 32px 0; transition: border-color 0.2s; }
         .td-locked-card:hover { border-color: #0C8CE9; }
         .td-locked-icon { width: 44px; height: 44px; background: #f5f5f7; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999; flex-shrink: 0; }
         .td-locked-content p { font-size: 14px; color: #666; line-height: 1.65; margin: 0; }
@@ -167,12 +169,12 @@ export default function TDDesignSystemCaseStudy() {
         .td-locked-content a:hover { text-decoration: underline; }
 
         /* Image container / placeholder */
-        .td-image-container { background: #f5f5f7; border-radius: 12px; padding: 32px; margin: 48px 0; border: 1px solid #e5e5e5; transition: border-color 0.2s ease; }
+        .td-image-container { background: #f5f5f7; border-radius: 8px; padding: 32px; margin: 48px 0; border: 1px solid #e5e5e5; transition: border-color 0.2s ease; }
         .td-image-container:hover { border-color: #0C8CE9; }
         .td-image-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 16px; }
         .td-image-placeholder { background: #eee; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 13px; font-weight: 500; text-align: center; padding: 20px; min-height: 260px; border: 1px dashed #ddd; }
 
-        .td-approach-steps { display: flex; flex-direction: column; gap: 0; margin: 40px 0; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; }
+        .td-approach-steps { display: flex; flex-direction: column; gap: 0; margin: 40px 0; border: 1px solid #e5e5e5; border-radius: 8px; overflow: hidden; }
         .td-approach-step { display: flex; gap: 20px; padding: 28px 28px; border-bottom: 1px solid #e5e5e5; transition: background-color 0.15s; }
         .td-approach-step:last-child { border-bottom: none; }
         .td-approach-step:hover { background-color: #fafafa; }
@@ -180,12 +182,12 @@ export default function TDDesignSystemCaseStudy() {
         .td-approach-content h4 { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 600; color: #111; margin-bottom: 6px; }
         .td-approach-content p { font-size: 14px; color: #666; line-height: 1.7; margin: 0; }
         .td-stats-grid-simple { display: flex; flex-direction: column; gap: 16px; margin: 32px 0; }
-        .td-stat-card-simple { display: flex; align-items: center; gap: 16px; padding: 24px 32px; background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; transition: border-color 0.2s; }
+        .td-stat-card-simple { display: flex; align-items: center; gap: 16px; padding: 24px 32px; background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; transition: border-color 0.2s; }
         .td-stat-card-simple:hover { border-color: #0C8CE9; }
         .td-stat-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: #E8F4FD; border-radius: 8px; color: #0C8CE9; flex-shrink: 0; }
         .td-stat-title { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 600; color: #111; margin: 0 0 4px 0; }
         .td-stat-desc { font-size: 14px; color: #999; margin: 0; }
-        .td-comparison-container { background: #f5f5f7; border-radius: 12px; padding: 32px; margin: 48px 0; border: 1px solid #e5e5e5; }
+        .td-comparison-container { background: #f5f5f7; border-radius: 8px; padding: 32px; margin: 48px 0; border: 1px solid #e5e5e5; }
         .td-comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .td-comparison-item { background: #fff; border-radius: 8px; padding: 24px; border: 1px solid #e5e5e5; transition: border-color 0.2s; }
         .td-comparison-item:hover { border-color: #0C8CE9; }
@@ -193,7 +195,7 @@ export default function TDDesignSystemCaseStudy() {
         .td-comparison-item p { font-size: 14px; color: #666; line-height: 1.65; }
 
         /* Version timeline */
-        .td-version-timeline { margin: 40px 0; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; }
+        .td-version-timeline { margin: 40px 0; border: 1px solid #e5e5e5; border-radius: 8px; overflow: hidden; }
         .td-version-row { display: flex; gap: 20px; padding: 24px 28px; border-bottom: 1px solid #e5e5e5; transition: background-color 0.15s; align-items: flex-start; }
         .td-version-row:last-child { border-bottom: none; }
         .td-version-row:hover { background-color: #fafafa; }
@@ -208,7 +210,7 @@ export default function TDDesignSystemCaseStudy() {
         .td-version-info .td-version-status.current { color: #0C8CE9; }
 
         /* Wins grid */
-        .td-wins-grid { display: flex; flex-direction: column; gap: 0; margin: 40px 0; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; }
+        .td-wins-grid { display: flex; flex-direction: column; gap: 0; margin: 40px 0; border: 1px solid #e5e5e5; border-radius: 8px; overflow: hidden; }
         .td-win-item { display: flex; gap: 16px; padding: 20px 28px; border-bottom: 1px solid #e5e5e5; transition: background-color 0.15s; align-items: center; }
         .td-win-item:last-child { border-bottom: none; }
         .td-win-item:hover { background-color: #fafafa; }
@@ -216,7 +218,7 @@ export default function TDDesignSystemCaseStudy() {
         .td-win-text { font-size: 15px; color: #111; font-weight: 500; }
 
         .td-design-decisions { margin: 48px 0; }
-        .td-decision-item { display: flex; gap: 16px; padding: 24px; margin-bottom: 16px; background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; transition: border-color 0.2s; }
+        .td-decision-item { display: flex; gap: 16px; padding: 24px; margin-bottom: 16px; background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; transition: border-color 0.2s; }
         .td-decision-item:hover { border-color: #0C8CE9; }
         .td-decision-item:last-child { margin-bottom: 0; }
         .td-decision-icon { width: 44px; height: 44px; background: #E8F4FD; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #0C8CE9; flex-shrink: 0; }
@@ -230,6 +232,14 @@ export default function TDDesignSystemCaseStudy() {
         .td-footer-links { display: flex; gap: 24px; }
         .td-footer-links a { font-size: 12px; color: #666; text-decoration: none; transition: color 0.2s; }
         .td-footer-links a:hover { color: #0C8CE9; }
+
+        /* Coming Soon Sections */
+        .td-section.coming-soon .td-section-label,
+        .td-section.coming-soon .td-section-title,
+        .td-section.coming-soon .td-section-subtitle { opacity: 0.7; }
+        .td-section.coming-soon .td-coming-soon-content { display: none; }
+        .td-coming-soon-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+        .td-coming-soon-badge { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; color: #999; border: 1px solid #e5e5e5; border-radius: 100px; padding: 4px 12px; white-space: nowrap; align-self: center; flex-shrink: 0; }
 
         @media (max-width: 1200px) {
           .td-tree-nav { display: none; }
@@ -363,12 +373,14 @@ export default function TDDesignSystemCaseStudy() {
 
           {/* Disclaimer */}
           <div className="td-disclaimer">
-            <svg className="td-disclaimer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="12" y1="8" x2="12" y2="12"/>
-              <line x1="12" y1="16" x2="12.01" y2="16"/>
-            </svg>
-            <p>This case study is from my 2023 internship at TD Securities. Since then, Figma has introduced significant updates to design system schemas, variables, and component architecture. The approaches documented here reflect the tools and patterns available at that time.</p>
+            <div className="td-disclaimer-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 16v-4"></path>
+                <path d="M12 8h.01"></path>
+              </svg>
+            </div>
+            <p>This case study is from my 2023 internship at TD Securities. Since then, Figma has introduced significant updates to design system tokens and much more at schema. The approaches documented here reflect the tools and patterns available at that time.</p>
           </div>
 
           <div className="td-project-info">
@@ -395,10 +407,10 @@ export default function TDDesignSystemCaseStudy() {
             <p className="td-section-label">Overview</p>
             <h2 className="td-section-title">Building and scaling a design system from the ground up</h2>
             <p className="td-section-text">
-              When I joined TD Securities as the only design intern, I inherited a fragmented design ecosystem&mdash;assets out of sync with code, dozens of undocumented variants, and no single source of truth. My job was to build Version 3 of the design system: simple, scalable, and understandable by both designers and developers.
+              When I joined TD Securities as the only design intern, I inherited a fragmented design ecosystem -assets out of sync with code, dozens of undocumented variants, and no single source of truth. My job was to build Version 3 of the design system: simple, scalable, and understandable by both designers and developers.
             </p>
             <p className="td-section-text">
-              What started as a component cleanup evolved into a full-scale system that was later adopted by multiple teams across TD Securities infrastructure and technology&mdash;including teams in New York and across Canada.
+              What started as a component cleanup evolved into a full-scale system that was later adopted by multiple teams across TD Securities infrastructure and technology -including teams in New York and across Canada.
             </p>
 
             <div className="td-stats-grid-simple">
@@ -437,7 +449,7 @@ export default function TDDesignSystemCaseStudy() {
                   </svg>
                 </div>
                 <div>
-                  <p className="td-stat-title">Version 3 &mdash; Built on Figma Variables</p>
+                  <p className="td-stat-title">Version 3  - Built on Figma Variables</p>
                   <p className="td-stat-desc">First version to leverage Figma&apos;s 2023 variables launch, replacing variant-only architecture</p>
                 </div>
               </div>
@@ -480,14 +492,17 @@ export default function TDDesignSystemCaseStudy() {
               Many of the pains I encountered designing for TD Securities&apos; platform came from the inconsistency between my designs and the live application. Could it be that the developers were working with different assets? To validate my suspicions, I did a quick site audit.
             </p>
             <p className="td-section-text">
-              I discovered that not only were the assets widely different&mdash;there were so many variants of buttons, badges, and other components scattered across files with no centralized documentation or review process.
+              I discovered that not only were the assets widely different -there were so many variants of buttons, badges, and other components scattered across files with no centralized documentation or review process.
             </p>
 
             <div className="td-image-container">
-              <p className="td-image-label">Site Audit</p>
-              <div className="td-image-placeholder" style={{ height: '300px' }}>
-                [Site audit screenshot showing inconsistent components across the application]
-              </div>
+              <Image
+                src="/assets/siteaduit.png"
+                alt="Site audit screenshot showing inconsistent components across the application"
+                width={1200}
+                height={800}
+                style={{ width: '100%', height: 'auto', borderRadius: '8px', display: 'block' }}
+              />
             </div>
 
             <div className="td-comparison-container">
@@ -518,10 +533,16 @@ export default function TDDesignSystemCaseStudy() {
           </section>
 
           {/* ============ DISCOVERY ============ */}
-          <section id="discovery" className="td-section">
-            <p className="td-section-label">Discovery</p>
-            <h2 className="td-section-title">Understanding what already existed &mdash; and why it failed</h2>
+          <section id="discovery" className="td-section coming-soon">
+            <div className="td-coming-soon-header">
+              <div>
+                <p className="td-section-label">Discovery</p>
+                <h2 className="td-section-title">Understanding what already existed  - and why it failed</h2>
+              </div>
+              <span className="td-coming-soon-badge">Coming Soon</span>
+            </div>
 
+            <div className="td-coming-soon-content">
             <h3 id="audit" className="td-subsection-header">Full-Scale Component Audit</h3>
             <p className="td-section-text">
               My first step was cataloguing every component and variant across Figma files. I mapped each to its coded counterpart (or lack thereof) to build a complete picture of the system&apos;s fragmentation. The audit revealed the full extent of the problem: duplicated components, inconsistent naming, and variants that existed for edge cases no one could explain.
@@ -536,10 +557,10 @@ export default function TDDesignSystemCaseStudy() {
 
             <h3 id="legacy" className="td-subsection-header">The Legacy: V1 and V2</h3>
             <p className="td-section-text">
-              This wasn&apos;t the first attempt at a design system at TD Securities. Before I arrived, there had been two previous versions. V1 and V2 were built by a senior design lead, but progress stalled when he left the team. His work had many layers to it&mdash;complex nested structures that were difficult for others to pick up and maintain.
+              This wasn&apos;t the first attempt at a design system at TD Securities. Before I arrived, there had been two previous versions. V1 and V2 were built by a senior design lead, but progress stalled when he left the team. His work had many layers to it -complex nested structures that were difficult for others to pick up and maintain.
             </p>
             <p className="td-section-text">
-              Both V1 and V2 relied entirely on Figma variants. At the time, that was the only option. But the files had become unwieldy&mdash;hundreds of variant combinations that were hard to navigate and even harder to keep in sync with code.
+              Both V1 and V2 relied entirely on Figma variants. At the time, that was the only option. But the files had become unwieldy -hundreds of variant combinations that were hard to navigate and even harder to keep in sync with code.
             </p>
 
             <div className="td-version-timeline">
@@ -548,7 +569,7 @@ export default function TDDesignSystemCaseStudy() {
                 <div className="td-version-info">
                   <h4>Initial Foundation</h4>
                   <p>First attempt at component standardization. Built with Figma variants only. Established basic color and typography tokens but lacked governance.</p>
-                  <p className="td-version-status">Archived &mdash; Senior lead departed</p>
+                  <p className="td-version-status">Archived  - Senior lead departed</p>
                 </div>
               </div>
               <div className="td-version-row">
@@ -556,7 +577,7 @@ export default function TDDesignSystemCaseStudy() {
                 <div className="td-version-info">
                   <h4>Expanded Coverage</h4>
                   <p>Added more component coverage and nested structures. Still variant-only architecture. Files became complex with many layers, making handoff difficult.</p>
-                  <p className="td-version-status">Stalled &mdash; Too complex to maintain without original author</p>
+                  <p className="td-version-status">Stalled  - Too complex to maintain without original author</p>
                 </div>
               </div>
               <div className="td-version-row active-version">
@@ -564,27 +585,34 @@ export default function TDDesignSystemCaseStudy() {
                 <div className="td-version-info">
                   <h4>Variables-First Rebuild</h4>
                   <p>Complete rebuild leveraging Figma&apos;s newly launched variables (2023). Simplified architecture, added governance, documentation, and cross-functional validation.</p>
-                  <p className="td-version-status current">Active &mdash; Adopted across 8+ teams</p>
+                  <p className="td-version-status current">Active  - Adopted across 8+ teams</p>
                 </div>
               </div>
             </div>
 
             <div className="td-key-insight">
-              <p>I went back to the drawing board. V3 wouldn&apos;t just be another layer on top&mdash;it would be a clean rebuild with the new tools Figma had just given us.</p>
+              <p>I went back to the drawing board. V3 wouldn&apos;t just be another layer on top -it would be a clean rebuild with the new tools Figma had just given us.</p>
           </div>
+            </div>
           </section>
 
           {/* ============ DEFINE & IDEATION ============ */}
-          <section id="define" className="td-section">
-            <p className="td-section-label">Define &amp; Ideation</p>
-            <h2 className="td-section-title">How can I make this helpful for designers and developers?</h2>
+          <section id="define" className="td-section coming-soon">
+            <div className="td-coming-soon-header">
+              <div>
+                <p className="td-section-label">Define &amp; Ideation</p>
+                <h2 className="td-section-title">How can I make this helpful for designers and developers?</h2>
+              </div>
+              <span className="td-coming-soon-badge">Coming Soon</span>
+            </div>
 
+            <div className="td-coming-soon-content">
             <h3 id="research" className="td-subsection-header">Learning from the Best</h3>
             <p className="td-section-text">
               I didn&apos;t start with the ability to create design systems. When I began, I had no idea how to organize all the components. Luckily, great companies like Shopify, Apple, and Google have public design systems I could learn from. However, these systems were massive and served more as inspiration than a direct guide.
             </p>
             <p className="td-section-text">
-              What really helped me level up was incorporating Atomic Design principles&mdash;breaking everything down into atoms, molecules, organisms, templates, and pages. This gave me a mental model for how to structure the entire system.
+              What really helped me level up was incorporating Atomic Design principles -breaking everything down into atoms, molecules, organisms, templates, and pages. This gave me a mental model for how to structure the entire system.
             </p>
 
             <div className="td-image-container">
@@ -596,10 +624,10 @@ export default function TDDesignSystemCaseStudy() {
 
             <h3 id="variables" className="td-subsection-header">The Variables Advantage</h3>
             <p className="td-section-text">
-              V3 coincided with Figma&apos;s 2023 launch of variables. This was a game-changer. The V1 and V2 files had relied entirely on variants to handle theming, states, and responsive behavior. Variables gave us a proper token layer&mdash;color tokens, spacing scales, typography tokens&mdash;that could be swapped and themed without touching individual components.
+              V3 coincided with Figma&apos;s 2023 launch of variables. This was a game-changer. The V1 and V2 files had relied entirely on variants to handle theming, states, and responsive behavior. Variables gave us a proper token layer -color tokens, spacing scales, typography tokens -that could be swapped and themed without touching individual components.
             </p>
             <p className="td-section-text">
-              Looking back at the original problem&mdash;how to create a system that is simple, scalable, and understandable by both designers and developers&mdash;I realized that the needs of the developers were going to be just as important. I got a front-end developer to collaborate with me on the design system. Together, we included tokens, CSS classes, and code snippets directly in the Figma file. This was a quick way for both of us to learn how the other thinks and communicates.
+              Looking back at the original problem -how to create a system that is simple, scalable, and understandable by both designers and developers -I realized that the needs of the developers were going to be just as important. I got a front-end developer to collaborate with me on the design system. Together, we included tokens, CSS classes, and code snippets directly in the Figma file. This was a quick way for both of us to learn how the other thinks and communicates.
             </p>
 
             <div className="td-two-column">
@@ -612,12 +640,20 @@ export default function TDDesignSystemCaseStudy() {
                 <p>Design tokens mapped directly to CSS variables. Code snippets embedded in Figma annotations. A shared language that eliminated guesswork during handoff.</p>
               </div>
             </div>
+            </div>
         </section>
 
           {/* ============ PROTOTYPE ============ */}
-          <section id="prototype" className="td-section">
-            <p className="td-section-label">Prototype</p>
-            <h2 className="td-section-title">Keeping it simple yet scalable</h2>
+          <section id="prototype" className="td-section coming-soon">
+            <div className="td-coming-soon-header">
+              <div>
+                <p className="td-section-label">Prototype</p>
+                <h2 className="td-section-title">Keeping it simple yet scalable</h2>
+              </div>
+              <span className="td-coming-soon-badge">Coming Soon</span>
+            </div>
+
+            <div className="td-coming-soon-content">
             <p className="td-section-text">
               Although I was the only designer, I knew the system would eventually house more designers. It needed to expand and be used by multiple people without breaking. What helped me keep elements scalable was sticking to atomic design principles, using nested components, and leveraging component properties to simplify variants.
             </p>
@@ -653,19 +689,27 @@ export default function TDDesignSystemCaseStudy() {
             <div className="td-key-insight">
               <p>One library, one language. Every token, variant, and usage pattern documented in a single source of truth.</p>
             </div>
+            </div>
         </section>
 
           {/* ============ TESTING ============ */}
-          <section id="testing" className="td-section">
-            <p className="td-section-label">Testing</p>
-            <h2 className="td-section-title">But did it actually work?</h2>
+          <section id="testing" className="td-section coming-soon">
+            <div className="td-coming-soon-header">
+              <div>
+                <p className="td-section-label">Testing</p>
+                <h2 className="td-section-title">But did it actually work?</h2>
+              </div>
+              <span className="td-coming-soon-badge">Coming Soon</span>
+            </div>
+
+            <div className="td-coming-soon-content">
             <p className="td-section-text">
               The design system was constantly being iterated on. With new components being implemented, I needed to verify: had it actually improved the overall product? My dev team gave me insights into what was working and what wasn&apos;t.
             </p>
 
             <h3 id="uat" className="td-subsection-header">UAT Testing Framework</h3>
             <p className="td-section-text">
-              Partnering with engineering, I built an Excel-based UAT audit that tracked every component against documented success and failure criteria. This wasn&apos;t a typical QA pass&mdash;it was a systematic validation of design-code parity, ensuring that what designers specified in Figma matched exactly what engineers shipped.
+              Partnering with engineering, I built an Excel-based UAT audit that tracked every component against documented success and failure criteria. This wasn&apos;t a typical QA pass -it was a systematic validation of design-code parity, ensuring that what designers specified in Figma matched exactly what engineers shipped.
             </p>
 
             <div className="td-image-container">
@@ -677,7 +721,7 @@ export default function TDDesignSystemCaseStudy() {
 
             <h3 id="workshops" className="td-subsection-header">Executive Workshops &amp; Starter Kits</h3>
             <p className="td-section-text">
-              To secure executive buy-in and gather continuous feedback, I hosted showcase workshops for VPs of Engineering and Design. These weren&apos;t just presentations&mdash;they were hands-on sessions where leadership could see the system in action, ask questions, and understand the value it brought to their teams.
+              To secure executive buy-in and gather continuous feedback, I hosted showcase workshops for VPs of Engineering and Design. These weren&apos;t just presentations -they were hands-on sessions where leadership could see the system in action, ask questions, and understand the value it brought to their teams.
             </p>
 
             <div className="td-image-container">
@@ -702,7 +746,7 @@ export default function TDDesignSystemCaseStudy() {
                 <div className="td-win-check">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
-                <span className="td-win-text">Handoff became more efficient &mdash; less explanation needed</span>
+                <span className="td-win-text">Handoff became more efficient  - less explanation needed</span>
               </div>
               <div className="td-win-item">
                 <div className="td-win-check">
@@ -716,6 +760,7 @@ export default function TDDesignSystemCaseStudy() {
                 </div>
                 <span className="td-win-text">Coded designs became significantly more consistent</span>
               </div>
+            </div>
             </div>
         </section>
 
@@ -734,9 +779,13 @@ export default function TDDesignSystemCaseStudy() {
 
             <div className="td-image-container">
               <p className="td-image-label">System Adoption</p>
-              <div className="td-image-placeholder" style={{ height: '260px' }}>
-                [Adoption map or diagram showing teams across TD Securities that adopted the design system]
-              </div>
+              <Image
+                src="/assets/systemadpotion.png"
+                alt="Adoption map showing teams across TD Securities that adopted the design system"
+                width={1200}
+                height={800}
+                style={{ width: '100%', height: 'auto', borderRadius: '8px', display: 'block' }}
+              />
             </div>
 
             <blockquote className="td-user-quote-blue">
@@ -748,7 +797,7 @@ export default function TDDesignSystemCaseStudy() {
               As the design system grows, the hope is to create more standardized assets that can be reused across frameworks. Breaking down components and documenting how they behave within the context of the developers&apos; frameworks (like Bootstrap) would be the next evolution.
             </p>
             <p className="td-section-text">
-              As the design team grows bigger, collecting feedback from a designer&apos;s perspective on how the system improves their workflow and onboarding will be critical. And on the flip side, understanding how the system can better serve developers&mdash;what&apos;s the best way to document components, display guides, and provide usage instructions.
+              As the design team grows bigger, collecting feedback from a designer&apos;s perspective on how the system improves their workflow and onboarding will be critical. And on the flip side, understanding how the system can better serve developers -what&apos;s the best way to document components, display guides, and provide usage instructions.
             </p>
 
             <div className="td-approach-steps">
@@ -797,7 +846,7 @@ export default function TDDesignSystemCaseStudy() {
                 </div>
                 <div className="td-decision-content">
                   <h4>Governance and documentation are what make systems scale</h4>
-                  <p>Building components is the easy part. Creating the governance processes, naming conventions, and documentation that let others contribute without breaking things&mdash;that&apos;s what separates a component library from a design system.</p>
+                  <p>Building components is the easy part. Creating the governance processes, naming conventions, and documentation that let others contribute without breaking things -that&apos;s what separates a component library from a design system.</p>
                 </div>
               </div>
               <div className="td-decision-item">
@@ -811,7 +860,7 @@ export default function TDDesignSystemCaseStudy() {
                 </div>
                 <div className="td-decision-content">
                   <h4>Cross-functional collaboration unlocks real impact</h4>
-                  <p>By working closely with engineering from day one&mdash;embedding code snippets in Figma, building UAT frameworks together, and speaking in shared tokens&mdash;the system became something both sides actually wanted to use.</p>
+                  <p>By working closely with engineering from day one -embedding code snippets in Figma, building UAT frameworks together, and speaking in shared tokens -the system became something both sides actually wanted to use.</p>
                 </div>
               </div>
               <div className="td-decision-item">

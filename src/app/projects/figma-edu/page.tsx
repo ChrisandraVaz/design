@@ -8,7 +8,8 @@ export default function FontContextCaseStudy() {
   const [currentPolaroid, setCurrentPolaroid] = useState(0);
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
-  const [isHeroPlaying, setIsHeroPlaying] = useState(false);
+  const [isHeroReady, setIsHeroReady] = useState(false);
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
   useEffect(() => {
     const sections = ['validation', 'built-first', 'competitors', 'two-bar', 'who-for', 'modal-song', 'scoping', 'craft', 'didnt-solve'];
@@ -19,24 +20,25 @@ export default function FontContextCaseStudy() {
     });
     setExpandedSections(savedStates);
 
-    // Avoid a Safari/Chromium quirk where <video> can paint a stale frame
-    // before its source is fully loaded (looks like the "wrong image" flashing).
-    setIsHeroPlaying(false);
-    const video = heroVideoRef.current;
-    if (video) {
-      video.load();
-      // Explicitly call play() after a short delay to ensure autoplay works
-      const playVideo = () => {
-        video.play().catch(() => {
-          // Autoplay blocked - that's ok, poster will show
-        });
-      };
-      if (video.readyState >= 3) {
-        playVideo();
-      } else {
-        video.addEventListener('canplay', playVideo, { once: true });
-      }
-    }
+    // Preload video in memory, only render once it's ready to play from safe point
+    const video = document.createElement('video');
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = 'auto';
+    video.src = '/assets/figma.mp4';
+
+    video.addEventListener('canplaythrough', () => {
+      // Seek past the problematic first frame before showing anything
+      video.currentTime = 0.5;
+    }, { once: true });
+
+    video.addEventListener('seeked', () => {
+      // Now the video is at a safe point, we can render it
+      setVideoSrc('/assets/figma.mp4#t=0.5');
+      setIsHeroReady(true);
+    }, { once: true });
+
+    video.load();
   }, []);
 
   const toggleSection = (sectionId: string) => {
@@ -81,10 +83,8 @@ export default function FontContextCaseStudy() {
         .fc-main-content > * { width: 100%; max-width: 900px; }
         .fc-project-meta { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: #999; text-transform: uppercase; margin-bottom: 16px; }
         .fc-project-title { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 48px; font-weight: 600; line-height: 1.08; color: #111; margin-bottom: 48px; letter-spacing: -0.03em; }
-        .fc-hero-image { width: 100%; background: transparent; border-radius: 0; padding: 0; margin-bottom: 48px; display: block; height: 420px; overflow: hidden; position: relative; }
-        .fc-hero-image .fc-hero-poster { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 2; opacity: 1; transition: opacity 180ms ease; pointer-events: none; }
-        .fc-hero-image video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 1; }
-        .fc-hero-image.is-playing .fc-hero-poster { opacity: 0; }
+        .fc-hero-image { width: 100%; background: #000; border-radius: 4px; padding: 0; margin-bottom: 48px; display: block; height: 420px; overflow: hidden; position: relative; }
+        .fc-hero-image video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
         .fc-project-info { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-bottom: 48px; }
         .fc-info-item h4 { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 8px; }
         .fc-info-item p { font-size: 14px; color: #111; line-height: 1.7; font-weight: 450; }
@@ -241,20 +241,18 @@ export default function FontContextCaseStudy() {
           <p className="fc-project-meta">FontContext · Shipped 2026</p>
           <h1 className="fc-project-title">The Context Aware<br/>Font Editor for Figma</h1>
 
-          <div className={`fc-hero-image ${isHeroPlaying ? "is-playing" : ""}`}>
-            <div className="fc-hero-poster" style={{ background: '#000' }} />
-            <video
-              ref={heroVideoRef}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              style={{ borderRadius: 4 }}
-              src="/assets/figma.mp4"
-              onPlaying={() => setIsHeroPlaying(true)}
-            >
-            </video>
+          <div className={`fc-hero-image ${isHeroReady ? "is-playing" : ""}`}>
+            {isHeroReady && videoSrc ? (
+              <video
+                ref={heroVideoRef}
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{ borderRadius: 4 }}
+                src={videoSrc}
+              />
+            ) : null}
           </div>
 
           <div className="fc-project-info">

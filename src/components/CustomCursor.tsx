@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    return !isTouch;
+  });
 
   useEffect(() => {
-    // Hide cursor on touch devices
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) {
-      setIsVisible(false);
       return;
     }
 

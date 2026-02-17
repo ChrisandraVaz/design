@@ -4,23 +4,23 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+const IBM_ALL_SECTIONS = ['overview', 'responsibilities', 'highlights', 'closing'];
+
+const IBM_TOP_NAV_MAP: Record<string, string> = {
+  overview: 'overview',
+  responsibilities: 'overview',
+  highlights: 'highlights',
+  closing: 'closing',
+};
+
 export default function IBMAccelerateCaseStudy() {
   const [activeTopNav, setActiveTopNav] = useState('overview');
   const [activeTreeSection, setActiveTreeSection] = useState('overview');
   const [treeVisible, setTreeVisible] = useState(false);
 
-  const allSections = ['overview', 'responsibilities', 'highlights', 'closing'];
-
-  const topNavMap: Record<string, string> = {
-    'overview': 'overview',
-    'responsibilities': 'overview',
-    'highlights': 'highlights',
-    'closing': 'closing',
-  };
-
   const updateActiveLinks = useCallback(() => {
     let current = 'overview';
-    allSections.forEach(sectionId => {
+    IBM_ALL_SECTIONS.forEach(sectionId => {
       const section = document.getElementById(sectionId);
       if (section) {
         const sectionTop = section.offsetTop;
@@ -31,14 +31,17 @@ export default function IBMAccelerateCaseStudy() {
     });
 
     setActiveTreeSection(current);
-    setActiveTopNav(topNavMap[current] || current);
+    setActiveTopNav(IBM_TOP_NAV_MAP[current] || current);
     setTreeVisible(window.scrollY > 50);
   }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', updateActiveLinks);
-    updateActiveLinks();
-    return () => window.removeEventListener('scroll', updateActiveLinks);
+    const frame = requestAnimationFrame(updateActiveLinks);
+    return () => {
+      window.removeEventListener('scroll', updateActiveLinks);
+      cancelAnimationFrame(frame);
+    };
   }, [updateActiveLinks]);
 
   const scrollToSection = (targetId: string) => {
@@ -55,7 +58,7 @@ export default function IBMAccelerateCaseStudy() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800">
+    <div className="min-h-screen bg-white text-gray-800 overflow-x-hidden">
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
@@ -63,7 +66,7 @@ export default function IBMAccelerateCaseStudy() {
         html { scroll-behavior: smooth; }
         body { -webkit-font-smoothing: antialiased; }
 
-        .ibm-container { display: flex; flex-direction: column; min-height: 100vh; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        .ibm-container { display: flex; flex-direction: column; min-height: 100vh; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; overflow-x: hidden; max-width: 100vw; }
 
         /* Top Navigation - Pill Style */
         .ibm-top-nav { position: fixed; top: 0; left: 0; right: 0; height: 64px; background: #fff; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 0 32px; border-bottom: 1px solid #f0f0f0; }
@@ -145,10 +148,22 @@ export default function IBMAccelerateCaseStudy() {
           .ibm-project-title { font-size: 40px; }
           .ibm-project-info { grid-template-columns: repeat(2, 1fr); }
         }
+        @media (max-width: 640px) {
+          .ibm-top-nav { justify-content: center; }
+          .ibm-nav-pills {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .ibm-nav-pills::-webkit-scrollbar { display: none; }
+        }
         @media (max-width: 600px) {
           .ibm-project-info { grid-template-columns: 1fr; }
           .ibm-project-title { font-size: 32px; }
           .ibm-section-title { font-size: 28px; }
+          .ibm-main-content { padding: 40px 16px; }
+          .ibm-main-content > * { max-width: 100%; }
+          .ibm-hero-image { height: 240px; }
         }
       `}</style>
 

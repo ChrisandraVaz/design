@@ -30,7 +30,7 @@ const projects = [
     subtitle: "Interest Claims Manager",
     image: "/assets/tdinterestclaims.png",
     bgColor: "#e8f5e8",
-    href: "/projects/td-bank-interest-claims",
+    href: "https://www.figma.com/deck/gtOsKJthDfJ5AMuEzoLeIc/TD-Interest-Claims-Manager?node-id=21-5529&viewport=-137%2C-76%2C0.64&t=4X9qVynR5g75X3F1-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1",
   },
   {
     title: "IBM Accelerate",

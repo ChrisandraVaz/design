@@ -40,6 +40,13 @@ const projects = [
     href: "/projects/ibm-accelerate",
   },
   {
+    title: "Figma - FigBuild 2025",
+    subtitle: "Inaugural Designathon (8 Universities) · Content Design",
+    image: "/assets/figbuild.png",
+    bgColor: "#eef0f3",
+    href: "/assets/figbuild.png",
+  },
+  {
     title: "TD Bank (Securities) Design System",
     subtitle: "Tokenized Foundations",
     image: "/assets/tds.png",

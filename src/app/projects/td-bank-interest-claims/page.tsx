@@ -41,7 +41,7 @@ export default function TDBankInterestClaimsCaseStudy() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-800">
+    <div className="min-h-screen bg-white font-sans text-gray-800 overflow-x-hidden max-w-[100vw]">
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@300;400;450;500;600;700&display=swap');
 
@@ -303,17 +303,23 @@ export default function TDBankInterestClaimsCaseStudy() {
           .td-section-title { font-size: 24px; }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 640px) {
+          .td-back-link-wrapper { display: none; }
+          .td-spacer { display: none; }
+          .td-header-inner { justify-content: center !important; }
           .td-nav-pills {
-            display: none;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
           }
+          .td-nav-pills::-webkit-scrollbar { display: none; }
         }
       `}</style>
 
       {/* Fixed Header with Pill Navigation */}
       <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-8 py-3 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-sm hover:opacity-70 transition-opacity">
+        <div className="td-header-inner max-w-6xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
+          <Link href="/" className="td-back-link-wrapper flex items-center gap-2 text-sm hover:opacity-70 transition-opacity">
             <FaArrowLeft className="w-3 h-3" />
             Back to Home
           </Link>
@@ -347,7 +353,7 @@ export default function TDBankInterestClaimsCaseStudy() {
           </nav>
 
           {/* Spacer for balance */}
-          <div className="w-[100px]"></div>
+          <div className="td-spacer w-[100px]"></div>
         </div>
       </header>
 
@@ -391,7 +397,7 @@ export default function TDBankInterestClaimsCaseStudy() {
       </div>
 
       {/* Main Content */}
-      <main className="pt-32 pb-16 px-8">
+      <main className="pt-32 pb-16 px-4 md:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}
           <p className="font-mono text-[12px] font-semibold tracking-[0.16em] text-gray-400 uppercase mb-4">
@@ -484,10 +490,11 @@ export default function TDBankInterestClaimsCaseStudy() {
             <div className="td-image-container">
               <p className="td-image-label">Claims Dashboard</p>
               <Image
-                src="/assets/claimsdashboard.png"
+                src="/assets/tdinterestclaims.png"
                 alt="Claims Dashboard Interface"
                 width={1200}
                 height={500}
+                unoptimized
                 style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
               />
             </div>

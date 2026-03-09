@@ -62,6 +62,18 @@
       color: #333;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+
+    html {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+
+    img, video, svg, canvas {
+      max-width: 100%;
+      height: auto;
     }
 
     /* Layout */
@@ -69,6 +81,8 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      overflow-x: hidden;
+      max-width: 100vw;
     }
 
     /* Top Navigation */
@@ -1856,6 +1870,26 @@
       .section-title {
         font-size: var(--font-section);
       }
+
+      .back-link { display: none; }
+      .top-nav { justify-content: center; padding: 0 12px; max-width: 100vw; overflow: hidden; }
+      .nav-links {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        max-width: 100%;
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a {
+        font-size: 12px;
+        padding: 6px 10px;
+        white-space: nowrap;
+      }
+      .main-content { padding: 40px 16px; }
+      .main-content > * { max-width: 100%; }
+      .hero-image { height: 240px; }
+      .image-container { padding: 16px; }
+      .roadmap-grid { grid-template-columns: 1fr; }
     }
 
     /* Print Styles */

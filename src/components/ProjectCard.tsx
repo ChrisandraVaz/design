@@ -12,13 +12,14 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ title, subtitle, image, bgColor, href }: ProjectCardProps) {
-  const isVideo = image.endsWith('.mov') || image.endsWith('.mp4') || image.endsWith('.webm');
+  const isVideo = image.endsWith(".mov") || image.endsWith(".mp4") || image.endsWith(".webm");
+  const isExternal = href.startsWith("http");
 
   return (
-    <Link href={href} className="block">
-      <div className="rounded-[4px] overflow-hidden cursor-pointer">
+    <Link href={href} className="block group" {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+      <div className="overflow-hidden cursor-pointer rounded-[10px]">
         <div
-          className="aspect-[3/2] relative"
+          className="relative aspect-[16/10]"
           style={{ backgroundColor: bgColor }}
         >
           {isVideo ? (
@@ -35,16 +36,17 @@ export default function ProjectCard({ title, subtitle, image, bgColor, href }: P
               src={image}
               alt={title}
               fill
+              unoptimized
               className="object-cover object-center scale-[1.01]"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           )}
         </div>
-        <div className="pt-4 pb-2">
-          <p className="text-[14px] text-left">
-            <span className="font-normal text-black">{title}</span>
-            <span className="text-gray-400 mx-2">·</span>
-            <span className="text-gray-500 font-normal">{subtitle}</span>
+        <div className="pt-3 pb-1.5">
+          <p className="text-left text-[14px]">
+            <span className="font-semibold text-[var(--portfolio-heading)]">{title}</span>
+            <span className="mx-2 text-[var(--portfolio-muted)]">·</span>
+            <span className="font-normal text-[var(--portfolio-muted)]">{subtitle}</span>
           </p>
         </div>
       </div>

@@ -1,20 +1,34 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
 
 const projects = [
   {
-    title: "FontContext",
-    subtitle: "The Context Aware Font Editor for Figma",
+    title: "FontContext (Figma Plugin)",
+    subtitle: "Context Aware Font Editor",
     image: "/assets/figma.mp4",
     bgColor: "#e8f4f8",
     href: "/fontcontext.html",
   },
   {
+    title: "Liquid Metallic Button",
+    subtitle: "Interactive Component",
+    image: "/assets/metalicbutton1.mov",
+    bgColor: "#2b2b2b",
+    href: "https://chrisandravaz.github.io/Liquid-Metallic-Button-/liquid-metal-button",
+  },
+  {
+    title: "2000s Microsoft Paint Recreation",
+    subtitle: "Interactive Component",
+    image: "/assets/microsoftpaint.mp4",
+    bgColor: "#c0c0c0",
+    href: "https://chrisandravaz.github.io/Microsoft-Paint/",
+  },
+  {
     title: "TD Bank (Securities)",
     subtitle: "Interest Claims Manager",
-    image: "/assets/td.png",
+    image: "/assets/tdinterestclaims.png",
     bgColor: "#e8f5e8",
     href: "/projects/td-bank-interest-claims",
   },
@@ -43,103 +57,91 @@ const projects = [
 
 export default function ProjectGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isPausedAtEnd, setIsPausedAtEnd] = useState(false);
-  const manualScrollTimeout = useRef<NodeJS.Timeout | null>(null);
+  const frameRef = useRef<number | null>(null);
+  const lastTsRef = useRef<number | null>(null);
+  const manualPauseUntilRef = useRef(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [fontContext, liquidMetallicButton, microsoftPaint, ...featureStack] = projects;
 
-  // Check if mobile on mount and resize
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Handle manual scroll - pause auto-scroll temporarily
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container || isMobile) return;
-
-    const handleWheel = () => {
-      setIsAutoScrolling(false);
-      if (manualScrollTimeout.current) {
-        clearTimeout(manualScrollTimeout.current);
-      }
-      // Resume auto-scroll after 3 seconds of no scrolling
-      manualScrollTimeout.current = setTimeout(() => {
-        setIsAutoScrolling(true);
-      }, 3000);
-    };
-
-    container.addEventListener('wheel', handleWheel);
-    return () => {
-      container.removeEventListener('wheel', handleWheel);
-      if (manualScrollTimeout.current) {
-        clearTimeout(manualScrollTimeout.current);
-      }
-    };
-  }, [isMobile]);
-
-  // Auto-scroll only on desktop
-  useEffect(() => {
-    if (isMobile) return;
-
     const container = containerRef.current;
     if (!container) return;
 
-    let animationFrameId: number;
-    let scrollSpeed = 0.5;
+    // Keep auto-scroll desktop-only. On touch/mobile this interferes with reading and tapping.
+    const isTouchLike =
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(max-width: 767px)").matches;
+    if (isTouchLike) return;
 
-    const autoScroll = () => {
-      if (!container || !isAutoScrolling) return;
+    const speedPxPerSecond = 10;
+    const endPauseMs = 900;
+    let isRunning = true;
 
-      // Check if at the end
-      const isAtEnd = container.scrollTop >= container.scrollHeight - container.clientHeight - 1;
-
-      if (isAtEnd && !isPausedAtEnd) {
-        // Pause at end for 2 seconds before looping
-        setIsPausedAtEnd(true);
-        setTimeout(() => {
-          if (container) {
-            container.scrollTop = 0;
-          }
-          setIsPausedAtEnd(false);
-        }, 2000);
+    const tick = (ts: number) => {
+      if (!isRunning) return;
+      const el = containerRef.current;
+      if (!el) {
+        frameRef.current = requestAnimationFrame(tick);
         return;
       }
 
-      if (!isPausedAtEnd) {
-        container.scrollTop += scrollSpeed;
+      const hasOverflow = el.scrollHeight > el.clientHeight + 1;
+      if (!hasOverflow || isHovered || Date.now() < manualPauseUntilRef.current) {
+        lastTsRef.current = ts;
+        frameRef.current = requestAnimationFrame(tick);
+        return;
       }
 
-      animationFrameId = requestAnimationFrame(autoScroll);
+      const prevTs = lastTsRef.current ?? ts;
+      const deltaSec = Math.min((ts - prevTs) / 1000, 0.05);
+      lastTsRef.current = ts;
+      el.scrollTop += speedPxPerSecond * deltaSec;
+
+      const atEnd = el.scrollTop >= el.scrollHeight - el.clientHeight - 1;
+      if (atEnd) {
+        el.scrollTop = 0;
+        manualPauseUntilRef.current = Date.now() + endPauseMs;
+      }
+
+      frameRef.current = requestAnimationFrame(tick);
     };
 
-    if (isAutoScrolling && !isPausedAtEnd) {
-      animationFrameId = requestAnimationFrame(autoScroll);
-    }
+    frameRef.current = requestAnimationFrame(tick);
+
+    const pauseForManualInput = () => {
+      manualPauseUntilRef.current = Date.now() + 2500;
+    };
+
+    container.addEventListener("wheel", pauseForManualInput, { passive: true });
+    container.addEventListener("touchmove", pauseForManualInput, { passive: true });
+    container.addEventListener("pointerdown", pauseForManualInput, { passive: true });
 
     return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
+      isRunning = false;
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+      lastTsRef.current = null;
+      container.removeEventListener("wheel", pauseForManualInput);
+      container.removeEventListener("touchmove", pauseForManualInput);
+      container.removeEventListener("pointerdown", pauseForManualInput);
     };
-  }, [isAutoScrolling, isMobile, isPausedAtEnd]);
+  }, [isHovered]);
 
   return (
     <div
       ref={containerRef}
-      className="md:h-full overflow-y-auto md:overflow-y-auto scrollbar-hide"
-      onMouseEnter={() => !isMobile && setIsAutoScrolling(false)}
-      onMouseLeave={() => !isMobile && setIsAutoScrolling(true)}
+      className="md:h-full overflow-y-auto scrollbar-hide"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="space-y-4 pt-6 md:pt-[56px] pb-6">
-        {projects.map((project, index) => (
-          <ProjectCard key={index} {...project} />
+      <div className="space-y-2.5 p-0">
+        <ProjectCard {...fontContext} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <ProjectCard {...microsoftPaint} />
+          <ProjectCard {...liquidMetallicButton} />
+        </div>
+        {featureStack.map((project) => (
+          <ProjectCard key={project.title} {...project} />
         ))}
       </div>
     </div>

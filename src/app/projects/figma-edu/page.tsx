@@ -61,10 +61,10 @@ export default function FontContextCaseStudy() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800">
+    <div className="min-h-screen bg-white text-gray-800 overflow-x-hidden">
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
-        .fc-container { display: flex; min-height: 100vh; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        .fc-container { display: flex; min-height: 100vh; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; overflow-x: hidden; max-width: 100vw; }
         .fc-sidebar { position: fixed; left: 0; top: 0; width: 240px; height: 100vh; padding: 40px 24px; background: #fff; z-index: 100; border-right: 1px solid #f0f0f0; }
         .fc-back-link { display: flex; align-items: center; gap: 8px; color: #666; text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.5px; margin-bottom: 48px; transition: color 0.2s; }
         .fc-back-link:hover { color: #0C8CE9; }
@@ -199,9 +199,55 @@ export default function FontContextCaseStudy() {
         .fc-legend-dot.competitor-3 { background: #0FA958; }
         .fc-legend-dot.competitor-4 { background: #FFC700; }
         .fc-image-placeholder { background: transparent; border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; font-weight: 500; text-align: center; padding: 0; overflow: hidden; }
+        /* Mobile top nav for FontContext */
+        .fc-mobile-nav {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 56px;
+          background: #fff;
+          z-index: 100;
+          align-items: center;
+          justify-content: center;
+          padding: 0 12px;
+          border-bottom: 1px solid #f0f0f0;
+          box-sizing: border-box;
+          width: 100%;
+          max-width: 100vw;
+          overflow: hidden;
+        }
+        .fc-mobile-pills {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          background: #f5f5f7;
+          padding: 4px;
+          border-radius: 100px;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          max-width: 100%;
+        }
+        .fc-mobile-pills::-webkit-scrollbar { display: none; }
+        .fc-mobile-pills a {
+          color: #666;
+          text-decoration: none;
+          font-size: 12px;
+          font-weight: 500;
+          padding: 6px 10px;
+          border-radius: 100px;
+          transition: all 0.2s;
+          cursor: pointer;
+          white-space: nowrap;
+        }
+        .fc-mobile-pills a:hover { color: #111; }
+
         @media (max-width: 1024px) {
           .fc-sidebar { display: none; }
-          .fc-main-content { margin-left: 0; padding: 40px 32px; }
+          .fc-mobile-nav { display: flex; }
+          .fc-main-content { margin-left: 0; padding: 72px 32px 40px; }
           .fc-project-title { font-size: 40px; }
           .fc-two-column, .fc-comparison-grid { grid-template-columns: 1fr; gap: 32px; }
           .fc-feature-showcase { grid-template-columns: 1fr; gap: 32px; }
@@ -214,6 +260,15 @@ export default function FontContextCaseStudy() {
           .fc-project-info { grid-template-columns: 1fr; }
           .fc-project-title { font-size: 32px; }
           .fc-section-title { font-size: 28px; }
+          .fc-main-content { padding: 72px 16px 40px; }
+          .fc-main-content > * { max-width: 100%; }
+          .fc-hero-image { height: 240px; }
+          .fc-two-column, .fc-comparison-grid { grid-template-columns: 1fr; gap: 24px; }
+          .fc-feature-showcase, .fc-feature-showcase.reverse { grid-template-columns: 1fr; gap: 24px; }
+          .fc-pain-section-layout { grid-template-columns: 1fr; }
+          .fc-roadmap-grid { grid-template-columns: 1fr; gap: 16px; }
+          .fc-gap-header, .fc-gap-row { grid-template-columns: 1fr; }
+          .fc-image-placeholder { max-width: 100%; }
         }
       `}</style>
 
@@ -234,6 +289,19 @@ export default function FontContextCaseStudy() {
             <a href="#craft">Craft</a>
             <a href="#clicked">Outcome</a>
             <a href="#didnt-solve">What&apos;s Next</a>
+          </div>
+        </nav>
+
+        {/* Mobile Top Nav */}
+        <nav className="fc-mobile-nav">
+          <div className="fc-mobile-pills">
+            <a href="#overview">Overview</a>
+            <a href="#solution">Solution</a>
+            <a href="#pain">The Pain</a>
+            <a href="#built-first">MVP</a>
+            <a href="#two-bar">Process</a>
+            <a href="#craft">Craft</a>
+            <a href="#clicked">Outcome</a>
           </div>
         </nav>
 

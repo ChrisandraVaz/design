@@ -105,6 +105,8 @@ export default function SeranoCafeCaseStudy() {
           display: flex;
           flex-direction: column;
           min-height: 100vh;
+          overflow-x: hidden;
+          max-width: 100vw;
         }
 
         .top-nav {
@@ -174,10 +176,9 @@ export default function SeranoCafeCaseStudy() {
 
         .main-content {
           margin-top: 64px;
-          margin-left: 240px;
           padding: 48px 80px;
           max-width: none;
-          width: calc(100% - 240px);
+          width: 100%;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -1202,10 +1203,6 @@ export default function SeranoCafeCaseStudy() {
 
         @media (max-width: 1200px) {
           .tree-nav { display: none; }
-          .main-content {
-            margin-left: 0;
-            width: 100%;
-          }
         }
 
         @media (max-width: 1024px) {
@@ -1228,8 +1225,35 @@ export default function SeranoCafeCaseStudy() {
           .project-info { grid-template-columns: 1fr; }
           .project-title { font-size: 32px; }
           .section-title { font-size: 24px; }
-          .nav-pills { display: none; }
           .process-steps { grid-template-columns: 1fr; }
+          .back-link { display: none; }
+          .top-nav { justify-content: center; padding: 0 12px; max-width: 100vw; overflow: hidden; }
+          .nav-pills {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            max-width: 100vw;
+          }
+          .nav-pills::-webkit-scrollbar { display: none; }
+          .nav-pills a {
+            font-size: 12px;
+            padding: 6px 12px;
+          }
+          .main-content { padding: 40px 16px; }
+          .problems-grid,
+          .needs-grid,
+          .testing-grid,
+          .goals-grid,
+          .stats-row,
+          .persona-journey { grid-template-columns: 1fr; }
+          .feature-showcase,
+          .feature-showcase.reverse,
+          .feature-showcase.sitemap-showcase { grid-template-columns: 1fr; gap: 24px; }
+          .feature-showcase.reverse .feature-image,
+          .feature-showcase.reverse .feature-text { order: unset; }
+          .double-diamond-svg { min-width: unset; width: 100%; }
+          .double-diamond-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+          .image-container { padding: 16px; }
         }
       `}</style>
 

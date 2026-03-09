@@ -91,7 +91,7 @@ export default function TDDesignSystemCaseStudy() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800">
+    <div className="min-h-screen bg-white text-gray-800 overflow-x-hidden">
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
@@ -99,7 +99,7 @@ export default function TDDesignSystemCaseStudy() {
         html { scroll-behavior: smooth; }
         body { -webkit-font-smoothing: antialiased; }
 
-        .td-container { display: flex; flex-direction: column; min-height: 100vh; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        .td-container { display: flex; flex-direction: column; min-height: 100vh; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; overflow-x: hidden; max-width: 100vw; }
 
         /* Top Navigation - Pill Style */
         .td-top-nav { position: fixed; top: 0; left: 0; right: 0; height: 64px; background: #fff; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 0 32px; border-bottom: 1px solid #f0f0f0; }
@@ -252,10 +252,23 @@ export default function TDDesignSystemCaseStudy() {
           .td-project-info { grid-template-columns: repeat(2, 1fr); }
           .td-two-column, .td-comparison-grid { grid-template-columns: 1fr; gap: 32px; }
         }
+        @media (max-width: 640px) {
+          .td-top-nav { justify-content: center; }
+          .td-nav-pills {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .td-nav-pills::-webkit-scrollbar { display: none; }
+        }
         @media (max-width: 600px) {
           .td-project-info { grid-template-columns: 1fr; }
           .td-project-title { font-size: 32px; }
           .td-section-title { font-size: 28px; }
+          .td-main-content { padding: 40px 16px; }
+          .td-main-content > * { max-width: 100%; }
+          .td-two-column { grid-template-columns: 1fr; gap: 24px; }
+          .td-hero-image { height: 240px; }
         }
       `}</style>
 

@@ -44,7 +44,7 @@ const projects = [
     subtitle: "Inaugural Designathon (8 Universities) · Content Design",
     image: "/assets/figbuild.png",
     bgColor: "#eef0f3",
-    href: "/assets/figbuild.png",
+    href: "/projects/figbuild",
   },
   {
     title: "TD Bank (Securities) Design System",

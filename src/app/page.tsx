@@ -252,7 +252,7 @@ export default function Home() {
             </button>
             <span className={`pencil-tooltip ${showPencilIntro ? "intro" : ""}`}>Click me to draw!</span>
           </span>{" "}
-          is a designer at waterloo who ships products that click{" "}
+          is a product designer at waterloo who ships products that click{" "}
           <span className="inline-block">✦</span> and cultivates thriving design communities{" "}
           <span className="inline-block">✧</span>.
         </h1>

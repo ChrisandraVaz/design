@@ -4,23 +4,23 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+const IBM_ALL_SECTIONS = ['overview', 'responsibilities', 'highlights', 'closing'];
+
+const IBM_TOP_NAV_MAP: Record<string, string> = {
+  overview: 'overview',
+  responsibilities: 'overview',
+  highlights: 'highlights',
+  closing: 'closing',
+};
+
 export default function IBMAccelerateCaseStudy() {
   const [activeTopNav, setActiveTopNav] = useState('overview');
   const [activeTreeSection, setActiveTreeSection] = useState('overview');
   const [treeVisible, setTreeVisible] = useState(false);
 
-  const allSections = ['overview', 'responsibilities', 'highlights', 'closing'];
-
-  const topNavMap: Record<string, string> = {
-    'overview': 'overview',
-    'responsibilities': 'overview',
-    'highlights': 'highlights',
-    'closing': 'closing',
-  };
-
   const updateActiveLinks = useCallback(() => {
     let current = 'overview';
-    allSections.forEach(sectionId => {
+    IBM_ALL_SECTIONS.forEach(sectionId => {
       const section = document.getElementById(sectionId);
       if (section) {
         const sectionTop = section.offsetTop;
@@ -31,14 +31,17 @@ export default function IBMAccelerateCaseStudy() {
     });
 
     setActiveTreeSection(current);
-    setActiveTopNav(topNavMap[current] || current);
+    setActiveTopNav(IBM_TOP_NAV_MAP[current] || current);
     setTreeVisible(window.scrollY > 50);
   }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', updateActiveLinks);
-    updateActiveLinks();
-    return () => window.removeEventListener('scroll', updateActiveLinks);
+    const frame = requestAnimationFrame(updateActiveLinks);
+    return () => {
+      window.removeEventListener('scroll', updateActiveLinks);
+      cancelAnimationFrame(frame);
+    };
   }, [updateActiveLinks]);
 
   const scrollToSection = (targetId: string) => {

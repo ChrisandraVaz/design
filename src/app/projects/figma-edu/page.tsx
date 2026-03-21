@@ -6,20 +6,11 @@ import Image from "next/image";
 
 export default function FontContextCaseStudy() {
   const [currentPolaroid, setCurrentPolaroid] = useState(0);
-  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
   const [isHeroReady, setIsHeroReady] = useState(false);
   const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
   useEffect(() => {
-    const sections = ['validation', 'built-first', 'competitors', 'two-bar', 'who-for', 'modal-song', 'scoping', 'craft', 'didnt-solve'];
-    const savedStates: Record<string, boolean> = {};
-    sections.forEach(id => {
-      const saved = localStorage.getItem(`section-${id}`);
-      savedStates[id] = saved === 'true';
-    });
-    setExpandedSections(savedStates);
-
     // Preload video in memory, only render once it's ready to play from safe point
     const video = document.createElement('video');
     video.muted = true;
@@ -40,14 +31,6 @@ export default function FontContextCaseStudy() {
 
     video.load();
   }, []);
-
-  const toggleSection = (sectionId: string) => {
-    setExpandedSections(prev => {
-      const newState = !prev[sectionId];
-      localStorage.setItem(`section-${sectionId}`, String(newState));
-      return { ...prev, [sectionId]: newState };
-    });
-  };
 
   const nextPolaroid = () => {
     setCurrentPolaroid(prev => (prev + 1) % 3);

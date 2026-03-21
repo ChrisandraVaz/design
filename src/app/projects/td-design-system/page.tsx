@@ -4,6 +4,34 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+const TD_TOP_NAV_MAP: Record<string, string> = {
+  overview: 'overview',
+  context: 'overview',
+  problem: 'problem',
+  discovery: 'solution',
+  audit: 'solution',
+  legacy: 'solution',
+  define: 'solution',
+  research: 'solution',
+  variables: 'solution',
+  prototype: 'solution',
+  components: 'solution',
+  documentation: 'solution',
+  testing: 'solution',
+  uat: 'solution',
+  workshops: 'solution',
+  outcome: 'takeaways',
+  adoption: 'takeaways',
+  future: 'takeaways',
+  takeaways: 'takeaways',
+};
+
+const TD_ALL_SECTIONS = [
+  'overview', 'context', 'problem', 'discovery', 'audit', 'legacy',
+  'define', 'research', 'variables', 'prototype', 'components', 'documentation',
+  'testing', 'uat', 'workshops', 'outcome', 'adoption', 'future', 'takeaways'
+];
+
 export default function TDDesignSystemCaseStudy() {
   const [activeTopNav, setActiveTopNav] = useState('overview');
   const [activeTreeSection, setActiveTreeSection] = useState('overview');
@@ -22,37 +50,9 @@ export default function TDDesignSystemCaseStudy() {
     'future': 'outcome',
   };
 
-  const topNavMap: Record<string, string> = {
-    'overview': 'overview',
-    'context': 'overview',
-    'problem': 'problem',
-    'discovery': 'solution',
-    'audit': 'solution',
-    'legacy': 'solution',
-    'define': 'solution',
-    'research': 'solution',
-    'variables': 'solution',
-    'prototype': 'solution',
-    'components': 'solution',
-    'documentation': 'solution',
-    'testing': 'solution',
-    'uat': 'solution',
-    'workshops': 'solution',
-    'outcome': 'takeaways',
-    'adoption': 'takeaways',
-    'future': 'takeaways',
-    'takeaways': 'takeaways',
-  };
-
-  const allSections = [
-    'overview', 'context', 'problem', 'discovery', 'audit', 'legacy',
-    'define', 'research', 'variables', 'prototype', 'components', 'documentation',
-    'testing', 'uat', 'workshops', 'outcome', 'adoption', 'future', 'takeaways'
-  ];
-
   const updateActiveLinks = useCallback(() => {
     let current = 'overview';
-    allSections.forEach(sectionId => {
+    TD_ALL_SECTIONS.forEach(sectionId => {
       const section = document.getElementById(sectionId);
       if (section) {
         const sectionTop = section.offsetTop;
@@ -63,14 +63,17 @@ export default function TDDesignSystemCaseStudy() {
     });
 
     setActiveTreeSection(current);
-    setActiveTopNav(topNavMap[current] || current);
+    setActiveTopNav(TD_TOP_NAV_MAP[current] || current);
     setTreeVisible(window.scrollY > 50);
   }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', updateActiveLinks);
-    updateActiveLinks();
-    return () => window.removeEventListener('scroll', updateActiveLinks);
+    const frame = requestAnimationFrame(updateActiveLinks);
+    return () => {
+      window.removeEventListener('scroll', updateActiveLinks);
+      cancelAnimationFrame(frame);
+    };
   }, [updateActiveLinks]);
 
   const scrollToSection = (targetId: string) => {

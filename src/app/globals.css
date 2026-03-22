@@ -186,14 +186,24 @@ body {
   opacity: 0.8;
 }
 
-.portfolio-shell *::selection {
-  background: var(--portfolio-selection-bg, #ffd7ea);
-  color: var(--portfolio-selection-text, #7d0f47);
+.portfolio-shell ::selection {
+  background-color: var(--portfolio-selection-bg, #ffd7ea) !important;
+  color: var(--portfolio-selection-text, #7d0f47) !important;
 }
 
-.portfolio-shell *::-moz-selection {
-  background: var(--portfolio-selection-bg, #ffd7ea);
-  color: var(--portfolio-selection-text, #7d0f47);
+.portfolio-shell ::-moz-selection {
+  background-color: var(--portfolio-selection-bg, #ffd7ea) !important;
+  color: var(--portfolio-selection-text, #7d0f47) !important;
+}
+
+.portfolio-shell[data-mode="night"] ::selection {
+  background-color: #FF98CC !important;
+  color: #65033C !important;
+}
+
+.portfolio-shell[data-mode="night"] ::-moz-selection {
+  background-color: #FF98CC !important;
+  color: #65033C !important;
 }
 
 .portfolio-shell {

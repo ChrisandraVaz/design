@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function SeranoCafeCaseStudy() {
+  const { theme } = useTheme();
   const [activeSection, setActiveSection] = useState("overview");
   const [treeVisible, setTreeVisible] = useState(false);
 
@@ -90,13 +92,30 @@ export default function SeranoCafeCaseStudy() {
           --radius-md: 12px;
         }
 
+        [data-theme="dark"] {
+          --text-primary: #f4f6f8;
+          --text-secondary: #8e98a8;
+          --text-tertiary: #8e98a8;
+          --bg-primary: #000000;
+          --bg-secondary: #0F0F0F;
+          --bg-tertiary: #171717;
+          --border-light: #262626;
+          --border-subtle: #262626;
+          --serano-navy: #8b8bff;
+          --serano-navy-light: #171717;
+          --serano-navy-50: rgba(139, 139, 255, 0.15);
+          --serano-gold: #d4b872;
+          --light-purple: #1e1e2e;
+          --light-purple-border: #2e2e3e;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
         body {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
           background: var(--bg-primary);
-          color: #333;
+          color: var(--text-primary);
           line-height: 1.6;
           -webkit-font-smoothing: antialiased;
         }
@@ -107,6 +126,8 @@ export default function SeranoCafeCaseStudy() {
           min-height: 100vh;
           overflow-x: hidden;
           max-width: 100vw;
+          background: var(--bg-primary);
+          color: var(--text-primary);
         }
 
         .top-nav {
@@ -409,7 +430,7 @@ export default function SeranoCafeCaseStudy() {
         .subsection-header {
           font-size: 20px;
           font-weight: 600;
-          color: #111;
+          color: var(--text-primary);
           margin-top: 48px;
           margin-bottom: 16px;
           letter-spacing: -0.01em;
@@ -747,8 +768,8 @@ export default function SeranoCafeCaseStudy() {
         .image-container:hover { border-color: var(--border-light); }
 
         .image-container.dark {
-          background: #1a1a1a;
-          border-color: #333;
+          background: var(--bg-tertiary);
+          border-color: var(--border-light);
         }
 
         .image-label {
@@ -761,7 +782,7 @@ export default function SeranoCafeCaseStudy() {
           margin-bottom: var(--space-md);
         }
 
-        .image-container.dark .image-label { color: #888; }
+        .image-container.dark .image-label { color: var(--text-tertiary); }
 
         .wireframe-insights {
           display: flex;
@@ -847,6 +868,7 @@ export default function SeranoCafeCaseStudy() {
           padding: 2px 8px;
           background: var(--bg-tertiary);
           border-radius: 4px;
+          border: 1px solid var(--border-subtle);
         }
 
         .persona-header p {
@@ -1257,7 +1279,7 @@ export default function SeranoCafeCaseStudy() {
         }
       `}</style>
 
-      <div className="container">
+      <div className="container" data-theme={theme}>
         <nav className="top-nav">
           <Link href="/" className="back-link">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -1877,12 +1899,12 @@ export default function SeranoCafeCaseStudy() {
             <div className="double-diamond-container">
               <svg viewBox="0 0 900 320" className="double-diamond-svg">
                 {/* Background diamonds */}
-                <path d="M50,160 L200,40 L350,160 L200,280 Z" fill="#e8eaf6" stroke="#1a1a6e" strokeWidth="2"/>
-                <path d="M350,160 L500,40 L650,160 L500,280 Z" fill="#e8eaf6" stroke="#1a1a6e" strokeWidth="2"/>
+                <path d="M50,160 L200,40 L350,160 L200,280 Z" fill="var(--serano-navy-light)" stroke="var(--serano-navy)" strokeWidth="2"/>
+                <path d="M350,160 L500,40 L650,160 L500,280 Z" fill="var(--serano-navy-light)" stroke="var(--serano-navy)" strokeWidth="2"/>
 
                 {/* Dev Handoff Arrow */}
-                <path d="M650,160 L850,160" stroke="#1a1a6e" strokeWidth="3" strokeDasharray="8,4"/>
-                <polygon points="850,160 830,150 830,170" fill="#1a1a6e"/>
+                <path d="M650,160 L850,160" stroke="var(--serano-navy)" strokeWidth="3" strokeDasharray="8,4"/>
+                <polygon points="850,160 830,150 830,170" fill="var(--serano-navy)"/>
 
                 {/* Phase Labels */}
                 <text x="125" y="160" textAnchor="middle" className="dd-phase-label">DISCOVER</text>
@@ -1894,27 +1916,27 @@ export default function SeranoCafeCaseStudy() {
 
                 {/* Activity dots and labels */}
                 {/* Discover */}
-                <circle cx="125" cy="100" r="6" fill="#1a1a6e"/>
+                <circle cx="125" cy="100" r="6" fill="var(--serano-navy)"/>
                 <text x="125" y="85" textAnchor="middle" className="dd-activity">Research</text>
-                <circle cx="175" cy="120" r="6" fill="#1a1a6e"/>
+                <circle cx="175" cy="120" r="6" fill="var(--serano-navy)"/>
                 <text x="175" y="105" textAnchor="middle" className="dd-activity">User Interviews</text>
 
                 {/* Define */}
-                <circle cx="275" cy="100" r="6" fill="#1a1a6e"/>
+                <circle cx="275" cy="100" r="6" fill="var(--serano-navy)"/>
                 <text x="275" y="85" textAnchor="middle" className="dd-activity">Journey Map</text>
-                <circle cx="325" cy="120" r="6" fill="#1a1a6e"/>
+                <circle cx="325" cy="120" r="6" fill="var(--serano-navy)"/>
                 <text x="325" y="105" textAnchor="middle" className="dd-activity">HMW Statement</text>
 
                 {/* Develop */}
-                <circle cx="425" cy="100" r="6" fill="#1a1a6e"/>
+                <circle cx="425" cy="100" r="6" fill="var(--serano-navy)"/>
                 <text x="425" y="85" textAnchor="middle" className="dd-activity">Wireframes</text>
-                <circle cx="475" cy="120" r="6" fill="#1a1a6e"/>
+                <circle cx="475" cy="120" r="6" fill="var(--serano-navy)"/>
                 <text x="475" y="105" textAnchor="middle" className="dd-activity">Prototypes</text>
 
                 {/* Deliver */}
-                <circle cx="575" cy="100" r="6" fill="#1a1a6e"/>
+                <circle cx="575" cy="100" r="6" fill="var(--serano-navy)"/>
                 <text x="575" y="85" textAnchor="middle" className="dd-activity">Hi-Fi Designs</text>
-                <circle cx="625" cy="120" r="6" fill="#1a1a6e"/>
+                <circle cx="625" cy="120" r="6" fill="var(--serano-navy)"/>
                 <text x="625" y="105" textAnchor="middle" className="dd-activity">User Testing</text>
 
                 {/* Bottom labels */}
@@ -1922,7 +1944,7 @@ export default function SeranoCafeCaseStudy() {
                 <text x="500" y="300" textAnchor="middle" className="dd-diamond-label">Solution Space</text>
 
                 {/* Handoff icon */}
-                <rect x="820" y="140" width="40" height="40" rx="8" fill="#1a1a6e"/>
+                <rect x="820" y="140" width="40" height="40" rx="8" fill="var(--serano-navy)"/>
                 <text x="840" y="167" textAnchor="middle" fill="white" fontSize="18">→</text>
               </svg>
             </div>

@@ -8,7 +8,7 @@ const projects = [
     title: "FontContext (Figma Plugin)",
     subtitle: "Context Aware Font Editor",
     image: "/assets/figma.mp4",
-    bgColor: "#e8f4f8",
+    bgColor: "#000000",
     href: "/fontcontext.html",
   },
   {
@@ -67,14 +67,13 @@ export default function ProjectGallery() {
   const frameRef = useRef<number | null>(null);
   const lastTsRef = useRef<number | null>(null);
   const manualPauseUntilRef = useRef(0);
-  const [isHovered, setIsHovered] = useState(false);
+  const isHoveredRef = useRef(false);
   const [fontContext, liquidMetallicButton, microsoftPaint, ...featureStack] = projects;
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Keep auto-scroll desktop-only. On touch/mobile this interferes with reading and tapping.
     const isTouchLike =
       window.matchMedia("(pointer: coarse)").matches ||
       window.matchMedia("(max-width: 767px)").matches;
@@ -93,7 +92,7 @@ export default function ProjectGallery() {
       }
 
       const hasOverflow = el.scrollHeight > el.clientHeight + 1;
-      if (!hasOverflow || isHovered || Date.now() < manualPauseUntilRef.current) {
+      if (!hasOverflow || isHoveredRef.current || Date.now() < manualPauseUntilRef.current) {
         lastTsRef.current = ts;
         frameRef.current = requestAnimationFrame(tick);
         return;
@@ -132,14 +131,14 @@ export default function ProjectGallery() {
       container.removeEventListener("touchmove", pauseForManualInput);
       container.removeEventListener("pointerdown", pauseForManualInput);
     };
-  }, [isHovered]);
+  }, []);
 
   return (
     <div
       ref={containerRef}
       className="md:h-full overflow-y-auto scrollbar-hide"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => { isHoveredRef.current = true; }}
+      onMouseLeave={() => { isHoveredRef.current = false; lastTsRef.current = null; }}
     >
       <div className="space-y-2.5 p-0">
         <ProjectCard {...fontContext} />

@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaArrowLeft } from "react-icons/fa";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function TDBankInterestClaimsCaseStudy() {
+  const { theme } = useTheme();
   const [activeSection, setActiveSection] = useState("overview");
   const [treeVisible, setTreeVisible] = useState(false);
 
@@ -41,15 +43,42 @@ export default function TDBankInterestClaimsCaseStudy() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-800 overflow-x-hidden max-w-[100vw]">
+    <div className="min-h-screen bg-white font-sans text-gray-800 overflow-x-hidden max-w-[100vw]" data-theme={theme}>
       <style jsx global>{`
+        [data-theme="dark"] {
+          --td-bg: #000000;
+          --td-card-bg: #171717;
+          --td-card-hover: #0F0F0F;
+          --td-card-border: #262626;
+          --td-text-primary: #f4f6f8;
+          --td-text-secondary: #8e98a8;
+          --td-border-subtle: #262626;
+          --td-nav-bg: rgba(0,0,0,0.9);
+          --td-nav-pills-bg: #171717;
+          --td-nav-pill-active-bg: #262626;
+          --td-image-container-bg: #171717;
+        }
+        [data-theme="light"] {
+          --td-bg: #fff;
+          --td-card-bg: #fff;
+          --td-card-hover: #fafafa;
+          --td-card-border: #e5e5e5;
+          --td-text-primary: #111;
+          --td-text-secondary: #666;
+          --td-border-subtle: #f0f0f0;
+          --td-nav-bg: rgba(255,255,255,0.9);
+          --td-nav-pills-bg: #f5f5f7;
+          --td-nav-pill-active-bg: #fff;
+          --td-image-container-bg: #f5f5f7;
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@300;400;450;500;600;700&display=swap');
 
         .td-nav-pills {
           display: flex;
           align-items: center;
           gap: 4px;
-          background: #f5f5f7;
+          background: var(--td-nav-pills-bg);
           padding: 4px;
           border-radius: 24px;
         }
@@ -58,7 +87,7 @@ export default function TDBankInterestClaimsCaseStudy() {
           padding: 8px 16px;
           font-size: 13px;
           font-weight: 500;
-          color: #666;
+          color: var(--td-text-secondary);
           background: transparent;
           border: none;
           border-radius: 20px;
@@ -68,7 +97,7 @@ export default function TDBankInterestClaimsCaseStudy() {
         }
 
         .td-nav-pill:hover {
-          color: #333;
+          color: var(--td-text-primary);
           background: rgba(255, 255, 255, 0.5);
         }
         .td-nav-pill:focus-visible {
@@ -77,8 +106,8 @@ export default function TDBankInterestClaimsCaseStudy() {
         }
 
         .td-nav-pill.active {
-          color: #111;
-          background: #fff;
+          color: var(--td-text-primary);
+          background: var(--td-nav-pill-active-bg);
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
@@ -90,7 +119,7 @@ export default function TDBankInterestClaimsCaseStudy() {
           font-weight: 600;
           letter-spacing: 1.5px;
           text-transform: uppercase;
-          color: #999;
+          color: var(--td-text-secondary);
           margin-bottom: 16px;
         }
 
@@ -98,14 +127,14 @@ export default function TDBankInterestClaimsCaseStudy() {
           font-size: 28px;
           font-weight: 600;
           line-height: 1.35;
-          color: #111;
+          color: var(--td-text-primary);
           margin-bottom: 24px;
           letter-spacing: -0.015em;
         }
 
         .td-section-text {
           font-size: 16px;
-          color: #666;
+          color: var(--td-text-secondary);
           line-height: 1.75;
           max-width: 720px;
           margin-bottom: 16px;
@@ -120,17 +149,17 @@ export default function TDBankInterestClaimsCaseStudy() {
         .td-key-insight p {
           font-size: 20px;
           font-style: italic;
-          color: #111;
+          color: var(--td-text-primary);
           line-height: 1.5;
           font-weight: 400;
         }
 
         .td-image-container {
-          background: #f5f5f7;
+          background: var(--td-image-container-bg);
           border-radius: 12px;
           padding: 32px;
           margin: 32px 0;
-          border: 1px solid #e5e5e5;
+          border: 1px solid var(--td-card-border);
           transition: border-color 0.2s;
         }
 
@@ -142,7 +171,7 @@ export default function TDBankInterestClaimsCaseStudy() {
           font-weight: 500;
           letter-spacing: 1px;
           text-transform: uppercase;
-          color: #999;
+          color: var(--td-text-secondary);
           margin-bottom: 16px;
         }
 
@@ -150,9 +179,9 @@ export default function TDBankInterestClaimsCaseStudy() {
           display: flex;
           gap: 16px;
           padding: 24px;
-          background: #fff;
-          border: 1px solid #e5e5e5;
-          border-radius: 12px;
+          background: var(--td-card-bg);
+          border: 1px solid var(--td-card-border);
+          border-radius: 4px;
           margin: 32px 0;
           transition: border-color 0.2s;
           align-items: center;
@@ -171,7 +200,7 @@ export default function TDBankInterestClaimsCaseStudy() {
         }
         .td-locked-content p {
           font-size: 14px;
-          color: #666;
+          color: var(--td-text-secondary);
           line-height: 1.65;
           margin: 0;
         }
@@ -187,9 +216,9 @@ export default function TDBankInterestClaimsCaseStudy() {
           gap: 16px;
           padding: 24px;
           margin-bottom: 16px;
-          background: #fff;
-          border: 1px solid #e5e5e5;
-          border-radius: 12px;
+          background: var(--td-card-bg);
+          border: 1px solid var(--td-card-border);
+          border-radius: 4px;
           transition: border-color 0.2s;
         }
 
@@ -211,20 +240,20 @@ export default function TDBankInterestClaimsCaseStudy() {
         .td-takeaway-content h4 {
           font-size: 14px;
           font-weight: 600;
-          color: #111;
+          color: var(--td-text-primary);
           margin-bottom: 4px;
         }
 
         .td-takeaway-content p {
           font-size: 14px;
-          color: #666;
+          color: var(--td-text-secondary);
           line-height: 1.65;
         }
 
         .td-footer {
           margin-top: 40px;
           padding-top: 40px;
-          border-top: 1px solid #f0f0f0;
+          border-top: 1px solid var(--td-border-subtle);
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -232,7 +261,7 @@ export default function TDBankInterestClaimsCaseStudy() {
 
         .td-footer-credit {
           font-size: 12px;
-          color: #999;
+          color: var(--td-text-secondary);
         }
 
         .td-footer-links {
@@ -242,7 +271,7 @@ export default function TDBankInterestClaimsCaseStudy() {
 
         .td-footer-links a {
           font-size: 12px;
-          color: #666;
+          color: var(--td-text-secondary);
           text-decoration: none;
           transition: opacity 0.2s;
         }
@@ -274,7 +303,7 @@ export default function TDBankInterestClaimsCaseStudy() {
           font-weight: 600;
           letter-spacing: 0.5px;
           text-transform: uppercase;
-          color: #999;
+          color: var(--td-text-secondary);
           text-decoration: none;
           padding: 4px 0;
           transition: color 0.2s;
@@ -285,7 +314,7 @@ export default function TDBankInterestClaimsCaseStudy() {
           outline: 2px solid #999;
           outline-offset: 2px;
         }
-        .tree-section.active > .tree-section-link { color: #111; }
+        .tree-section.active > .tree-section-link { color: var(--td-text-primary); }
 
         @media (max-width: 1200px) {
           .tree-nav { display: none; }
@@ -314,10 +343,16 @@ export default function TDBankInterestClaimsCaseStudy() {
           }
           .td-nav-pills::-webkit-scrollbar { display: none; }
         }
+
+        /* Dark mode overrides for Tailwind classes */
+        [data-theme="dark"] { background: var(--td-bg) !important; color: var(--td-text-primary) !important; }
+        [data-theme="dark"] .text-gray-400 { color: var(--td-text-secondary) !important; }
+        [data-theme="dark"] .text-gray-600 { color: var(--td-text-secondary) !important; }
+        [data-theme="dark"] .text-black { color: var(--td-text-primary) !important; }
       `}</style>
 
       {/* Fixed Header with Pill Navigation */}
-      <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
+      <header className="fixed top-0 left-0 right-0 backdrop-blur-md z-50 border-b" style={{ background: 'var(--td-nav-bg)', borderColor: 'var(--td-border-subtle)' }}>
         <div className="td-header-inner max-w-6xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
           <Link href="/" className="td-back-link-wrapper flex items-center gap-2 text-sm hover:opacity-70 transition-opacity">
             <FaArrowLeft className="w-3 h-3" />

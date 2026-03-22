@@ -31,6 +31,7 @@ export default function ProjectCard({ title, subtitle, tag, rightLabel, image, b
               loop
               muted
               playsInline
+              poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
               className="absolute inset-0 w-full h-full object-cover object-center scale-[1.01]"
             />
           ) : (

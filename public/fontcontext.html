@@ -308,25 +308,14 @@
     /* Hero Image */
     .hero-image {
       width: 100%;
-      background: transparent;
-      border-radius: 0;
+      background: #000;
+      border-radius: var(--radius-sm);
       padding: 0;
       margin-bottom: var(--space-xl);
       display: block;
       height: 420px;
       overflow: hidden;
       position: relative;
-    }
-    .hero-image .hero-poster {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: var(--radius-sm);
-      z-index: 1;
-      transition: opacity 0.3s ease;
     }
     .hero-image video {
       position: absolute;
@@ -840,12 +829,23 @@
       font-weight: 600;
       color: var(--text-primary);
       margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .column h3 .bolt-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: var(--figma-blue);
     }
 
     .column p {
       font-size: var(--font-small);
       color: var(--text-secondary);
       line-height: 1.7;
+      margin-bottom: 0;
     }
 
     /* Two Bar section: intro row (text left, image right, no frame) + 3-column attempts */
@@ -889,25 +889,25 @@
     .two-bar-attempts-grid .two-bar-attempt:nth-child(1),
     .two-bar-attempts-grid .two-bar-attempt:nth-child(2) {
       opacity: 0.72;
-      background: #f8f8f8;
+      background: var(--bg-secondary);
     }
     .two-bar-attempts-grid .two-bar-attempt:nth-child(1) .attempt-visual,
     .two-bar-attempts-grid .two-bar-attempt:nth-child(2) .attempt-visual {
-      background: #eee;
-      color: #999;
+      background: var(--bg-tertiary);
+      color: var(--text-tertiary);
     }
     .two-bar-attempts-grid .two-bar-attempt:nth-child(1) h3,
     .two-bar-attempts-grid .two-bar-attempt:nth-child(2) h3 {
-      color: #888;
+      color: var(--text-tertiary);
     }
     .two-bar-attempts-grid .two-bar-attempt:nth-child(1) .attempt-summary,
     .two-bar-attempts-grid .two-bar-attempt:nth-child(1) .attempt-body,
     .two-bar-attempts-grid .two-bar-attempt:nth-child(2) .attempt-summary,
     .two-bar-attempts-grid .two-bar-attempt:nth-child(2) .attempt-body {
-      color: #999;
+      color: var(--text-tertiary);
     }
     .two-bar-attempts-grid .two-bar-attempt:nth-child(3) {
-      background: #fff;
+      background: var(--bg-primary);
       border-color: var(--border-subtle, #e0e0e0);
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
@@ -965,7 +965,7 @@
     }
 
     .image-container:hover {
-      border-color: var(--figma-blue);
+      border-color: var(--border-subtle, #d0d0d0);
     }
 
     .image-container.dark {
@@ -1091,7 +1091,7 @@
     }
 
     .comparison-item:hover {
-      border-color: var(--figma-blue);
+      border-color: var(--border-subtle, #d0d0d0);
     }
 
     .comparison-item h4 {
@@ -1127,7 +1127,7 @@
     }
 
     .metric-item:hover {
-      border-color: var(--figma-blue);
+      border-color: var(--border-subtle, #d0d0d0);
     }
 
     .metric-icon {
@@ -1164,14 +1164,14 @@
       gap: var(--space-md);
       padding: var(--space-lg);
       margin-bottom: var(--space-md);
-      background: var(--bg-primary);
+      background: var(--bg-tertiary);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-md);
       transition: all 0.2s ease;
     }
 
     .decision-item:hover {
-      border-color: var(--figma-blue);
+      border-color: var(--border-subtle);
     }
 
     .decision-item:last-child {
@@ -1425,7 +1425,7 @@
     }
 
     .story-block:hover {
-      border-color: var(--figma-blue);
+      border-color: var(--border-subtle, #d0d0d0);
     }
 
     .story-block .story-icon {
@@ -1480,7 +1480,7 @@
     }
 
     .quote-card.insight:hover {
-      border-color: var(--figma-blue);
+      border-color: var(--border-subtle, #d0d0d0);
     }
 
     .quote-card .speaker {
@@ -1536,7 +1536,7 @@
     }
 
     .footer-links a:hover {
-      color: var(--figma-blue);
+      color: var(--text-primary);
     }
 
     /* Skip Buttons */
@@ -1620,7 +1620,7 @@
     }
 
     .hmw-statement:hover {
-      border-color: var(--figma-blue);
+      border-color: var(--border-subtle, #d0d0d0);
     }
 
     .hmw-statement p {
@@ -1907,7 +1907,104 @@
         display: none;
       }
     }
+    /* Dark theme overrides */
+    [data-theme="dark"] {
+      --text-primary: #f4f6f8;
+      --text-secondary: #8e98a8;
+      --text-tertiary: #6b7280;
+      --bg-primary: #000000;
+      --bg-secondary: #0a0a0a;
+      --bg-tertiary: #171717;
+      --border-light: #262626;
+      --border-subtle: #1a1a1a;
+      --figma-blue-light: rgba(12, 140, 233, 0.15);
+    }
+
+    [data-theme="dark"] body {
+      background: #000000;
+      color: #f4f6f8;
+    }
+
+    [data-theme="dark"] .top-nav {
+      background: rgba(0, 0, 0, 0.85);
+      border-bottom-color: #262626;
+    }
+
+    [data-theme="dark"] .sidebar {
+      border-right-color: #262626;
+    }
+
+    [data-theme="dark"] .nav-item {
+      color: #8e98a8;
+    }
+
+    [data-theme="dark"] .nav-item:hover,
+    [data-theme="dark"] .nav-item.active {
+      color: #f4f6f8;
+    }
+
+    [data-theme="dark"] .section-header {
+      color: #f4f6f8;
+    }
+
+    [data-theme="dark"] .back-link {
+      color: #8e98a8;
+    }
+
+    [data-theme="dark"] .back-link:hover {
+      color: #f4f6f8;
+    }
+
+    [data-theme="dark"] img {
+      opacity: 0.92;
+    }
+
+    [data-theme="dark"] .decision-item {
+      background: linear-gradient(145deg, #1C1C1E, #1a1a1f);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    [data-theme="dark"] .decision-item:hover {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="dark"] .decision-icon {
+      background: rgba(12, 140, 233, 0.12);
+    }
+
+    [data-theme="dark"] .two-bar-attempt {
+      background: linear-gradient(145deg, #1C1C1E, #1a1a1f);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    [data-theme="dark"] .two-bar-attempt:hover {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="dark"] .two-bar-attempts-grid .two-bar-attempt:nth-child(1),
+    [data-theme="dark"] .two-bar-attempts-grid .two-bar-attempt:nth-child(2) {
+      background: linear-gradient(145deg, #151517, #141418);
+      opacity: 0.6;
+    }
+
+    [data-theme="dark"] .two-bar-attempts-grid .two-bar-attempt:nth-child(3) {
+      background: linear-gradient(145deg, #1C1C1E, #1a1a1f);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
   </style>
+  <script>
+    // Sync theme from homepage before paint
+    (function() {
+      var theme = localStorage.getItem('portfolio-theme');
+      if (!theme) {
+        theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
 <body>
   <div class="container">
@@ -2048,24 +2145,12 @@
       <p class="project-meta">FontContext · Shipped 2026</p>
       <h1 class="project-title">The Context Aware<br>Font Editor for Figma</h1>
 
-      <!-- Hero Image (poster shows until video loads) -->
+      <!-- Hero Video (black background shows until video loads) -->
       <div class="hero-image">
-        <img src="/assets/The Live Preview Engine.png" alt="FontContext live preview" class="hero-poster" id="hero-poster" />
         <video autoplay loop muted playsinline id="hero-video">
           <source src="/assets/figma.mp4" type="video/mp4">
         </video>
       </div>
-      <script>
-        (function() {
-          var video = document.getElementById('hero-video');
-          var poster = document.getElementById('hero-poster');
-          if (video && poster) {
-            video.addEventListener('playing', function() {
-              poster.style.opacity = '0';
-            });
-          }
-        })();
-      </script>
 
       <!-- Project Info -->
       <div class="project-info">
@@ -2116,8 +2201,11 @@
 
         <div class="feature-showcase reverse">
           <div class="feature-image" style="border: none; background: transparent;">
-            <div class="image-placeholder" style="width: 100%; height: auto; min-height: 260px;">
-              <img src="/assets/The Live Preview Engine.png" alt="Before/After comparison: Search Mode showing font names vs Preview Mode showing text rendered in each font" style="width: 100%; height: auto;" />
+            <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: var(--space-sm); display: flex; align-items: center; justify-content: center; background: #000;">
+              <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm);">
+                <source src="/assets/figma.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
             </div>
           </div>
           <div class="feature-text">
@@ -2488,8 +2576,8 @@
               </svg>
             </div>
             <h3>Two labeled inputs</h3>
-            <p class="attempt-summary">"Search fonts" on top, "Preview text" below. Same affordance, same action.</p>
-            <p class="attempt-body">Users asked which one to type in. Ambiguous affordances (Don Norman). Good UI makes the next action obvious; this didn't. Unnecessary cognitive load.</p>
+            <p class="attempt-summary">Search on top, preview below. Same affordance, same action.</p>
+            <p class="attempt-body">Users asked which one to type in. Ambiguous affordances. Good UI makes the next action obvious  - this didn't.</p>
           </div>
           <div class="two-bar-attempt">
             <div class="attempt-visual" aria-hidden="true">
@@ -2500,8 +2588,8 @@
               </svg>
             </div>
             <h3>Two inputs</h3>
-            <p class="attempt-summary">Search on the left, preview dropdown on the right. User still sees two text inputs side by side.</p>
-            <p class="attempt-body">Same confusion as stacking them. Two inputs, same affordance. Still taxing mental load.</p>
+            <p class="attempt-summary">Search left, preview dropdown right. Still two text inputs side by side.</p>
+            <p class="attempt-body">Same confusion, different layout. Two inputs, same affordance. Still taxing mental load.</p>
           </div>
           <div class="two-bar-attempt">
             <div class="attempt-visual" aria-hidden="true">
@@ -2552,34 +2640,36 @@
 
         <div class="two-column">
           <div class="column">
-            <h3>Junior Designers (4 people)</h3>
-            <p>Didn't know what fonts existed. They needed to browse, discover, see options rendered. Recognition over recall was everything, they couldn't remember what fonts looked like because they'd never used them before. One junior told me: "I'm trying to envision my brand in this font, but I can't see it. So I'm just guessing."</p>
+            <h3><svg class="bolt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Junior Designers <span style="color: var(--text-tertiary); font-weight: 400;">(4 people)</span></h3>
+            <p>Didn't know what fonts existed. They needed to browse, discover, see options rendered. Recognition over recall was everything  - they couldn't remember what fonts looked like because they'd never used them before.</p>
+            <p style="margin-top: var(--space-sm); font-style: italic; color: var(--text-tertiary);">"I'm trying to envision my brand in this font, but I can't see it. So I'm just guessing."</p>
           </div>
           <div class="column">
-            <h3>Mid level Designers (4 people)</h3>
-            <p>Already had favorites. They wanted to search fast, curate a personal library, build their own type foundry over time. One midlevel designer, Sarah, a senior product designer at a startup, said: "I usually know which fonts I want. But I still have to scroll through Figma's list to find them. And sometimes I'm just exploring, and I don't want to commit by typing a name into the search bar. This feels... less risky. I can just browse."</p>
+            <h3><svg class="bolt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Mid-level Designers <span style="color: var(--text-tertiary); font-weight: 400;">(4 people)</span></h3>
+            <p>Already had favorites. They wanted to search fast, curate a personal library, build their own type foundry over time.</p>
+            <p style="margin-top: var(--space-sm); font-style: italic; color: var(--text-tertiary);">"I usually know which fonts I want. But I still have to scroll through Figma's list to find them. This feels... less risky. I can just browse."</p>
           </div>
         </div>
 
         <div class="two-column">
           <div class="column">
-            <h3>Engineers (2 people)</h3>
-            <p>Were updating UI copy. They didn't care about typography theory. One engineer told me: "I don't care about typography. I just need something that doesn't look terrible so I can move on." They just needed to pick something decent and ship.</p>
+            <h3><svg class="bolt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Engineers <span style="color: var(--text-tertiary); font-weight: 400;">(2 people)</span></h3>
+            <p>Were updating UI copy. Didn't care about typography theory. Just needed to pick something decent and ship.</p>
+            <p style="margin-top: var(--space-sm); font-style: italic; color: var(--text-tertiary);">"I don't care about typography. I just need something that doesn't look terrible so I can move on."</p>
           </div>
           <div class="column">
-            <h3>PMs and Founders (2 people)</h3>
-            <p>Surprised me most. One PM said: "I have thirty minutes. I just need a font that doesn't look terrible. I don't want to become a typography expert."</p>
+            <h3><svg class="bolt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>PMs &amp; Founders <span style="color: var(--text-tertiary); font-weight: 400;">(2 people)</span></h3>
+            <p>Surprised me most. Just needed a font that doesn't look terrible in thirty minutes. No desire to become typography experts.</p>
+            <p style="margin-top: var(--space-sm); font-style: italic; color: var(--text-tertiary);">"I have thirty minutes. I just need a font that doesn't look terrible. I don't want to become a typography expert."</p>
           </div>
         </div>
 
         <p class="section-text" style="margin-top: var(--space-xl);">That reframed everything.</p>
 
-        <div class="numbered-feature">
+        <div class="numbered-feature" style="margin-top: var(--space-xl);">
           <h3>This Isn't a "Junior Designer Problem"</h3>
-          <p>Some might say "font selection is a junior designer problem." That misses the point.</p>
-          <p>High frequency, real friction = not a junior problem.</p>
-          <p>Every designer, junior, senior, staff, picks fonts. Multiple times per project. For years. The friction compounds. A junior designer wastes 30 minutes because they don't know font names yet. A senior designer wastes 10 minutes because they're exploring outside their usual favorites. An engineer wastes 5 minutes because they just need something decent to ship.</p>
-          <p>The problem scales with everyone. The solution needed to work for everyone.</p>
+          <p>Some might say font selection is a junior problem. That misses the point. Every designer  - junior, senior, staff  - picks fonts multiple times per project, for years. The friction compounds.</p>
+          <p>A junior wastes 30 minutes because they don't know font names. A senior wastes 10 because they're exploring outside favorites. An engineer wastes 5 because they just need something decent to ship. High frequency, real friction. The problem scales with everyone  - the solution needed to work for everyone.</p>
         </div>
 
         <div class="key-insight">
@@ -2769,9 +2859,9 @@
           <p>That's the taste moment. When the interface stops being designed and starts being inevitable. When you can't imagine moving anything without breaking the whole thing. You can't plan for this. You can't force it. You just stay in the work long enough until it happens.</p>
         </div>
 
-        <div class="image-container dark">
+        <div class="image-container" style="background: #fff; border-color: var(--border-light);">
           <p class="image-label">Final UI: Dark Mode</p>
-          <div class="image-placeholder" style="height: auto; background: #F5F5F7;">
+          <div class="image-placeholder" style="height: auto; background: #fff;">
             <img src="/assets/darkmode.png" alt="FontContext dark mode interface" style="width: 100%; height: auto; display: block; border-radius: var(--radius-sm);">
           </div>
         </div>

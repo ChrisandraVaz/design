@@ -3,6 +3,7 @@
 interface Experience {
   company: string;
   role: string;
+  year?: string;
 }
 
 interface WorkExperienceProps {
@@ -23,7 +24,7 @@ export default function WorkExperience({ title, experiences }: WorkExperiencePro
             {/* Company name - 14px */}
             <span className="text-[14px] font-normal min-w-[70px] text-[var(--portfolio-heading)]">{exp.company}</span>
             {/* Role - 14px */}
-            <span className="text-[14px] text-[var(--portfolio-muted)]">{exp.role}</span>
+            <span className="text-[14px] text-[var(--portfolio-muted)]">{exp.role}{exp.year && ` ${exp.year}`}</span>
           </div>
         ))}
       </div>

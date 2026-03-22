@@ -1,6 +1,6 @@
 "use client";
 
-import { FaLinkedinIn, FaInstagram } from "react-icons/fa";
+import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
 export default function SocialLinks() {
@@ -25,13 +25,13 @@ export default function SocialLinks() {
         <FaXTwitter className="w-4 h-4" />
       </a>
       <a
-        href="https://www.instagram.com/chrisan_12/"
+        href="https://github.com/ChrisandraVaz"
         target="_blank"
         rel="noopener noreferrer"
         className="social-btn"
-        aria-label="Instagram"
+        aria-label="GitHub"
       >
-        <FaInstagram className="w-4 h-4" />
+        <FaGithub className="w-4 h-4" />
       </a>
     </div>
   );

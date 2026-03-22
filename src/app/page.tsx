@@ -101,7 +101,7 @@ export default function Home() {
 
   useEffect(() => {
     const showTimer = setTimeout(() => setShowPencilIntro(true), 180);
-    const hideTimer = setTimeout(() => setShowPencilIntro(false), 2600);
+    const hideTimer = setTimeout(() => setShowPencilIntro(false), 14000);
     return () => {
       clearTimeout(showTimer);
       clearTimeout(hideTimer);

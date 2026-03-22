@@ -67,12 +67,12 @@ export default function SeranoCafeCaseStudy() {
           --light-purple: #f3e8ff;
           --light-purple-border: #e9d5ff;
           --text-primary: #111;
-          --text-secondary: #666;
-          --text-tertiary: #999;
+          --text-secondary: #555555;
+          --text-tertiary: #888888;
           --bg-primary: #fff;
           --bg-secondary: #fafafa;
           --bg-tertiary: #f5f5f7;
-          --border-light: #e5e5e5;
+          --border-light: #F0F0F0;
           --border-subtle: #f0f0f0;
           --font-hero: 48px;
           --font-section: 28px;
@@ -89,19 +89,19 @@ export default function SeranoCafeCaseStudy() {
           --space-2xl: 48px;
           --space-3xl: 64px;
           --radius-sm: 8px;
-          --radius-md: 12px;
+          --radius-md: 4px;
         }
 
         [data-theme="dark"] {
           --text-primary: #f4f6f8;
-          --text-secondary: #8e98a8;
-          --text-tertiary: #8e98a8;
+          --text-secondary: #a0a0a0;
+          --text-tertiary: #737373;
           --bg-primary: #000000;
           --bg-secondary: #0F0F0F;
           --bg-tertiary: #171717;
           --border-light: #262626;
           --border-subtle: #262626;
-          --serano-navy: #8b8bff;
+          --serano-navy: #A78BFA;
           --serano-navy-light: #171717;
           --serano-navy-50: rgba(139, 139, 255, 0.15);
           --serano-gold: #d4b872;
@@ -765,7 +765,6 @@ export default function SeranoCafeCaseStudy() {
           margin-bottom: var(--space-md);
         }
 
-        .image-container:hover { border-color: var(--border-light); }
 
         .image-container.dark {
           background: var(--bg-tertiary);
@@ -913,16 +912,12 @@ export default function SeranoCafeCaseStudy() {
           background: var(--bg-primary);
           border: 1px solid var(--border-light);
           border-radius: var(--radius-md);
-          transition: border-color 0.2s;
         }
-
-        .decision-card:hover { border-color: var(--border-light); }
 
         .decision-icon {
           width: 44px;
           height: 44px;
-          background: var(--serano-navy-light);
-          border-radius: var(--radius-sm);
+          background: none;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1012,14 +1007,8 @@ export default function SeranoCafeCaseStudy() {
           background: var(--bg-primary);
           border: 1px solid var(--border-light);
           border-radius: var(--radius-md);
-          transition: border-color 0.2s;
           text-decoration: none;
           color: inherit;
-        }
-
-        .result-card:hover { 
-          border-color: var(--border-light);
-          text-decoration: none;
         }
 
         .goals-list {
@@ -1050,6 +1039,7 @@ export default function SeranoCafeCaseStudy() {
           justify-content: center;
           margin-top: 4px;
           flex-shrink: 0;
+          color: var(--serano-navy);
         }
 
         .check-icon svg {
@@ -1062,8 +1052,7 @@ export default function SeranoCafeCaseStudy() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: var(--serano-navy-light);
-          border-radius: var(--radius-sm);
+          background: none;
           color: var(--serano-navy);
           flex-shrink: 0;
         }
@@ -1393,7 +1382,7 @@ export default function SeranoCafeCaseStudy() {
             </div>
             <div className="info-item">
               <h4>Team</h4>
-              <p>Solo, collaborating with cafe owners</p>
+              <p>1 Designer, 1 Dev (collaborating with cafe owners)</p>
             </div>
             <div className="info-item">
               <h4>Context</h4>
@@ -1860,27 +1849,23 @@ export default function SeranoCafeCaseStudy() {
             </div>
 
             <h3 id="high-fidelity-prototype" className="subsection-header">High Fidelity Prototype</h3>
-            <div className="image-container prototype-pill-container">
-              <div className="results-grid">
-                <a
-                  href="https://www.figma.com/proto/iBo2ULQN0z6sS1nr6TZspL/serano-cafe?node-id=224-303&t=ar2msyQf8Qe6pXDV-1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="result-card"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <div className="result-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/>
-                      <path d="M14.06 6.19l2.12-2.12a2 2 0 0 1 2.83 0l1.06 1.06a2 2 0 0 1 0 2.83l-2.12 2.12"/>
-                    </svg>
-                  </div>
-                  <div className="result-content">
-                    <h4>Click to see prototype</h4>
-                  </div>
-                </a>
+            <a
+              href="https://www.figma.com/proto/iBo2ULQN0z6sS1nr6TZspL/serano-cafe?node-id=224-303&t=ar2msyQf8Qe6pXDV-1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="result-card"
+              style={{ textDecoration: 'none' }}
+            >
+              <div className="result-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/>
+                  <path d="M14.06 6.19l2.12-2.12a2 2 0 0 1 2.83 0l1.06 1.06a2 2 0 0 1 0 2.83l-2.12 2.12"/>
+                </svg>
               </div>
-            </div>
+              <div className="result-content">
+                <h4>Click to see prototype</h4>
+              </div>
+            </a>
           </section>
 
           {/* Results Section */}

@@ -68,7 +68,7 @@ export default function IBMAccelerateCaseStudy() {
           --ibm-card-hover: #0F0F0F;
           --ibm-card-border: #262626;
           --ibm-text-primary: #f4f6f8;
-          --ibm-text-secondary: #8e98a8;
+          --ibm-text-secondary: #a0a0a0;
           --ibm-border-subtle: #262626;
           --ibm-nav-bg: #000000;
           --ibm-nav-pills-bg: #171717;
@@ -76,15 +76,12 @@ export default function IBMAccelerateCaseStudy() {
         }
         [data-theme="dark"] .ibm-highlight-icon,
         [data-theme="dark"] .ibm-locked-icon {
-          background: rgba(255,255,255,0.06);
-          color: #4da6e8;
+          background: none;
+          color: #47B5FF;
         }
         [data-theme="dark"] .ibm-tag {
           background: rgba(255,255,255,0.06);
-          color: #8e98a8;
-        }
-        [data-theme="dark"] .ibm-tag:hover {
-          background: rgba(255,255,255,0.10);
+          color: #a0a0a0;
         }
         [data-theme="light"] {
           --ibm-bg: #fff;
@@ -92,7 +89,7 @@ export default function IBMAccelerateCaseStudy() {
           --ibm-card-hover: #fafafa;
           --ibm-card-border: #e5e5e5;
           --ibm-text-primary: #111;
-          --ibm-text-secondary: #666;
+          --ibm-text-secondary: #555555;
           --ibm-border-subtle: #f0f0f0;
           --ibm-nav-bg: #fff;
           --ibm-nav-pills-bg: #f5f5f7;
@@ -129,7 +126,7 @@ export default function IBMAccelerateCaseStudy() {
         .ibm-main-content > * { width: 100%; max-width: 880px; }
 
         .ibm-project-meta { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--ibm-text-secondary); text-transform: uppercase; margin-bottom: 16px; }
-        .ibm-project-title { font-family: 'Instrument Sans', 'Inter', -apple-system, sans-serif; font-size: 48px; font-weight: 600; line-height: 1.08; color: var(--ibm-text-primary); margin-bottom: 16px; letter-spacing: -0.03em; }
+        .ibm-project-title { font-family: 'Instrument Sans', 'Inter', -apple-system, sans-serif; font-size: 58px; font-weight: 600; line-height: 1.08; color: var(--ibm-text-primary); margin-bottom: 16px; letter-spacing: -0.03em; }
         .ibm-project-subtitle { font-size: 16px; color: var(--ibm-text-secondary); line-height: 1.75; margin-bottom: 48px; max-width: 720px; }
 
         .ibm-hero-image { width: 100%; background: #0052ff; border-radius: 4px; padding: 0; margin-bottom: 48px; display: block; height: 420px; overflow: hidden; position: relative; }
@@ -155,18 +152,16 @@ export default function IBMAccelerateCaseStudy() {
         .ibm-key-insight .ibm-quote-author { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-style: normal; font-weight: 600; color: var(--ibm-text-secondary); letter-spacing: 0.5px; margin-top: 12px; display: block; }
 
         /* Locked card */
-        .ibm-locked-card { display: flex; gap: 16px; padding: 24px; background: var(--ibm-card-bg); border: 1px solid var(--ibm-card-border); border-radius: 4px; margin: 32px 0; transition: border-color 0.2s; align-items: center; }
-        .ibm-locked-card:hover { border-color: var(--ibm-text-secondary); }
-        .ibm-locked-icon { width: 44px; height: 44px; background: #E8F4FD; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #0C8CE9; flex-shrink: 0; }
+        .ibm-locked-card { display: flex; gap: 16px; padding: 24px; background: var(--ibm-card-bg); border: 1px solid var(--ibm-card-border); border-radius: 4px; margin: 32px 0; align-items: center; }
+        .ibm-locked-icon { width: 44px; height: 44px; background: none; display: flex; align-items: center; justify-content: center; color: #0C8CE9; flex-shrink: 0; font-size: 58px; }
         .ibm-locked-content p { font-size: 14px; color: var(--ibm-text-secondary); line-height: 1.65; margin: 0; }
         .ibm-locked-content a { color: #0C8CE9; text-decoration: none; font-weight: 500; }
         .ibm-locked-content a:hover { text-decoration: underline; }
 
         /* Highlight cards */
-        .ibm-highlight-item { display: flex; gap: 16px; padding: 24px; margin-bottom: 16px; background: var(--ibm-card-bg); border: 1px solid var(--ibm-card-border); border-radius: 4px; transition: border-color 0.2s; }
-        .ibm-highlight-item:hover { border-color: var(--ibm-text-secondary); }
+        .ibm-highlight-item { display: flex; gap: 16px; padding: 24px; margin-bottom: 16px; background: var(--ibm-card-bg); border: 1px solid var(--ibm-card-border); border-radius: 4px; }
         .ibm-highlight-item:last-child { margin-bottom: 0; }
-        .ibm-highlight-icon { width: 44px; height: 44px; background: #E8F4FD; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #0C8CE9; flex-shrink: 0; }
+        .ibm-highlight-icon { width: 44px; height: 44px; background: none; display: flex; align-items: center; justify-content: center; color: #0C8CE9; flex-shrink: 0; font-size: 58px; }
         .ibm-highlight-content h4 { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 14px; font-weight: 600; color: var(--ibm-text-primary); margin-bottom: 4px; }
         .ibm-highlight-content p { font-size: 14px; color: var(--ibm-text-secondary); line-height: 1.65; }
 
@@ -280,7 +275,7 @@ export default function IBMAccelerateCaseStudy() {
           {/* Locked Card */}
           <div className="ibm-locked-card">
             <div className="ibm-locked-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
               </svg>
@@ -327,7 +322,7 @@ export default function IBMAccelerateCaseStudy() {
             <div>
               <div className="ibm-highlight-item">
                 <div className="ibm-highlight-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="3" width="7" height="7"></rect>
                     <rect x="14" y="3" width="7" height="7"></rect>
                     <rect x="14" y="14" width="7" height="7"></rect>
@@ -342,7 +337,7 @@ export default function IBMAccelerateCaseStudy() {
 
               <div className="ibm-highlight-item">
                 <div className="ibm-highlight-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                     <circle cx="9" cy="7" r="4"></circle>
                     <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -357,7 +352,7 @@ export default function IBMAccelerateCaseStudy() {
 
               <div className="ibm-highlight-item">
                 <div className="ibm-highlight-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
                     <path d="M2 17l10 5 10-5"></path>
                     <path d="M2 12l10 5 10-5"></path>
@@ -371,7 +366,7 @@ export default function IBMAccelerateCaseStudy() {
 
               <div className="ibm-highlight-item">
                 <div className="ibm-highlight-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
                   </svg>
                 </div>
@@ -383,7 +378,7 @@ export default function IBMAccelerateCaseStudy() {
 
               <div className="ibm-highlight-item">
                 <div className="ibm-highlight-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                   </svg>
                 </div>

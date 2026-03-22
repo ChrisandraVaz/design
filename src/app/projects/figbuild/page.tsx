@@ -49,8 +49,8 @@ export default function FigBuildCaseStudyPage() {
           --fb-bg: #000000;
           --fb-wrap-bg: #000000;
           --fb-text-primary: #f4f6f8;
-          --fb-text-secondary: #8e98a8;
-          --fb-text-muted: #8e98a8;
+          --fb-text-secondary: #a0a0a0;
+          --fb-text-muted: #a0a0a0;
           --fb-card-bg: #171717;
           --fb-card-border: #262626;
           --fb-card-hover: #0F0F0F;
@@ -75,8 +75,8 @@ export default function FigBuildCaseStudyPage() {
           --fb-bg: #fff;
           --fb-wrap-bg: #fff;
           --fb-text-primary: #111;
-          --fb-text-secondary: #666;
-          --fb-text-muted: #7f8ea3;
+          --fb-text-secondary: #555555;
+          --fb-text-muted: #888888;
           --fb-card-bg: #fff;
           --fb-card-border: #e5e5e5;
           --fb-card-hover: #fafafa;

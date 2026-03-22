@@ -51,7 +51,7 @@ export default function TDBankInterestClaimsCaseStudy() {
           --td-card-hover: #0F0F0F;
           --td-card-border: #262626;
           --td-text-primary: #f4f6f8;
-          --td-text-secondary: #8e98a8;
+          --td-text-secondary: #a0a0a0;
           --td-border-subtle: #262626;
           --td-nav-bg: rgba(0,0,0,0.9);
           --td-nav-pills-bg: #171717;
@@ -64,7 +64,7 @@ export default function TDBankInterestClaimsCaseStudy() {
           --td-card-hover: #fafafa;
           --td-card-border: #e5e5e5;
           --td-text-primary: #111;
-          --td-text-secondary: #666;
+          --td-text-secondary: #555555;
           --td-border-subtle: #f0f0f0;
           --td-nav-bg: rgba(255,255,255,0.9);
           --td-nav-pills-bg: #f5f5f7;

@@ -3,41 +3,14 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTheme } from "@/hooks/useTheme";
 
 const sections = ["overview", "problem", "solution"] as const;
 type SectionId = (typeof sections)[number];
-const demoTabs = [
-  {
-    id: "foundation",
-    label: "System Foundation",
-    title: "01 System foundation",
-    description: "Figma Design Advocate defined the modular building blocks and baseline rules to keep outputs consistent.",
-  },
-  {
-    id: "adaptation",
-    label: "Local Adaptation",
-    title: "02 Local adaptation",
-    description: "Adjust copy and hierarchy for each campus while preserving the core structure.",
-  },
-  {
-    id: "variant",
-    label: "Variant Strategy",
-    title: "03 Variant strategy",
-    description: "Generate reusable post variants for event types, updates, and announcements.",
-  },
-  {
-    id: "handoff",
-    label: "Production Handoff",
-    title: "04 Production handoff",
-    description: "Package final assets with guidance so teams can publish quickly across channels with predictable quality.",
-  },
-] as const;
-type DemoId = (typeof demoTabs)[number]["id"];
 
 export default function FigBuildCaseStudyPage() {
+  const { theme } = useTheme();
   const [activeSection, setActiveSection] = useState<SectionId>("overview");
-  const [activeDemo, setActiveDemo] = useState<DemoId>("handoff");
-  const activeDemoData = demoTabs.find((tab) => tab.id === activeDemo) ?? demoTabs[3];
 
   const updateActiveSection = useCallback(() => {
     let current: SectionId = "overview";
@@ -70,14 +43,67 @@ export default function FigBuildCaseStudyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0f14] text-[#e8edf4]">
+    <div className="min-h-screen bg-[#0b0f14] text-[#e8edf4]" data-theme={theme}>
       <style jsx global>{`
+        [data-theme="dark"] {
+          --fb-bg: #000000;
+          --fb-wrap-bg: #000000;
+          --fb-text-primary: #f4f6f8;
+          --fb-text-secondary: #8e98a8;
+          --fb-text-muted: #8e98a8;
+          --fb-card-bg: #171717;
+          --fb-card-border: #262626;
+          --fb-card-hover: #0F0F0F;
+          --fb-nav-bg: #000000;
+          --fb-nav-border: #262626;
+          --fb-pills-bg: #171717;
+          --fb-pills-border: #262626;
+          --fb-pill-active-bg: #262626;
+          --fb-pill-active-color: #f4f6f8;
+          --fb-hero-bg: #171717;
+          --fb-hero-border: #262626;
+          --fb-demo-bg: #0F0F0F;
+          --fb-demo-border: #262626;
+          --fb-demo-tabs-bg: #171717;
+          --fb-demo-tab-bg: #171717;
+          --fb-demo-tab-border: #262626;
+          --fb-demo-body-bg: #0F0F0F;
+          --fb-alert-bg: #171717;
+          --fb-alert-border: #262626;
+        }
+        [data-theme="light"] {
+          --fb-bg: #fff;
+          --fb-wrap-bg: #fff;
+          --fb-text-primary: #111;
+          --fb-text-secondary: #666;
+          --fb-text-muted: #7f8ea3;
+          --fb-card-bg: #fff;
+          --fb-card-border: #e5e5e5;
+          --fb-card-hover: #fafafa;
+          --fb-nav-bg: #fff;
+          --fb-nav-border: #f0f0f0;
+          --fb-pills-bg: #f5f5f7;
+          --fb-pills-border: #e5e5e5;
+          --fb-pill-active-bg: #fff;
+          --fb-pill-active-color: #111;
+          --fb-hero-bg: #f5f5f7;
+          --fb-hero-border: #e5e5e5;
+          --fb-demo-bg: #f5f5f7;
+          --fb-demo-border: #e5e5e5;
+          --fb-demo-tabs-bg: #f5f5f7;
+          --fb-demo-tab-bg: #fff;
+          --fb-demo-tab-border: #e5e5e5;
+          --fb-demo-body-bg: #fafafa;
+          --fb-alert-bg: #f5f5f7;
+          --fb-alert-border: #e5e5e5;
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
         .fb-wrap {
           min-height: 100vh;
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          background: #0b0f14;
-          color: #e8edf4;
+          background: var(--fb-wrap-bg);
+          color: var(--fb-text-primary);
         }
         .fb-top-nav {
           position: fixed;
@@ -85,8 +111,8 @@ export default function FigBuildCaseStudyPage() {
           left: 0;
           right: 0;
           height: 64px;
-          border-bottom: 1px solid #1e2733;
-          background: #0b0f14;
+          border-bottom: 1px solid var(--fb-nav-border);
+          background: var(--fb-nav-bg);
           z-index: 100;
           display: flex;
           align-items: center;
@@ -99,35 +125,35 @@ export default function FigBuildCaseStudyPage() {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          color: #a3b0c1;
+          color: var(--fb-text-secondary);
           text-decoration: none;
           font-size: 14px;
           font-weight: 500;
         }
-        .fb-back:hover { color: #d7e0ec; }
+        .fb-back:hover { color: var(--fb-text-primary); }
         .fb-pills {
           display: inline-flex;
           align-items: center;
           gap: 4px;
-          background: #161d27;
-          border: 1px solid #263142;
+          background: var(--fb-pills-bg);
+          border: 1px solid var(--fb-pills-border);
           border-radius: 999px;
           padding: 4px;
         }
         .fb-pill {
           border: none;
           background: transparent;
-          color: #9aa8bb;
+          color: var(--fb-text-secondary);
           font-size: 14px;
           font-weight: 500;
           padding: 8px 16px;
           border-radius: 999px;
           cursor: pointer;
         }
-        .fb-pill:hover { color: #d7e0ec; }
+        .fb-pill:hover { color: var(--fb-text-primary); }
         .fb-pill.active {
-          background: #232e3c;
-          color: #eef3fb;
+          background: var(--fb-pill-active-bg);
+          color: var(--fb-pill-active-color);
         }
         .fb-main {
           width: 100%;
@@ -140,7 +166,7 @@ export default function FigBuildCaseStudyPage() {
           font-size: 12px;
           letter-spacing: 1.2px;
           text-transform: uppercase;
-          color: #7f8ea3;
+          color: var(--fb-text-muted);
           margin-bottom: 16px;
         }
         .fb-title {
@@ -148,13 +174,13 @@ export default function FigBuildCaseStudyPage() {
           font-weight: 600;
           line-height: 1.08;
           letter-spacing: -0.03em;
-          color: #f4f7fb;
+          color: var(--fb-text-primary);
           margin: 0 0 48px;
         }
         .fb-hero {
           width: 100%;
-          background: #111923;
-          border: 1px solid #222d3a;
+          background: var(--fb-hero-bg);
+          border: 1px solid var(--fb-hero-border);
           border-radius: 10px;
           overflow: hidden;
           margin-bottom: 48px;
@@ -170,13 +196,13 @@ export default function FigBuildCaseStudyPage() {
           font-size: 11px;
           letter-spacing: 1px;
           text-transform: uppercase;
-          color: #7f8ea3;
+          color: var(--fb-text-muted);
           margin: 0 0 8px;
         }
         .fb-info p {
           font-size: 14px;
           line-height: 1.7;
-          color: #dbe3ef;
+          color: var(--fb-text-primary);
           margin: 0;
         }
         .fb-section {
@@ -188,21 +214,21 @@ export default function FigBuildCaseStudyPage() {
           font-size: 11px;
           letter-spacing: 1.3px;
           text-transform: uppercase;
-          color: #7f8ea3;
+          color: var(--fb-text-muted);
           margin: 0 0 16px;
         }
         .fb-h2 {
           font-size: 28px;
           line-height: 1.35;
           letter-spacing: -0.015em;
-          color: #f1f5fb;
+          color: var(--fb-text-primary);
           margin: 0 0 24px;
           font-weight: 600;
         }
         .fb-text {
           font-size: 16px;
           line-height: 1.75;
-          color: #aebacf;
+          color: var(--fb-text-secondary);
           margin: 0 0 16px;
           max-width: 720px;
         }
@@ -210,7 +236,7 @@ export default function FigBuildCaseStudyPage() {
           border-left: 3px solid #d61f96;
           padding-left: 18px;
           margin: 28px 0 0;
-          color: #dbe4f2;
+          color: var(--fb-text-primary);
           font-style: italic;
           font-size: 20px;
           line-height: 1.55;
@@ -220,8 +246,8 @@ export default function FigBuildCaseStudyPage() {
           gap: 14px;
           align-items: flex-start;
           margin-top: 24px;
-          border: 1px solid #2b3544;
-          background: #111923;
+          border: 1px solid var(--fb-alert-border);
+          background: var(--fb-alert-bg);
           border-radius: 10px;
           padding: 18px 20px;
         }
@@ -242,18 +268,18 @@ export default function FigBuildCaseStudyPage() {
           margin: 0 0 4px;
           font-size: 16px;
           font-weight: 600;
-          color: #f3f6fb;
+          color: var(--fb-text-primary);
         }
         .fb-alert-text {
           margin: 0;
           font-size: 15px;
           line-height: 1.7;
-          color: #b1bdd0;
+          color: var(--fb-text-secondary);
         }
         .fb-list {
           margin: 12px 0 0;
           padding-left: 18px;
-          color: #aebacf;
+          color: var(--fb-text-secondary);
           line-height: 1.8;
           font-size: 17px;
         }
@@ -271,66 +297,9 @@ export default function FigBuildCaseStudyPage() {
         }
         .fb-process-text {
           margin: 0 0 16px;
-          color: #c3ccd9;
+          color: var(--fb-text-secondary);
           font-size: 16px;
           line-height: 1.7;
-        }
-        .fb-demo {
-          margin-top: 14px;
-          border: 1px solid #222a33;
-          border-radius: 14px;
-          background: #0f141a;
-          overflow: hidden;
-        }
-        .fb-demo-tabs {
-          display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 0;
-          border-bottom: 1px solid #202833;
-          background: #10161d;
-        }
-        .fb-demo-tab {
-          border: 0;
-          border-right: 1px solid #202833;
-          background: #151b23;
-          color: #8f9aae;
-          font-size: 15px;
-          font-weight: 500;
-          line-height: 1;
-          padding: 16px 12px;
-          text-align: left;
-          cursor: pointer;
-        }
-        .fb-demo-tab:last-child { border-right: 0; }
-        .fb-demo-tab:hover { color: #cad4e4; }
-        .fb-demo-tab.active {
-          background: #ff3ea8;
-          color: #111318;
-          font-weight: 600;
-        }
-        .fb-demo-body {
-          padding: 24px 22px 22px;
-          background: #121820;
-        }
-        .fb-demo-title {
-          margin: 0 0 8px;
-          font-family: 'IBM Plex Mono', monospace;
-          font-size: 32px;
-          line-height: 1.04;
-          letter-spacing: -0.01em;
-          color: #ff4db6;
-        }
-        .fb-demo-desc {
-          margin: 0 0 18px;
-          font-size: 18px;
-          line-height: 1.5;
-          color: #bdc8d8;
-        }
-        .fb-process-preview {
-          border-radius: 12px;
-          border: 1px solid #2a3442;
-          overflow: hidden;
-          background: #0d1218;
         }
         @media (max-width: 1024px) {
           .fb-main { padding: 96px 32px 40px; }
@@ -351,16 +320,6 @@ export default function FigBuildCaseStudyPage() {
           }
           .fb-pills::-webkit-scrollbar { display: none; }
           .fb-process-title { font-size: 20px; }
-          .fb-demo-tabs { grid-template-columns: 1fr 1fr; }
-          .fb-demo-tab {
-            font-size: 13px;
-            padding: 13px 10px;
-          }
-          .fb-demo-body {
-            padding: 18px 14px 14px;
-          }
-          .fb-demo-title { font-size: 24px; }
-          .fb-demo-desc { font-size: 15px; }
         }
       `}</style>
 
@@ -463,34 +422,6 @@ export default function FigBuildCaseStudyPage() {
                 Miggie set the core design blocks. I then partnered with three designers to compose final assets,
                 refine hierarchy, and prep production-ready files that teams could publish with minimal edits.
               </p>
-              <div className="fb-demo">
-                <div className="fb-demo-tabs">
-                  {demoTabs.map((tab) => (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      className={`fb-demo-tab ${activeDemo === tab.id ? "active" : ""}`}
-                      onClick={() => setActiveDemo(tab.id)}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-                <div className="fb-demo-body">
-                  <h4 className="fb-demo-title">{activeDemoData.title}</h4>
-                  <p className="fb-demo-desc">{activeDemoData.description}</p>
-                  <div className="fb-process-preview">
-                    <Image
-                      src="/assets/figbuild.png"
-                      alt="FigBuild campaign asset set"
-                      width={1800}
-                      height={1100}
-                      unoptimized
-                      style={{ width: "100%", height: "auto", display: "block" }}
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
             <div className="fb-alert">
               <span className="fb-alert-icon">✦</span>

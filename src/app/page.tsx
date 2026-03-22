@@ -5,23 +5,25 @@ import SocialLinks from "@/components/SocialLinks";
 import WorkExperience from "@/components/WorkExperience";
 import ProjectGallery from "@/components/ProjectGallery";
 import Link from "next/link";
+import { useTheme } from "@/hooks/useTheme";
 
 const currentExperience = [
   { company: "Figma", role: "Campus Leader" },
 ];
 
 const previousExperience = [
-  { company: "TD Bank", role: "UX Developer" },
-  { company: "IBM", role: "Design Fellow" },
-  { company: "TD Bank", role: "Product Design Intern" },
-  { company: "TD Bank", role: "Product Design Intern" },
+  { company: "TD Bank", role: "UX Developer", year: "'25" },
+  { company: "IBM", role: "Design Fellow", year: "'24" },
+  { company: "TD Bank", role: "Product Design Intern", year: "'24" },
+  { company: "TD Bank", role: "Product Design Intern", year: "'23" },
 ];
 
 type ViewMode = "light" | "night";
 type TrailPoint = { x: number; y: number; t: number; isBreak: boolean };
 
 export default function Home() {
-  const [viewMode, setViewMode] = useState<ViewMode>("night");
+  const { theme, toggleTheme } = useTheme();
+  const viewMode: ViewMode = theme === "light" ? "light" : "night";
   const [isDrawMode, setIsDrawMode] = useState(false);
   const [showPencilIntro, setShowPencilIntro] = useState(false);
   const leftPanelRef = useRef<HTMLDivElement>(null);
@@ -39,7 +41,7 @@ export default function Home() {
           selectionText: "#7d0f47",
           left: "#fcfcfd",
           shell: "#ffffff",
-          right: "#fcfcfb",
+          right: "#f0f0ef",
           border: "rgba(20, 25, 32, 0.2)",
           panel: "rgba(255, 255, 255, 0.95)",
         }
@@ -47,8 +49,8 @@ export default function Home() {
           text: "#f4f6f8",
           muted: "#8e98a8",
           heading: "#ffffff",
-          selectionBg: "#ff9dca",
-          selectionText: "#4d0a2b",
+          selectionBg: "#FF98CC",
+          selectionText: "#65033C",
           left: "#0c1015",
           shell: "#0c1015",
           right: "#151a20",
@@ -201,7 +203,7 @@ export default function Home() {
         <div className="absolute right-6 top-6 md:right-[24px] md:top-[56px] z-10">
           <div className="tone-group">
             <button
-              onClick={() => setViewMode("light")}
+              onClick={() => theme !== "light" && toggleTheme()}
               className={`tone-btn tone-icon ${viewMode === "light" ? "active" : ""}`}
               aria-label="Light mode"
               title="Light mode"
@@ -221,7 +223,7 @@ export default function Home() {
               </svg>
             </button>
             <button
-              onClick={() => setViewMode("night")}
+              onClick={() => theme !== "dark" && toggleTheme()}
               className={`tone-btn tone-icon ${viewMode === "night" ? "active" : ""}`}
               aria-label="Night mode"
               title="Night mode"
@@ -239,7 +241,7 @@ export default function Home() {
         <div className="h-[64px] sm:h-[78px] md:h-[92px] mb-5 sm:mb-7 md:mb-[40px]" aria-hidden="true" />
 
         {/* Hero Text */}
-        <h1 className="hero-headline font-normal mb-6 md:mb-[32px] text-[var(--portfolio-heading)] max-w-[620px]" style={{ fontSize: 'clamp(24px, 3.2vw, 38px)', lineHeight: '1.14' }}>
+        <h1 className="hero-headline font-normal mb-6 md:mb-[32px] text-[var(--portfolio-heading)] max-w-[620px]" style={{ fontSize: '38px', lineHeight: '1.14' }}>
           <span className="name-squiggle">Chrisandra</span>{" "}
           <span className="pencil-wrap">
             <button
@@ -299,15 +301,7 @@ export default function Home() {
           <span className="text-[14px] text-[var(--portfolio-text)]">क्रिसेंद्रा.</span>
         </div>
 
-        {/* Sentry Test Button - Remove after testing */}
-        <button
-          onClick={() => {
-            throw new Error("Sentry Test Error - This is a test!");
-          }}
-          className="fixed bottom-4 left-4 px-3 py-2 bg-red-500 text-white text-xs rounded hover:bg-red-600 z-50"
-        >
-          Test Sentry
-        </button>
+
       </div>
 
       {/* Right Side - Project Gallery */}

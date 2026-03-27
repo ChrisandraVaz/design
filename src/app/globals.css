@@ -458,6 +458,14 @@ body {
     display: none;
   }
 
+  .pencil-trigger {
+    display: none;
+  }
+
+  .draw-layer {
+    display: none;
+  }
+
   .portfolio-left,
   .portfolio-right {
     background: transparent;

@@ -263,7 +263,7 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
           <SocialLinks />
           <span className="status-badge text-[12px] md:text-[14px]">
-            Seeking W26 & S26 Internships
+            <span className="inline-block -translate-y-px">open to opportunities</span>
           </span>
         </div>
 

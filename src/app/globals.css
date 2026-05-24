@@ -139,6 +139,7 @@ body {
   background: var(--pink-accent);
   border-radius: 50%;
   animation: pulse-glow 2s ease-in-out infinite;
+  transform: translateY(1px);
 }
 
 @keyframes pulse-glow {

@@ -1446,21 +1446,21 @@ export default function SeranoCafeCaseStudy() {
               <p className="image-label">Original Website: Before Redesign</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 16 }}>
                 <Image
-                  src="/assets/serano/Before & After Comparison1.png"
+                  src="/assets/serano/before-after-1.png"
                   alt="Original Serano Cafe website homepage before redesign"
                   width={300}
                   height={220}
                   style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                 />
                 <Image
-                  src="/assets/serano/Before & After Comparison2.png"
+                  src="/assets/serano/before-after-2.png"
                   alt="Original Serano Cafe website product and interior pages before redesign"
                   width={300}
                   height={220}
                   style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                 />
                 <Image
-                  src="/assets/serano/Before & After Comparison3.png"
+                  src="/assets/serano/before-after-3.png"
                   alt="Original Serano Cafe website layout details before redesign"
                   width={300}
                   height={220}

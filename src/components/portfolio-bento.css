@@ -1,0 +1,272 @@
+/* Scoped to Sentry Internship covers. Other cards keep their authored sizing. */
+.canvas-folio .widget-world .scatter .scatter-item > .sentry-preview-card {
+  --chat-frame-inset: calc(var(--canvas-frame-inset) / var(--surface-scale) - 1px);
+  --time-frame-inset: var(--chat-frame-inset);
+  padding: var(--chat-frame-inset);
+}
+.canvas-folio .widget-world .scatter .scatter-item > .sentry-preview-card > .sentry-preview-link {
+  position: absolute;
+  inset: var(--chat-frame-inset);
+  height: auto;
+}
+.canvas-folio .widget-world .sentry-preview-art { border-radius: 14px; }
+.canvas-folio .widget-world .sentry-preview-card .card-kind {
+  left: calc(18px / var(--badge-scale) - var(--chat-frame-inset));
+  bottom: calc(18px / var(--badge-scale) - var(--chat-frame-inset));
+}
+.canvas-folio .widget-world .sentry-preview-relative-time .relative-time-reference { padding: 0; }
+
+@media (min-width: 1101px) {
+  /* The Queue preview scales with its card, without the old inverse compensation. */
+  .canvas-folio:not(.index-folio) .scatter-1 .sentry-preview-art > .sentry-demo {
+    width: 100%;
+    height: 100%;
+    transform: none;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-9 { --size: .85; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-1 { --size: .78; }
+}
+@media (max-width: 1100px) {
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-9 { order: 1; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-fontcontext-slot { order: 2; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-trace { order: 3; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-1 { order: 4; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-2 { order: 5; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-claims { order: 11; }
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-trace > .trace-project-link {
+    height: 376px;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-trace .trace-project-art {
+    height: 361px;
+    aspect-ratio: auto;
+  }
+}
+@media (max-width: 760px) {
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-trace > .trace-project-link {
+    aspect-ratio: 1.752;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-trace .trace-project-art {
+    height: calc(100cqw / 1.752 - 2 * var(--canvas-frame-inset));
+    aspect-ratio: auto;
+  }
+}
+
+
+/* Selected layout 02, with the requested wider Queue and Watch and larger
+   Shader and Metallic surfaces. The other cards retain their approved geometry. */
+@media (min-width: 1101px) {
+  .canvas-folio:not(.index-folio) .widget-world .scatter-viewport {
+    --puzzle-width: 1250px;
+    --puzzle-height: 1338px;
+    --canvas-design-scale: min(1.3333333333, tan(atan2(calc(100cqw - 2 * var(--folio-gutter)), 1200px)));
+    --puzzle-top: calc(12px + 80px * var(--canvas-design-scale));
+    --canvas-scale: tan(atan2(min(1600px, calc(100cqw - 2 * var(--folio-gutter))), var(--puzzle-width)));
+    height: calc(16px + var(--puzzle-top) + var(--puzzle-height) * var(--canvas-scale));
+    margin-bottom: 47px;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter {
+    --canvas-component-gap: calc(20px / var(--canvas-design-scale));
+    width: var(--puzzle-width);
+    height: calc(var(--puzzle-top) / var(--canvas-scale) + var(--puzzle-height));
+  }
+  /* Keep the introduction at its existing size, outside the fitted card view. */
+  .canvas-folio:not(.index-folio) .widget-world .scatter-intro {
+    top: calc((-2px * var(--canvas-design-scale) - 21px) / var(--canvas-scale));
+    transform: scale(calc(.612 * var(--canvas-design-scale) / var(--canvas-scale)));
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-item {
+    --label-reserve: max(0px, 24px / var(--canvas-scale) - var(--card-heading-height) * var(--size));
+    left: calc(var(--puzzle-x) - var(--card-width) * (1 - var(--size)) / 2);
+    top: calc(var(--puzzle-top) / var(--canvas-scale) + var(--puzzle-y)
+      + var(--label-reserve)
+      - var(--card-height) * (1 - var(--size)) / 2);
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-9 {
+    --puzzle-x: calc(337px - var(--chat-width) * .85); --puzzle-y: 0px;
+    --card-width: var(--chat-width); --card-height: calc(var(--chat-width) / .943 + 20px); --card-heading-height: 20px;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-fontcontext-slot {
+    --puzzle-x: 361px; --puzzle-y: 0px;
+    --card-width: 441.234px; --card-height: 319.844px; --card-heading-height: 32px;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-metallic {
+    --puzzle-x: calc(337px - var(--chat-width) * .85); --puzzle-y: 829.468px;
+    --card-width: calc(var(--chat-width) * .85 / .78);
+    --card-height: calc(var(--card-width) / 1.4 + 32px); --card-heading-height: 32px;
+    width: var(--card-width);
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-1 {
+    --puzzle-x: calc(337px - var(--chat-width) * .85); --puzzle-y: 405.04px;
+    --card-width: calc(var(--chat-width) * .85 / .78);
+    --card-height: calc(var(--chat-height) + 20px); --card-heading-height: 20px;
+    width: var(--card-width);
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-3 {
+    --puzzle-x: 980.533px; --puzzle-y: 0px;
+    --card-width: 352px; --card-height: 384px; --card-heading-height: 32px;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-12 {
+    --puzzle-x: 730.07px; --puzzle-y: 0px;
+    --card-width: calc(226.463px / var(--size)); --card-height: 451px; --card-heading-height: 32px;
+    width: var(--card-width);
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-12 > .shader {
+    height: calc(var(--card-height) - 32px);
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-12 .grass-grid {
+    grid-template-rows: 150px 150px;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-paint {
+    --puzzle-x: 361px; --puzzle-y: 854.433px;
+    --card-width: 499.938px; --card-height: 357.099px; --card-heading-height: 0px;
+    --size: 1.02;
+    width: var(--card-width);
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-paint {
+    --label-reserve: 0px;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-metallic {
+    --label-reserve: 0px;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-trace {
+    --puzzle-x: 361px; --puzzle-y: 274.135px;
+    --card-width: calc(509.96px / var(--size)); --card-height: 376px; --card-heading-height: 0px;
+    width: var(--card-width);
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-2 {
+    --puzzle-x: 894.94px; --puzzle-y: 822.421px;
+    --card-width: 355.06px; --card-height: 252px; --card-heading-height: 32px;
+    --size: 1;
+    width: var(--card-width);
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-5 {
+    --puzzle-x: 361px; --puzzle-y: 577.808px;
+    --card-width: calc(216.473px / var(--size)); --card-height: 304px; --card-heading-height: 32px;
+    width: var(--card-width);
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-10 {
+    --puzzle-x: 601.473px; --puzzle-y: 577.808px;
+    --card-width: 352px; --card-height: 330px; --card-heading-height: 0px;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-10 > .running,
+  .canvas-folio:not(.index-folio) .widget-world .scatter-10 > .running > .photo {
+    height: 240px;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-claims {
+    --puzzle-x: 894.94px; --puzzle-y: 317.964px;
+    --card-width: 348.098px; --card-height: 351px; --card-heading-height: 32px;
+    --size: 1.02;
+    width: var(--card-width);
+  }
+}
+
+
+/* Shared frame and face corners, compensated for each authored card scale. */
+.canvas-folio .widget-world {
+  --canvas-card-radius: 20px;
+  --canvas-card-inner-radius: 14px;
+  --canvas-frame-inset: 7.5px;
+  --canvas-frame-stroke: 1.25px;
+  --canvas-frame-line: #dedee2;
+  --component-card-bg: #fff;
+}
+.canvas-folio[data-theme="dark"] .widget-world {
+  --component-card-bg: #171717;
+  --canvas-frame-line: #343437;
+}
+/* The outline paints inside the existing frame, preserving every card's bounds. */
+.canvas-folio[data-theme] .widget-world .scatter .scatter-item > :is(
+  .sentry-preview-card, .portfolio-experiment-card, .trace-project-link, .index-component-frame
+):not(:focus-visible) {
+  border-color: transparent;
+  outline: calc(var(--canvas-frame-stroke) / var(--surface-scale)) solid var(--canvas-frame-line);
+  outline-offset: calc(-1 * var(--canvas-frame-stroke) / var(--surface-scale));
+}
+.canvas-folio .widget-world .scatter-item { --inner-surface-scale: var(--surface-scale); }
+.canvas-folio:not(.index-folio) .widget-world .scatter .trace-project-link {
+  padding: calc(var(--canvas-frame-inset) / var(--surface-scale) - 1px);
+}
+.canvas-folio:not(.index-folio) .widget-world .scatter .portfolio-experiment-card:is(.paint-card,.metallic-card) {
+  --experiment-inset: calc(var(--canvas-frame-inset) / var(--surface-scale));
+}
+.canvas-folio:not(.index-folio) .widget-world .scatter .scatter-item:is(.scatter-5,.scatter-12) > .card {
+  border-radius: calc(14px / var(--surface-scale));
+}
+.canvas-folio.index-folio .widget-world .scatter .scatter-item:is(.scatter-5,.scatter-12) > .index-component-frame {
+  border-radius: var(--canvas-card-radius);
+}
+.canvas-folio .widget-world .scatter .scatter-item :is(
+  .sentry-preview-art, .fontcontext-card-media,
+  .trace-bento-watch, .trace-bento-widget, .trace-bento-state,
+  .grass-grid > .photo, .td-claims-media
+),
+.canvas-folio .widget-world .scatter .scatter-item > .portfolio-experiment-card > video,
+.canvas-folio.index-folio .widget-world .scatter .index-component-frame > .card {
+  border-radius: calc(var(--canvas-card-inner-radius) / var(--inner-surface-scale));
+}
+
+/* TD Securities joins the case-study family as a quiet framed product view. */
+.canvas-folio .widget-world .td-claims-card {
+  display: block;
+  padding: calc(var(--canvas-frame-inset) / var(--surface-scale) - 1px);
+  background: var(--component-frame-bg);
+}
+.canvas-folio .widget-world .td-claims-media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.18;
+  overflow: hidden;
+  background: linear-gradient(180deg, #afc46b 0%, #afc46b 28%, #bed59b 68%, #c6daae 100%);
+}
+.canvas-folio .widget-world .td-claims-media > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: left center;
+  transform: none;
+}
+@media (min-width: 1101px) {
+  .canvas-folio:not(.index-folio) .widget-world .td-claims-card {
+    height: 319px;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .td-claims-media {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+}
+.scatter-claims { --badge-inset: 1.6em; }
+/* The Shader tiles are much smaller than the other inner faces, so the same
+   numeric radius reads too circular. Preserve the shared shape with a tighter corner. */
+.canvas-folio .widget-world .scatter .scatter-12 .grass-grid > .photo {
+  border-radius: calc(9px / var(--inner-surface-scale));
+}
+/* Index scales the fixed-size Watch artwork once more inside its outer frame. */
+.canvas-folio.index-folio .widget-world .scatter .trace-project-art {
+  --inner-surface-scale: var(--index-watch-scale);
+}
+/* Keep the divider visible when the fixed-size Watch study is scaled down. */
+.canvas-folio .widget-world .scatter .trace-project-art {
+  --watch-panel-gap: calc(var(--canvas-frame-inset) / var(--inner-surface-scale));
+  gap: var(--watch-panel-gap);
+  grid-template-rows: minmax(0, 210fr) minmax(0, 136fr);
+}
+.canvas-folio .widget-world .scatter .scatter-10,
+.canvas-folio .widget-world .scatter .scatter-10 > .running {
+  border-radius: calc(24px / var(--surface-scale));
+}
+@media (min-width: 1101px) {
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-10 { --label-reserve: 0px; }
+  /* Long titles keep their inspector clear in a short-window overview. */
+  .canvas-folio:not(.index-folio) .widget-world .card-heading > span {
+    max-width: calc(100% - 16px / var(--size) / var(--canvas-scale));
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .canvas-folio:not(.index-folio) .widget-world .card-heading:has(>button) > span {
+    max-width: calc(100% - 40px / var(--size) / var(--canvas-scale));
+  }
+}

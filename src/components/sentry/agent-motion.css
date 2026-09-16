@@ -1,0 +1,143 @@
+/* The author's four-frame storyboard, over the supplied purple cover. */
+.agent-film {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+  container-type: inline-size;
+  background: #ab88ed;
+}
+.agent-film-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url("/assets/sentry/send-to-agent-background.png") center / cover no-repeat;
+  transform: translate3d(0, 0, 0);
+}
+.agent-film-camera {
+  position: absolute;
+  inset: 0;
+  min-width: 0;
+  transform-origin: 50% 50%;
+  transform: translate(0,0) scale(.77);
+  border-radius: 6px;
+  background: white;
+  box-shadow: 0 14px 35px -14px #31105b55, 0 2px 5px #44246c16;
+  overflow: hidden;
+  will-change: transform;
+}
+.agent-film-camera > .agent-reference { height: 100%; }
+.agent-film .agent-reference.is-compact .agent-reference-window { height: 100%; padding-bottom: 0; }
+.agent-film .agent-reference.is-compact .agent-reference-body { padding-inline: 14px; }
+/* Include the painted shadows even when case-study styles reset the body padding. */
+.agent-film .agent-reference.is-compact .agent-reference-window .agent-reference-body { padding-bottom: 6px; }
+.agent-film .agent-reference.is-compact .agent-reference-question { margin-bottom: 13px; }
+
+/* Condense the completed tool call before the full response arrives. */
+.agent-film .agent-query-progress[data-stage="complete"] { margin: 18px 0 20px; }
+.agent-film .agent-query-progress[data-stage="complete"] .agent-query-summary { display: none; }
+.agent-film .agent-query-progress[data-stage="complete"] .agent-query-detail {
+  min-height: 20px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  border: 0;
+}
+.agent-film .agent-query-progress[data-stage="complete"] .agent-query-detail > svg { margin-top: 0; }
+
+.agent-film .agent-reference.is-compact .agent-reference-receipt { display: flex; }
+.agent-film .agent-reference.is-compact .agent-reference-window .agent-reference-composer {
+  flex-basis: max(72px, 16.7%);
+}
+.agent-film .agent-reference.is-compact .agent-reference-menu {
+  width: clamp(168px, 48%, 320px);
+  box-shadow: 0 2px 0 #ececee;
+}
+.agent-film .agent-reference.is-compact .agent-reference-window .agent-reference-toast {
+  animation: agent-film-toast-enter 360ms cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes agent-film-toast-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.agent-film .agent-film-menu-cursor {
+  position: absolute;
+  right: 22%;
+  top: 55%;
+  width: 19px;
+  height: 23px;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 1px 2px #0003);
+  animation: agent-film-cursor-enter 350ms 160ms cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes agent-film-cursor-enter {
+  from { opacity: 0; transform: translate(14px, 16px); }
+  to { opacity: 1; transform: translate(0, 0); }
+}
+.agent-film[data-shot="select"] .agent-menu-choice.is-highlighted { background: #eeecf2; }
+.agent-film[data-shot="select"] .agent-film-menu-cursor { scale: .92; translate: 0 1px; }
+.agent-film .agent-film-menu-cursor { transition: scale 100ms ease, translate 100ms ease; }
+@media (prefers-reduced-motion: reduce) {
+  .agent-film-camera { will-change: auto; }
+}
+
+@container (max-width: 300px) {
+  .agent-film .agent-reference.is-compact .agent-reference-body { padding-top: 10px; }
+}
+
+/* The controls stay in normal flow directly below the answer. */
+.agent-film .agent-reference.is-compact .agent-reference-window .agent-reference-body .agent-reference-actions {
+  order: 0;
+  flex: none;
+  width: 100%;
+}
+
+/* Dismiss the completed toast while the persistent chat returns to its start. */
+.agent-film[data-shot="reset"] .agent-reference.is-compact .agent-reference-window .agent-reference-toast {
+  animation: agent-film-toast-exit 240ms ease-out both;
+}
+@keyframes agent-film-toast-exit {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(4px); }
+}
+
+/* Confirmation owns a fixed slot below the controls, so it cannot push them. */
+.agent-film .agent-response-footer { display: flex; flex-direction: column; }
+.agent-film .agent-receipt-slot {
+  order: 1;
+  position: relative;
+  height: 40px;
+  flex: none;
+  overflow: hidden;
+}
+.agent-film .agent-reference .agent-reference-body { overflow-y: hidden; }
+/* Preserve the original collapsed paragraph spacing before and after sending. */
+.agent-film .agent-reference .agent-investigation-copy p:last-child { margin-bottom: 0; }
+.agent-film .agent-receipt-slot > .agent-reference-receipt { margin-top: 7px; }
+.agent-film .agent-reference .agent-reference-body .agent-reference-receipt {
+  width: 100%;
+  margin-left: 0;
+  padding: 7px 0;
+  min-height: 0;
+}
+@media (max-width: 400px) {
+  .agent-film .agent-receipt-slot > .agent-reference-receipt { margin-top: 0; }
+  .agent-film .agent-reference .agent-reference-body .agent-reference-receipt { padding-block: 5px; }
+}
+.agent-film .agent-reference-receipt.status-sending { visibility: hidden; }
+
+/* Keep the toast inside the visible portion of the close-up on phones. */
+@container (max-width: 360px) {
+  .agent-film .sentry-demo.sentry-agent.agent-reference .agent-reference-window .agent-reference-toast {
+    width: calc(70% - 6px);
+    max-width: calc(70% - 6px);
+  }
+  .agent-film .sentry-demo.sentry-agent.agent-reference .agent-reference-window .agent-reference-toast > span:last-child {
+    white-space: normal;
+    padding-inline: 7px;
+    min-width: 0;
+  }
+}

@@ -1,67 +1,73 @@
 "use client";
-
 import Image from "next/image";
+import AgentSurface from "./AgentSurface";
 import Link from "next/link";
-
+import { FiArrowUpRight } from "react-icons/fi";
 interface ProjectCardProps {
   title: string;
   subtitle: string;
   tag?: string;
-  rightLabel?: string;
   image: string;
   bgColor: string;
   href: string;
+  featured?: boolean;
+  number?: string;
 }
-
-export default function ProjectCard({ title, subtitle, tag, rightLabel, image, bgColor, href }: ProjectCardProps) {
-  const isVideo = image.endsWith(".mov") || image.endsWith(".mp4") || image.endsWith(".webm");
-  const isExternal = href.startsWith("http");
-
+export default function ProjectCard({
+  title,
+  subtitle,
+  tag,
+  image,
+  bgColor,
+  href,
+  featured,
+  number,
+}: ProjectCardProps) {
+  const isVideo = /\.(mov|mp4|webm)$/.test(image),
+    external = href.startsWith("http");
   return (
-    <Link href={href} className="block group" {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-      <div className="overflow-hidden cursor-pointer rounded-[10px]">
-        <div
-          className="relative aspect-[16/10]"
-          style={{ backgroundColor: bgColor }}
-        >
-          {isVideo ? (
+    <article className={`project-item ${featured ? "featured" : ""}`}>
+      <Link
+        href={href}
+        className="project-link surface"
+        aria-label={`${title} · ${subtitle}`}
+        {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+      >
+        <div className="project-media" style={{ backgroundColor: bgColor }}>
+          {image === "agent-study" ? <div className="agent-thumbnail" aria-hidden="true"><AgentSurface compact /></div> : isVideo ? (
             <video
               src={image}
               autoPlay
               loop
               muted
               playsInline
-              poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              className="absolute inset-0 w-full h-full object-cover object-center scale-[1.01]"
+              preload="metadata"
+              aria-label={`${title} demonstration`}
             />
           ) : (
             <Image
               src={image}
-              alt={title}
+              alt={`${title} project preview`}
               fill
               unoptimized
-              className="object-cover object-center scale-[1.01]"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes={
+                featured ? "(max-width: 831px) 100vw, 752px" : "(max-width: 831px) 100vw, 352px"
+              }
             />
           )}
+          <span className="project-open" aria-hidden="true">
+            <FiArrowUpRight />
+          </span>
         </div>
-        <div className="pt-3 pb-1.5 flex items-start justify-between gap-3">
-          <p className="min-w-0 text-left text-[14px] break-words">
-            <span className="font-semibold text-[var(--portfolio-heading)]">{title}</span>
-            <span className="mx-2 text-[var(--portfolio-muted)]">·</span>
-            <span className="font-normal text-[var(--portfolio-muted)]">{subtitle}</span>
-          </p>
-          {tag ? (
-            <span className="shrink-0 rounded-full border border-[var(--portfolio-border)] px-2.5 py-1 text-[11px] font-medium leading-none text-[var(--portfolio-muted)]">
-              {tag}
-            </span>
-          ) : rightLabel ? (
-            <span className="shrink-0 pt-0.5 text-[13px] font-medium text-[var(--portfolio-muted)]">
-              {rightLabel}
-            </span>
-          ) : null}
+        <div className="project-caption">
+          <div className="project-category">
+            <span>{tag}</span>
+            <span>{number}</span>
+          </div>
+          <h3>{title}</h3>
+          <p>{subtitle}</p>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </article>
   );
 }

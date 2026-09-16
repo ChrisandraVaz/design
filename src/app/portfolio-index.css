@@ -1,0 +1,320 @@
+/* Portfolio chrome uses one type and spacing scale in both views. */
+.folio {
+  --portfolio-card-gap: 20px;
+  --portfolio-label-size: 12px;
+  --portfolio-label-line: 16px;
+  --portfolio-body-size: 12px;
+  --portfolio-meta-size: 10px;
+  --portfolio-index-heading: clamp(22px, 1.8vw, 25px);
+}
+.index-folio {
+  --index-sidebar-width: clamp(300px, 32.5vw, 440px);
+  --index-sidebar-bg: #fff;
+  --index-column-gap: clamp(32px, 4vw, 64px);
+  --index-split: calc(max(var(--folio-gutter, var(--page-gutter)), (100vw - 1600px) / 2) + var(--index-sidebar-width) + var(--index-column-gap) / 2);
+  background-image: linear-gradient(to right, var(--index-sidebar-bg) 0 var(--index-split), var(--folio-bg) var(--index-split) 100%);
+  background-attachment: fixed;
+}
+@media (max-width: 1100px) { .index-folio { --index-sidebar-width: 230px; --index-column-gap: 32px; } }
+@media (max-width: 700px) { .index-folio { background-image: none; } }
+/* The index shares the canvas frame, while giving projects a reading order. */
+.folio .portfolio-view-switch {
+  position: fixed;
+  z-index: 30;
+  bottom: max(22px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid #dedee2;
+  border-radius: 30px;
+  background: #f5f5f7;
+  box-shadow: inset 0 1px 0 #fff, 0 1px 0 #dedee2;
+}
+.folio .portfolio-view-switch button {
+  min-height: 44px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-size: 13px;
+  border-radius: 24px;
+  color: var(--folio-muted);
+  transition: background 180ms, color 180ms, box-shadow 180ms;
+}
+.folio .portfolio-view-switch button { color: #51575d; }
+.folio .portfolio-view-switch button:hover { background: #ffffff40; }
+.folio .portfolio-view-switch button[aria-pressed="true"] { background: #fff; color: #181c20; box-shadow: 0 1px 0 #dedee2; }
+.folio .portfolio-view-switch button:focus-visible { outline: 2px solid #087aff; outline-offset: 2px; }
+.folio[data-theme="dark"] .portfolio-view-switch { background: #141414; border-color: #393939; box-shadow: inset 0 1px 0 #393939, 0 1px 0 #080808; }
+.folio[data-theme="dark"] .portfolio-view-switch button { color: #d2d7dc; }
+.folio[data-theme="dark"] .portfolio-view-switch button:hover { background: #ffffff0f; }
+.folio[data-theme="dark"] .portfolio-view-switch button[aria-pressed="true"] { background: #303030; color: #fff; box-shadow: inset 0 1px 0 #484848, 0 1px 0 #080808; }
+.folio .portfolio-view-switch svg { width: 17px; height: 17px; }
+.portfolio-index {
+  width: calc(100% - 2 * var(--folio-gutter, var(--page-gutter)));
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 40px 0 0;
+  display: grid;
+  grid-template-columns: var(--index-sidebar-width) minmax(0, 1fr);
+  --index-column-gap: clamp(32px, 4vw, 64px);
+  gap: var(--index-column-gap);
+  align-items: start;
+}
+.portfolio-index :is(aside,section,article,div) { min-width: 0; }
+.index-folio[data-theme="dark"] { --folio-bg: #0B0909; --index-sidebar-bg: var(--canvas-black); --folio-surface: #13191d; --folio-soft: #17191a; --folio-text: #eef0f0; --folio-muted: #909ba4; }
+.index-sidebar { --sidebar-top: 40px; position: sticky; top: var(--sidebar-top); padding: 40px 8px 0 0; max-height: calc(100dvh - var(--sidebar-top) - 90px); overflow-y: auto; scrollbar-width: thin; background: var(--index-sidebar-bg);  }
+.index-intro { margin-bottom: 14px; }
+.folio .index-intro .original-intro { padding: 0; }
+.folio .index-intro .original-intro h1 { font-size: clamp(20px, 1.55vw, 22px); font-weight: 400; letter-spacing: -.025em; line-height: 1.22; margin: 0; text-wrap: pretty; }
+.index-socials { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 12px; margin-bottom: 16px; }
+.index-socials > div { gap: 2px; }
+.folio .index-socials .social-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 44px; color: var(--folio-muted); border: 0; border-radius: 50%; background: transparent; }
+.folio .index-socials .social-btn::before { content: ""; position: absolute; inset: 8px 2px; border: 1px solid var(--folio-line); border-radius: 50%; }
+.folio .index-socials .social-btn svg { width: 11px; height: 11px; }
+.index-availability { display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border: 1px solid var(--folio-line); border-radius: 20px; color: var(--folio-pink); font-size: 9px; white-space: nowrap; }
+.index-availability > span { width: 5px; height: 5px; background: currentColor; border-radius: 50%; }
+.folio .index-socials .social-btn:hover { color: var(--folio-text); background: var(--folio-soft); }
+.index-contact { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 24px; font-size: 11px; line-height: 1.7; }
+.index-contact p { margin: 0; }
+.index-contact-note { color: var(--folio-muted); }
+.index-contact-note a { display: inline-block; color: var(--folio-pink); padding-block: 8px; margin-block: -8px; }
+.index-experience h2 { font-size: 9px; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; color: var(--folio-muted); margin: 0 0 8px; }
+.index-experience dl { margin: 0 0 16px; }
+.index-experience dl > div { display: grid; grid-template-columns: 66px minmax(0, 1fr); gap: 12px; margin: 0 0 5px; font-size: 11px; line-height: 1.5; }
+.index-experience dd { margin: 0; color: var(--folio-muted); }
+.index-experience dd span { white-space: nowrap; }
+.index-about { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding-inline: 14px; font-size: 10px; white-space: nowrap; }
+.index-about::before { content: ""; position: absolute; inset: 7px 0; border: 1px solid var(--folio-line); border-radius: 20px; }
+@media (max-width: 1100px) {
+  .portfolio-index { padding-top: 24px; grid-template-columns: 230px minmax(0, 1fr); --index-column-gap: 32px; }
+  .index-sidebar { --sidebar-top: 28px; padding-top: 16px; }
+  .folio .index-intro .original-intro h1 { font-size: 21px; }
+}
+@media (max-width: 700px) {
+  .portfolio-index { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-top: 16px; }
+  .index-sidebar { position: static; padding: 0; max-height: none; overflow: visible; }
+  .folio .index-intro .original-intro h1 { font-size: 25px; max-width: 27ch; }
+  .index-socials { margin-bottom: 22px; }
+  .index-contact { margin-bottom: 20px; }
+  .index-experience { display: none; }
+  .index-about { margin-top: 0; }
+  .folio .index-socials .social-btn { width: 44px; }
+  .folio .index-socials .social-btn::before { inset: 6px; }
+  .folio .portfolio-view-switch { bottom: max(14px, env(safe-area-inset-bottom)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .folio .portfolio-view-switch button { transition: none; }
+}
+
+/* Index reuses the Canvas components in document flow. Only Canvas is draggable. */
+/* Keep the end spacing inside the gallery so it cannot push the sticky sidebar up. */
+.index-component-gallery { position: relative; min-width: 0; padding-bottom: 40px; }
+.canvas-folio.index-folio .index-widget-world { background: transparent; width: 100%; min-height: 0; padding: 0; }
+.index-widget-world .scatter-viewport { --canvas-scale: 1; position: relative; inset: auto; width: 100%; max-width: none; height: auto; min-height: 0; margin: 0; }
+.index-widget-world .scatter { width: 100%; height: auto; min-height: 0; transform: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--portfolio-card-gap); align-items: start; }
+.index-card-column { display: flex; flex-direction: column; gap: var(--portfolio-card-gap); }
+.index-widget-world .scatter .scatter-item { --size: 1; --surface-scale: 1; position: relative; inset: auto; width: 100%; max-width: none; height: auto; grid-column: auto; justify-self: stretch; transform: none !important; translate: none; zoom: 1; touch-action: pan-y; cursor: auto !important; filter: none; transition: none; }
+.index-widget-world .scatter .scatter-0 { order: 0; }
+.index-widget-world .scatter .scatter-paint { order: 2; }
+.index-widget-world .scatter .scatter-metallic { order: 3; }
+.index-widget-world .scatter .scatter-trace { order: 1; width: 100%; container-type: inline-size; height: auto; }
+.index-widget-world .scatter .scatter-1 { order: 4; }
+.index-widget-world .scatter .scatter-9 { order: 5; }
+.index-widget-world .scatter .scatter-2 { order: 6; }
+.index-widget-world .scatter .scatter-3 { order: 7; }
+.index-widget-world .scatter .scatter-5 { order: 8; }
+.index-widget-world .scatter .scatter-12 { order: 9; }
+.index-widget-world .scatter .scatter-10 { order: 10; }
+.index-widget-world .scatter .scatter-claims { order: 11; }
+.index-widget-world .scatter .card-heading { position: relative; inset: auto; display: flex; align-items: center; padding: 0 8px; height: 32px; }
+.index-widget-world .scatter .card-heading > span { position: relative; inset: auto; font-size: var(--portfolio-label-size); line-height: var(--portfolio-label-line); white-space: normal; }
+.index-widget-world .scatter .card-heading > button { position: static; width: 44px; height: 44px; opacity: 1; }
+.index-widget-world .scatter .card-heading > button svg { width: 14px; height: 14px; }
+.index-widget-world .scatter .fontcontext-card-media { height: calc(var(--index-preview-height) - 18px); aspect-ratio: auto; background: transparent; }
+.canvas-folio.index-folio .scatter .fontcontext-card-media video { object-fit: cover; background: transparent; }
+.index-widget-world .scatter .portfolio-experiment-card { display: block; width: 100%; }
+.index-widget-world .scatter .portfolio-experiment-card > video { width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; }
+/* Four compact project covers lead the page, sharing a quiet 8px mount. */
+.index-widget-world { --index-frame: var(--component-frame-bg); --index-frame-line: var(--component-frame-line); --index-preview-height: clamp(190px, calc((100svh - 172px) / 2), 216px); }
+.folio[data-theme="dark"] .index-widget-world { --index-frame: var(--component-frame-bg); --index-frame-line: var(--component-frame-line); }
+.index-widget-world .index-component-frame,
+.canvas-folio.index-folio .scatter .portfolio-experiment-card {
+  padding: calc(var(--canvas-frame-inset) - 1px);
+  border: 1px solid var(--index-frame-line);
+  border-radius: 20px;
+  background: var(--index-frame);
+  box-shadow: none;
+}
+.index-widget-world .index-component-frame > .card { border-radius: 12px; box-shadow: none; }
+.canvas-folio.index-folio .scatter .portfolio-experiment-card { height: var(--index-preview-height); }
+/* Let these recordings breathe at the reference's taller proportions. */
+.canvas-folio.index-folio .scatter .portfolio-experiment-card:is(.paint-card,.metallic-card) { height: auto; }
+.canvas-folio.index-folio .scatter .td-claims-card { height: auto; }
+.canvas-folio.index-folio .scatter .portfolio-experiment-card:is(.paint-card,.metallic-card) > video { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.index-widget-world .scatter-trace .trace-project-link {
+ --index-watch-scale:calc((100cqw - 2 * var(--canvas-frame-inset)) / 638px);
+ position:relative; z-index:1; inset:auto; width:100%; height:calc(2 * var(--canvas-frame-inset) + 354px * var(--index-watch-scale)); aspect-ratio:auto;
+ padding:0; transform:none;
+}
+.index-widget-world .scatter-trace .trace-project-art {
+ position:absolute; left:calc(var(--canvas-frame-inset) - 1px); top:calc(var(--canvas-frame-inset) - 1px);
+ width:638px; transform:scale(var(--index-watch-scale)); transform-origin:top left;
+}
+.index-widget-world .scatter-trace .trace-bento-watch img { padding-bottom:76px; }
+.index-widget-world .scatter-trace .trace-project-art { height: 354px; aspect-ratio: auto; grid-template-columns: 1.08fr 1fr; grid-template-rows: 210px 136px; gap: 8px; }
+.index-widget-world .scatter-trace .trace-bento-watch { grid-row: 1 / 3; }
+@container (max-width: 460px) {
+  .index-card-column { display: contents; }
+  .index-widget-world .scatter { grid-template-columns: minmax(0, 1fr); gap: var(--portfolio-card-gap); }
+  .index-widget-world .scatter .scatter-item { grid-column: 1; }
+  .index-widget-world { --index-preview-height: 240px; }
+}
+
+/* Animate only the incoming projects; the sidebar renders at its final position. */
+@keyframes index-projects-in { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+@media (prefers-reduced-motion: no-preference) {
+ .index-widget-world { animation:index-projects-in 240ms cubic-bezier(.22,1,.36,1) both; }
+}
+/* On phones the columns stack, so the introduction shares the page surface. */
+@media (max-width: 700px) { .index-folio .index-sidebar { background: transparent; } }
+
+/* Index is a stationary profile beside one independently scrolling project list. */
+@media (min-width: 701px) {
+  .index-folio .portfolio-index { height: 100dvh; min-height: 0; }
+  .index-folio .index-sidebar { position: relative; top: auto; }
+  .index-folio .index-component-gallery { height: 100%; min-height: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--folio-line) transparent; }
+}
+.index-folio { --folio-pink: #D1008A; }
+.index-folio[data-theme="dark"] { --folio-pink: #D1008A; }
+.index-folio .index-contact,
+.index-folio .index-contact-note,
+.index-folio .index-contact-note a,
+.index-folio .index-availability { color: #D1008A; }
+.index-folio .index-about { color: var(--folio-text); }
+.index-intro .name-squiggle::after { background: #D1008A; height: 1.5px; opacity: 1; }
+.index-intro .pencil-attention { animation: none; }
+.folio .index-intro .pencil-tooltip,
+.folio .index-intro .pencil-tooltip.intro { animation: none !important; transition: none; transform: translateX(-50%); }
+.folio .index-intro .intro-details { display: block; }
+.folio .index-socials .social-btn { width: 38px; }
+.folio .index-socials .social-btn svg { width: 16px; height: 16px; }
+.folio .index-socials .social-btn::before { inset: 4px 1px; }
+@media (max-width: 700px) { .folio .index-socials .social-btn { width: 44px; } }
+
+@media (min-width: 701px) and (max-width: 1100px) {
+  .index-folio .portfolio-index { height: calc(100dvh - 64px); }
+  .index-folio .index-sidebar { max-height: calc(100dvh - 178px); }
+}
+/* Reference profile composition, scaled to the narrower Index column. */
+.folio .index-intro .original-intro h1 { font-size: var(--portfolio-index-heading); line-height: 1.2; letter-spacing: -.02em; text-wrap: wrap; }
+.index-intro { margin-bottom: 22px; }
+.index-socials { padding-bottom: 22px; margin-bottom: 0; border-bottom: 1px solid var(--folio-line); gap: 10px; }
+.index-socials > div { gap: 6px; }
+.folio .index-socials .social-btn { width: 40px; height: 44px; }
+.folio .index-socials .social-btn::before { inset: 2px 0; background: var(--folio-soft); }
+.folio .index-socials .social-btn svg { position: relative; width: 16px; height: 16px; }
+.index-availability { padding: 8px 12px; font-size: 10px; }
+.index-availability > span { width: 6px; height: 6px; }
+.index-contact { padding-block: 22px; margin-bottom: 26px; border-bottom: 1px solid var(--folio-line); font-size: 12px; line-height: 1.8; }
+.index-about { padding-inline: 18px; font-size: 11px; }
+.index-experience h2 { font-size: 10px; letter-spacing: .07em; margin-bottom: 10px; }
+.index-experience dl { margin-bottom: 20px; }
+.index-experience dl > div { grid-template-columns: 78px minmax(0, 1fr); gap: 12px; margin-bottom: 6px; font-size: 12px; }
+@media (max-width: 1100px) {
+  .folio .index-intro .original-intro h1 { font-size: 21px; }
+  .index-socials { padding-bottom: 16px; }
+  .index-contact { flex-wrap: wrap; padding-block: 16px; }
+}
+@media (max-width: 700px) {
+  .folio .index-intro .original-intro h1 { font-size: 25px; }
+  .folio .index-socials .social-btn { width: 44px; }
+}
+/* Match the reference's restrained contact and experience hierarchy. */
+.index-folio .index-contact { color: var(--folio-text); }
+.index-folio .index-contact-note { color: var(--folio-muted); }
+.index-folio .index-contact-note a { color: #D1008A; }
+.index-folio[data-theme="dark"] .index-sidebar { --folio-muted: #939eae; --folio-line: #1b2227; }
+.index-socials > div { gap: 8px; }
+.index-folio[data-theme="dark"] .index-socials .social-btn::before { background: #171c20; border-color: #3b4248; }
+.index-contact { padding-block: 22px 24px; margin-bottom: 28px; }
+.index-experience dl > div { grid-template-columns: 72px minmax(0, 1fr); gap: 14px; }
+/* Original ChrisandraVaz/design profile palette; preserve current geometry. */
+.index-folio .index-sidebar {
+  --portfolio-muted: var(--folio-muted);
+  --portfolio-text: var(--folio-text);
+  --folio-text: #171717;
+  --folio-muted: #505866;
+  --index-profile-heading: #171717;
+  --index-profile-border: rgba(20, 25, 32, .2);
+  --index-profile-panel: rgba(255, 255, 255, .95);
+}
+.index-folio[data-theme="dark"] .index-sidebar {
+  --folio-text: #f4f6f8;
+  --folio-muted: #8e98a8;
+  --index-profile-heading: #fff;
+  --index-profile-border: rgba(232, 236, 243, .18);
+  --index-profile-panel: rgba(255, 255, 255, .05);
+}
+.index-folio .index-intro h1,
+.index-folio .index-experience dt { color: var(--index-profile-heading); }
+.index-folio .index-socials,
+.index-folio .index-contact { border-color: color-mix(in srgb, var(--index-profile-border) 30%, transparent); }
+.index-folio .index-sidebar .social-btn::before { background: var(--index-profile-panel); border-color: var(--index-profile-border); }
+.index-folio .index-availability { background: #fffafd; border-color: #f5d3e6; }
+.index-folio[data-theme="dark"] .index-availability { background: rgba(236, 240, 246, .015); border-color: rgba(236, 240, 246, .1); }
+.index-folio[data-theme="dark"] .index-about { color: #e8edf4; }
+.index-folio[data-theme="dark"] .index-about::before { background: rgba(236, 240, 246, .015); border-color: rgba(236, 240, 246, .1); }
+/* Brighter pink for the booking link and availability badge. */
+.index-folio .index-contact-note a,
+.index-folio .index-availability { color: #FF6BC2; }
+
+/* One drawing hint in both views, including the Canvas's transformed scale. */
+.folio .original-intro { --drawing-hint-scale: 1; }
+.folio .original-intro .pencil-trigger { animation: none; }
+.folio .original-intro .pencil-tooltip,
+.folio .original-intro .pencil-tooltip.intro {
+  width: 123px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.1;
+  padding: 7px 11px;
+  bottom: calc(100% + 12px * var(--drawing-hint-scale));
+  transform: translateX(-50%) scale(var(--drawing-hint-scale));
+  transform-origin: center bottom;
+  animation: none !important;
+  transition: none !important;
+}
+.folio .original-intro .pencil-wrap:focus-within .pencil-tooltip { opacity: 1; }
+@media (min-width: 1101px) {
+  .canvas-folio:not(.index-folio) .original-intro { --drawing-hint-scale: calc(1 / var(--canvas-scale) / .612 / 1.0416667); }
+}
+
+.index-contact,
+.index-experience dl > div { font-size: var(--portfolio-body-size); }
+.index-experience h2,
+.index-availability { font-size: var(--portfolio-meta-size); }
+
+/* Full-size, quiet profile controls, matching the original portfolio's hover. */
+.index-folio .index-about {
+ width:110px; min-width:110px; min-height:44px; padding:11px 20px; font-size:14px; line-height:20px;
+ border:1px solid var(--index-profile-border); border-radius:25px;
+ background:rgba(20,25,32,.025); transition:background-color 180ms ease;
+}
+.index-folio .index-about::before { content:none; }
+.index-folio .index-about:is(:hover,:focus-visible) { background:rgba(20,25,32,.07); }
+.index-folio[data-theme="dark"] .index-about { background:rgba(236,240,246,.015); }
+.index-folio[data-theme="dark"] .index-about:is(:hover,:focus-visible) { background:rgba(236,240,246,.045); }
+.index-folio[data-theme] .index-availability { background:transparent; border-color:var(--index-profile-border); }
+@media (prefers-reduced-motion: reduce) { .index-folio .index-about { transition:none; } }
+
+.index-folio[data-theme="light"] .index-availability,
+.index-folio[data-theme="light"] .index-contact-note a { color:#D1008A; }
+
+.index-widget-world .scatter-trace .trace-project-link { --badge-scale:1; }
+.index-widget-world .scatter :is(.scatter-5,.scatter-12)>.index-component-frame { border-radius:14px; }
+.index-widget-world .scatter :is(.scatter-5,.scatter-12)>.index-component-frame>.card { border-radius:8px; }

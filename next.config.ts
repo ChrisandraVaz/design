@@ -3,6 +3,7 @@ import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   devIndicators: false,
+  distDir: process.env.EVAL_BUILD_DIR || ".next",
 };
 
 export default withSentryConfig(nextConfig, {

@@ -1,0 +1,118 @@
+/* Chat covers follow the supplied wide Message Queuing reference. */
+.canvas-folio .widget-world .scatter-1 > .sentry-preview-card {
+  width: 100%;
+  height: auto;
+  min-height: 352px;
+  aspect-ratio: 1.357;
+  padding: 12px;
+}
+.canvas-folio .widget-world .scatter-9 > .sentry-preview-card {
+  width: 100%;
+  height: auto;
+  min-height: 440px;
+  aspect-ratio: .943;
+  padding: 12px;
+}
+.sentry-preview-send-to-agent { --badge-inset: 2.4em; }
+
+/* The film owns its internal composer geometry; the badge lives outside it. */
+.canvas-folio .widget-world .sentry-preview-send-to-agent .agent-reference.is-compact .agent-reference-body { mask-image: none; }
+.canvas-folio .widget-world .sentry-preview-send-to-agent .agent-reference.is-compact .agent-feedback-icons { display: flex; }
+.canvas-folio .widget-world .sentry-preview-send-to-agent .agent-reference.is-compact .agent-reference-question { font-size: 14px; }
+.canvas-folio .widget-world .sentry-preview-send-to-agent .agent-reference.is-compact .agent-investigation-copy :is(p,ol) { font-size: 12px; }
+.canvas-folio .widget-world .sentry-queue.is-compact .queue-conversation { padding: 20px 17px; gap: 20px; min-height: 0; }
+.canvas-folio .widget-world .sentry-queue.is-compact .sentry-user-message { font-size: 14px; padding: 4px 8px; }
+.canvas-folio .widget-world .sentry-queue.is-compact .sentry-answer { font-size: 13px; line-height: 1.5; }
+.canvas-folio .widget-world .sentry-queue.is-compact .sentry-thinking { font-size: 12px; }
+.canvas-folio .widget-world .sentry-queue.is-compact .queue-bottom { padding: 0 17px 17px; }
+.canvas-folio .widget-world .sentry-queue.is-compact .queue-item { font-size: 12px; padding: 7px 8px; }
+.canvas-folio .widget-world .sentry-queue.is-compact .queue-composer { font-size: 12px; min-height: 36px; padding: 6px 8px; }
+
+@media (min-width: 1101px) {
+  /* The two chats share the space previously occupied by three small previews.
+     Split Panel sits beneath Font Context; the lower group retains its spacing. */
+  .canvas-folio:not(.index-folio) .scatter {
+    --chat-width: calc(387.243px + var(--canvas-component-gap) / 2);
+    --chat-height: calc(var(--chat-width) / 1.357);
+    height: calc(1230.538px + var(--canvas-component-gap));
+  }
+  .canvas-folio:not(.index-folio) .scatter-viewport { height: calc(1230.538px * var(--canvas-scale) + 36px); }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-1,
+  .canvas-folio:not(.index-folio) .widget-world .scatter-9 { --size: 1; width: var(--chat-width); top: 65px; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-1 { left: 2.91px; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-9 { left: calc(390.153px + 1.5 * var(--canvas-component-gap)); }
+  .canvas-folio:not(.index-folio) .scatter-1 > .card-heading,
+  .canvas-folio:not(.index-folio) .scatter-9 > .card-heading { height: 20px; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-1 > .sentry-preview-card { height: var(--chat-height); min-height: 0; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-9 > .sentry-preview-card { height: calc(var(--chat-width) / .943); min-height: 0; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-2 {
+    --size: 1; width: 345.07px;
+    left: calc(777.396px + 3 * var(--canvas-component-gap));
+    top: calc(283.942px + var(--canvas-component-gap));
+  }
+  .canvas-folio:not(.index-folio) .scatter-2 > .sentry-preview-card { height: 220px; }
+  .canvas-folio:not(.index-folio) .scatter-trace { top: 518.553973px; left: calc(166.779px + var(--canvas-component-gap)); }
+  .canvas-folio:not(.index-folio) .scatter-5 { top: 783.890439px; }
+  .canvas-folio:not(.index-folio) .scatter-12 { top: calc(933.570px + var(--canvas-component-gap)); }
+  .canvas-folio:not(.index-folio) .scatter-10 { top: calc(505.895px + var(--canvas-component-gap)); }
+  .canvas-folio:not(.index-folio) .scatter-paint { top: 869.02px; }
+  .canvas-folio:not(.index-folio) .scatter-metallic { top: 823.86px; }
+  /* A square Relative Time cover at the existing width and Watch baseline. */
+  .canvas-folio:not(.index-folio) .widget-world .scatter-3 {
+    --size: .765530915;
+    --time-cover-height: 352px;
+    width: 352px;
+    left: calc(2.91px - 352px * (1 - var(--size)) / 2);
+    top: calc(834.39px - 384px * (1 + var(--size)) / 2);
+  }
+}
+
+/* Reserve room for both pending messages without resizing an animated cover. */
+.canvas-folio .widget-world .sentry-queue.is-compact:is([data-phase="2"], [data-phase="3"]) .queue-conversation {
+  padding-block: 12px;
+  gap: 12px;
+}
+/* Narrow columns need a stable height for the two-message queue state. */
+@media (min-width: 1400px) {
+  .canvas-folio.index-folio .widget-world .scatter-1 > .sentry-preview-card { min-height: 300px; }
+}
+
+/* Anchor chat contents to the frame so Safari also fills a min-height cover. */
+.canvas-folio .widget-world :is(.sentry-preview-message-queuing, .sentry-preview-send-to-agent) { --chat-frame-inset: 12px; }
+.canvas-folio .widget-world :is(.sentry-preview-message-queuing, .sentry-preview-send-to-agent) > .sentry-preview-link {
+  position: absolute; inset: var(--chat-frame-inset); height: auto;
+}
+.canvas-folio .widget-world .sentry-preview-send-to-agent .card-kind {
+  left: calc(var(--badge-inset) - var(--chat-frame-inset) - 1px);
+  bottom: calc(var(--badge-inset) - var(--chat-frame-inset) - 1px);
+}
+
+/* Keep the cover square in every layout; its surrounding column owns the width. */
+.canvas-folio .widget-world .scatter-3 > .sentry-preview-card {
+  --time-frame-inset: 12px;
+  height: auto;
+  aspect-ratio: 1;
+  min-height: 0;
+}
+.canvas-folio .widget-world .scatter-3 > .sentry-preview-card > .sentry-preview-link {
+  position: absolute;
+  inset: var(--time-frame-inset);
+  height: auto;
+}
+.canvas-folio.index-folio .widget-world .scatter-3 > .sentry-preview-card {
+  --time-frame-inset: 8px;
+}
+.canvas-folio .widget-world .sentry-preview-relative-time .card-kind {
+  left: calc(var(--badge-inset) - var(--time-frame-inset) - 1px);
+  bottom: calc(var(--badge-inset) - var(--time-frame-inset) - 1px);
+}
+
+/* The purple film surrounds the product; the badge sits in its own lower gutter. */
+.canvas-folio .widget-world .sentry-preview-send-to-agent .agent-film .agent-reference.is-compact .agent-reference-window { padding-bottom: 0; }
+.canvas-folio .widget-world .sentry-preview-send-to-agent .agent-film .agent-reference.is-compact .agent-reference-menu { width: clamp(168px, 48%, 320px); }
+.canvas-folio .widget-world .sentry-preview-send-to-agent .agent-film .agent-reference.is-compact .agent-reference-question { font-size: 13px; }
+.canvas-folio .widget-world .sentry-preview-send-to-agent .agent-film .agent-reference.is-compact .agent-investigation-copy :is(p,ol) { font-size: 11px; }
+
+.sentry-preview-message-queuing .sentry-preview-art { border-radius: 6px; }
+
+.canvas-folio .widget-world .sentry-preview-send-to-agent .agent-film .agent-reference.is-compact .agent-reference-receipt { display: flex; font-size: 11px; }

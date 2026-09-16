@@ -1,0 +1,170 @@
+/* Editorial roles for the case study. Product artwork owns its typography. */
+.case-design .travel-case {
+  --trace-ink: #1d1d1f;
+  --trace-copy: #626268;
+  --trace-secondary: #6e6e73;
+  --trace-title-size: clamp(36px, 4.6vw, 64px);
+  --trace-chapter-size: clamp(30px, 3.2vw, 40px);
+  --trace-subhead-size: clamp(26px, 2.6vw, 32px);
+  --trace-chapter-space: clamp(56px, 7vw, 88px);
+  --trace-story-space: clamp(32px, 4vw, 48px);
+  --trace-column-gap: clamp(28px, 4vw, 64px);
+  color: var(--trace-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-optical-sizing: auto;
+}
+
+.case-design .travel-case p { color: var(--trace-copy); }
+.case-design .travel-case .trace-kicker {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: .01em;
+  color: var(--trace-secondary);
+}
+
+.case-design .travel-case .trace-editorial-opening .trace-header { margin-bottom: 32px; }
+.case-design .travel-case .trace-editorial-opening .trace-kicker {
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: .01em;
+  margin-bottom: 16px;
+}
+.case-design .travel-case .trace-editorial-opening h1 {
+  font-size: var(--trace-title-size);
+  font-weight: 600;
+  line-height: 1.075;
+  letter-spacing: -.02em;
+}
+.case-design .travel-case .trace-project-facts dt { font-size: 12px; color: var(--trace-secondary); }
+.case-design .travel-case .trace-project-facts dd { font-size: 14px; color: var(--trace-ink); }
+
+/* A heading, its explanation, and the corresponding artwork form one group. */
+.case-design .travel-case :is(.trace-section-heading, .trace-section-intro) {
+  display: block;
+  max-width: 680px;
+  margin: 0 0 32px;
+}
+.case-design .travel-case :is(.trace-section-heading, .trace-section-intro) h2 {
+  max-width: 24ch;
+  margin: 10px 0 0;
+  color: var(--trace-ink);
+  font-size: var(--trace-chapter-size);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+.case-design .travel-case :is(.trace-section-heading, .trace-section-intro) p {
+  max-width: 60ch;
+  margin: 18px 0 0;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: var(--trace-copy);
+  text-wrap: pretty;
+}
+.case-design .travel-case .trace-workbench-heading { display: block; margin-bottom: 0; padding: 0; }
+.case-design .travel-case :is(.trace-workbench, .trace-layout-story, .travel-references, .ts-explorations, .trace-system-study) {
+  margin-block: var(--trace-chapter-space);
+}
+.case-design .travel-case .trace-motion { margin-top: var(--trace-chapter-space); }
+
+/* Narrative rows share a reading axis, including the exploration introductions. */
+.case-design .travel-case .trace-problem-compact {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--trace-column-gap);
+  align-items: start;
+  margin-block: var(--trace-story-space);
+}
+.case-design .travel-case .trace-problem-compact h2,
+.case-design .travel-case .trace-travel-insight h2,
+.case-design .travel-case .travel-evidence-copy h2,
+.case-design .travel-case .ts-study-copy h3 {
+  max-width: 24ch;
+  margin: 10px 0 0;
+  font-size: var(--trace-subhead-size);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -.015em;
+  text-wrap: balance;
+  color: var(--trace-ink);
+}
+.case-design .travel-case .trace-problem-compact > p,
+.case-design .travel-case .trace-problem-compact > .trace-ecosystem-copy { padding-top: 30px; }
+.case-design .travel-case .trace-problem-compact p,
+.case-design .travel-case .travel-evidence-copy p,
+.case-design .travel-case .ts-study-copy p {
+  max-width: 58ch;
+  font-size: 17px;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: var(--trace-copy);
+  text-wrap: pretty;
+}
+.case-design .travel-case .travel-evidence {
+  gap: var(--trace-column-gap);
+  margin-block: var(--trace-story-space);
+  padding-block: 24px;
+}
+.case-design .travel-case .travel-evidence-copy h2 { margin-top: 0; }
+.case-design .travel-case .travel-evidence-copy p { margin: 18px 0 0; }
+.case-design .travel-case .travel-evidence-copy p + p { margin-top: 16px; font-size: 13px; }
+.case-design .travel-case .travel-evidence-copy > a { display: inline-block; margin-top: 10px; }
+.case-design .travel-case .travel-stat > strong { font-weight: 600; letter-spacing: -.045em; }
+.case-design .travel-case .travel-stat p { max-width: 27ch; color: var(--trace-copy); }
+.case-design .travel-case .trace-travel-insight { margin-block: var(--trace-story-space); }
+.case-design .travel-case .trace-insight-readings { gap: 32px; margin-top: 28px; }
+.case-design .travel-case .trace-insight-readings h3,
+.case-design .travel-case .trace-layout-notes h3 {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  margin: 0 0 10px;
+}
+.case-design .travel-case .trace-layout-notes h3 { margin-top: 12px; }
+.case-design .travel-case .trace-insight-readings p,
+.case-design .travel-case .trace-layout-notes p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--trace-copy);
+}
+
+.case-design .travel-case .ts-study-wide { margin-block: 40px var(--trace-chapter-space); gap: 28px; }
+.case-design .travel-case .ts-study-copy {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  column-gap: var(--trace-column-gap);
+  align-items: start;
+}
+.case-design .travel-case .ts-study-copy > span {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--trace-secondary);
+}
+.case-design .travel-case .ts-study-copy p { align-self: start; margin: 10px 0 0; }
+.case-design .travel-case .trace-color-originals figcaption { font-weight: 500; }
+.case-design .travel-case .trace-material-strip h4 { font-size: 17px; font-weight: 600; }
+.case-design .travel-case .trace-material-strip p { font-size: 14px; line-height: 1.6; }
+.case-design .travel-case .trace-color-accessibility { font-size: 14px; line-height: 1.6; max-width: 76ch; color: var(--trace-copy); }
+
+@media (max-width: 899px) {
+  .case-design .travel-case .trace-problem-compact { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .case-design .travel-case .trace-problem-compact > p,
+  .case-design .travel-case .trace-problem-compact > .trace-ecosystem-copy { padding-top: 0; }
+  .case-design .travel-case .trace-problem-compact h2 { max-width: 26ch; }
+  .case-design .travel-case .ts-study-copy { display: block; }
+  .case-design .travel-case .ts-study-copy h3 { max-width: 28ch; }
+  .case-design .travel-case .ts-study-copy p { margin-top: 16px; }
+}
+
+@media (max-width: 699px) {
+  .case-design .travel-case .trace-editorial-opening .trace-header { margin-bottom: 24px; }
+  .case-design .travel-case :is(.trace-section-heading, .trace-section-intro) { margin-bottom: 28px; }
+  .case-design .travel-case .trace-insight-readings { gap: 24px; }
+  .case-design .travel-case .trace-travel-insight h2 { max-width: 24ch; }
+  .case-design .travel-case .travel-evidence { padding-block: 8px; }
+}

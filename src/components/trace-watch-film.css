@@ -1,0 +1,21 @@
+.travel-case .trace-watch-film{margin:var(--section-space,80px) 0;min-width:0}
+.trace-film-picture{position:relative;overflow:hidden;background:#f8f8fa;border-radius:24px}
+.trace-film-picture video{display:block;width:100%;height:auto;aspect-ratio:10/7;object-fit:contain}
+.trace-film-start{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:52px;height:52px;padding:0;display:grid;place-items:center;border:1px solid #ffffff80;border-radius:50%;background:#27272bea;color:white;cursor:pointer;box-shadow:0 2px 12px #00000012}
+.trace-film-start svg{width:24px;height:24px;transform:translateX(-1px)}
+.trace-film-controls{display:flex;align-items:center;gap:12px;min-height:56px;color:#626269;padding:4px 6px}
+.trace-film-controls button{width:44px;height:44px;display:grid;place-items:center;flex:none;padding:0;border:0;border-radius:50%;color:#3b3b41;background:none;cursor:pointer}
+.trace-film-controls button:hover{background:#f2f2f4}
+.trace-film-controls button svg{width:19px;height:19px}
+.trace-film-time{font-size:11px;font-variant-numeric:tabular-nums;min-width:26px}
+.trace-film-controls input{appearance:none;min-width:0;flex:1;height:44px;margin:0;cursor:pointer;background:transparent;accent-color:#7b79a3}
+.trace-film-controls input::-webkit-slider-runnable-track{height:3px;background:#dedee4;border-radius:3px}
+.trace-film-controls input::-webkit-slider-thumb{appearance:none;width:12px;height:12px;border-radius:50%;margin-top:-4.5px;background:#737186}
+.trace-film-controls input::-moz-range-track{height:3px;background:#dedee4;border-radius:3px}
+.trace-film-controls input::-moz-range-thumb{width:12px;height:12px;border:0;border-radius:50%;background:#737186}
+.trace-watch-film :is(button,input):focus-visible{outline:2px solid #696486;outline-offset:3px}
+.travel-case .trace-watch-film>figcaption{display:flex;justify-content:space-between;gap:8px 24px;font-size:12px;line-height:1.6;color:#77777f;margin-top:4px}
+.trace-watch-film>figcaption>span:first-child{color:#3b3b41}
+.trace-film-fallback{font-size:13px!important;line-height:1.6}
+.trace-film-fallback a{color:inherit;text-underline-offset:3px}
+@media(max-width:699px){.trace-film-picture{border-radius:18px}.trace-film-start{bottom:12px;width:44px;height:44px}.trace-film-controls{gap:8px;padding-inline:0}.travel-case .trace-watch-film>figcaption{flex-direction:column;gap:2px}}

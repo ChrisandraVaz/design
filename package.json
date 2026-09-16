@@ -6,7 +6,11 @@
     "dev": "next dev --hostname 127.0.0.1 --port 3004 --webpack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:responsive": "playwright test",
+    "test:report": "playwright show-report",
+    "build:eval": "EVAL_BUILD_DIR=.next-eval next build",
+    "start:eval": "EVAL_BUILD_DIR=.next-eval next start --hostname 127.0.0.1 --port 3010"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.42.0",
@@ -16,6 +20,7 @@
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

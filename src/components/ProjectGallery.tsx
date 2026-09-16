@@ -1,155 +1,64 @@
 "use client";
-
-import { useEffect, useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
-
 const projects = [
+  { title: "Interfaces for agency", subtitle: "Intent, execution, and the moment a human steps in.", tag: "Independent study · Design engineering", image: "agent-study", bgColor: "#edece8", href: "/projects/agent-interface", featured: true },
   {
-    title: "FontContext (Figma Plugin)",
-    subtitle: "Context Aware Font Editor",
+    title: "Font Context Plugin",
+    subtitle: "A context-aware font editor for Figma.",
+    tag: "Figma plugin",
     image: "/assets/figma.mp4",
-    bgColor: "#000000",
+    bgColor: "#171717",
     href: "/fontcontext.html",
+    featured: true,
+  },
+  {
+    title: "Interest Claims Manager",
+    subtitle: "Making financial workflows feel simple.",
+    tag: "TD Securities",
+    image: "/assets/tdinterestclaims.png",
+    bgColor: "#e8f5e8",
+    href: "/projects/td-bank-interest-claims",
+  },
+  {
+    title: "A system built to scale",
+    subtitle: "Tokenized foundations for TD Securities.",
+    tag: "Design systems",
+    image: "/assets/tds.png",
+    bgColor: "#073b31",
+    href: "/projects/td-design-system",
+  },
+  {
+    title: "IBM Accelerate",
+    subtitle: "Rethinking the ManageIQ experience.",
+    tag: "Product design",
+    image: "/assets/ibm.gif",
+    bgColor: "#eaf0ff",
+    href: "/projects/ibm-accelerate",
   },
   {
     title: "Liquid Metallic Button",
-    subtitle: "Interactive Component",
+    subtitle: "An exploration of light and interaction.",
+    tag: "Experiment",
     image: "/assets/metalicbutton1.mov",
     bgColor: "#2b2b2b",
     href: "https://chrisandravaz.github.io/Liquid-Metallic-Button-/liquid-metal-button",
   },
   {
-    title: "2000s Microsoft Paint Recreation",
-    subtitle: "Interactive Component",
+    title: "Microsoft Paint Recreation",
+    subtitle: "A browser study in familiar tools and playful constraints.",
+    tag: "Design engineering",
     image: "/assets/microsoftpaint.mp4",
-    bgColor: "#c0c0c0",
+    bgColor: "#d9e6f5",
     href: "https://chrisandravaz.github.io/Microsoft-Paint/",
   },
-  {
-    title: "TD Bank (Securities)",
-    subtitle: "Interest Claims Manager",
-    image: "/assets/tdinterestclaims.png",
-    bgColor: "#e8f5e8",
-    href: "https://www.figma.com/deck/gtOsKJthDfJ5AMuEzoLeIc/TD-Interest-Claims-Manager?node-id=21-5529&viewport=-137%2C-76%2C0.64&t=4X9qVynR5g75X3F1-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1",
-  },
-  {
-    title: "IBM Accelerate",
-    subtitle: "ManageIQ System Revamp",
-    image: "/assets/ibm.gif",
-    bgColor: "#0052ff",
-    href: "/projects/ibm-accelerate",
-  },
-  {
-    title: "Figma - FigBuild 2025",
-    subtitle: "Inaugural Designathon (8 Universities) · Content Design",
-    image: "/assets/figbuild.png",
-    bgColor: "#eef0f3",
-    href: "/projects/figbuild",
-  },
-  {
-    title: "TD Bank (Securities) Design System",
-    subtitle: "Tokenized Foundations",
-    image: "/assets/tds.png",
-    bgColor: "#1a3a2f",
-    href: "/projects/td-design-system",
-  },
-  {
-    title: "Serano Cafe",
-    subtitle: "Visual Design & Web Design",
-    image: "/assets/sernaobakerymockup.png",
-    bgColor: "#1a1a2e",
-    href: "/projects/serano-cafe",
-  },
+
 ];
-
 export default function ProjectGallery() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const frameRef = useRef<number | null>(null);
-  const lastTsRef = useRef<number | null>(null);
-  const manualPauseUntilRef = useRef(0);
-  const isHoveredRef = useRef(false);
-  const [fontContext, liquidMetallicButton, microsoftPaint, ...featureStack] = projects;
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const isTouchLike =
-      window.matchMedia("(pointer: coarse)").matches ||
-      window.matchMedia("(max-width: 767px)").matches;
-    if (isTouchLike) return;
-
-    const speedPxPerSecond = 10;
-    const endPauseMs = 900;
-    let isRunning = true;
-
-    const tick = (ts: number) => {
-      if (!isRunning) return;
-      const el = containerRef.current;
-      if (!el) {
-        frameRef.current = requestAnimationFrame(tick);
-        return;
-      }
-
-      const hasOverflow = el.scrollHeight > el.clientHeight + 1;
-      if (!hasOverflow || isHoveredRef.current || Date.now() < manualPauseUntilRef.current) {
-        lastTsRef.current = ts;
-        frameRef.current = requestAnimationFrame(tick);
-        return;
-      }
-
-      const prevTs = lastTsRef.current ?? ts;
-      const deltaSec = Math.min((ts - prevTs) / 1000, 0.05);
-      lastTsRef.current = ts;
-      el.scrollTop += speedPxPerSecond * deltaSec;
-
-      const atEnd = el.scrollTop >= el.scrollHeight - el.clientHeight - 1;
-      if (atEnd) {
-        el.scrollTop = 0;
-        manualPauseUntilRef.current = Date.now() + endPauseMs;
-      }
-
-      frameRef.current = requestAnimationFrame(tick);
-    };
-
-    frameRef.current = requestAnimationFrame(tick);
-
-    const pauseForManualInput = () => {
-      manualPauseUntilRef.current = Date.now() + 2500;
-    };
-
-    container.addEventListener("wheel", pauseForManualInput, { passive: true });
-    container.addEventListener("touchmove", pauseForManualInput, { passive: true });
-    container.addEventListener("pointerdown", pauseForManualInput, { passive: true });
-
-    return () => {
-      isRunning = false;
-      if (frameRef.current) cancelAnimationFrame(frameRef.current);
-      frameRef.current = null;
-      lastTsRef.current = null;
-      container.removeEventListener("wheel", pauseForManualInput);
-      container.removeEventListener("touchmove", pauseForManualInput);
-      container.removeEventListener("pointerdown", pauseForManualInput);
-    };
-  }, []);
-
   return (
-    <div
-      ref={containerRef}
-      className="md:h-full overflow-y-auto scrollbar-hide"
-      onMouseEnter={() => { isHoveredRef.current = true; }}
-      onMouseLeave={() => { isHoveredRef.current = false; lastTsRef.current = null; }}
-    >
-      <div className="space-y-2.5 p-0">
-        <ProjectCard {...fontContext} />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <ProjectCard {...microsoftPaint} />
-          <ProjectCard {...liquidMetallicButton} />
-        </div>
-        {featureStack.map((project) => (
-          <ProjectCard key={project.title} {...project} />
-        ))}
-      </div>
+    <div className="project-grid">
+      {projects.map((project, i) => (
+        <ProjectCard key={project.title} {...project} number={String(i + 1).padStart(2, "0")} />
+      ))}
     </div>
   );
 }

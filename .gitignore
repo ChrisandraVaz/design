@@ -43,3 +43,14 @@ next-env.d.ts
 # Sentry Config File
 .env.sentry-build-plugin
 .claude/
+
+/playwright-report/
+/test-results/
+
+/.next-eval/
+
+# Local Sentry source renders and review captures
+/tmp/sentry-source-review/
+/tmp/sentry-review/
+
+/.next*/

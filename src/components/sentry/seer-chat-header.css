@@ -1,0 +1,40 @@
+/* Reference at 1×: 54px header, 28px utility cells, 14px title, 12px icons.
+   Scale the complete rhythm together in the small, decorative chat previews. */
+.sentry-queue { container-type: inline-size; }
+.seer-chat-header {
+  --seer-header-unit: clamp(.56px, .265cqw, 1px);
+  display: flex;
+  flex: 0 0 calc(54 * var(--seer-header-unit));
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(10 * var(--seer-header-unit));
+  min-width: 0;
+  padding: 0 calc(12 * var(--seer-header-unit)) 0 calc(16 * var(--seer-header-unit));
+  border-bottom: 1px solid #e5e3eb;
+  background: #fff;
+  color: #3e3b46;
+  font-family: var(--font-rubik), Rubik, sans-serif;
+  line-height: 1;
+}
+.seer-chat-identity, .seer-chat-tools { display: flex; align-items: center; flex-shrink: 0; white-space: nowrap; }
+.seer-chat-close, .seer-chat-utility { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.seer-chat-close { width: calc(20 * var(--seer-header-unit)); height: calc(28 * var(--seer-header-unit)); }
+.seer-chat-header .seer-chat-close > svg { width: calc(16 * var(--seer-header-unit)); height: calc(16 * var(--seer-header-unit)); }
+.seer-chat-name { margin-left: calc(12 * var(--seer-header-unit)); font-size: calc(14 * var(--seer-header-unit)); font-weight: 400; }
+.seer-chat-beta { display: flex; align-items: center; justify-content: center; width: calc(20 * var(--seer-header-unit)); height: calc(20 * var(--seer-header-unit)); margin-left: calc(4 * var(--seer-header-unit)); border-radius: calc(4 * var(--seer-header-unit)); color: #d8a300; background: #fff3cd; }
+.seer-chat-header .seer-chat-beta > svg { width: calc(14 * var(--seer-header-unit)); height: calc(14 * var(--seer-header-unit)); }
+.seer-chat-utility { width: calc(28 * var(--seer-header-unit)); height: calc(28 * var(--seer-header-unit)); }
+.seer-chat-header .seer-chat-utility > svg { width: calc(14 * var(--seer-header-unit)); height: calc(14 * var(--seer-header-unit)); }
+.sentry-demo .seer-chat-new { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; gap: calc(6 * var(--seer-header-unit)); height: calc(28 * var(--seer-header-unit)); min-height: 0; margin-left: calc(6 * var(--seer-header-unit)); padding: 0 calc(8 * var(--seer-header-unit)); border: 1px solid #dad9de; border-radius: calc(5 * var(--seer-header-unit)); box-shadow: 0 1px 0 #dad9de; background: #fff; color: #3e3b46; font-family: inherit; font-size: calc(12 * var(--seer-header-unit)); font-weight: 500; line-height: 1; }
+.seer-chat-header .seer-chat-new > svg { width: calc(14 * var(--seer-header-unit)); height: calc(14 * var(--seer-header-unit)); }
+.sentry-demo .seer-chat-new:is(button) { min-height: 44px; }
+
+.seer-chat-header:has(button) { min-height: 54px; }
+
+/* Latest compact production nav, scoped to Send to Agent. */
+.seer-chat-header-agent { --seer-header-unit: clamp(.72px, .385cqw, 1px); }
+/* Keep the solid vector silhouette; the dark reference's brown tile becomes
+   the same pale warning surface used by the light Seer interface. */
+.seer-chat-header-agent .seer-chat-beta { background: #fff3cd; color: #d8a300; }
+.seer-chat-header-agent .seer-chat-beta > svg { width: calc(12 * var(--seer-header-unit)); height: calc(12 * var(--seer-header-unit)); }
+.sentry-demo .seer-chat-header-agent .seer-chat-new { width: calc(28 * var(--seer-header-unit)); padding: 0; }

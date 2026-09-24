@@ -3,11 +3,11 @@ export type TypeVariant = { id: string; name: string; heading: string; body: str
 
 export const typeVariants: TypeVariant[] = [
   { id: 'helvetica', name: 'Helvetica Neue (previous)', heading: '"Helvetica Neue", Helvetica, Arial, sans-serif', body: '"Helvetica Neue", Helvetica, Arial, sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 700 },
-  { id: 'crimson', name: 'Crimson Text + Hanken (current)', heading: '"Crimson Text", Georgia, serif', body: '"Hanken Grotesk", sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 600 },
+  { id: 'crimson', name: 'Crimson Text + Hanken', heading: '"Crimson Text", Georgia, serif', body: '"Hanken Grotesk", sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 600 },
   { id: 'instrument', name: 'Instrument Serif italic + Inter', heading: '"Instrument Serif", Georgia, serif', body: 'Inter, sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 400, italic: true },
   { id: 'geist', name: 'Geist + Geist Mono', heading: 'Geist, sans-serif', body: 'Geist, sans-serif', label: '"Geist Mono", monospace', headingWeight: 600 },
   { id: 'newsreader', name: 'Newsreader + Inter + JetBrains Mono', heading: 'Newsreader, Georgia, serif', body: 'Inter, sans-serif', label: '"JetBrains Mono", monospace', headingWeight: 500 },
-  { id: 'spacegrotesk', name: 'Space Grotesk + Instrument Sans + Space Mono', heading: '"Space Grotesk", sans-serif', body: '"Instrument Sans", sans-serif', label: '"Space Mono", monospace', headingWeight: 600 },
+  { id: 'spacegrotesk', name: 'Space Grotesk + Instrument Sans + Space Mono (current)', heading: '"Space Grotesk", sans-serif', body: '"Instrument Sans", sans-serif', label: '"Space Mono", monospace', headingWeight: 600 },
   { id: 'fraunces', name: 'Fraunces + Instrument Sans', heading: 'Fraunces, Georgia, serif', body: '"Instrument Sans", sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 500 },
   { id: 'hanken', name: 'Hanken Grotesk everywhere', heading: '"Hanken Grotesk", sans-serif', body: '"Hanken Grotesk", sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 600 },
   { id: 'sentient', name: 'Sentient + Hanken', heading: 'Sentient, Georgia, serif', body: '"Hanken Grotesk", sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 500 },

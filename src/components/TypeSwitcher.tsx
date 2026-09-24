@@ -17,10 +17,10 @@ function readStored(): string {
     if (param !== null) {
       // ?typetest=1 turns it on, ?typetest=0 off, ?typetest=<variant id> jumps straight to that system.
       const direct = typeVariants.find(v => v.id === param)?.id;
-      localStorage.setItem(KEY, param === '0' ? '' : (direct || localStorage.getItem(KEY) || 'crimson'));
+      localStorage.setItem(KEY, param === '0' ? '' : (direct || localStorage.getItem(KEY) || 'spacegrotesk'));
     }
     const stored = localStorage.getItem(KEY);
-    if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return stored || 'crimson'; // always on for local review
+    if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return stored || 'spacegrotesk'; // always on for local review
     return stored || '';
   } catch { return ''; }
 }

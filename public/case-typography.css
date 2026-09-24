@@ -1,7 +1,8 @@
 /* Editorial typography only. Product previews retain their own type systems. */
 :is(.case-design, .case-standalone) {
-  --case-editorial-font: var(--font-hanken, "Hanken Grotesk"), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --case-heading-font: var(--font-crimson, "Crimson Text"), Georgia, "Times New Roman", serif;
+  --case-editorial-font: var(--font-instrument-sans, "Instrument Sans"), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --case-heading-font: var(--font-space-grotesk, "Space Grotesk"), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --case-label-font: var(--font-space-mono, "Space Mono");
   --case-title-size: clamp(36px, 4.2vw, 52px);
   --case-section-size: clamp(30px, 3.2vw, 38px);
 }
@@ -13,7 +14,7 @@
   font-size:var(--case-title-size)!important;
   font-weight:600!important;
   line-height:1.1!important;
-  letter-spacing:-.015em!important;
+  letter-spacing:-.05em!important; word-spacing:-.05em;
   text-wrap:balance;
 }
 :is(.case-design, .case-standalone) h2:not(:where(.sentry-demo *, .agent-handoff-preview *, .queue-flow *, .related-studies *)) {
@@ -21,7 +22,7 @@
   font-size:var(--case-section-size)!important;
   font-weight:600!important;
   line-height:1.12!important;
-  letter-spacing:-.015em!important;
+  letter-spacing:-.05em!important; word-spacing:-.05em;
   text-wrap:balance;
 }
 :is(.case-design, .case-standalone) :is(h3,h4):not(:where(.sentry-demo *, .agent-handoff-preview *, .queue-flow *, .rt-specimen *)) {
@@ -157,13 +158,13 @@ html[data-theme=dark] .case-design .agent-story { --editorial-accent:#ff6b24; }
 .case-standalone { --editorial-accent:#e64800; }
 html[data-theme=dark] .case-standalone { --editorial-accent:#ff6b24; }
 :is(.case-design,.case-standalone) :is(.project-meta,.ibm-project-meta,.td-project-meta,.fb-meta,.section-label,.ibm-section-label,.td-section-label,.fb-label,.trace-kicker,.agent-story-label,.agent-segment-label,.info-item h4,.trace-project-facts dt,.agent-story-facts dt) {
-  font-family:var(--case-label-font,var(--font-ibm-plex-mono,"IBM Plex Mono")),monospace!important;
+  font-family:var(--case-label-font),monospace!important;
   font-size:11px!important; font-weight:500!important; line-height:1.5!important;
   letter-spacing:.08em!important; text-transform:uppercase!important;
   color:var(--editorial-muted)!important;
 }
 :is(.case-design,.case-standalone) :is(.tree-nav,.agent-story-tree,.sentry-story-tree,.trace-case-tree) a {
-  font-family:var(--font-ibm-plex-mono,"IBM Plex Mono"),monospace!important;
+  font-family:var(--case-label-font),monospace!important;
   font-size:10px!important; font-weight:500!important; line-height:1.5!important;
   letter-spacing:.04em!important; text-transform:uppercase!important;
   color:var(--editorial-muted)!important;
@@ -186,7 +187,7 @@ html[data-theme=dark] .case-standalone { --editorial-accent:#ff6b24; }
   color:var(--editorial-muted)!important;
 }
 .case-design :is(.ibm-info-item,.td-info-item,.fb-info-item) h4 {
-  font-family:var(--font-ibm-plex-mono,"IBM Plex Mono"),monospace!important;
+  font-family:var(--case-label-font),monospace!important;
   font-size:11px!important; font-weight:500!important; line-height:1.5!important;
   letter-spacing:.08em!important; text-transform:uppercase!important; color:var(--editorial-muted)!important;
 }
@@ -315,5 +316,3 @@ html[data-type] :is(.case-design,.case-standalone) { --case-heading-font: var(--
 html[data-type] :is(.case-design,.case-standalone) :is(h1,h2,h3,h4) { font-weight: var(--tt-heading-weight, 600) !important; font-style: var(--tt-heading-style, normal); }
 html[data-type] .case-design h1 { font-family: var(--tt-heading) !important; }
 
-/* Space Grotesk on every heading, unchanged size and weight; only the big h1 and h2 titles get tighter tracking. */
-html[data-type="spacegrotesk"] :is(.case-design,.case-standalone) :is(h1,h2) { letter-spacing: -.05em !important; word-spacing: -.05em; }

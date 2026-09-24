@@ -678,11 +678,56 @@ strong {
   height: 100%;
   border-radius: 8px;
 }
+.grass-grid .grass-study {
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #092319;
+}
+.grass-grid .grass-study canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.grass-grid .foliage-study { position: relative; }
+.grass-grid .wind-field-art { position: relative; overflow: hidden; }
+.grass-grid .shader-recording {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+}
+.grass-grid .shader-recording video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.grass-grid .shader-recording--city video { object-position: 36% center; }
+.grass-grid .shader-recording--origami video { transform: translateY(18%) scale(2.05); }
 .grass-grid .photo:first-child {
   grid-row: span 2;
 }
 .shader .collection-caption {
   margin-top: 20px;
+}
+.shader-card-open {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  cursor: pointer;
+}
+.shader-card-open:focus-visible {
+  outline: 2px solid #7554ff;
+  outline-offset: -5px;
 }
 .grid-toggle {
   position: fixed;
@@ -1172,6 +1217,19 @@ textarea {
 }
 .shader .collection-caption {
   margin-top: 16px;
+  align-items: last baseline;
+}
+.shader .collection-caption > .caption {
+  color: #555c57;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+@media (min-width: 1101px) {
+  .canvas-folio:not(.index-folio) .widget-world .shader .collection-caption > .caption {
+    font-size: calc(13px / var(--size) / var(--canvas-scale));
+    line-height: calc(18px / var(--size) / var(--canvas-scale));
+  }
 }
 @media (max-width: 1247px) {
   .gallery {
@@ -1316,7 +1374,8 @@ textarea {
 .canvas-folio .folio-name { visibility:hidden; }
 .widget-world .scatter-viewport { max-width:1200px; width:calc(100% - 96px); margin:0 auto; height:calc(1720px * var(--canvas-scale)); }
 .widget-world .scatter { position:relative; width:1200px; height:1720px; transform:scale(var(--canvas-scale)); transform-origin:top left; }
-.widget-world .scatter-intro { position:absolute; left:0; top:8px; width:720px; transform:scale(.78); transform-origin:top left; }
+.widget-world .scatter-intro { position:absolute; left:0; top:8px; width:860px; transform:scale(.78); transform-origin:top left; }
+.widget-world .scatter-intro .original-intro h1 { max-width:none; }
 .widget-world .scatter-intro .original-intro { padding:0; }
 .widget-world .scatter-item { position:absolute; width:352px; transform:scale(var(--size)); transform-origin:center center; transition:transform 520ms cubic-bezier(.22,1,.36,1),filter 520ms; will-change:transform; z-index:1; }
 .widget-world .scatter-item:focus-visible { outline:2px solid #b97696; outline-offset:10px; border-radius:24px; }
@@ -1366,7 +1425,7 @@ textarea {
  .widget-world .scatter.has-active .scatter-item:not(.is-active),.widget-world .scatter .scatter-item.is-active { transform:scale(var(--size)); }
 }
 @media(min-width:761px) {
- .widget-world .scatter-intro { width:850px; transform:scale(.65); }
+ .widget-world .scatter-intro { width:1060px; transform:scale(.65); }
  .widget-world .scatter-1 { top:86px; }
  .widget-world .scatter-9 { top:91px; }
  .widget-world .scatter-3 { top:337px; }
@@ -1738,22 +1797,22 @@ textarea {
 /* Content-type pills sit inside the cover, with a constant visual inset. */
 .portfolio-experiment-card,.trace-project-link { position:relative; }
 .scatter-item { --badge-scale:1; }
-.scatter-paint,.scatter-metallic,.scatter-trace { --badge-inset:1.6em; }
+.scatter-paint,.scatter-metallic,.scatter-trace,.scatter-edu,.scatter-flyers,.scatter-deck { --badge-inset:1.6em; }
 .scatter-fontcontext-slot { --badge-inset:1.8em; }
 .card-kind {
  position:absolute; z-index:3; left:var(--badge-inset,1.2em); bottom:var(--badge-inset,1.2em);
  display:inline-flex; align-items:center; justify-content:center;
- height:2.4em; padding:.4em 1em; border:.1em solid #d8d8d8; border-radius:999px;
- background:#f0f0f0; color:#30353c; font-size:calc(10px / var(--badge-scale)); font-weight:500; line-height:1.4;
+ height:2.4em; padding:.4em 1em; border:.1em solid #484848; border-radius:999px;
+ background:#2b2b2b; color:#f0f0f0; font-size:calc(10px / var(--badge-scale)); font-weight:500; line-height:1.4;
  white-space:nowrap; pointer-events:none;
  transition:background-color 160ms ease,border-color 160ms ease,color 160ms ease;
 }
 .canvas-folio[data-theme=dark] .card-kind { background:#2b2b2b; border-color:#484848; color:#f0f0f0; }
-.scatter-item:focus-within .card-kind { background-color:#e4e4e4; border-color:#c8c8c8; color:#30353c; }
-.canvas-folio[data-theme=dark] .scatter-item:focus-within .card-kind { background-color:#363636; border-color:#585858; color:#fff; }
+.scatter-item:focus-within .card-kind { background-color:#2b2b2b; border-color:#484848; color:#f0f0f0; }
+.canvas-folio[data-theme=dark] .scatter-item:focus-within .card-kind { background-color:#2b2b2b; border-color:#484848; color:#f0f0f0; }
 @media(hover:hover) {
- .scatter-item:hover .card-kind { background-color:#e4e4e4; border-color:#c8c8c8; color:#30353c; }
- .canvas-folio[data-theme=dark] .scatter-item:hover .card-kind { background-color:#363636; border-color:#585858; color:#fff; }
+ .scatter-item:hover .card-kind { background-color:#2b2b2b; border-color:#484848; color:#f0f0f0; }
+ .canvas-folio[data-theme=dark] .scatter-item:hover .card-kind { background-color:#2b2b2b; border-color:#484848; color:#f0f0f0; }
 }
 @media(min-width:1101px) { .canvas-folio:not(.index-folio) .scatter-item { --badge-scale:calc(var(--size) * var(--canvas-scale)); } }
 @media(max-width:760px) { .canvas-folio:not(.index-folio) .scatter-trace .trace-project-link { --badge-scale:1; position:relative; } }
@@ -1762,3 +1821,14 @@ textarea {
 .canvas-folio:not(.index-folio) .scatter-item:is(.scatter-5,.scatter-12)>.card { border-radius:calc(14px / var(--surface-scale)); }
 .canvas-folio:not(.index-folio) .scatter-trace>.card-heading { position:absolute; top:-32px; left:0; right:0; height:32px; }
 @media(max-width:1100px) { .canvas-folio:not(.index-folio) .scatter-trace { margin-top:32px; } }
+/* Keep the study count legible against the Shader card's dark surface. */
+.canvas-folio[data-theme=dark] .widget-world .shader .collection-caption > .caption {
+  color: #d7dcd8;
+}
+@media (max-width: 760px) {
+  .widget-world .shader { height: auto; }
+}
+
+/* Whole-widget link for cards that open a minimal work page. */
+.widget-link { display:block; color:inherit; text-decoration:none; border-radius:inherit; }
+.widget-link:focus-visible { outline:2px solid #888; outline-offset:4px; }

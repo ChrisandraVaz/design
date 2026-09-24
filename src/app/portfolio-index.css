@@ -32,7 +32,7 @@
   background: #f5f5f7;
   box-shadow: inset 0 1px 0 #fff, 0 1px 0 #dedee2;
 }
-.folio .portfolio-view-switch button {
+.folio .portfolio-view-switch :is(button, a) {
   min-height: 44px;
   padding: 0 18px;
   display: flex;
@@ -44,14 +44,14 @@
   color: var(--folio-muted);
   transition: background 180ms, color 180ms, box-shadow 180ms;
 }
-.folio .portfolio-view-switch button { color: #51575d; }
-.folio .portfolio-view-switch button:hover { background: #ffffff40; }
-.folio .portfolio-view-switch button[aria-pressed="true"] { background: #fff; color: #181c20; box-shadow: 0 1px 0 #dedee2; }
-.folio .portfolio-view-switch button:focus-visible { outline: 2px solid #087aff; outline-offset: 2px; }
+.folio .portfolio-view-switch :is(button, a) { color: #51575d; }
+.folio .portfolio-view-switch :is(button, a):hover { background: #ffffff40; }
+.folio .portfolio-view-switch :is(button, a)[aria-pressed="true"] { background: #fff; color: #181c20; box-shadow: 0 1px 0 #dedee2; }
+.folio .portfolio-view-switch :is(button, a):focus-visible { outline: 2px solid #087aff; outline-offset: 2px; }
 .folio[data-theme="dark"] .portfolio-view-switch { background: #141414; border-color: #393939; box-shadow: inset 0 1px 0 #393939, 0 1px 0 #080808; }
-.folio[data-theme="dark"] .portfolio-view-switch button { color: #d2d7dc; }
-.folio[data-theme="dark"] .portfolio-view-switch button:hover { background: #ffffff0f; }
-.folio[data-theme="dark"] .portfolio-view-switch button[aria-pressed="true"] { background: #303030; color: #fff; box-shadow: inset 0 1px 0 #484848, 0 1px 0 #080808; }
+.folio[data-theme="dark"] .portfolio-view-switch :is(button, a) { color: #d2d7dc; }
+.folio[data-theme="dark"] .portfolio-view-switch :is(button, a):hover { background: #ffffff0f; }
+.folio[data-theme="dark"] .portfolio-view-switch :is(button, a)[aria-pressed="true"] { background: #303030; color: #fff; box-shadow: inset 0 1px 0 #484848, 0 1px 0 #080808; }
 .folio .portfolio-view-switch svg { width: 17px; height: 17px; }
 .portfolio-index {
   width: calc(100% - 2 * var(--folio-gutter, var(--page-gutter)));
@@ -107,7 +107,7 @@
   .folio .portfolio-view-switch { bottom: max(14px, env(safe-area-inset-bottom)); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .folio .portfolio-view-switch button { transition: none; }
+  .folio .portfolio-view-switch :is(button, a) { transition: none; }
 }
 
 /* Index reuses the Canvas components in document flow. Only Canvas is draggable. */
@@ -130,6 +130,9 @@
 .index-widget-world .scatter .scatter-12 { order: 9; }
 .index-widget-world .scatter .scatter-10 { order: 10; }
 .index-widget-world .scatter .scatter-claims { order: 11; }
+.index-widget-world .scatter .scatter-edu { order: 12; }
+.index-widget-world .scatter .scatter-flyers { order: 13; }
+.index-widget-world .scatter .scatter-deck { order: 14; }
 .index-widget-world .scatter .card-heading { position: relative; inset: auto; display: flex; align-items: center; padding: 0 8px; height: 32px; }
 .index-widget-world .scatter .card-heading > span { position: relative; inset: auto; font-size: var(--portfolio-label-size); line-height: var(--portfolio-label-line); white-space: normal; }
 .index-widget-world .scatter .card-heading > button { position: static; width: 44px; height: 44px; opacity: 1; }

@@ -164,3 +164,6 @@
 .case-design .walkthrough-step { min-height:240px; }
 }
 @media(prefers-reduced-motion:reduce) { .case-design .walkthrough * { scroll-behavior:auto!important; transition:none!important; } }
+
+/* Keep case-study H1s consistent despite page-specific heading styles. */
+.case-design h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important; }

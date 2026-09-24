@@ -632,7 +632,7 @@
   }
 }
 
-/* Status belongs to the response it describes, above the response actions. */
+/* Handoff feedback follows the response controls without moving them. */
 .agent-reference .agent-reference-body .agent-reference-receipt {
   flex-direction: column;
   align-items: stretch;

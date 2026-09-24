@@ -168,3 +168,12 @@
   .case-design .travel-case .trace-travel-insight h2 { max-width: 24ch; }
   .case-design .travel-case .travel-evidence { padding-block: 8px; }
 }
+
+/* Key-shift line and takeaways. */
+.case-design .travel-case .trace-key-shift { font-size:clamp(19px,2vw,22px)!important; line-height:1.4!important; letter-spacing:-.015em; color:var(--travel-ink); border-left:3px solid #936ce7; padding-left:20px; margin:8px 0 48px; max-width:none; }
+.case-design .travel-case .trace-takeaways { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px; }
+.case-design .travel-case .trace-takeaways h3 { font-size:18px!important; line-height:1.3!important; letter-spacing:-.012em!important; margin:0 0 10px; }
+.case-design .travel-case .trace-takeaways p { margin:0; font-size:15px!important; line-height:1.55!important; color:var(--travel-muted)!important; }
+.case-design .travel-case .trace-takeaways-section { display:block; }
+.case-design .travel-case .trace-takeaways-section > div:first-child { margin-bottom:24px; }
+@media(max-width:700px) { .case-design .travel-case .trace-takeaways { grid-template-columns:1fr; gap:20px; } }

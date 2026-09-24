@@ -1,0 +1,49 @@
+.queue-flow { margin-top:32px; }
+.qf-stage { padding:28px; background:#b99ae3 url('/assets/sentry/send-to-agent-background.png') center/cover; border-radius:4px; }
+.qf-window { width:min(100%,520px); height:620px; margin:auto; background:white; color:#302d38; border:1px solid #e4e3e8; border-radius:4px; display:flex; flex-direction:column; font:12px/1.45 Arial,sans-serif; }
+.qf-header { display:flex; align-items:center; gap:8px; padding:12px; border-bottom:1px solid #ecebf0; flex-shrink:0; }
+.qf-header b { background:#ffdf00; font-size:10px; padding:1px 3px; border-radius:4px; }
+.qf-header > div { display:flex; align-items:center; gap:12px; margin-left:auto; }
+.qf-header > div > span { display:flex; align-items:center; gap:3px; border:1px solid #e4e3e8; border-radius:4px; padding:2px 4px; font-size:10px; }
+.qf-conversation { overflow:auto; flex:1; min-height:0; padding:18px 14px; }
+.case-design .queue-flow .qf-window p { font:inherit; color:inherit; margin:0 0 12px; max-width:none; }
+.case-design .queue-flow .qf-sent { background:#f8f8fa; border:1px solid #e8e7ec; border-radius:4px; padding:4px 6px; margin-left:auto; width:fit-content; max-width:94%; }
+.case-design .queue-flow .qf-long-sent { max-width:76%; }
+.qf-answer { margin:22px 0; }
+.qf-answer ol { padding-left:18px; margin:8px 0 12px; }
+.qf-issue { color:#7651ed; text-decoration:underline; }
+.case-design .queue-flow .qf-progress { color:#888391; font:10px/1.6 monospace; margin-top:24px; }
+.qf-bottom { padding:12px; flex-shrink:0; }
+.qf-pending { display:flex; flex-direction:column; align-items:flex-end; gap:8px; margin-bottom:10px; }
+.qf-pending-row { display:flex; align-items:flex-start; max-width:95%; background:#f0f0f2; color:#86828e; border:1px solid #e5e4e9; border-radius:4px; position:relative; }
+.qf-pending-text { border:0; background:none; color:inherit; font:inherit; padding:6px; text-align:left; min-width:0; cursor:help; }
+.qf-pending-text > span:first-child { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.qf-tooltip { display:none; position:absolute; bottom:calc(100% + 8px); right:0; width:min(360px,100%); padding:10px; background:white; color:#302d38; border:1px solid #d9d6df; border-radius:4px; box-shadow:0 2px 6px #0001; z-index:3; font:11px/1.35 Arial,sans-serif; }
+.qf-pending-text:hover .qf-tooltip,.qf-pending-text:focus .qf-tooltip,.show-full .qf-tooltip { display:block; }
+.qf-delete { position:relative; border:0; background:transparent; padding:10px; color:#817c89; min-width:44px; min-height:44px; cursor:pointer; }
+.qf-delete:hover { background:#e6e5eb; }
+.qf-delete-label { display:none; position:absolute; bottom:100%; right:0; white-space:nowrap; background:white; color:#302d38; border:1px solid #ddd; padding:8px; border-radius:4px; }
+.qf-delete:hover .qf-delete-label,.qf-delete:focus .qf-delete-label,.qf-delete.show-label .qf-delete-label { display:block; }
+.qf-composer { display:flex; gap:8px; }
+.qf-composer input { min-width:0; flex:1; background:#f8f8fa; border:1px solid #dedce5; border-radius:4px; color:#86828e; padding:10px; font:11px Arial,sans-serif; }
+.qf-composer button { background:#8050f3; border:0; color:white; border-radius:4px; width:44px; min-height:44px; cursor:pointer; }
+.qf-composer button:disabled { background:#b399fa; cursor:default; }
+.qf-controls { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:20px; }
+.case-design .queue-flow .qf-controls p { font-size:13px; text-align:center; margin:0; }
+.qf-controls button,.qf-actions button { border:1px solid var(--story-border); border-radius:4px; color:var(--story-ink); background:transparent; min-width:44px; min-height:44px; padding:10px; cursor:pointer; }
+.qf-controls button:disabled,.qf-actions button:disabled { opacity:.35; cursor:default; }
+.qf-actions { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-top:16px; }
+.queue-option-comparison { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; margin:32px 0; }
+.queue-handoff-sequence { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px; padding:0; list-style-position:inside; margin-top:32px; color:var(--story-copy); }
+.queue-handoff-sequence li { padding:16px; border-radius:4px; background:var(--story-surface); }
+.case-design .trace-case.travel-case.se-case-message-queuing .se-concept-decisions { grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.case-design .trace-case.travel-case.se-case-message-queuing .se-concept-decisions figure { padding:20px; }
+.case-design .trace-case.travel-case.se-case-message-queuing .se-concept-decisions figure:first-child { border-color:var(--story-border); }
+.case-design .trace-case.travel-case.se-case-message-queuing .se-concept-decisions h3 { font-size:18px; }
+.case-design .trace-case.travel-case.se-case-message-queuing .se-concept-decisions p { font-size:14px; line-height:1.65; }
+@media(max-width:800px) { .case-design .trace-case.travel-case.se-case-message-queuing .se-concept-decisions { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:12px; }.case-design .trace-case.travel-case.se-case-message-queuing .se-concept-decisions figure { flex:0 0 240px; scroll-snap-align:start; }.queue-option-comparison { grid-template-columns:1fr; }.queue-handoff-sequence { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:500px) { .qf-stage { padding:12px; }.qf-header > div > svg { display:none; }.qf-window { height:590px; }.qf-conversation { padding:14px 10px; }.qf-bottom { padding:8px; } }
+.case-design .trace-case.travel-case.se-story-polished .queue-flow .qf-window p { font:12px/1.45 Arial,sans-serif; color:#302d38; margin:0 0 12px; }
+.case-design .trace-case.travel-case.se-story-polished .queue-flow .qf-window .qf-sent { margin-left:auto; }
+.case-design .trace-case.travel-case.se-story-polished .queue-flow .qf-window .qf-progress { color:#817b8b; font:10px/1.6 monospace; margin-top:24px; }
+.case-design .trace-case.travel-case.se-story-polished .se-concept-decisions + h3 { margin-top:32px; }

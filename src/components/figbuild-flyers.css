@@ -1,0 +1,94 @@
+/* FigBuild flyer reel. Cover-card frame like the rest of the canvas, on a
+   charcoal stage so the flyers' own colour carries the card.
+
+   The transition is a corner peel. The sheet is masked along a 45 degree line
+   x - y = C: everything below the line stays, everything above it lifts. Both
+   the mask and the fold are driven by one --peel number, 0 at rest to 1 when
+   the sheet has fully lifted. Because the mask runs along the gradient's own
+   axis, the cut position is simply (1 - peel), no pixel maths needed. */
+@property --peel {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+/* Cover-card frame like every other card: label above, framed face below.
+   The face is the charcoal field the sheet rests on. */
+.canvas-folio .widget-world .scatter .figbuild-flyers {
+  display: block;
+  background: var(--component-frame-bg);
+  padding: calc(var(--canvas-frame-inset) / var(--surface-scale) - 1px);
+}
+/* Charcoal field. The flyer is a sheet resting on it with room all round, so
+   the lifted corner reads as a page corner rather than a clipped triangle. */
+.canvas-folio .widget-world .scatter .figbuild-flyers > .flyer-stage { padding: 9% 10%; }
+.figbuild-flyers .flyer-stage {
+  --peel: 0; /* whole sheet at rest; the fold only exists mid-turn */
+  position: relative;
+  background: #1c1c1e;
+  transition: --peel 620ms cubic-bezier(.4, 0, .2, 1);
+}
+/* The transition runs in both directions, so the snap back to rest has to be
+   instant or the fold replays in reverse and reads as a repeat. */
+.figbuild-flyers .flyer-stage.is-snapping { transition: none; }
+.figbuild-flyers .flyer-sheet-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  container-type: size;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 10px 26px -10px #000000a6;
+}
+.figbuild-flyers .flyer-stage.is-peeling { --peel: 1; }
+
+.figbuild-flyers .flyer-sheet {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Keeps the half of the sheet below the fold line. */
+.figbuild-flyers .flyer-front {
+  mask-image: linear-gradient(45deg, #000 calc((1 - var(--peel)) * 100%), #0000 0);
+  filter: drop-shadow(-3px 3px 7px #00000038);
+}
+/* The paper back of the lifted corner: the removed wedge, mirrored across the
+   same fold line. Reflecting about x - y = C is a translate onto the line plus
+   a reflection about y = x, which rotate(90deg) scaleY(-1) performs. */
+.figbuild-flyers .flyer-fold {
+  --fold-c: calc(100cqw - var(--peel) * (100cqw + 100cqh));
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+  transform: translate(var(--fold-c), calc(-1 * var(--fold-c))) rotate(90deg) scaleY(-1);
+  background: #f7f3f0;
+  mask-image: linear-gradient(45deg, #0000 calc((1 - var(--peel)) * 100%), #000 0);
+  filter: drop-shadow(-4px 4px 10px #0000004d);
+}
+.figbuild-flyers .flyer-fold img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Ink seen through the sheet, not the sheet's face. */
+  opacity: .17;
+  filter: saturate(.35);
+}
+/* A soft crease just inside the fold line. */
+.figbuild-flyers .flyer-fold::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg,
+    #0000 calc((1 - var(--peel)) * 100% - 38px),
+    #00000021 calc((1 - var(--peel)) * 100% - 7px),
+    #0000 calc((1 - var(--peel)) * 100%));
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .figbuild-flyers .flyer-stage { transition: none; }
+}

@@ -1,0 +1,9 @@
+RESEARCH
+The Expert Developer
+Knows exactly what they need. Wants to extract a specific block of context and continue a targeted investigation in Claude or Cursor.
+Who Is This For? (User Segments)
+🧑‍💻
+The Vibe Coder
+Hits a wall. Wants to dump everything (the full conversation, tool calls, and context) into their trusted external agent and keep going.
+Both users need the same thing: a fast, reliable way to move context out of Seer without losing it.
+🌀

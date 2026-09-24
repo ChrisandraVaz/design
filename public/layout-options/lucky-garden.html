@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lucky garden: Experiments card</title>
+<style>
+  :root { --bg:#fafafa; --ink:#1a1a1c; --mute:#8b8b92; --line:#e4e4e8; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 Inter,system-ui,sans-serif; padding:40px 24px 80px; }
+  h1 { font-size:20px; font-weight:500; margin:0 0 6px; }
+  .lede { color:var(--mute); margin:0 0 32px; max-width:62ch; }
+  .wrap { max-width:620px; }
+  .label { font-size:12px; color:var(--mute); margin:0 0 8px 6px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:14px 14px 12px; box-shadow:0 1px 2px #0000000a; }
+  .grid { display:grid; grid-template-columns:1.12fr 1fr; grid-template-rows:1fr 1fr; gap:8px; aspect-ratio:1.18; }
+  .grid canvas { width:100%; height:100%; display:block; border-radius:10px; background:#0c2010; }
+  .grid canvas:first-child { grid-row:1 / span 2; }
+  .cap { display:flex; justify-content:space-between; align-items:end; margin-top:12px; padding:0 2px; }
+  .cap strong { font-weight:500; font-size:12px; display:block; }
+  .cap span { color:var(--mute); font-size:10.5px; }
+</style>
+</head>
+<body>
+<h1>Lucky garden</h1>
+<p class="lede">Three live shader studies for the Experiments card: a patch of four-leaf clovers shot low with shallow focus, a Skye ridge under moving cloud, and wind-combed grass seen from the air.</p>
+<div class="wrap">
+  <p class="label">Shader Experiments</p>
+  <div class="card"><div class="grid">
+    <canvas data-scene="clover"></canvas><canvas data-scene="skye"></canvas><canvas data-scene="aerial"></canvas></div>
+    <div class="cap"><div><strong>Shader Experiments</strong><span>Lucky garden</span></div><span>3 studies</span></div></div>
+</div>
+
+<script>
+const COMMON = `
+precision highp float;
+uniform vec2 uRes; uniform float uTime;
+float h21(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }
+vec2 h22(vec2 p){ float n=h21(p); return vec2(n,h21(p+n+17.1)); }
+float vnoise(vec2 p){ vec2 i=floor(p),f=fract(p); f=f*f*(3.-2.*f);
+  return mix(mix(h21(i),h21(i+vec2(1,0)),f.x),mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),f.x),f.y); }
+float fbm(vec2 p){ float a=.5,s=0.; for(int i=0;i<5;i++){ s+=a*vnoise(p); p=p*2.03+7.1; a*=.5; } return s; }
+vec2 rot(vec2 p,float a){ float c=cos(a),s=sin(a); return vec2(c*p.x-s*p.y,s*p.x+c*p.y); }
+float gauss(float x,float c,float w){ float d=(x-c)/w; return exp(-d*d); }
+`;
+const SCENES = {
+clover: COMMON + `
+// A white-clover leaflet: broad and obovate, nearly as wide as long, a shallow
+// notch at the tip, folded softly along the midrib, matte sage green.
+vec4 leaflet(vec2 q,float W,float e,float lit,float detail,float seed){
+  float notch=.055*exp(-q.y*q.y/(W*W*.12));
+  float s=q.x/(1.-notch); float sc=clamp(s,0.,1.);
+  float w=W*1.51*pow(sc,.62)*sqrt(max(1.-pow(sc,3.2),0.));
+  float f=w-abs(q.y);
+  float m=smoothstep(-e,e,f)*smoothstep(-e,e,s)*smoothstep(-e,e,1.-s);
+  float ny=clamp(q.y/max(w,1e-4),-1.,1.);
+  vec3 c=mix(vec3(.16,.44,.13),vec3(.50,.80,.33),.30+.70*sc*(1.-.35*abs(ny)));
+  c*=.84+.24*smoothstep(-.35,.35,ny*lit);
+  float vv=(q.x-abs(q.y)*1.0)/.050;
+  float vein=smoothstep(.20,0.,abs(fract(vv)-.5))*smoothstep(.03,.15,abs(ny))*smoothstep(1.,.85,abs(ny));
+  c=mix(c,c*1.16+.02,vein*.20*detail);
+  float rib=smoothstep(.012*(1.-sc*.6)+e,0.,abs(q.y))*smoothstep(1.,.05,sc);
+  c=mix(c,vec3(.74,.88,.62),rib*(.25+.35*detail));
+  float ch=smoothstep(.05,0.,abs(q.x-(.62-abs(q.y)*.85)+(vnoise(q*9.+seed)-.5)*.06))*smoothstep(1.,.75,abs(ny));
+  c=mix(c,vec3(.80,.90,.70),ch*.22*detail);
+  c+=vec3(.10,.13,.02)*smoothstep(.78,1.,max(abs(ny),sc*.9));
+  c=mix(c,vec3(.86,.90,.76),step(.965,vnoise(q*34.+seed*7.))*.5*detail);
+  c*=.90+.18*vnoise(q*5.+seed);
+  return vec4(c,m);
+}
+vec4 clover4(vec2 p,float e,float seed,float detail){
+  vec3 rgb=vec3(0.); float al=0.; vec2 Ld=normalize(vec2(-.4,.9));
+  if(dot(p,p)>1.35) return vec4(0.);
+  for(int i=0;i<4;i++){ float fi=float(i);
+    float ang=.7854+1.5708*fi+(h21(vec2(fi,seed))-.5)*.26;
+    float sz=(i==3?.80:.92)+.10*h21(vec2(fi+9.,seed));
+    float lift=.80+.20*h21(vec2(fi+3.,seed));
+    vec2 ax=vec2(cos(ang),sin(ang)); float lit=sign(ax.x*Ld.y-ax.y*Ld.x);
+    vec2 q=rot(p,-ang); q.x-=.03; q/=sz; q.x/=lift;
+    if(detail>.4){ vec2 q2=rot(p-vec2(.03,-.05),-ang); q2.x-=.03; q2/=sz; q2.x/=lift; rgb*=1.-.30*leaflet(q2,.47,.07,lit,0.,seed).a; }
+    vec4 L=leaflet(q,.47,e/sz,lit,detail,seed+fi);
+    rgb=mix(rgb,L.rgb,L.a); al=max(al,L.a);
+  }
+  return vec4(rgb,al);
+}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y; float t=uTime; float E=1.5/uRes.y;
+  // the dark of the understorey, with a little light far off at the top
+  vec3 col=mix(vec3(.030,.085,.030),vec3(.10,.22,.08),fbm(uv*2.5));
+  col=mix(col,vec3(.30,.52,.20),smoothstep(.25,.62,uv.y)*.6);
+  for(int r=0;r<13;r++){ float d=float(r)/12.;
+    float R=mix(.034,.31,pow(d,1.7));
+    float gy=(.07*sin(uv.x*2.1+.6)+.03*sin(uv.x*5.3+2.))*(1.-.4*d);      // the ground rolls; it is not a flat plane
+    float yrow=mix(.47,-.66,pow(d,1.22))+gy;
+    float b=d<.52?pow((.52-d)/.52,1.3)*.020:pow((d-.52)/.48,1.6)*.085;
+    float detail=1.-smoothstep(0.,.010,b);
+    float tone=mix(.80,1.06,smoothstep(0.,.5,d));
+    float cw=R*1.18;
+    for(int k=-2;k<=2;k++){ float id=floor(uv.x/cw)+float(k); vec2 rn=h22(vec2(id,float(r)*7.3+1.)); vec2 rn2=h22(vec2(id+.37,float(r)*3.1+5.));
+      float sway=sin(t*1.1+id*1.7+float(r))*.06+sin(t*2.3+id)*.025;
+      vec2 hd=vec2((id+.5+(rn.x-.5)*.75)*cw+sway*R,yrow+(rn.y-.5)*R*1.1);
+      if(abs(uv.x-hd.x)>R*1.35) continue;
+      // stem
+      float dy=hd.y-uv.y; float sx=hd.x+(rn2.x-.5)*.12*dy*dy/max(R,.08);
+      float sw=R*.040; float sm=smoothstep(sw+E+b*.6,sw-E-b*.6,abs(uv.x-sx))*step(0.,dy)*smoothstep(R*6.,R*2.,dy);
+      vec3 sc=mix(vec3(.22,.42,.16),vec3(.50,.72,.34),smoothstep(-sw,sw,uv.x-sx))*tone;
+      col=mix(col,sc,sm*(.55+.45*detail));
+      if(abs(uv.y-hd.y)>R*1.1) continue;
+      vec2 q=uv-hd; q=rot(q,(rn2.y-.5)*.5+sway*.6); q.y/=(.46+.26*rn.y); q=rot(q,rn.x*6.283);
+      vec4 c=clover4(q/R,(E+b)/R,id+float(r)*17.,detail);
+      vec3 lc=mix(c.rgb,mix(vec3(.34,.62,.24),c.rgb,.6),1.-detail)*tone;
+      col=mix(col,lc,c.a*(.80+.20*detail));
+    }
+    // air between the rows: each row sits a little deeper in the haze
+    if(r<5) col=mix(col,vec3(.30,.52,.22),.035);
+  }
+  col=mix(col,vec3(.80,.90,.60),.025);
+  col*=1.-.30*dot(uv,uv);
+  gl_FragColor=vec4(pow(col,vec3(.94)),1.);
+}`,
+skye: COMMON + `
+float edge(float top,float v,float E){ return smoothstep(top-E,top+E,v); }
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y; float t=uTime; float E=1.6/uRes.y;
+  float u=.49+uv.x/1.5, v=.5-uv.y;
+  // sky: a torn, heavy cloud deck with one hole of deep blue and a bright core
+  float cl=fbm(vec2(u*2.4-t*.012,v*5.)+fbm(vec2(u*3.+t*.008,v*6.5+2.))*1.1);
+  vec3 sky=mix(vec3(.08,.20,.42),vec3(.50,.63,.78),smoothstep(0.,.42,v));
+  float hole=gauss(u,.36,.12)*gauss(v,.02,.13);
+  float core=gauss(u,.57,.20)*gauss(v,.21,.15);
+  vec3 cloud=mix(vec3(.23,.27,.33),vec3(.97,.97,.98),clamp(core*1.35+(cl-.52)*1.5,0.,1.));
+  cloud=mix(cloud,vec3(.16,.19,.25),gauss(u,.05,.25)*gauss(v,.30,.14)*.8);
+  vec3 col=mix(sky,cloud,smoothstep(.28,.60,cl+.36-hole*.85));
+  col=mix(col,vec3(.84,.87,.90),smoothstep(.31,.45,v)*.45);
+  float sh=smoothstep(.34,.66,fbm(vec2(u*2.6-t*.03,v*4.+3.)));          // cloud shadow crossing the land
+  float sun=.62+.55*sh+.35*gauss(u,.56,.26)*gauss(v,.60,.20);
+  // far range, cloud on its tops
+  float top=.445-.055*gauss(u,.17,.10)-.02*gauss(u,.04,.06)+.012*(fbm(vec2(u*9.,1.))-.5)+.3*smoothstep(.36,.52,u);
+  vec3 c=mix(vec3(.13,.18,.27),vec3(.34,.41,.48),smoothstep(top,top+.10,v));
+  col=mix(col,c,edge(top,v,E));
+  col=mix(col,cloud,smoothstep(.47,.385,v)*smoothstep(.5,.2,u)*smoothstep(.35,.7,fbm(vec2(u*5.-t*.02,v*9.)))*.85);
+  // the plateau and its cliff band
+  top=mix(.53,.362,smoothstep(.40,.565,u))+.028*smoothstep(.60,1.,u)-.010*gauss(u,.533,.010)+.006*(fbm(vec2(u*40.,3.))-.5);
+  float dp=v-top; float gl=fbm(vec2(u*46.+v*12.,v*10.));
+  c=mix(vec3(.17,.26,.09),vec3(.58,.62,.21),smoothstep(.30,.68,gl))*sun*(.85+.3*fbm(vec2(u*120.,v*80.)));
+  c=mix(c,vec3(.44,.41,.20)*sun,smoothstep(.60,.66,u)*smoothstep(.055,.03,dp));
+  float cb=top+.026*smoothstep(.56,.72,u)+.012;
+  float cliff=smoothstep(cb,cb+.006,v)*smoothstep(cb+.052,cb+.040,v)*smoothstep(.49,.52,u)*smoothstep(.86,.66,u);
+  c=mix(c,vec3(.17,.16,.16)*(.55+.9*vnoise(vec2(u*170.,v*14.)))*(.7+.4*sh),cliff);
+  col=mix(col,c,edge(top,v,E));
+  // the cone
+  top=.537-.127*pow(max(1.-abs(u-.34)/.145,0.),1.32)+.004*(fbm(vec2(u*50.,8.))-.5);
+  float lit=smoothstep(-.035,.035,u-.335+(fbm(vec2(u*30.,v*16.))-.5)*.05);
+  c=mix(vec3(.07,.13,.07),vec3(.40,.52,.15)*sun,lit);
+  col=mix(col,c,edge(top,v,E));
+  // the glen floor and its two lochans
+  top=.533+.004*sin(u*40.);
+  c=mix(vec3(.17,.19,.09),vec3(.44,.45,.17),fbm(vec2(u*14.,v*38.)))*sun;
+  c=mix(c,vec3(.30,.44,.14)*sun,smoothstep(.70,.80,v)*.8);
+  vec2 l1=(vec2(u,v)-vec2(.315,.612))/vec2(.076,.0165); vec2 l2=(vec2(u,v)-vec2(.30,.548))/vec2(.040,.0055);
+  vec3 water=mix(vec3(.62,.72,.84),vec3(.93,.95,.97),.5+.5*sin(v*500.+t*.8+sin(u*30.)*2.));
+  c=mix(c,water,smoothstep(1.,.86,length(l1))); c=mix(c,water*.95,smoothstep(1.,.8,length(l2)));
+  col=mix(col,c,edge(top,v,E));
+  // the rock crown in the middle and the ribbed green fans beneath it
+  top=.665-.145*gauss(u,.625,.085)-.018*gauss(u,.575,.025)+.26*smoothstep(.46,.18,u)+.006*(fbm(vec2(u*60.,4.))-.5);
+  dp=v-top; float fan=sin((u-.62)/max(v-.40,.06)*11.+fbm(vec2(u*7.,v*7.))*5.);
+  float tx=fbm(vec2(u*90.,v*60.)); c=mix(vec3(.13,.23,.08),vec3(.50,.58,.18),smoothstep(-.6,.7,fan*.6+(tx-.5)*1.6))*sun; c*=.85+.3*tx;
+  c=mix(c,vec3(.32,.50,.14)*sun,smoothstep(.10,.22,dp));
+  float crown=smoothstep(.040,.018,dp)*gauss(u,.625,.075);
+  c=mix(c,vec3(.19,.18,.17)*(.5+.9*vnoise(vec2(u*150.,v*18.)))*(.75+.4*sh),crown);
+  col=mix(col,c,edge(top,v,E));
+  // the big slope coming in from the right, with its path
+  top=mix(.965,.465,smoothstep(.52,1.03,u))+.008*(fbm(vec2(u*25.,6.))-.5);
+  float st=fbm(vec2((u+v)*30.,(u-v)*7.));
+  c=mix(vec3(.15,.29,.07),vec3(.46,.62,.17),smoothstep(.3,.7,st))*sun*(.82+.36*fbm(vec2(u*140.,v*90.)));
+  float path=smoothstep(.0035,.0015,abs(u-(.868+.016*sin(v*42.+1.))))*smoothstep(.76,.78,v)*smoothstep(.84,.82,v);
+  c=mix(c,vec3(.62,.60,.50),path);
+  col=mix(col,c,edge(top,v,E));
+  // the dark shoulder on the left
+  top=mix(.545,.905,smoothstep(0.,.34,u))-.02*gauss(u,.03,.04)+.010*(fbm(vec2(u*30.,9.))-.5);
+  dp=v-top;
+  c=mix(vec3(.10,.09,.06),vec3(.16,.24,.07),fbm(vec2(u*40.,v*40.)));
+  c=mix(c,vec3(.34,.46,.12)*sun,smoothstep(.03,0.,dp)*.9);
+  col=mix(col,c,edge(top,v,E));
+  // boulders in the foreground
+  top=.875+.035*sin(u*7.+.5)-.03*gauss(u,.45,.2)+.03*(fbm(vec2(u*12.,2.))-.5);
+  vec2 bp=vec2(u*1.5,v)*30.; vec2 bi=floor(bp), bf=fract(bp); float md=9.; vec2 mr; vec2 mid;
+  for(int j=-1;j<=1;j++) for(int i=-1;i<=1;i++){ vec2 g=vec2(float(i),float(j)); vec2 o=h22(bi+g); vec2 r=g+o-bf; float d=max(abs(r.x)*.9+abs(r.y)*.5,abs(r.y)*1.1)*(.7+.7*h21(bi+g+3.)); d*=d; if(d<md){ md=d; mr=r; mid=bi+g; } }
+  float isRock=step(h21(mid+11.),.58);
+  float shade=clamp(.55+.55*dot(normalize(mr+1e-4),normalize(vec2(.6,.7)))+.25*(vnoise(bp*5.)-.5),0.,1.2);
+  vec3 rock=mix(vec3(.13,.12,.12),vec3(.58,.55,.52),shade*(.7+.5*vnoise(bp*9.)))*(.45+.55*smoothstep(.50,.10,md))*(.8+.4*sh); rock=mix(rock,vec3(.30,.36,.14),smoothstep(.6,.8,vnoise(bp*3.+4.))*.5);
+  vec3 turf=mix(vec3(.10,.24,.05),vec3(.36,.56,.12),fbm(bp*1.5))*sun;
+  c=mix(turf,rock,isRock*smoothstep(.34,.26,md));
+  col=mix(col,c,edge(top,v,E*2.));
+  col=mix(col,col*col*1.25,.35); col*=1.-.30*dot(uv,uv);
+  gl_FragColor=vec4(pow(col,vec3(.92)),1.);
+}`,
+aerial: COMMON + `
+float fbm3(vec2 p){ float a=.5,s=0.; for(int i=0;i<3;i++){ s+=a*vnoise(p); p=p*2.03+7.1; a*=.5; } return s; }
+float H(vec2 p,float t){ vec2 w=vec2(fbm3(p*1.05+vec2(0.,t*.035)),fbm3(p*1.05+vec2(5.2,1.3)-vec2(t*.028,0.))); return fbm(p*1.15+w*1.5); }
+void figure(inout vec3 col,vec2 uv,vec2 pos,vec3 cloth){
+  uv=pos+(uv-pos)/1.7; vec2 a=pos,b=pos+vec2(.050,-.040); vec2 pa=uv-a,ba=b-a; float h=clamp(dot(pa,ba)/dot(ba,ba),0.,1.);
+  col*=1.-.55*smoothstep(.012,.002,length(pa-ba*h))*(1.-h*.6);
+  col=mix(col,cloth,smoothstep(.0085,.0065,length(uv-pos-vec2(.002,-.006))));
+  float hd=length(uv-pos); vec3 hat=mix(vec3(.98,.96,.88),vec3(.78,.74,.62),smoothstep(0.,.011,hd+dot(uv-pos,vec2(.5,-.5))));
+  col=mix(col,hat,smoothstep(.0115,.0095,hd));
+}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y; float t=uTime;
+  vec2 p=uv*2.0+vec2(3.,1.);
+  float h=H(p,t); float e=.025;
+  vec2 g=vec2(H(p+vec2(e,0.),t)-h,H(p+vec2(0.,e),t)-h)/e;
+  vec2 dir=normalize(vec2(-g.y,g.x)*.75+g*.65+vec2(.0001));       // the grass lies along the folds and down them
+  float s=0.,ws=0.;
+  for(int k=-7;k<=7;k++){ float fk=float(k); float w=1.-abs(fk)/8.; vec2 q=p+dir*fk*.010;
+    s+=w*(vnoise(q*130.+dir*t*.9)*.6+vnoise(q*48.-dir*t*.5)*.4); ws+=w; }
+  float streak=clamp((s/ws-.5)*3.2+.5,0.,1.);
+  vec3 n=normalize(vec3(-g*.85,1.)); float diff=clamp(dot(n,normalize(vec3(-.55,.62,.50))),0.,1.);
+  float ao=smoothstep(.28,.72,h);
+  float lum=(diff*.80+ao*.28)*(.70+.55*streak); lum=smoothstep(-.10,1.0,lum);
+  vec3 col=mix(vec3(.020,.13,.025),vec3(.10,.42,.04),smoothstep(.10,.50,lum));
+  col=mix(col,vec3(.42,.72,.09),smoothstep(.48,.82,lum));
+  col=mix(col,vec3(.72,.86,.28),smoothstep(.85,1.,lum)*.7);
+  col=mix(col,col*vec3(1.1,1.,.6),smoothstep(.6,.9,vnoise(p*1.7+9.))*.25);                  // patches going to seed
+  // four people crossing, each under a conical hat
+  float w=t*.006;
+  figure(col,uv,vec2(-.30+w,.30-w*.6),vec3(.86,.36,.12));
+  figure(col,uv,vec2(-.14+w,.06-w*.6),vec3(.62,.74,.86));
+  figure(col,uv,vec2(.08+w,-.12-w*.6),vec3(.82,.10,.14));
+  figure(col,uv,vec2(.27+w,-.33-w*.6),vec3(.10,.36,.82));
+  col*=1.-.28*dot(uv,uv);
+  gl_FragColor=vec4(pow(col,vec3(.90)),1.);
+}`
+};
+const VERT='attribute vec2 p; void main(){ gl_Position=vec4(p,0.,1.); }';
+const runs=[];
+document.querySelectorAll('canvas[data-scene]').forEach(cv=>{
+  const gl=cv.getContext('webgl',{antialias:false,preserveDrawingBuffer:true}); if(!gl) return;
+  const sh=(t,src)=>{ const s=gl.createShader(t); gl.shaderSource(s,src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){ console.error(cv.dataset.scene,gl.getShaderInfoLog(s)); document.title='SHADER ERROR '+cv.dataset.scene+' '+gl.getShaderInfoLog(s); } return s; };
+  const pr=gl.createProgram(); gl.attachShader(pr,sh(gl.VERTEX_SHADER,VERT)); gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,SCENES[cv.dataset.scene]));
+  gl.linkProgram(pr); gl.useProgram(pr);
+  gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(pr,'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const uRes=gl.getUniformLocation(pr,'uRes'), uTime=gl.getUniformLocation(pr,'uTime');
+  runs.push(t=>{ const dpr=Math.min(devicePixelRatio||1,2), w=Math.round(cv.clientWidth*dpr), h=Math.round(cv.clientHeight*dpr);
+    if(cv.width!==w||cv.height!==h){ cv.width=w; cv.height=h; gl.viewport(0,0,w,h); }
+    gl.uniform2f(uRes,w,h); gl.uniform1f(uTime,t); gl.drawArrays(gl.TRIANGLE_STRIP,0,4); });
+});
+const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function loop(ms){ runs.forEach(r=>r(still?2:2+ms/1000)); if(!still) requestAnimationFrame(loop); })(0);
+</script>
+</body>
+</html>

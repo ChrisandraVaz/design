@@ -6,6 +6,7 @@
   <title>FontContext - Case Study</title>
   <link href="https://fonts.googleapis.com/css2?family=Abel&family=Abhaya+Libre&family=ABeeZee&family=Inter:wght@300;400;450;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <style>
+    .key-shift { font-size:clamp(19px,2vw,22px); line-height:1.4; letter-spacing:-.015em; border-left:3px solid #f26b1d; padding-left:20px; margin:28px 0 8px; }
     :root {
       /* Colors */
       --figma-blue: #0C8CE9;
@@ -169,7 +170,7 @@
       left: var(--space-xl);
       top: 50%;
       transform: translateY(-50%);
-      opacity: 0;
+      opacity: 1;
       transition: opacity 0.3s ease;
       z-index: 50;
       font-family: 'IBM Plex Mono', monospace;
@@ -308,12 +309,14 @@
     /* Hero Image */
     .hero-image {
       width: 100%;
-      background: #000;
+      max-width: var(--content-max);
+      margin-inline: auto;
+      background: transparent;
       border-radius: var(--radius-sm);
       padding: 0;
       margin-bottom: var(--space-xl);
       display: block;
-      height: 420px;
+      height: auto; aspect-ratio: 1236 / 708;
       overflow: hidden;
       position: relative;
     }
@@ -323,7 +326,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       border-radius: var(--radius-sm);
       z-index: 2;
     }
@@ -1761,34 +1764,6 @@
       overflow: hidden;
     }
 
-    /* Coming Soon Sections */
-    .collapsible-section.coming-soon .section-header {
-      cursor: default;
-      opacity: 0.7;
-    }
-
-    .collapsible-section.coming-soon .section-header:hover {
-      opacity: 0.7;
-    }
-
-    .collapsible-section.coming-soon .section-content {
-      display: none !important;
-    }
-
-    .coming-soon-badge {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: var(--font-caption);
-      font-weight: 500;
-      color: var(--text-tertiary);
-      border: 1px solid var(--border-light);
-      border-radius: 100px;
-      padding: 4px 12px;
-      white-space: nowrap;
-      align-self: center;
-    }
-
-
-
     /* Responsive */
 
     @media (max-width: 1024px) {
@@ -1878,7 +1853,7 @@
       }
       .main-content { padding: 40px 16px; }
       .main-content > * { max-width: 100%; }
-      .hero-image { height: 240px; }
+      .hero-image { height: auto; aspect-ratio: 1236 / 708; }
       .image-container { padding: 16px; }
       .roadmap-grid { grid-template-columns: 1fr; }
     }
@@ -1995,6 +1970,17 @@
       border-color: rgba(255, 255, 255, 0.08);
       box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
     }
+
+    @media(min-width:900px) {
+      .main-content { margin-top:0; padding-top:120px; }
+      .project-meta { margin-bottom:12px; }
+      .project-title { font-size:44px; margin-bottom:24px; }
+      .hero-image { height:auto; aspect-ratio:1236 / 708; margin-bottom:24px; }
+      .project-info { gap:24px; }
+      .info-item p { font-size:14px; line-height:1.5; }
+    }
+      h1.project-title { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important; }
+    .section-header[role="button"]:focus-visible { outline:2px solid var(--figma-blue, #0099ff); outline-offset:6px; border-radius:4px; }
   </style>
   <script>
     // Sync theme from homepage before paint
@@ -2006,8 +1992,11 @@
       document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
+<link rel="stylesheet" href="/case-site-controls.css">
+<script src="/case-site-controls.js" defer></script>
+<link rel="stylesheet" href="/case-typography.css">
 </head>
-<body>
+<body class="case-standalone case-fontcontext">
   <div class="container">
     <!-- Top Navigation -->
     <nav class="top-nav">
@@ -2095,21 +2084,13 @@
             </div>
             <a class="tree-subsection-link" data-target="who-for">Universal Users</a>
           </div>
-          <div class="tree-subsection" data-section="modal-song">
-            <div class="tree-connector">
-              <div class="tree-connector-horizontal">
-                <div class="tree-connector-corner"></div>
-              </div>
-            </div>
-            <a class="tree-subsection-link" data-target="modal-song">HeatMapping</a>
-          </div>
           <div class="tree-subsection" data-section="scoping">
             <div class="tree-connector">
               <div class="tree-connector-horizontal">
                 <div class="tree-connector-corner"></div>
               </div>
             </div>
-            <a class="tree-subsection-link" data-target="scoping">Taking a Step Back</a>
+            <a class="tree-subsection-link" data-target="scoping">Product Scope</a>
           </div>
         </div>
       </div>
@@ -2146,12 +2127,39 @@
       <p class="project-meta">FontContext · Shipped 2026</p>
       <h1 class="project-title">The Context Aware<br>Font Editor for Figma</h1>
 
-      <!-- Hero Video (black background shows until video loads) -->
-      <div class="hero-image">
-        <video autoplay loop muted playsinline id="hero-video">
-          <source src="/assets/figma.mp4" type="video/mp4">
-        </video>
+      <!-- The same two-part product preview used by the portfolio card. -->
+      <div class="hero-image" aria-label="FontContext product preview">
+        <video autoplay muted playsinline id="hero-video" src="/assets/fontcontext-card.mp4" aria-label="FontContext introduction"></video>
+        <video muted playsinline id="hero-follow-up" src="/assets/fontcontext-follow-up.mp4" style="opacity:0" aria-hidden="true"></video>
       </div>
+      <script>
+        (() => {
+          const first = document.getElementById('hero-video');
+          const second = document.getElementById('hero-follow-up');
+          const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+          let active = first;
+          let paused = reduced.matches;
+          const sync = () => {
+            if (paused || document.hidden) active.pause();
+            else active.play().catch(() => {});
+          };
+          const next = video => {
+            active.pause();
+            active.style.opacity = '0';
+            active.setAttribute('aria-hidden', 'true');
+            active = video;
+            active.currentTime = 0;
+            active.style.opacity = '1';
+            active.setAttribute('aria-hidden', 'false');
+            sync();
+          };
+          first.addEventListener('ended', () => next(second));
+          second.addEventListener('ended', () => next(first));
+          document.addEventListener('visibilitychange', sync);
+          reduced.addEventListener('change', () => { paused = reduced.matches; sync(); });
+          sync();
+        })();
+      </script>
 
       <!-- Project Info -->
       <div class="project-info">
@@ -2176,20 +2184,20 @@
       <!-- Overview Section -->
       <section id="overview">
         <p class="section-label">Overview</p>
-        <h2 class="section-title">What if you could preview your actual design content across 1,000+ fonts without ever leaving your text selection?</h2>
-        <p class="section-text">Most designers suffer through a "scroll and guess" workflow. You select a text box, scroll through a tiny dropdown for 20 minutes, and wait for Figma to piece together fonts one by one. I built FontContext to bridge the gap between discovery and application, allowing designers to see their actual canvas context rendered across the entire Google Fonts library instantly.</p>
+        <h2 class="section-title">Choosing fonts with your own text in view</h2>
+        <p class="section-text">Choosing a typeface in Figma meant applying fonts one at a time to see how they looked in a design. I designed and built FontContext so people could compare Google Fonts using their selected text, save options, and apply a choice without repeatedly changing the canvas. This was my own project, from observing the problem in workshops to building and publishing the plugin.</p>
       </section>
 
       <!-- Solution Section -->
       <section id="solution">
         <p class="section-label">The Solution</p>
-        <h2 class="section-title">FontContext is a live type tester that turns an administrative hurdle into a creative win.</h2>
+        <h2 class="section-title">Preview, compare, and apply a typeface</h2>
 
         <div class="feature-showcase">
           <div class="feature-image" style="border: none; background: transparent;">
             <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: var(--space-sm); display: flex; align-items: center; justify-content: center;">
               <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm);">
-                <source src="/assets/Selection Synchronization.mov" type="video/mp4">
+                <source src="/assets/fontcontext-selection-sync.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -2216,7 +2224,7 @@
           <div class="feature-image" style="border: none; background: transparent;">
             <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: var(--space-sm); display: flex; align-items: center; justify-content: center;">
               <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm);">
-                <source src="/assets/Standardized Favoriting.mov" type="video/mp4">
+                <source src="/assets/fontcontext-favoriting.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -2231,7 +2239,7 @@
           <div class="feature-image" style="border: none; background: transparent;">
             <div class="image-placeholder" style="width: 100%; aspect-ratio: 1/1; padding: var(--space-sm); display: flex; align-items: center; justify-content: center;">
               <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm);">
-                <source src="/assets/Adaptive Workspace Layouts.mov" type="video/mp4">
+                <source src="/assets/fontcontext-layouts.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -2253,7 +2261,7 @@
             <p class="section-text">3+ years running design workshops, judging hackathons, mentoring at Figma events. Hundreds of first-time Figma users.</p>
             <p class="section-text">Every session, the same scene: someone opens the font dropdown. A thousand names scroll by. They pick one, apply it, squint, undo. Pick another. Undo. 10-30 minutes gone.</p>
             <p class="section-text">After hundreds of these sessions, one frustration came up more than any other:</p>
-            <blockquote class="user-quote-blue">
+            <blockquote class="user-quote-blue font-research-quote">
               <p>"I'm trying to envision my brand in this font. But I can't see it. I'm just guessing."</p>
             </blockquote>
             <p class="section-text last">Design students. PMs making decks. Founders building their first landing page. The same struggle.</p>
@@ -2365,9 +2373,10 @@
         <h2 class="section-title">Recall vs Recognition</h2>
         <p class="section-text">The native picker forces recall. You guess what Playfair Display looks like, apply it, then see if you're wrong. What people actually need is recognition: the ability to see their text in a font before committing to it.</p>
         <p class="section-text">I'd watched this struggle hundreds of times. But I wasn't just observing. Every time I picked a font for my own projects, I felt the same friction.</p>
-        <div class="user-quote-blue">
+        <div class="user-quote-blue font-original-question">
           <p>How might we create a type testing experience that is both contextual and performant, without leaving Figma?</p>
         </div>
+        <p class="key-shift">The key shift: one field that infers intent, with the eye icon to override it, instead of separate search and preview inputs.</p>
       </section>
 
       <!-- MVP Building -->
@@ -2386,12 +2395,14 @@
           <p class="section-text">I had a hunch that live preview was the answer. But a hunch means nothing until you build it and feel it. The problem was, I didn't know if I could even render the fonts. So I opened VS Code that night and started small: a light mode MVP, bare bones, just to answer one question: can I render a user's text live across multiple fonts inside a Figma plugin?</p>
         </div>
         <div class="story-beat">
-          <div class="user-quote-blue" style="margin-top: 0;">
-            <p>That was the technical doubt. If that didn't work, nothing else mattered.</p>
-          </div>
+          <aside class="technical-question-card">
+            <span class="section-label">The feasibility question</span>
+            <p>Can a Figma plugin render the user's own text across multiple fonts, live?</p>
+            <span class="technical-question-detail">I built a small prototype to test the rendering before designing the full experience.</span>
+          </aside>
         </div>
         <div class="story-beat">
-          <p class="section-text">The MVP worked. Ugly UI. Slow. But functional with the main features google fonts loading and being able to type characters to preview them in the input bar… it worked after the first 3 stints.</p>
+          <p class="section-text">The first working version loaded Google Fonts and rendered the text I typed into the preview input. It was slow and visually rough, but it answered the technical question: live text previews were possible inside the plugin.</p>
         </div>
 
         <div class="story-beat">
@@ -2402,11 +2413,11 @@
         </div>
 
         <div class="mvp-reflection-block">
-          <p class="section-text">Now I had something real to react to, not a wireframe, not a mockup, but an actual interface I could use and feel.</p>
+          <p class="section-text">A working plugin let me test loading behavior and selection changes alongside the interface.</p>
           <div class="numbered-feature compact">
-            <p>For FontContext I built the first mvp of the interface myself with the limited frontend knowledge I have from past experiences. Where I got stuck and used claude code and engineer friend for tips was the deeper stuff: injecting Google Fonts into Figma's iframe sandbox, wiring selection sync, and connecting cleanly to the plugin API.</p>
-            <p>The integration logic (selection changes, mode switching, UI in sync) was mine; AI filled in the low-level patterns I didn't know.</p>
-            <p>Before shipping through different stages I had an engineer friend do a mentor style code review: edge cases, sanity check on patterns, and a quick pass so I wasn't shipping something that only worked on my machine. AI compressed my learning loop. It didn't replace the need to understand what I was building or to treat the codebase as something that should hold up over time.</p>
+            <p>I built the interface and integration logic myself. I used Claude Code and advice from an engineer friend when I needed help with Google Fonts inside Figma’s iframe sandbox, selection synchronization, and the plugin API.</p>
+            <p>My implementation connected selection changes, preview modes, and the plugin UI. Learning unfamiliar patterns was part of building it, rather than work I handed off.</p>
+            <p>Before shipping, an engineer friend reviewed the code with me for edge cases and implementation patterns. That feedback helped me check behavior beyond the examples I had been using during development.</p>
           </div>
         </div>
         </div>
@@ -2417,21 +2428,21 @@
         <div class="section-header" onclick="toggleSection('competitors')">
           <div>
             <p class="section-label">Competitors</p>
-            <h2 class="section-title">What Already Exists (And Why It's Broken)</h2>
+            <h2 class="section-title">What the existing tools left unresolved</h2>
             <p class="section-subtitle">Looking around while building.</p>
           </div>
           <span class="chevron">→</span>
         </div>
         <div class="section-content" style="display: none;">
-        <p class="section-text">At the same time I was building, I was Googling "Figma font picker alternatives." Simultaneous. I was coding the bare bones while asking, this isn't a crazy idea, right? Preview mode is obvious. So why hasn't anyone solved this properly?</p>
-        <p class="section-text">I found three attempts:</p>
+        <p class="section-text">Alongside the MVP, I reviewed existing font-selection tools to understand what they already supported and where a plugin could improve the workflow.</p>
+        <p class="section-text">I compared the native picker, other design tools, and an existing Figma plugin:</p>
 
         <!-- The Market Gap Section with Two Columns -->
         <div style="margin-top: var(--space-xl); margin-bottom: var(--space-xl);">
           <p class="section-label">The Market Gap</p>
-          <h3 class="subsection-header" style="margin-top: var(--space-sm); font-size: var(--font-subsection);">The Market Gap: High Frequency + High Value</h3>
-          <p class="section-text" style="margin-top: var(--space-md); margin-bottom: var(--space-xl);">I'd learned from YC founders and mentors: you want to be in the high frequency, high-value quadrant. Build something people use often that actually solves the problem well. Don't end up in Q2 or Q3,tools people rarely need, or tools that work but nobody uses.</p>
-          <p class="section-text" style="margin-bottom: var(--space-xl);">I mapped where competitors sat so I didn't build in the wrong quadrant.</p>
+          <h3 class="subsection-header" style="margin-top: var(--space-sm); font-size: var(--font-subsection);">Compare the workflow, not just the feature list</h3>
+          <p class="section-text" style="margin-top: var(--space-md); margin-bottom: var(--space-xl);">My comparison asked two questions: how often would someone need the tool, and how directly did it help them choose a typeface in their current design?</p>
+          <p class="section-text" style="margin-bottom: var(--space-xl);">The map was my assessment of the workflow fit, not measured market demand.</p>
 
           <div style="display: grid; grid-template-columns: 1fr 1.25fr; gap: var(--space-xl); align-items: start;">
             <!-- Left: Competitor Cards (each card only as tall as its content) -->
@@ -2521,22 +2532,22 @@
             <img src="/assets/broken.png" alt="Font Preview plugin: broken states and fragmented UI" />
           </div>
           <div style="min-width: 0;">
-            <h3 class="subsection-header" style="margin-top: 0;">It's Broken</h3>
+            <h3 class="subsection-header" style="margin-top: 0;">Friction in the plugin I tested</h3>
             <p class="section-text" style="margin-bottom: var(--space-xl);">I opened it expecting to find the answer already built.</p>
-            <p class="broken-problem"><span class="num">1.</span> Error states. "Failed to load font." Half the Google Fonts library broken. Favorites hidden behind a floating star icon: wrong icon, wrong placement.</p>
-            <p class="broken-problem"><span class="num">2.</span> Search behind a tab, preview on a separate bar. Two bars that didn't sync. Fragmented.</p>
-            <p class="broken-problem"><span class="num">3.</span> Dated design. Chunky buttons, harsh borders. No dark mode until 2022. Confusing: where's search? Which input?</p>
-            <p class="broken-problem"><span class="num">4.</span> 3.2 stars. Same complaints: fonts don't load, can't find search, outdated, no dark mode. Six years old. Fifty thousand downloads. Still broken.</p>
+            <p class="broken-problem"><span class="num">1.</span> I encountered "Failed to load font" errors. Favorites were accessed through a separate floating star control.</p>
+            <p class="broken-problem"><span class="num">2.</span> Search and preview used separate controls that did not stay in sync. I wanted to test whether one input could make the relationship clearer.</p>
+            <p class="broken-problem"><span class="num">3.</span> The control hierarchy made it difficult to tell where to search and where to enter preview text.</p>
+            <p class="broken-problem"><span class="num">4.</span> These observations gave me specific requirements to test: reliable font loading, clear search and preview behavior, and easy access to saved fonts.</p>
           </div>
         </div>
 
-        <p class="section-text" style="margin-top: var(--space-xl);">That's when the real question hit:</p>
+        <p class="section-text" style="margin-top: var(--space-xl);">That left a practical question:</p>
         <div class="user-quote-blue" style="margin-top: var(--space-md);">
-          <p>Why would anyone switch from a broken but familiar tool to mine? Status quo bias is real.</p>
+          <p>What would make someone choose FontContext over the workflow they already knew?</p>
         </div>
-        <p class="section-text">People stick with things that kind of work, even when they're frustrating. Switching costs are high. I couldn't be marginally better. I had to be obviously better, enough to overcome the inertia.</p>
+        <p class="section-text">The benefit needed to be visible in the first interaction. Previewing someone’s selected text would let them compare fonts before changing the canvas.</p>
 
-        <p class="section-text" style="margin-top: var(--space-xl);">The gap: High frequency + high value. Native to Figma. Actually works. Reliable preview. Shows your actual text across all fonts.</p>
+        <p class="section-text" style="margin-top: var(--space-xl);">I focused the next iteration on that comparison loop: select text, preview typefaces, and apply a choice in Figma.</p>
         <p class="section-text">That's where FontContext needed to sit.</p>
         </div>
       </section>
@@ -2609,14 +2620,9 @@
           <p class="section-text">I tested the final version with four people. Nobody asked how it worked. They just typed and it did what they expected.</p>
         </div>
 
-        <div class="key-insight">
-          <p>One input. Two modes. Zero choice overload.</p>
-        </div>
-
         <div style="margin-top: var(--space-xl);">
           <video autoplay loop muted playsinline style="width: 100%; border-radius: var(--radius-sm); display: block;">
-            <source src="/assets/twobar.mov" type="video/mp4">
-            <source src="/assets/twobar.mov" type="video/quicktime">
+            <source src="/assets/fontcontext-twobar.mp4" type="video/mp4">
           </video>
         </div>
         </div>
@@ -2665,197 +2671,49 @@
         <p class="section-text" style="margin-top: var(--space-xl);">That reframed everything.</p>
 
         <div class="numbered-feature" style="margin-top: var(--space-xl);">
-          <h3>This Isn't a "Junior Designer Problem"</h3>
-          <p>Some might say font selection is a junior problem. That misses the point. Every designer  - junior, senior, staff  - picks fonts multiple times per project, for years. The friction compounds.</p>
-          <p>A junior wastes 30 minutes because they don't know font names. A senior wastes 10 because they're exploring outside favorites. An engineer wastes 5 because they just need something decent to ship. High frequency, real friction. The problem scales with everyone  - the solution needed to work for everyone.</p>
+          <h3>Different experience levels, one comparison task</h3>
+          <p>Beginners needed help discovering fonts. Experienced designers wanted to explore beyond their usual choices, while engineers and founders wanted a quick way to find a suitable option.</p>
+          <p>That range of needs supported a shared preview workflow, with search and favorites available for people who already knew what they wanted.</p>
         </div>
 
-        <div class="key-insight">
-        </div>
+        <h3 id="scoping" class="subsection-header" style="margin-top: var(--space-xl); scroll-margin-top:120px;">Keep the scope on choosing a font</h3>
+        <p class="section-text">Testing with people in different roles clarified the shared task: compare typefaces using their own text, then apply a choice. I had started adding weight, spacing, and style controls, but Figma already handles those after a font is selected. I kept FontContext focused on discovery and preview.</p>
+        <p class="section-text">That also meant cutting a partly built code-export feature. A Google Fonts URL and CSS snippet could help developers, but they did not improve the core selection task. This boundary kept the interface focused on the font list, preview, and favorites.</p>
         </div>
       </section>
 
-      <!-- HeatMapping -->
-      <section id="modal-song" class="collapsible-section coming-soon" data-default-state="collapsed">
-        <div class="section-header">
-          <div>
-            <p class="section-label">HeatMapping</p>
-            <h2 class="section-title">The Modal as a Song</h2>
-            <p class="section-subtitle">Heat map thinking: where users' eyes go first, second, third.</p>
-          </div>
-          <span class="coming-soon-badge">Coming Soon</span>
-        </div>
-        <div class="section-content" style="display: none;">
-        <p class="section-text">I think about interfaces in terms of where users' eyes go first, second, third. Heat map thinking.</p>
-        <p class="section-text">I recorded sessions with the MVP. Twelve people, different skill levels. I watched where their eyes went when the modal opened.</p>
-        <p class="section-text">Eleven out of twelve looked top center first. Then scanned left to right. One person, an engineer, went straight to the font list in the middle and ignored everything else. But the pattern was clear: top center gets attention first. Middle is the main content. Right edge is where actions go. Left is utility. Bottom corner is rarely looked at.</p>
-        <p class="section-text">That's not theory. That's observation.</p>
-        <p class="section-text">I designed the modal with explicit priority hierarchy:</p>
+      <!-- Interaction decisions carried forward from the design process. -->
+      <section id="craft">
+        <p class="section-label">Interaction Details</p>
+        <h2 class="section-title">Making browsing feel predictable</h2>
+        <p class="section-text">With the input resolved and the scope narrowed, I refined the actions around the font list. The list remained the main content, with search and preview above it, favorites at the right edge, and preferences kept secondary.</p>
 
         <div class="numbered-feature">
-          <h3>Priority 1: Font List (Middle, Main Content)</h3>
-          <p>That's what you came here to see. The actual fonts. Everything else supports this.</p>
+          <h3>Separate previewing from saving</h3>
+          <p>With hearts on the left, people sometimes selected a font when they meant to save it. I moved the hearts to the right edge so saving and previewing had distinct targets. I also made the favorites count update immediately; the delayed count had led people to click again because they weren't sure the first click registered.</p>
         </div>
-
         <div class="numbered-feature">
-          <h3>Priority 2: Search/Preview Input (Top Center, Highest Attention)</h3>
-          <p>The main action. What you type to find fonts or preview your text. Centered because that's where eyes land first.</p>
+          <h3>Keep the font name available in preview mode</h3>
+          <p>Replacing font names with the selected text made comparison easier, but hid the name of each typeface. I added a name annotation above the hovered row, where it would not cover the next option. After trying 100ms and 200ms delays, I settled on 120ms to balance quick access with accidental triggers while scrolling.</p>
         </div>
-
         <div class="numbered-feature">
-          <h3>Priority 3: Favorites Tab (Top Right, Action Zone)</h3>
-          <p>Heart icon, right edge. Every app puts likes on the right,Instagram, Twitter, YouTube, every social platform. I'm not inventing a new pattern. I'm matching what users already know. Jakob's Law: users spend most of their time on other sites, so they expect yours to work the same way. The heart icon communicates faster than the text "Favorites." Faster recognition. Less cognitive load.</p>
+          <h3>Support the text and workspace people already use</h3>
+          <p>A long wedding-invitation headline exposed the limits of the compact list. I added a wider card layout for reading longer samples while keeping the list available for browsing more fonts at once. Theme detection followed Figma's light or dark setting so the plugin fit the surrounding workspace.</p>
         </div>
-
-        <div class="numbered-feature">
-          <h3>Priority 4: Google Fonts Dropdown (Left Side, Utility)</h3>
-          <p>Functional but secondary. You might use it once to switch font sets, but it's not the primary action. Left side, out of the main flow.</p>
-        </div>
-
-        <div class="numbered-feature">
-          <h3>Priority 5: Preferences (Bottom Corner, Rarely Needed)</h3>
-          <p>Theme settings, layout options. Recognition isn't a priority for this element, seeing fonts and favoriting is. So it hides in the corner where you'll find it if you need it but it won't demand attention.</p>
-        </div>
-
-        <p class="section-text">I also didn't want two same width tabs sitting side by side at the top, that looks weird, visually unbalanced, and makes users think they're equal priority when they're not.</p>
-
-        <div class="key-insight">
-          <p>Every element earns its position. Not because of a grid. Because of how people actually look at interfaces.</p>
-        </div>
-        </div>
-      </section>
-
-      <!-- Taking a Step Back -->
-      <section id="scoping" class="collapsible-section coming-soon" data-default-state="collapsed">
-        <div class="section-header">
-          <div>
-            <p class="section-label">Taking a Step Back</p>
-            <h2 class="section-title">Scoping as Taste</h2>
-            <p class="section-subtitle">Font picker, not typography editor.</p>
-          </div>
-          <span class="coming-soon-badge">Coming Soon</span>
-        </div>
-        <div class="section-content" style="display: none;">
-        <p class="section-text">I got confused early on. Was I building a font picker or a typography editor?</p>
-        <p class="section-text">At first I thought, if you're picking a font, don't you also need bold, italic, line height, letter spacing controls? Shouldn't this be a full typography component?</p>
-        <p class="section-text">I started building weight selectors. Spacing inputs. Style toggles.</p>
-        <p class="section-text">Then I caught myself. That's scope creep. That's a different product.</p>
-        <p class="section-text">The native Figma dropdown handles weight and spacing perfectly fine once you've chosen your typeface. The bottleneck isn't adjusting typography. It's the choice itself, seeing your text in different fonts before you commit. That's the problem I watched students struggle with for three years. Not kerning. Not line height. Not bold vs regular. The font itself.</p>
-        <p class="section-text">I drew a hard line: context aware font picker, not typography editor. If a feature doesn't directly serve "see your text in fonts fast," it's out.</p>
-        <p class="section-text">I had a code export feature half built. Click a font, get the Google Fonts URL and CSS snippet for developers. Useful. I'd already done the work. Fifty percent done. I almost kept it just because of sunk cost, half finished felt like half wasted.</p>
-        <p class="section-text">But it was a plus one feature. Nice to have, not need to have. It didn't serve the core problem. Cut it.</p>
-        <p class="section-text">Version one ships lean.</p>
-
-        <div class="key-insight">
-          <p>Anyone can add features. Taste is knowing what to remove.</p>
-        </div>
-        </div>
-      </section>
-
-      <!-- Craft in the Details -->
-      <section id="craft" class="collapsible-section coming-soon" data-default-state="collapsed">
-        <div class="section-header">
-          <div>
-            <p class="section-label">The Craft</p>
-            <h2 class="section-title">Micro Interactions</h2>
-            <p class="section-subtitle">Every micro interaction came from using the tool or watching someone hesitate.</p>
-          </div>
-          <span class="coming-soon-badge">Coming Soon</span>
-        </div>
-        <div class="section-content" style="display: none;">
-
-        <div class="numbered-feature">
-          <h3>Heart Placement</h3>
-          <p>First version had hearts on the left of each font row. I watched four people use it. Three of them overshot, aimed for the heart, clicked the font name by accident, triggered the font preview when they meant to favorite. One person hesitated before every click, cursor hovering, recalculating.</p>
-          <p>If clicking feels risky, people hesitate.</p>
-          <p>I moved hearts to the right edge. Exactly where every social app puts the like button. Muscle memory solved the problem. I tested again with three people. Nobody misclicked. Nobody hesitated.</p>
-        </div>
-
-        <div class="numbered-feature">
-          <h3>Hover Timing</h3>
-          <p>Preview mode shows your text instead of font names. So how do you know what font you're looking at?</p>
-          <p>I added a tooltip that shows the font name on hover. But what's the right delay?</p>
-          <p>I tested three timings:</p>
-          <ul style="margin-left: var(--space-lg); margin-top: var(--space-sm);">
-            <li>200ms felt sluggish. You hover, wait, then the name appears. Felt unresponsive.</li>
-            <li>100ms triggered accidentally while scrolling. Your cursor passes over rows and tooltips pop up everywhere. Chaotic.</li>
-            <li>120ms was the sweet spot. Fast enough to feel immediate. Slow enough to not trigger by accident.</li>
-          </ul>
-        </div>
-
-        <div class="numbered-feature">
-          <h3>Real Time Badge</h3>
-          <p>When you favorite a font, the badge count updates instantly. 10 becomes 11 as you click. Facts.</p>
-          <p>I tested without this first. The count only updated when you switched tabs or reopened the plugin. I watched two people click the heart multiple times because they weren't sure if it worked. "Did that register? Should I click again?"</p>
-          <p>This is about trust. Users need to know their action registered. If there's doubt, there's hesitation. Instant feedback closes the loop. The system feels alive, responsive, trustworthy.</p>
-        </div>
-
-        <div class="numbered-feature">
-          <h3>Toast Annotation</h3>
-          <p>Preview mode created a problem: when rows show "Hello World" instead of "Playfair Display," you lose the font name.</p>
-          <p>I solved a problem my own feature created.</p>
-          <p>Hover reveals the name as a toast annotation above the row. Not a tooltip below, that would cover the next row. Above, so it floats without blocking anything.</p>
-        </div>
-
-        <div class="numbered-feature">
-          <h3>Layout Toggle</h3>
-          <p>A student was designing a wedding invitation. Long headline: "Together with their families, Sarah & Michael request the pleasure of your company at their wedding celebration."</p>
-          <p>Opened FontContext. The text clipped in list view. Cut off mid-sentence. She couldn't see how the full phrase looked.</p>
-          <p>I added horizontal grid layout, full width cards where text never cuts off, no matter how long. Toggle between list (compact, more fonts visible) and grid (full context, nothing hidden).</p>
-          <p>Different designers work differently. The tool adapts.</p>
-        </div>
-
-        <div class="numbered-feature">
-          <h3>Dark Mode</h3>
-          <p>A student asked: "Does this work in dark mode?"</p>
-          <p>It didn't. The plugin was white, Figma's interface was dark. Visual clash. Felt like a foreign object in the workspace.</p>
-          <p>I added theme detection that matches Figma's interface setting. Light or dark, FontContext blends in. Feels native.</p>
-        </div>
-
-        <h3 class="subsection-header" style="margin-top: var(--space-xl);">Performance as Craft</h3>
-        <p class="section-text">Scroll has to feel instant or users won't trust it.</p>
-        <p class="section-text">The preview engine worked, but it stuttered. Scroll fast and fonts popped in with visible lag. Half second delays. Text flickering. Janky.</p>
-        <p class="section-text">Users anchor on first impressions. If the tool feels slow on first scroll, they won't trust it. The native dropdown is blind, but at least it's instant.</p>
-        <p class="section-text">I tested the stuttering version with three people. All three said some version of "it's slow" or "it lags" within the first ten seconds. That's all it takes. Ten seconds to lose trust.</p>
-        <p class="section-text">I rewrote the rendering engine twice.</p>
-
-        <div class="comparison-container" style="background: var(--figma-blue-light);">
-          <p class="image-label">Performance Architecture Evolution</p>
-          <div class="comparison-grid">
-            <div class="comparison-item">
-              <h4>First Attempt: Load Everything Upfront</h4>
-              <p>Load all 1,400+ Google Fonts on launch. Get everything ready upfront. Memory spiked to 400MB. Chrome tabs started crashing. My laptop fans screamed. Unusable.</p>
-            </div>
-            <div class="comparison-item">
-              <h4>Second Attempt: Lazy Loading</h4>
-              <p>Load fonts as they scroll into view. Better, memory stayed reasonable. But every font triggered a separate network request. Scroll fast, fire a hundred requests at once, get rate limited by Google's API. Fonts would just stop loading. Error states everywhere. Still broken.</p>
-            </div>
-            <div class="comparison-item">
-              <h4>Final Version: Virtual Scrolling</h4>
-              <p>The DOM only renders fifteen font rows at a time, the ones currently visible in the viewport plus a few above and below as buffer. As you scroll, rows outside the viewport get destroyed and new ones render in their place.</p>
-            </div>
-            <div class="comparison-item">
-              <h4>CDN Injection</h4>
-              <p>Fonts load from the CDN just before entering the viewport, then cache locally in the browser. Memory stays under 50MB. Scrolling feels instant. No lag. No flicker. No rate limits.</p>
-            </div>
-          </div>
-        </div>
-
-        <p class="section-text" style="margin-top: var(--space-xl);">I spent more time on scroll performance than any single feature. That's the cost of entry. You can't ship something that stutters and expect people to trust it.</p>
-        </div>
+        <h3 class="subsection-header" style="margin-top: var(--space-xl);">Make the preview keep up with scrolling</h3>
+        <p class="section-text">Those interactions depended on fonts loading reliably. Loading the full library upfront used too much memory. Loading each font only as it appeared reduced that cost, but rapid scrolling created bursts of requests and rate limits.</p>
+        <p class="section-text">I switched to virtual scrolling, rendering only the visible rows and a small buffer. Fonts load from the CDN before entering the viewport and are cached in the browser. This let me keep the live preview without loading the entire library at launch.</p>
       </section>
 
       <!-- The Moment It Clicked -->
       <section id="clicked">
         <p class="section-label">The Outcome</p>
-        <h2 class="section-title">The Moment It Clicked</h2>
-        <p class="section-subtitle">When the tool disappears into the workflow.</p>
-        <p class="section-text">There was a specific moment I knew the design was right.</p>
-        <p class="section-text">Sarah, a medtech startup founder new to design, helped me A/B test iterations throughout the process. A few weeks after launch, I ran into her working on a brandbook for her startup. FontContext open, scrolling through serifs, hearting options, building her personal library. I asked if she remembered when picking fonts was hard. She looked confused. "What do you mean? You just preview and pick." The tool disappeared into her workflow. That's the point.</p>
+        <h2 class="section-title">A shipped plugin used beyond the test sessions</h2>
+        <p class="section-subtitle">Available on Figma Community.</p>
+        <p class="section-text">I published FontContext on Figma Community. One useful sign after launch was seeing someone return to it for their own work.</p>
+        <p class="section-text">Sarah, a medtech startup founder new to design, had helped me compare iterations. A few weeks after launch, I saw her using FontContext for her startup’s brandbook: browsing serifs, saving options, and building a personal library. When I asked about picking fonts, she said, "You just preview and pick." That was an example of continued use outside a test session, rather than a measure of adoption across all users.</p>
 
-        <div class="key-insight">
-          <p>That's the taste moment. When the interface stops being designed and starts being inevitable. When you can't imagine moving anything without breaking the whole thing. You can't plan for this. You can't force it. You just stay in the work long enough until it happens.</p>
-        </div>
+
 
         <div class="image-container" style="background: #fff; border-color: var(--border-light);">
           <p class="image-label">Final UI: Dark Mode</p>
@@ -2899,7 +2757,7 @@
 
         <div class="roadmap-grid">
           <div class="roadmap-item">
-            <div class="roadmap-checkbox"></div>
+
             <div class="roadmap-content">
               <h4>Category Filters</h4>
               <p>Adding serif/sans/display filters created more decisions. Speed mattered more than organization.</p>
@@ -2907,7 +2765,7 @@
           </div>
 
           <div class="roadmap-item">
-            <div class="roadmap-checkbox"></div>
+
             <div class="roadmap-content">
               <h4>Variable Fonts</h4>
               <p>Supporting variable fonts meant rewriting how fonts load. Saved for a future version.</p>
@@ -2915,7 +2773,7 @@
           </div>
 
           <div class="roadmap-item">
-            <div class="roadmap-checkbox"></div>
+
             <div class="roadmap-content">
               <h4>Popular Sorting</h4>
               <p>Trending data changes daily and breaks caching. Needs a more stable data source.</p>
@@ -2923,7 +2781,7 @@
           </div>
 
           <div class="roadmap-item">
-            <div class="roadmap-checkbox"></div>
+
             <div class="roadmap-content">
               <h4>Code Export</h4>
               <p>Letting developers copy font CDN links. Useful, but not core to font discovery.</p>
@@ -2931,7 +2789,7 @@
           </div>
 
           <div class="roadmap-item">
-            <div class="roadmap-checkbox"></div>
+
             <div class="roadmap-content">
               <h4>Typography Editor</h4>
               <p>Controls for weight, style, and spacing. This is a font picker, not a typography tool.</p>
@@ -2939,7 +2797,7 @@
           </div>
 
           <div class="roadmap-item">
-            <div class="roadmap-checkbox"></div>
+
             <div class="roadmap-content">
               <h4>AI Recommendations</h4>
               <p>Suggesting fonts based on project context. Interesting, but adds complexity to v1.</p>
@@ -2964,8 +2822,8 @@
               </svg>
             </div>
             <div class="decision-content">
-              <h4>The Best Design Is Invisible</h4>
-              <p>When Sarah couldn't remember font picking being hard, I knew the design worked. Good design doesn't announce itself. It disappears into the workflow. The tool becomes transparent. The task becomes effortless.</p>
+              <h4>Watch what happens after the test</h4>
+              <p>Seeing Sarah return to FontContext for a brandbook told me something the guided sessions could not: the plugin had a place in her own workflow. I would look for that repeated use when evaluating the next version, alongside whether people can preview and apply fonts without help.</p>
             </div>
           </div>
 
@@ -2976,8 +2834,8 @@
               </svg>
             </div>
             <div class="decision-content">
-              <h4>AI Lowered the Barrier, But Taste Still Matters</h4>
-              <p>Claude taught me code patterns I didn't know. Virtual scrolling. CDN injection. Rate limit handling. But AI can't tell me where to put the heart icon or when 120ms feels right. That's taste. Anyone can generate code. Not everyone knows what to build.</p>
+              <h4>Building exposed constraints the mockup missed</h4>
+              <p>I used Claude to learn unfamiliar implementation patterns, including virtual scrolling and font loading. Building the plugin exposed memory and request limits that were invisible in Figma. I still had to decide what to load, check the behavior, and refine the interaction by using it with people.</p>
             </div>
           </div>
 
@@ -2990,8 +2848,8 @@
               </svg>
             </div>
             <div class="decision-content">
-              <h4>Think in Systems</h4>
-              <p>FontContext is a font picker, not a typography editor. Knowing what not to build is harder than knowing what to build. Every decision, from the eye toggle to the heart placement, was tested against one question: would this scale across a design system?</p>
+              <h4>Give the plugin one clear job</h4>
+              <p>Weight and spacing controls would have duplicated work Figma already supports. Keeping the plugin focused on comparing and choosing typefaces helped me decide which features to finish and which to leave out, including a partly built code-export feature.</p>
             </div>
           </div>
         </div>
@@ -3040,18 +2898,6 @@
       }
     });
 
-    // Roadmap Checkbox Toggle - mark item as deferred with a checkmark
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.roadmap-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('click', () => {
-          const item = checkbox.closest('.roadmap-item');
-          if (!item) return;
-          item.classList.toggle('deferred');
-          checkbox.classList.toggle('checked');
-        });
-      });
-    });
-
     // Collapsible Section Toggle
     function toggleSection(sectionId) {
       const section = document.getElementById(sectionId);
@@ -3085,6 +2931,22 @@
 
         // Use saved state if available, otherwise use default
         const shouldExpand = savedState ? savedState === 'true' : defaultState === 'expanded';
+        const header = section.querySelector('.section-header');
+        content.id = `${sectionId}-content`;
+        header.setAttribute('role', 'button');
+        header.setAttribute('tabindex', '0');
+        header.setAttribute('aria-controls', content.id);
+        header.setAttribute('aria-expanded', String(shouldExpand));
+        header.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleSection(sectionId);
+          }
+        });
+        new MutationObserver(() => {
+          header.setAttribute('aria-expanded', section.getAttribute('data-expanded'));
+        }).observe(section, { attributes: true, attributeFilter: ['data-expanded'] });
+
 
         if (shouldExpand) {
           content.style.display = 'block';
@@ -3109,7 +2971,7 @@
       // All sections for tree nav
       const allSections = [
         'overview', 'solution', 'pain', 'validation', 'need', 'built-first',
-        'competitors', 'two-bar', 'who-for', 'modal-song', 'scoping',
+        'competitors', 'two-bar', 'who-for', 'scoping',
         'craft', 'clicked', 'didnt-solve', 'learnings'
       ];
 
@@ -3131,7 +2993,6 @@
         'need': 'pain',
         'competitors': 'built-first',
         'who-for': 'two-bar',
-        'modal-song': 'two-bar',
         'scoping': 'two-bar',
         'didnt-solve': 'clicked'
       };
@@ -3150,7 +3011,6 @@
         'competitors': 'pain',
         'two-bar': 'clicked',
         'who-for': 'clicked',
-        'modal-song': 'clicked',
         'scoping': 'clicked',
         'craft': 'clicked',
         'clicked': 'clicked',
@@ -3165,12 +3025,7 @@
         }
       });
 
-      // Show/hide tree nav based on scroll position
-      if (scrollY > 50) {
-        treeNav.classList.add('visible');
-      } else {
-        treeNav.classList.remove('visible');
-      }
+      treeNav.classList.add('visible');
 
       // Update tree nav sections
       treeSections.forEach(section => {
@@ -3208,14 +3063,15 @@
           const target = document.getElementById(targetId);
           if (target) {
             // Expand if collapsible
-            if (target.classList.contains('collapsible-section')) {
-              const content = target.querySelector('.section-content');
-              const chevron = target.querySelector('.chevron');
-              if (target.getAttribute('data-expanded') !== 'true') {
+            const collapsible = target.closest('.collapsible-section');
+            if (collapsible) {
+              const content = collapsible.querySelector('.section-content');
+              const chevron = collapsible.querySelector('.chevron');
+              if (collapsible.getAttribute('data-expanded') !== 'true') {
                 content.style.display = 'block';
-                target.setAttribute('data-expanded', 'true');
+                collapsible.setAttribute('data-expanded', 'true');
                 if (chevron) chevron.textContent = '↓';
-                localStorage.setItem(`section-${targetId}`, 'true');
+                localStorage.setItem(`section-${collapsible.id}`, 'true');
               }
             }
             const navHeight = 64;

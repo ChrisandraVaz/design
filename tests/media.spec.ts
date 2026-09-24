@@ -22,7 +22,7 @@ test('Font Context Plugin card repeats both media items in order',async({page})=
  await page.goto('/');
  const card=page.getByRole('link',{name:'Open Font Context Plugin case study'});
  await expect(card).toHaveAttribute('href','/fontcontext.html');
- await expect(card.locator('.fontcontext-card-cover')).toHaveAttribute('src','/assets/h.mov');
+ await expect(card.locator('.fontcontext-card-cover')).toHaveAttribute('src','/assets/fontcontext-card.mp4');
  await expect(card.locator('.fontcontext-card-follow-up')).toHaveAttribute('src','/assets/fontcontext-follow-up.mp4');
  const cover=card.locator('.fontcontext-card-cover');
  const followUp=card.locator('.fontcontext-card-follow-up');

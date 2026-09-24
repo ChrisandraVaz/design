@@ -27,7 +27,7 @@ export default function FontContextCardMedia() {
 
   return (
     <div className={`fontcontext-card-media${showFollowUp ? ' is-follow-up' : ''}`}>
-      <video ref={cover} className="fontcontext-card-cover" src="/assets/h.mov" autoPlay muted playsInline preload="auto" onEnded={continueSequence} aria-hidden={showFollowUp} />
+      <video ref={cover} className="fontcontext-card-cover" src="/assets/fontcontext-card.mp4" autoPlay muted playsInline preload="auto" onEnded={continueSequence} aria-hidden={showFollowUp} />
       <video ref={followUp} className="fontcontext-card-follow-up" src="/assets/fontcontext-follow-up.mp4" muted playsInline preload="auto" onEnded={restartSequence} aria-hidden={!showFollowUp} />
     </div>
   );

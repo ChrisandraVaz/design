@@ -50,7 +50,7 @@
     left: calc(777.396px + 3 * var(--canvas-component-gap));
     top: calc(283.942px + var(--canvas-component-gap));
   }
-  .canvas-folio:not(.index-folio) .scatter-2 > .sentry-preview-card { height: 220px; }
+  .canvas-folio:not(.index-folio) .scatter-2 > .sentry-preview-card { height: 315px; }
   .canvas-folio:not(.index-folio) .scatter-trace { top: 518.553973px; left: calc(166.779px + var(--canvas-component-gap)); }
   .canvas-folio:not(.index-folio) .scatter-5 { top: 783.890439px; }
   .canvas-folio:not(.index-folio) .scatter-12 { top: calc(933.570px + var(--canvas-component-gap)); }

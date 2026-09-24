@@ -1,8 +1,9 @@
+import type {ReactNode} from "react";
 import {FiClock, FiCopy, FiLink, FiMoreHorizontal, FiPlus, FiX} from "react-icons/fi";
 import "./seer-chat-header.css";
 
 /** The production header's spacing, with a light surface for the portfolio. */
-export function SeerChatHeader({onNewChat, variant = "full"}: {onNewChat?: () => void; variant?: "full" | "agent"}) {
+export function SeerChatHeader({onNewChat, variant = "full", action}: {onNewChat?: () => void; variant?: "full" | "agent"; action?: ReactNode}) {
   return <header className={`seer-chat-header ${variant === "agent" ? "seer-chat-header-agent" : ""}`}>
     <span className="seer-chat-identity">
       <span className="seer-chat-close" aria-hidden="true"><FiX /></span>
@@ -15,6 +16,7 @@ export function SeerChatHeader({onNewChat, variant = "full"}: {onNewChat?: () =>
       </span>
     </span>
     <span className="seer-chat-tools">
+      {action}
       {variant === "agent" ? <span className="seer-chat-utility" aria-hidden="true"><FiMoreHorizontal /></span> : <>
       <span className="seer-chat-utility" aria-hidden="true"><FiCopy /></span>
       <span className="seer-chat-utility" aria-hidden="true"><FiLink /></span>

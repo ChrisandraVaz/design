@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Experiments card: three nature options</title>
+<style>
+  :root { --bg:#fafafa; --ink:#1a1a1c; --mute:#8b8b92; --frame:#f1f1f3; --line:#e4e4e8; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 Inter,system-ui,sans-serif; padding:40px 24px 80px; }
+  h1 { font-size:20px; font-weight:500; margin:0 0 6px; }
+  .lede { color:var(--mute); margin:0 0 36px; max-width:60ch; }
+  .options { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:40px 28px; max-width:1240px; }
+  .label { font-size:12px; color:var(--mute); margin:0 0 8px 6px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:14px 14px 12px; box-shadow:0 1px 2px #0000000a; }
+  .grid { display:grid; grid-template-columns:1.12fr 1fr; grid-template-rows:1fr 1fr; gap:8px; aspect-ratio:1.18; }
+  .grid canvas { width:100%; height:100%; display:block; border-radius:10px; background:#123; }
+  .grid canvas:first-child { grid-row:1 / span 2; }
+  .cap { display:flex; justify-content:space-between; align-items:end; margin-top:12px; padding:0 2px; }
+  .cap strong { font-weight:500; font-size:12px; display:block; }
+  .cap span { color:var(--mute); font-size:10.5px; }
+  .note { color:var(--mute); font-size:12.5px; margin:12px 6px 0; max-width:46ch; }
+</style>
+</head>
+<body>
+<h1>Experiments card: three nature options</h1>
+<p class="lede">Each option is drawn live in code, in the card's existing three-tile layout: a wide view, a middle view and a close view of the same scene.</p>
+<div class="options">
+  <section><p class="label">Option 1 · Clover field</p>
+    <div class="card"><div class="grid" data-scene="clover"><canvas></canvas><canvas></canvas><canvas></canvas></div>
+      <div class="cap"><div><strong>Shader Experiments</strong><span>Clover field</span></div><span>3 studies</span></div></div>
+    <p class="note">Seen from above. Every clover has three leaves except one. The close tile holds the four-leaf.</p></section>
+  <section><p class="label">Option 2 · Fir branch</p>
+    <div class="card"><div class="grid" data-scene="fir"><canvas></canvas><canvas></canvas><canvas></canvas></div>
+      <div class="cap"><div><strong>Shader Experiments</strong><span>Fir in low light</span></div><span>3 studies</span></div></div>
+    <p class="note">The pine mood as one branch, not a whole forest. Needles catch light against a soft dark background.</p></section>
+  <section><p class="label">Option 3 · Crown shyness</p>
+    <div class="card"><div class="grid" data-scene="crown"><canvas></canvas><canvas></canvas><canvas></canvas></div>
+      <div class="cap"><div><strong>Shader Experiments</strong><span>Crown shyness</span></div><span>3 studies</span></div></div>
+    <p class="note">Looking up. Tree crowns keep an even gap of sky between them, like the cards on your canvas.</p></section>
+</div>
+
+<script>
+const COMMON = `
+precision highp float;
+uniform vec2 uRes; uniform float uTime; uniform float uZoom; uniform vec2 uCenter;
+float h21(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }
+vec2 h22(vec2 p){ float n=h21(p); return vec2(n,h21(p+n+17.1)); }
+float vnoise(vec2 p){ vec2 i=floor(p),f=fract(p); f=f*f*(3.-2.*f);
+  return mix(mix(h21(i),h21(i+vec2(1,0)),f.x),mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),f.x),f.y); }
+float fbm(vec2 p){ float a=.5,s=0.; for(int i=0;i<5;i++){ s+=a*vnoise(p); p=p*2.03+7.1; a*=.5; } return s; }
+vec2 view(){ return (gl_FragCoord.xy-.5*uRes)/uRes.y*uZoom+uCenter; }
+`;
+const SCENES = {
+clover: { views:[[8.5,[3.2,1.7]],[4.6,[2.1,.9]],[2.1,[1.52,.52]]], frag: COMMON + `
+// one clover: x = coverage, y = leaf tone, z = pale chevron
+vec3 clover(vec2 p, float n, float rot, float R, float e){
+  float a=atan(p.y,p.x)+rot, r=length(p)/R;
+  float pet=abs(cos(a*n*.5));
+  float rr=pow(pet,.42)*(1.-.16*smoothstep(.9,1.,pet));
+  float m=smoothstep(rr+e,rr-e,r)*step(.0001,r+1.);
+  float chev=smoothstep(.07,.0,abs(r-(.30+.30*pet)))*smoothstep(.45,.8,pet);
+  float rib=smoothstep(.992,1.,pet)*smoothstep(rr,.1,r);
+  float tone=.35+.65*smoothstep(0.,1.,r/max(rr,.001))-.35*rib;
+  return vec3(m,tone,chev);
+}
+void main(){
+  vec2 uv=view(); float e=uZoom/uRes.y*1.6;
+  vec3 col=mix(vec3(.035,.09,.04),vec3(.07,.16,.06),fbm(uv*3.));
+  for(int L=0;L<3;L++){
+    float fl=float(L); vec2 q=uv+fl*vec2(.37,.61);
+    vec2 cell=floor(q);
+    for(int j=-1;j<=1;j++) for(int i=-1;i<=1;i++){
+      vec2 id=cell+vec2(float(i),float(j));
+      vec2 rnd=h22(id+fl*31.7);
+      bool lucky=(L==2 && id==vec2(2.,1.));
+      vec2 c=id+.5+(lucky?vec2(0.):(rnd-.5)*.7);
+      float R=lucky?.52:.40+.2*rnd.x;
+      float rot=rnd.y*6.283+sin(uTime*.9+id.x*1.7+id.y*2.3+fl)*.10;
+      float n=lucky?4.:3.;
+      vec2 p=q-c; p+=.012*vec2(sin(uTime*.7+id.y),cos(uTime*.6+id.x));
+      float sh=clover(p-vec2(.05,-.07),n,rot,R,e*3.).x;
+      col*=1.-.42*sh;
+      vec3 k=clover(p,n,rot,R,e);
+      float depth=.55+.225*fl;
+      vec3 leaf=mix(vec3(.10,.30,.09),vec3(.42,.68,.20),k.y)*depth;
+      leaf=mix(leaf,vec3(.72,.86,.55)*depth,k.z*.55);
+      leaf*= .9+.2*rnd.x;
+      col=mix(col,leaf,k.x);
+    }
+  }
+  col*= .88+.24*fbm(uv*.6+uTime*.03);
+  gl_FragColor=vec4(pow(col,vec3(.92)),1.);
+}`},
+fir: { views:[[2.3,[0.,0.]],[1.25,[.25,.12]],[.6,[.52,.27]]], frag: COMMON + `
+float seg(vec2 p, vec2 a, vec2 b){ vec2 pa=p-a,ba=b-a; float h=clamp(dot(pa,ba)/dot(ba,ba),0.,1.); return length(pa-ba*h); }
+// returns x: stem distance, y: needle distance, z: needle light
+vec3 branch(vec2 p, vec2 a, vec2 b, float nl, float per){
+  vec2 d=normalize(b-a); float len=length(b-a);
+  float s=dot(p-a,d), t=d.x*(p.y-a.y)-d.y*(p.x-a.x);
+  float ds=seg(p,a,b); float dn=1e3; float lit=0.;
+  for(int i=-2;i<=1;i++){
+    for(int sd=0;sd<2;sd++){
+      float side=sd==0?1.:-1.;
+      float si=(floor(s/per)+float(i)+(sd==0?0.:.5))*per;
+      if(si<0.||si>len) continue;
+      float tp=1.-.7*si/len; float L=nl*tp*(.8+.4*h21(vec2(si*91.,side)));
+      float ang=.95+.25*h21(vec2(si*37.,side+3.));
+      vec2 tip=vec2(si+L*cos(ang),side*L*sin(ang));
+      float dd=seg(vec2(s,t),vec2(si,0.),tip);
+      if(dd<dn){ dn=dd; lit=side*.5+.5; }
+    }
+  }
+  return vec3(ds,dn,lit);
+}
+void main(){
+  vec2 uv=view(); float e=uZoom/uRes.y*1.5;
+  vec3 col=mix(vec3(.03,.10,.08),vec3(.10,.24,.15),smoothstep(-1.2,1.2,uv.y+uv.x*.4));
+  for(int i=0;i<9;i++){ vec2 c=(h22(vec2(float(i),3.))-.5)*vec2(3.6,2.2); float r=.18+.22*h21(vec2(float(i),9.));
+    col+=vec3(.10,.22,.10)*smoothstep(r,r*.55,length(uv-c))*.55; }
+  vec2 p=uv; p.y+=sin(uTime*.8+p.x*1.6)*.012*(p.x+1.4);
+  vec2 A=vec2(-1.7,-.62), B=vec2(1.25,.55); vec2 d=normalize(B-A);
+  float dS=1e3,dN=1e3,lit=0.;
+  vec3 r=branch(p,A,B,.20,.030); dS=r.x; dN=r.y; lit=r.z;
+  for(int i=0;i<8;i++){
+    float f=.12+.1*float(i); float side=mod(float(i),2.)<.5?1.:-1.;
+    vec2 o=A+(B-A)*f; float ang=side*(.62+.1*h21(vec2(float(i),1.)));
+    vec2 dd=vec2(d.x*cos(ang)-d.y*sin(ang),d.x*sin(ang)+d.y*cos(ang));
+    float ln=(1.-f)*.95+.1;
+    vec3 q=branch(p,o,o+dd*ln,.13,.026);
+    dS=min(dS,q.x); if(q.y<dN){ dN=q.y; lit=q.z; }
+  }
+  float needle=smoothstep(.0052+e,.0052-e,dN);
+  vec3 nc=mix(vec3(.05,.22,.10),vec3(.55,.80,.30),lit*.75+.25*fbm(p*9.));
+  nc+=vec3(.25,.3,.15)*smoothstep(.003,.0,dN)*.6;
+  col=mix(col,nc,needle);
+  float stem=smoothstep(.010+e,.010-e,dS);
+  col=mix(col,vec3(.20,.13,.07),stem);
+  vec2 sc=(gl_FragCoord.xy-.5*uRes)/uRes.y; col*=1.-.45*dot(sc,sc);
+  gl_FragColor=vec4(pow(col,vec3(.9)),1.);
+}`},
+crown: { views:[[5.2,[2.,1.]],[3.,[1.2,.4]],[1.5,[.6,.2]]], frag: COMMON + `
+void main(){
+  vec2 uv=view(); float e=uZoom/uRes.y*1.5;
+  uv+=.025*vec2(sin(uTime*.5+uv.y*1.7),cos(uTime*.42+uv.x*1.9));
+  vec2 n=floor(uv), f=fract(uv); vec2 mg, mr; float md=8.; vec2 mid;
+  for(int j=-1;j<=1;j++) for(int i=-1;i<=1;i++){ vec2 g=vec2(float(i),float(j)); vec2 o=.15+.7*h22(n+g);
+    vec2 r=g+o-f; float d=dot(r,r); if(d<md){ md=d; mr=r; mg=g; } }
+  mid=n+mg; float bd=8.;
+  for(int j=-2;j<=2;j++) for(int i=-2;i<=2;i++){ vec2 g=mg+vec2(float(i),float(j)); vec2 o=.15+.7*h22(n+g);
+    vec2 r=g+o-f; if(dot(mr-r,mr-r)>1e-5) bd=min(bd,dot(.5*(mr+r),normalize(r-mr))); }
+  float rag=(fbm(uv*9.)-.5)*.10+(fbm(uv*28.)-.5)*.05;
+  float canopy=smoothstep(.045-e,.045+e,bd+rag);
+  float holes=smoothstep(.70,.76,fbm(uv*22.+3.))*smoothstep(.30,.06,bd);
+  canopy*=1.-holes;
+  vec3 sky=mix(vec3(.93,.97,.90),vec3(.80,.90,.93),smoothstep(-1.,5.,uv.y));
+  float back=exp(-bd*5.5);
+  vec3 leaf=mix(vec3(.04,.17,.06),vec3(.50,.76,.22),back*.9+.1);
+  leaf*=.72+.5*fbm(uv*16.+uTime*.05);
+  float hh=h21(mid); float ang=atan(mr.y,mr.x);
+  float limb=smoothstep(.965,1.,cos(ang*5.+hh*6.283+sin(ang*2.)*.6))*smoothstep(.55,.0,sqrt(md));
+  leaf=mix(leaf,vec3(.07,.05,.03),limb*.8);
+  vec3 col=mix(sky,leaf,canopy);
+  col+=vec3(.9,1.,.7)*.07*exp(-bd*30.)*canopy;
+  gl_FragColor=vec4(col,1.);
+}`}
+};
+
+const VERT = 'attribute vec2 p; void main(){ gl_Position=vec4(p,0.,1.); }';
+const runs = [];
+document.querySelectorAll('.grid').forEach(grid => {
+  const scene = SCENES[grid.dataset.scene];
+  [...grid.querySelectorAll('canvas')].forEach((cv, i) => {
+    const gl = cv.getContext('webgl', { antialias: false, preserveDrawingBuffer: true });
+    if (!gl) return;
+    const sh = (t, src) => { const s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(grid.dataset.scene, gl.getShaderInfoLog(s)); return s; };
+    const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VERT)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, scene.frag));
+    gl.linkProgram(pr); gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const U = n => gl.getUniformLocation(pr, n);
+    const [zoom, center] = scene.views[i];
+    runs.push(t => {
+      const dpr = Math.min(devicePixelRatio || 1, 2), w = Math.round(cv.clientWidth * dpr), h = Math.round(cv.clientHeight * dpr);
+      if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; gl.viewport(0, 0, w, h); }
+      gl.uniform2f(U('uRes'), w, h); gl.uniform1f(U('uTime'), t); gl.uniform1f(U('uZoom'), zoom); gl.uniform2f(U('uCenter'), center[0], center[1]);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    });
+  });
+});
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function loop(ms){ runs.forEach(r => r(still ? 0 : ms / 1000)); if (!still) requestAnimationFrame(loop); })(0);
+</script>
+</body>
+</html>

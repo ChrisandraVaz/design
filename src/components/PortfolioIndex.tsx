@@ -13,7 +13,7 @@ export default function PortfolioIndex() {
       <div className="index-contact">
         <div><p>Interested in working together?</p>
         <p className="index-contact-note">Book a time <a href="https://calendly.com/chrisandravaz12/30min" target="_blank" rel="noreferrer">here</a> if you’d like to chat.</p></div>
-        <a className="index-about" href="https://vazzy.framer.website/about" target="_blank" rel="noreferrer">About Me</a>
+        <a className="index-about" href="/about">About Me</a>
       </div>
       <div className="index-experience">
         <h2>Current</h2>

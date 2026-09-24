@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Split Panel backgrounds</title>
+<style>
+  body{margin:0;background:#fafafa;color:#1a1a1c;font:14px/1.45 Inter,system-ui,sans-serif;padding:36px 24px 80px}
+  h1{font-size:20px;font-weight:500;margin:0 0 6px} .lede{color:#8b8b92;margin:0 0 30px;max-width:64ch}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:34px 26px;max-width:1320px}
+  .label{font-size:12px;color:#8b8b92;margin:0 0 8px 6px} .note{color:#8b8b92;font-size:12.5px;margin:10px 6px 0;max-width:48ch}
+  .card{background:#f1f1f3;border:1px solid #e4e4e8;border-radius:22px;padding:7px}
+  .face{position:relative;aspect-ratio:1.62;border-radius:15px;overflow:hidden;display:grid;place-items:center;container-type:inline-size}
+  .face canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .win{position:relative;width:88%;height:82.5%;border-radius:3.4cqw;background:#0b0b0f;border:1px solid #00000099;box-shadow:0 2px 4px #0b0b2a33,0 22px 44px -18px #0b0b2ab3;overflow:hidden}
+  .win header{height:8.2cqw;display:flex;align-items:center;justify-content:center;position:relative;background:linear-gradient(#1d1d22,#15151a);color:#a9a8b3;font-size:2.35cqw;font-weight:500;border-bottom:1px solid #ffffff12}
+  .win header i{position:absolute;left:3.4cqw;display:flex;gap:1.4cqw} .win header i b{width:2.3cqw;height:2.3cqw;border-radius:50%;background:#2c2c33;display:block}
+  .win header em{position:absolute;right:3cqw;font-style:normal;color:#6f6e79;font-size:.85em}
+  .win pre{margin:0;padding:4.6cqw 4.4cqw;color:#eeeaf3;font:500 3.05cqw/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-.02em;white-space:pre-wrap}
+  .t{color:#70a7dc}.p{color:#a989d7}.e{color:#d36c84}.s{color:#80aee2}
+</style></head><body>
+<h1>Split Panel backgrounds, round two</h1>
+<p class="lede">Colours below were sampled from your own cards. Your palette is a near-complementary pair, violet against yellow-green, with Paint's steel blue as the third voice. Every option sits on the green side, because the row above is already violet.</p>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 30px">
+ <span class="sw" style="--c:#b159fc">Relative Time</span><span class="sw" style="--c:#bc78f8">Send to Agent</span><span class="sw" style="--c:#8f95e8">Watch band</span><span class="sw" style="--c:#3f6ea4">Paint</span><span class="sw" style="--c:#abc172">TD claims</span><span class="sw" style="--c:#e4ff98">FigBuild</span><span class="sw" style="--c:#4b7849">Grass</span>
+</div>
+<style>.sw{font-size:11.5px;color:#55555c;display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 5px;border:1px solid #e4e4e8;border-radius:99px;background:#fff}.sw::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--c)}</style>
+<div class="grid" id="grid"></div>
+<script>
+const OPTIONS=[
+ {name:'A · Meadow (your 10)',note:'Kept as the benchmark. Fresh yellow-green with a pale band.',a:'#8fbf5a',b:'#c5e08a',c:'#f0f7b8',wave:0,band:.9,v:0},
+ {name:'B · Claims sage',note:'Built from the exact greens sampled off the TD Securities card. Softer and more grown-up than Meadow, and it makes Split Panel and TD read as a pair across the gap.',a:'#a3ba69',b:'#bdd58e',c:'#f4f7e2',wave:0,band:.85,v:0},
+ {name:'C · Lime with a violet whisper',note:'The FigBuild flyer lime, with a faint lilac band. Violet and yellow-green are near opposites on the wheel, so a trace of lilac makes the lime glow and links it to the purple row above.',a:'#cfee84',b:'#e4ff98',c:'#d9c6ff',wave:0,band:.6,v:0},
+ {name:'D · Bliss',note:'Steel blue sampled from your Paint card over meadow green: a quiet nod to the Windows XP hill. It ties Paint, TD and the grass card together in one field.',a:'#9fc76a',b:'#4f7fb8',c:'#eef6ff',wave:0,band:.45,v:1},
+ {name:'E · Moss to lime',note:'The deep greens from Shader Experiments rising into lime. Richer and moodier than Meadow, while the window still separates cleanly.',a:'#4b7849',b:'#9db780',c:'#e4ff98',wave:0,band:.8,v:0},
+ {name:'F · Sage and periwinkle',note:'TD sage with the Apple Watch band periwinkle drifting through. Cool and calm, and it connects to the watch card directly above.',a:'#aec77a',b:'#c6dc98',c:'#8f95e8',wave:0,band:.6,v:0},
+];
+const FRAG=`precision highp float;uniform vec2 R;uniform float T,W,B,V;uniform vec3 A,Bc,C;
+float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*f*(f*(f*6.-15.)+10.);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+void main(){vec2 uv=gl_FragCoord.xy/R.y; float t=T;
+ vec2 q=uv+vec2(.22*sin(uv.y*1.6+t*.21),.22*cos(uv.x*1.3-t*.17));
+ float m=n(q*.9+vec2(t*.05,-t*.035))*.65+n(q*1.8-vec2(t*.04,t*.03))*.35;
+ float k=mix(smoothstep(.25,.78,m),smoothstep(.30,.80,uv.y+(m-.5)*.5),V);
+ vec3 col=mix(A,Bc,k);
+ vec2 dir=mix(normalize(vec2(.55,1.)),vec2(0.,1.),V);
+ float d=dot(q,dir)-mix(.62,.56,V)-.18*sin(t*.16)*(1.-V*.7)+(m-.5)*.55;
+ float band=exp(-d*d*9.);
+ float wv=.5+.5*sin((q.y*3.2+q.x*1.1)+m*3.+t*.35);
+ band=mix(band,wv*wv*(.55+.45*m),W);
+ col=mix(col,C,band*B);
+ col+=(h(gl_FragCoord.xy+fract(t)*61.)-.5)*.055;
+ gl_FragColor=vec4(col,1.);}`;
+const hex=c=>[1,3,5].map(i=>parseInt(c.slice(i,i+2),16)/255);
+const runs=[];
+OPTIONS.forEach(o=>{
+ const s=document.createElement('section');
+ s.innerHTML=`<p class="label">${o.name}</p><div class="card"><div class="face"><canvas></canvas><div class="win"><header><i><b></b><b></b><b></b></i>components/SplitPanel.tsx<em>tsx</em></header><pre><span class="t">&lt;SplitPanel</span>\n  <span class="p">orientation</span><span class="e">=</span>{{<span class="p">xs</span>: <span class="s">'vertical'</span>, <span class="p">md</span>: <span class="s">'horizontal'</span>}}\n  <span class="p">defaultSize</span><span class="e">=</span>{220}\n  <span class="p">sized</span><span class="e">=</span>{&lt;<span class="t">Sidebar</span> /&gt;}\n  <span class="p">fill</span><span class="e">=</span>{&lt;<span class="t">Content</span> /&gt;}\n<span class="t">/&gt;</span></pre></div></div></div><p class="note">${o.note}</p>`;
+ document.getElementById('grid').appendChild(s);
+ const cv=s.querySelector('canvas'),gl=cv.getContext('webgl',{preserveDrawingBuffer:true}); if(!gl)return;
+ const sh=(t,src)=>{const x=gl.createShader(t);gl.shaderSource(x,src);gl.compileShader(x);if(!gl.getShaderParameter(x,gl.COMPILE_STATUS))document.title='ERR '+gl.getShaderInfoLog(x);return x};
+ const p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(p);gl.useProgram(p);
+ gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+ const l=gl.getAttribLocation(p,'p');gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+ const U=n=>gl.getUniformLocation(p,n);gl.uniform3fv(U('A'),hex(o.a));gl.uniform3fv(U('Bc'),hex(o.b));gl.uniform3fv(U('C'),hex(o.c));gl.uniform1f(U('W'),o.wave);gl.uniform1f(U('B'),o.band);gl.uniform1f(U('V'),o.v);
+ runs.push(t=>{const d=Math.min(devicePixelRatio||1,2),w=Math.round(cv.clientWidth*d),hh=Math.round(cv.clientHeight*d);if(cv.width!==w||cv.height!==hh){cv.width=w;cv.height=hh;gl.viewport(0,0,w,hh)}gl.uniform2f(U('R'),w,hh);gl.uniform1f(U('T'),t);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)});
+});
+const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function loop(ms){runs.forEach(r=>r(still?8:8+ms/1000));if(!still)requestAnimationFrame(loop)})(0);
+</script></body></html>

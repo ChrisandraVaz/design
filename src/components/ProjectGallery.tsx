@@ -39,7 +39,7 @@ const projects = [
     title: "Liquid Metallic Button",
     subtitle: "An exploration of light and interaction.",
     tag: "Experiment",
-    image: "/assets/metalicbutton1.mov",
+    image: "/assets/metallic-button.mp4",
     bgColor: "#2b2b2b",
     href: "https://chrisandravaz.github.io/Liquid-Metallic-Button-/liquid-metal-button",
   },

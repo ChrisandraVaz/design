@@ -87,11 +87,11 @@ for (const width of [320, 390, 600, 768, 1024, 1440, 1920]) {
     const ids = await page.locator('.scatter-item').evaluateAll(nodes => nodes.map(node => node.getAttribute('data-card-id')).sort());
     const toggle = page.getByRole('group', { name: 'Portfolio view' });
     await toggle.getByRole('button', { name: 'Index', exact: true }).click();
-    await expect(page.locator('.portfolio-index h1')).toContainText('is a product designer at waterloo exploring API component design');
+    await expect(page.locator('.portfolio-index h1')).toContainText('is a product designer at Waterloo who ships products that click');
     await expect(page.getByRole('main')).toHaveCount(1);
     const gallery = page.getByRole('region', { name: 'Canvas components' });
     expect(await gallery.locator('.scatter-item').evaluateAll(nodes => nodes.map(node => node.getAttribute('data-card-id')).sort())).toEqual(ids);
-    await expect(gallery.getByRole('link', { name: 'Open TD Securities Interest Claims case study' })).toHaveAttribute('href', '/projects/td-bank-interest-claims');
+    await expect(gallery.getByRole('link', { name: 'Open TD Securities Interest Claims case study' })).toHaveCount(0);
     await expect(gallery.locator('a[href*="td-design"],a[href*="ibm"],a[href*="serano"]')).toHaveCount(0);
     await expect(gallery.getByRole('link', { name: 'Open Microsoft Paint recreation' })).toHaveAttribute('href', 'https://chrisandravaz.github.io/Microsoft-Paint/');
     await expect(gallery.getByRole('link', { name: 'Open Liquid Metallic Button' })).toHaveAttribute('href', 'https://chrisandravaz.github.io/Liquid-Metallic-Button-/liquid-metal-button');
@@ -124,7 +124,7 @@ test('Index preserves Font Context sequence and shared Sentry badges', async ({ 
   await page.goto('/');
   await page.getByRole('group', { name: 'Portfolio view' }).getByRole('button', { name: 'Index' }).click();
   const card = page.locator('.index-widget-world .fontcontext-card');
-  await expect(card.locator('.fontcontext-card-cover')).toHaveAttribute('src', '/assets/h.mov');
+  await expect(card.locator('.fontcontext-card-cover')).toHaveAttribute('src', '/assets/fontcontext-card.mp4');
   await card.locator('.fontcontext-card-cover').dispatchEvent('ended');
   await expect(card.locator('.fontcontext-card-media')).toHaveClass(/is-follow-up/);
   await expect(card.locator('.fontcontext-card-follow-up')).toHaveAttribute('src', '/assets/fontcontext-follow-up.mp4');

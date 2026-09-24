@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import SentryCaseStudy from "@/components/sentry/SentryCaseStudy";
+import SendToAgentCaseStudy from "@/components/sentry/SendToAgentCaseStudy";
+import { Instrument_Sans, Source_Serif_4 } from "next/font/google";
+const instrument = Instrument_Sans({ variable: "--font-instrument-sans", subsets: ["latin"] });
+const sourceSerif = Source_Serif_4({ variable: "--font-source-serif", subsets: ["latin"], weight: "400", style: "italic" });
 export const metadata: Metadata = {
-  title: "Send to Agent · Sentry — Chrisandra Vaz",
+  title: "Send to Agent · Sentry · Chrisandra Vaz",
   description:
     "Designing the handoff from a Seer investigation to a coding agent.",
 };
 export default function Page() {
-  return <SentryCaseStudy kind="send-to-agent" />;
+  return <div className={`${instrument.variable} ${sourceSerif.variable}`}><SendToAgentCaseStudy /></div>;
 }

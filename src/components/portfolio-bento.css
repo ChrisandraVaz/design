@@ -29,10 +29,13 @@
 @media (max-width: 1100px) {
   .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-9 { order: 1; }
   .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-fontcontext-slot { order: 2; }
-  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-trace { order: 3; }
-  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-1 { order: 4; }
-  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-2 { order: 5; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-trace { order: 4; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-1 { order: 5; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-2 { order: 6; }
   .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-claims { order: 11; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-edu { order: 12; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-flyers { order: 13; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-deck { order: 14; }
 }
 @media (min-width: 761px) and (max-width: 1100px) {
   .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-trace > .trace-project-link {
@@ -59,7 +62,7 @@
 @media (min-width: 1101px) {
   .canvas-folio:not(.index-folio) .widget-world .scatter-viewport {
     --puzzle-width: 1250px;
-    --puzzle-height: 1338px;
+    --puzzle-height: 1492px;
     --canvas-design-scale: min(1.3333333333, tan(atan2(calc(100cqw - 2 * var(--folio-gutter)), 1200px)));
     --puzzle-top: calc(12px + 80px * var(--canvas-design-scale));
     --canvas-scale: tan(atan2(min(1600px, calc(100cqw - 2 * var(--folio-gutter))), var(--puzzle-width)));
@@ -70,6 +73,54 @@
     --canvas-component-gap: calc(20px / var(--canvas-design-scale));
     width: var(--puzzle-width);
     height: calc(var(--puzzle-top) / var(--canvas-scale) + var(--puzzle-height));
+    /* The left column runs Send to Agent > Message Queuing > Metallic > Paint.
+       Every card there is sized off --chat-width and reserves label space
+       against --canvas-scale, so the run is chained rather than hard-coded and
+       each gap stays at --puzzle-gap no matter how wide the viewport gets. */
+    --puzzle-gap: 24px;
+    --col-a-width: calc(var(--chat-width) * .85);
+    --col-a-x: calc(337px - var(--col-a-width));
+
+    /* Every column is one chain of visual tops and bottoms, each step exactly
+       --puzzle-gap. Cards reserve a label strip above themselves by
+       --label-reserve, and Trace and Paint hang their heading above their own
+       box, so a card's --puzzle-y is its visual top minus those offsets. That
+       is the only reason the two are not the same number. */
+    --reserve-agent: max(0px, 24px / var(--canvas-scale) - 17px);
+    --reserve-queue: max(0px, 24px / var(--canvas-scale) - 15.6px);
+    --reserve-trace: calc(24px / var(--canvas-scale));
+    /* Font Context and Relative Time reserve a label strip too, and it shrinks
+       as --canvas-scale grows, so their bottoms are not fixed numbers. */
+    --reserve-fontcontext: max(0px, 24px / var(--canvas-scale) - 25.026px);
+    --reserve-relative: max(0px, 24px / var(--canvas-scale) - 24.497px);
+
+    /* Left column: Send to Agent > Message Queuing > Metallic > keychain.
+       Every height here follows --chat-width, so none of it can be a literal. */
+    --agent-top: var(--reserve-agent);
+    --agent-bottom: calc(var(--agent-top) + (var(--chat-width) / .943 + 20px) * .85);
+    --queue-top: calc(var(--agent-bottom) + var(--puzzle-gap) + 4.7px);
+    --queue-bottom: calc(var(--queue-top) + (var(--chat-height) + 20px) * .78);
+    --metallic-top: calc(var(--queue-bottom) + var(--puzzle-gap) - 4.6px);
+    --metallic-bottom: calc(var(--metallic-top) + var(--col-a-width) / 1.4 + 24.96px);
+    --keychain-top: calc(var(--metallic-bottom) + var(--puzzle-gap) - 11.7px);
+
+    /* Middle column: Font Context > Apple Watch Trace > Split Panel > deck.
+       Split Panel's cover is a fixed 315px tall whatever its width, so widening
+       it to this column costs no height. */
+    --fontcontext-bottom: calc(var(--reserve-fontcontext) + 250.147px);
+    --trace-top: calc(var(--fontcontext-bottom) + var(--puzzle-gap) - 1.5px);
+    --trace-bottom: calc(var(--trace-top) + 277.432px);
+    --split-top: calc(var(--trace-bottom) + var(--puzzle-gap) - 11.6px);
+    --split-bottom: calc(var(--split-top) + 347px);
+    --deck-top: calc(var(--split-bottom) + var(--puzzle-gap) - 11.7px);
+
+    /* Right column: Relative Time > Interest Claims > Paint > flyers. */
+    --relative-bottom: calc(var(--reserve-relative) + 293.963px);
+    --claims-top: calc(var(--relative-bottom) + var(--puzzle-gap) - 12.3px);
+    --claims-bottom: calc(var(--claims-top) + 358.02px);
+    --paint-top: calc(var(--claims-bottom) + var(--puzzle-gap) - 12.3px);
+    --paint-bottom: calc(var(--paint-top) + 273.13px);
+    --flyers-top: calc(var(--paint-bottom) + var(--puzzle-gap) - 11.7px);
   }
   /* Keep the introduction at its existing size, outside the fitted card view. */
   .canvas-folio:not(.index-folio) .widget-world .scatter-intro {
@@ -84,21 +135,23 @@
       - var(--card-height) * (1 - var(--size)) / 2);
   }
   .canvas-folio:not(.index-folio) .widget-world .scatter-9 {
-    --puzzle-x: calc(337px - var(--chat-width) * .85); --puzzle-y: 0px;
+    --puzzle-x: var(--col-a-x); --puzzle-y: calc(var(--agent-top) - var(--reserve-agent));
     --card-width: var(--chat-width); --card-height: calc(var(--chat-width) / .943 + 20px); --card-heading-height: 20px;
   }
   .canvas-folio:not(.index-folio) .widget-world .scatter-fontcontext-slot {
     --puzzle-x: 361px; --puzzle-y: 0px;
     --card-width: 441.234px; --card-height: 319.844px; --card-heading-height: 32px;
   }
+  /* Metallic follows Message Queuing down the left column. */
   .canvas-folio:not(.index-folio) .widget-world .scatter-metallic {
-    --puzzle-x: calc(337px - var(--chat-width) * .85); --puzzle-y: 829.468px;
-    --card-width: calc(var(--chat-width) * .85 / .78);
+    --puzzle-x: var(--col-a-x);
+    --puzzle-y: var(--metallic-top);
+    --card-width: calc(var(--col-a-width) / .78);
     --card-height: calc(var(--card-width) / 1.4 + 32px); --card-heading-height: 32px;
     width: var(--card-width);
   }
   .canvas-folio:not(.index-folio) .widget-world .scatter-1 {
-    --puzzle-x: calc(337px - var(--chat-width) * .85); --puzzle-y: 405.04px;
+    --puzzle-x: var(--col-a-x); --puzzle-y: calc(var(--queue-top) - var(--reserve-queue));
     --card-width: calc(var(--chat-width) * .85 / .78);
     --card-height: calc(var(--chat-height) + 20px); --card-heading-height: 20px;
     width: var(--card-width);
@@ -118,10 +171,34 @@
   .canvas-folio:not(.index-folio) .widget-world .scatter-12 .grass-grid {
     grid-template-rows: 150px 150px;
   }
+  /* As short as the recording allows: the video is natively 1098x720 and set
+     to cover, so this crops top and bottom and never squashes. */
+  /* The keychain cover is cropped a little taller so the bottom row ends on one line. */
+  .canvas-folio:not(.index-folio) .widget-world .scatter-edu .edu-merch-cover { aspect-ratio: .7774; object-position: top; }
+  .canvas-folio:not(.index-folio) .widget-world .scatter-paint > .paint-card {
+    /* Same height as the Liquid Metallic Button card (260.4px at 1440). */
+    aspect-ratio: 1.4766;
+  }
+  /* Paint sits under News in the middle column. Its heading is pulled 32px
+     above the card, so the anchor sits 32 * --size below the visual top. */
   .canvas-folio:not(.index-folio) .widget-world .scatter-paint {
-    --puzzle-x: 361px; --puzzle-y: 854.433px;
-    --card-width: 499.938px; --card-height: 357.099px; --card-heading-height: 0px;
+    --puzzle-x: 894.94px;
+    --puzzle-y: calc(var(--paint-top) + 32.64px);
+    --card-width: 348.098px; --card-height: 235.775px; --card-heading-height: 0px;
     --size: 1.02;
+    width: var(--card-width);
+  }
+  /* The keychain cover closes the left column under Metallic, at that column's
+     width. Its height follows the artwork, and nothing sits below it. */
+  .canvas-folio:not(.index-folio) .widget-world .scatter-edu {
+    --puzzle-x: var(--col-a-x);
+    --puzzle-y: var(--keychain-top);
+    --card-width: var(--col-a-width);
+    /* 6.5px frame inset + 1px border each side */
+    --card-height: calc((var(--col-a-width) - 15px) / .7774 + 15px);
+    --card-heading-height: 32px;
+    --size: 1;
+    --size: 1;
     width: var(--card-width);
   }
   .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-paint {
@@ -131,31 +208,36 @@
     --label-reserve: 0px;
   }
   .canvas-folio:not(.index-folio) .widget-world .scatter-trace {
-    --puzzle-x: 361px; --puzzle-y: 274.135px;
+    --puzzle-x: 361px;
+    --puzzle-y: calc(var(--trace-top) - var(--reserve-trace) + 21.76px);
     --card-width: calc(509.96px / var(--size)); --card-height: 376px; --card-heading-height: 0px;
     width: var(--card-width);
   }
+  /* Split Panel closes up under Interest Claims (317.964 + 351 * 1.02) + 24px gap. */
   .canvas-folio:not(.index-folio) .widget-world .scatter-2 {
-    --puzzle-x: 894.94px; --puzzle-y: 822.421px;
-    --card-width: 355.06px; --card-height: 252px; --card-heading-height: 32px;
+    --puzzle-x: 361px; --puzzle-y: var(--split-top);
+    --card-width: 509.96px; --card-height: 347px; --card-heading-height: 32px;
     --size: 1;
     width: var(--card-width);
   }
-  .canvas-folio:not(.index-folio) .widget-world .scatter-5 {
-    --puzzle-x: 361px; --puzzle-y: 577.808px;
-    --card-width: calc(216.473px / var(--size)); --card-height: 304px; --card-heading-height: 32px;
+  /* The flyer reel takes the right column under Split Panel (699.984 + 252). */
+  .canvas-folio:not(.index-folio) .widget-world .scatter-flyers {
+    --puzzle-x: 894.94px;
+    --puzzle-y: var(--flyers-top);
+    --card-width: 355.06px; --card-height: 455px; --card-heading-height: 32px;
+    --size: 1;
     width: var(--card-width);
   }
-  .canvas-folio:not(.index-folio) .widget-world .scatter-10 {
-    --puzzle-x: 601.473px; --puzzle-y: 577.808px;
-    --card-width: 352px; --card-height: 330px; --card-heading-height: 0px;
-  }
-  .canvas-folio:not(.index-folio) .widget-world .scatter-10 > .running,
-  .canvas-folio:not(.index-folio) .widget-world .scatter-10 > .running > .photo {
-    height: 240px;
+  /* The laptop deck sits under the merch grid at the same width. */
+  .canvas-folio:not(.index-folio) .widget-world .scatter-deck {
+    --puzzle-x: 361px;
+    --puzzle-y: var(--deck-top);
+    --card-width: 509.96px; --card-height: 469.3px; --card-heading-height: 32px;
+    --size: 1;
+    width: var(--card-width);
   }
   .canvas-folio:not(.index-folio) .widget-world .scatter-claims {
-    --puzzle-x: 894.94px; --puzzle-y: 317.964px;
+    --puzzle-x: 894.94px; --puzzle-y: var(--claims-top);
     --card-width: 348.098px; --card-height: 351px; --card-heading-height: 32px;
     --size: 1.02;
     width: var(--card-width);
@@ -200,7 +282,8 @@
 .canvas-folio .widget-world .scatter .scatter-item :is(
   .sentry-preview-art, .fontcontext-card-media,
   .trace-bento-watch, .trace-bento-widget, .trace-bento-state,
-  .grass-grid > .photo, .td-claims-media
+  .grass-grid > .photo, .td-claims-media, .edu-merch-cover,
+  .flyer-stage, .deck-stage
 ),
 .canvas-folio .widget-world .scatter .scatter-item > .portfolio-experiment-card > video,
 .canvas-folio.index-folio .widget-world .scatter .index-component-frame > .card {
@@ -241,7 +324,7 @@
 .scatter-claims { --badge-inset: 1.6em; }
 /* The Shader tiles are much smaller than the other inner faces, so the same
    numeric radius reads too circular. Preserve the shared shape with a tighter corner. */
-.canvas-folio .widget-world .scatter .scatter-12 .grass-grid > .photo {
+.canvas-folio .widget-world .scatter .scatter-12 .grass-grid > :is(.photo,.grass-study) {
   border-radius: calc(9px / var(--inner-surface-scale));
 }
 /* Index scales the fixed-size Watch artwork once more inside its outer frame. */
@@ -254,12 +337,7 @@
   gap: var(--watch-panel-gap);
   grid-template-rows: minmax(0, 210fr) minmax(0, 136fr);
 }
-.canvas-folio .widget-world .scatter .scatter-10,
-.canvas-folio .widget-world .scatter .scatter-10 > .running {
-  border-radius: calc(24px / var(--surface-scale));
-}
 @media (min-width: 1101px) {
-  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-10 { --label-reserve: 0px; }
   /* Long titles keep their inspector clear in a short-window overview. */
   .canvas-folio:not(.index-folio) .widget-world .card-heading > span {
     max-width: calc(100% - 16px / var(--size) / var(--canvas-scale));
@@ -269,4 +347,76 @@
   .canvas-folio:not(.index-folio) .widget-world .card-heading:has(>button) > span {
     max-width: calc(100% - 40px / var(--size) / var(--canvas-scale));
   }
+}
+
+/* Split Panel cover on the desktop canvas: the code window takes the
+   proportions of the approved reference (window 85.6% x 78.6% of the framed card). */
+@media (min-width: 1101px) {
+  .canvas-folio:not(.index-folio) .scatter-2 .sp-terminal-stage { padding: 0; }
+  /* The split surface sits centred on the grey at a little under the code
+     window's size, clear of the badge. */
+  .canvas-folio:not(.index-folio) .scatter-2 .sp-panel-stage { padding: 0; }
+  .canvas-folio:not(.index-folio) .scatter-2 .sp-document-frame { width: 76%; height: 66%; padding: 0; }
+  .canvas-folio:not(.index-folio) .scatter-2 .sp-reference-surface { height: 100%; aspect-ratio: auto; max-height: none; border-radius: 1.6cqw; --sp-label-size: 2.75cqw; --sp-label-pad: 3.1cqw; }
+  .canvas-folio:not(.index-folio) .scatter-2 :is(.sp-sized-pane, .sp-fill-pane) { padding: 2.9cqw 3.1cqw; font-size: 2.75cqw; }
+  .canvas-folio:not(.index-folio) .scatter-2 .sp-terminal-window {
+    width: 88%; height: 82.5%; max-width: none;
+    border-radius: 3.4cqw;
+  }
+  .canvas-folio:not(.index-folio) .scatter-2 .sp-terminal-window header { height: 8.2cqw; font-size: 2.35cqw; }
+  .canvas-folio:not(.index-folio) .scatter-2 .sp-terminal-code { height: calc(100% - 8.2cqw); }
+  .canvas-folio:not(.index-folio) .scatter-2 .sp-terminal-code pre { padding: 4.6cqw 4.4cqw; font-size: 3.05cqw; }
+  .canvas-folio:not(.index-folio) .scatter-2 .sp-window-dots { left: 3.4cqw; gap: 1.4cqw; }
+  .canvas-folio:not(.index-folio) .scatter-2 .sp-window-dots i { width: 2.3cqw; height: 2.3cqw; }
+}
+
+/* Split Panel. The code view sits on a calm field: a few very large soft
+   colours drifting slowly under a fine grain. It is drawn in CSS, so it is
+   sharp at any size, and there is little enough going on that the window
+   stays the subject. The pane view keeps the plain white panel on grey. */
+.canvas-folio .widget-world .scatter-2 .split-reference-preview::before,
+.canvas-folio .widget-world .scatter-2 .split-reference-preview::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0; transition: opacity 420ms ease;
+}
+.canvas-folio .widget-world .scatter-2 .split-reference-preview::before {
+  background: #a8a39e url('/assets/sentry/split-mountain-mist.jpg') center 42% / cover no-repeat;
+  animation: none;
+}
+.canvas-folio .widget-world .scatter-2 .split-reference-preview::after {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 110px 110px;
+  mix-blend-mode: soft-light;
+}
+.canvas-folio .widget-world .scatter-2 .split-reference-preview[data-view="terminal"]::before { opacity: 1; }
+.canvas-folio .widget-world .scatter-2 .split-reference-preview[data-view="terminal"]::after { opacity: 0; }
+@keyframes split-field-drift {
+  0%   { background-position: 85% 20%, 10% 90%, 0% 10%, 0 0; }
+  50%  { background-position: 40% 70%, 60% 30%, 45% 80%, 0 0; }
+  100% { background-position: 5% 35%, 95% 65%, 90% 25%, 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .canvas-folio .widget-world .scatter-2 .split-reference-preview::before { animation: none; }
+}
+.canvas-folio .widget-world .scatter-2 :is(.sp-terminal-stage, .sp-panel-stage) { z-index: 1; }
+/* A near-black window, so the field behind it reads as colour. */
+.canvas-folio .widget-world .scatter-2 .sp-terminal-window {
+  background: #0b0b0f; border-color: #00000099;
+  box-shadow: 0 2px 4px #14260a2e, 0 20px 40px -20px #14260a8c;
+}
+.canvas-folio .widget-world .scatter-2 .sp-terminal-code { background: #0b0b0f; }
+.canvas-folio .widget-world .scatter-2 .sp-terminal-window header {
+  background: linear-gradient(#1d1d22, #15151a); color: #a9a8b3; border-bottom-color: #ffffff12;
+}
+.canvas-folio .widget-world .scatter-2 .sp-terminal-window header b { color: #6f6e79; }
+.canvas-folio .widget-world .scatter-2 .sp-window-dots i { background: #2c2c33; box-shadow: none; }
+
+/* Liquid Metallic Button: the button is the subject, so it fills the face. */
+.canvas-folio:not(.index-folio) .widget-world .scatter .metallic-card > video {
+  object-fit: cover; transform: scale(1.7); transform-origin: 50% 44.51%;
+  clip-path: inset(18.33% 20.59% 22.85% round calc(var(--canvas-card-inner-radius) / var(--inner-surface-scale) / 1.7));
+}
+
+/* Keep the three selected case studies first on the stacked layout. */
+@media(max-width:1100px) {
+  .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-3 { order:3; }
 }

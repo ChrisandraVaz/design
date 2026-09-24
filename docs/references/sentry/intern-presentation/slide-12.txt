@@ -1,0 +1,9 @@
+DATA & CONSTRAINTS
+Critical constraint discovered:
+Local agents like Cursor cannot receive session links (only cloud agents can), so link sharing was ruled out entirely and payload design became the central problem
+The data shaped every major design decision that followed.
+May 2026
+Jun-Aug 2026
+97% of users have one agent configured → direct button, no dropdown
+12 / 1,000 messages** resulted in tool call clicks → hide tool calls by default
+Session links not agent-readable→ payload design became the central problem

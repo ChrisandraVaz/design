@@ -106,7 +106,7 @@ export default function SketchIntro() {
     <h1 className="hero-headline">
       <span className="name-squiggle">Chrisandra</span>{" "}
       <span className="pencil-wrap"><button type="button" onClick={toggleDrawMode} className={`inline-block twitch-symbol pencil-trigger pencil-attention ${isDrawMode ? "active" : ""}`} aria-label={isDrawMode ? "Disable drawing mode" : "Enable drawing mode"} aria-pressed={isDrawMode}>✐<span aria-hidden="true" className={`pencil-tooltip ${showPencilIntro ? "intro" : ""}`}>{isDrawMode ? "Draw here · Esc to finish" : "Click me to draw!"}</span></button></span>{" "}
-      is a product designer{" "}<span className="intro-details">at waterloo exploring API component design{" "}<span className="inline-block">✦</span>, design engineering, and agentic UI workflows{" "}<span className="inline-block">✧</span>.</span>
+      is a product designer{" "}<span className="intro-details">at Waterloo who ships products that click{" "}<span className="inline-block">✦</span> builds agentic workflows and design systems in Figma and code{" "}<span className="inline-block">✧</span>.</span>
     </h1>
   </section>;
 }

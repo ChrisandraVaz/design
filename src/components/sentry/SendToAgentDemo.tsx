@@ -102,6 +102,8 @@ export function AgentDemo({
   queryStage = "complete",
   queryElapsed = 2.2,
   answerVisible = true,
+  entryPoint = "response",
+  singleAgent = false,
 }: {
   compact?: boolean;
   paused?: boolean;
@@ -109,6 +111,8 @@ export function AgentDemo({
   queryStage?: QueryStage;
   queryElapsed?: number;
   answerVisible?: boolean;
+  entryPoint?: "response" | "navigation";
+  singleAgent?: boolean;
 }) {
   const root = useRef<HTMLDivElement>(null);
   const [sequenceStep, setStep] = useState(7);
@@ -116,7 +120,7 @@ export function AgentDemo({
   const [state, setState] = useState<Status>("ready");
   const [agent, setAgent] = useState<Agent>("Claude");
   const [menu, setMenu] = useState(false);
-  const [scope, setScope] = useState("response");
+  const [scope, setScope] = useState(entryPoint === "navigation" ? "conversation" : "response");
   const [configuration, setConfiguration] = useState("multiple");
   const [fail, setFail] = useState(false);
   const [sessionOpen, setSessionOpen] = useState(false);
@@ -200,6 +204,61 @@ export function AgentDemo({
       {compact && previewStep !== undefined && destination === "Claude" && <DemoCursor className="agent-film-menu-cursor" />}
     </PreviewControl>
   );
+  const handoffControls = <>
+          <div className="agent-reference-split">
+            <PreviewControl
+              compact={compact}
+              label={configured ? `Send to ${activeAgent}` : "Add integration"}
+              disabled={busy}
+              onClick={() => (configured ? send(activeAgent) : setMenu(!menu))}
+              className={compact && step === 3 ? "is-pressed" : ""}
+            >
+              <AgentIcon agent={singleAgent ? activeAgent : undefined} />
+            </PreviewControl>
+            <PreviewControl
+              compact={compact}
+              label="Choose agent"
+              expanded={showMenu}
+              disabled={busy}
+              onClick={() => setMenu(!menu)}
+              className={showMenu ? "is-pressed" : ""}
+            >
+              <FiChevronDown />
+            </PreviewControl>
+          </div>
+          {showMenu && (
+            <div
+              className="agent-reference-menu"
+              aria-label="Agent destinations"
+            >
+              <div className="agent-menu-surface">
+                {configured ? (
+                  <>
+                    {(!singleAgent && (compact ? step !== 2 : configuration === "multiple")) &&
+                      choice("Cursor")}
+                    {choice("Claude")}
+                  </>
+                ) : (
+                  <p>No Agents Configured</p>
+                )}
+                <div className="agent-menu-separator" />
+                <PreviewControl
+                  compact={compact}
+                  label="Add Integration"
+                  className="agent-add-integration"
+                  onClick={() => {
+                    setConfiguration("multiple");
+                    setMenu(false);
+                    setState("ready");
+                  }}
+                >
+                  <FiPlus viewBox="4 4 16 16" />
+                  Add Integration
+                </PreviewControl>
+              </div>
+            </div>
+          )}
+  </>;
   return (
     <div
       ref={root}
@@ -224,7 +283,7 @@ export function AgentDemo({
       }}
     >
       <div className="agent-reference-window">
-        <SeerChatHeader variant="agent" />
+        <SeerChatHeader variant="agent" action={entryPoint === "navigation" ? <span className="agent-nav-handoff">{handoffControls}</span> : undefined} />
         <div className="agent-reference-body">
           <div className="agent-reference-question">
             What are my slowest DB queries?
@@ -248,10 +307,19 @@ export function AgentDemo({
             )}
           </div>
           <div className="agent-investigation-copy" hidden={!answerVisible}>
-            <p>Your <strong>web-app</strong> project is a Next.js frontend application — it doesn&apos;t appear to have any database (<code>db</code>) spans instrumented. There are no DB query spans in the last 14 days.</p>
+            <p>Your <strong>web-app</strong> project is a Next.js frontend application. it doesn&apos;t appear to have any database (<code>db</code>) spans instrumented. There are no DB query spans in the last 14 days.</p>
             <p>This is expected for a pure frontend project. DB queries would typically show up if you had a backend service (e.g., a Node.js API, Python server, etc.) instrumented with Sentry&apos;s server-side SDK.</p>
           </div>
         <div className="agent-response-footer">
+        <div className="agent-reference-actions">
+          <div className="agent-feedback-icons" aria-hidden="true">
+            <FiThumbsUp />
+            <FiThumbsDown />
+            <FiCopy />
+          </div>
+          {entryPoint === "response" && handoffControls}
+          {entryPoint === "navigation" && compact && <div className="agent-reference-split" aria-hidden="true"><span><AgentIcon agent={activeAgent} /></span><span><FiChevronDown /></span></div>}
+        </div>
         <div className="agent-receipt-slot">
         {status !== "ready" && <div
           className={`agent-reference-receipt agent-receipt status-${status}`}
@@ -300,66 +368,7 @@ export function AgentDemo({
           )}
         </div>}
         </div>
-        <div className="agent-reference-actions">
-          <div className="agent-feedback-icons" aria-hidden="true">
-            <FiThumbsUp />
-            <FiThumbsDown />
-            <FiCopy />
-          </div>
-          <div className="agent-reference-split">
-            <PreviewControl
-              compact={compact}
-              label={configured ? `Send to ${activeAgent}` : "Add integration"}
-              disabled={busy}
-              onClick={() => (configured ? send(activeAgent) : setMenu(!menu))}
-              className={compact && step === 3 ? "is-pressed" : ""}
-            >
-              <AgentIcon />
-            </PreviewControl>
-            <PreviewControl
-              compact={compact}
-              label="Choose agent"
-              expanded={showMenu}
-              disabled={busy}
-              onClick={() => setMenu(!menu)}
-              className={showMenu ? "is-pressed" : ""}
-            >
-              <FiChevronDown />
-            </PreviewControl>
-          </div>
-          {showMenu && (
-            <div
-              className="agent-reference-menu"
-              aria-label="Agent destinations"
-            >
-              <div className="agent-menu-surface">
-                {configured ? (
-                  <>
-                    {(compact ? step !== 2 : configuration === "multiple") &&
-                      choice("Cursor")}
-                    {choice("Claude")}
-                  </>
-                ) : (
-                  <p>No Agents Configured</p>
-                )}
-                <div className="agent-menu-separator" />
-                <PreviewControl
-                  compact={compact}
-                  label="Add Integration"
-                  className="agent-add-integration"
-                  onClick={() => {
-                    setConfiguration("multiple");
-                    setMenu(false);
-                    setState("ready");
-                  }}
-                >
-                  <FiPlus viewBox="4 4 16 16" />
-                  Add Integration
-                </PreviewControl>
-              </div>
-            </div>
-          )}
-        </div>
+
         </div>
         </div>
         <div className="agent-reference-composer" aria-hidden="true">

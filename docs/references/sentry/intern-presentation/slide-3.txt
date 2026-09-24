@@ -1,0 +1,16 @@
+DESIGN CHALLENGE
+Three hard questions had to be answered before a single screen could be finalized:
+What gets sent?
+Single block, full conversation, or something in between
+Where does it live?
+Nav button, message-level, or slash command
+What happens after?
+The agent doesn't send results back automatically
+ 
+Decision Pipeline
+1
+Where does it live?
+2
+What does it do?
+3
+What happens after?

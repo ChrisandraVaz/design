@@ -34,7 +34,7 @@ export const sentryProjects = {
     headline: "Making timestamps easier to compare.",
     summary:
       "Turning a timestamp hovercard into a shared system for presenting time and telemetry.",
-    status: "Figma complete · Code in progress",
+    status: "Shipped at the end of my internship",
     number: "04",
   },
 } as const;

@@ -1,0 +1,98 @@
+/* Shortcut sticker on a MacBook palm rest. Cover-card frame like the rest of
+   the canvas; the deck is drawn in SVG so it follows the theme. */
+.canvas-folio .widget-world .scatter .sticker-deck {
+  background: var(--component-frame-bg);
+  padding: calc(var(--canvas-frame-inset) / var(--surface-scale) - 1px);
+}
+/* The shared `.portfolio-experiment-card > div` rule pads its child. Here that
+   left the square artwork inset on a black ring, hiding the face's radius. */
+.canvas-folio .widget-world .scatter .sticker-deck > .deck-stage { padding: 0; }
+.sticker-deck .deck-stage {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 840 / 747.3;
+  background: #0c0c0d;
+  border-radius: calc(var(--canvas-card-inner-radius) / var(--inner-surface-scale, 1));
+}
+.sticker-deck svg { display: block; width: 100%; height: 100%; }
+
+/* Space black in both themes: the deck is a product shot, not page chrome, and
+   the dark finish is the one this sticker was designed against. */
+.alu-1 { stop-color: #35353b; }
+.alu-2 { stop-color: #27272c; }
+.alu-3 { stop-color: #1c1c20; }
+
+.pad-1 { stop-color: #202024; }
+.pad-2 { stop-color: #191a1d; }
+.deck-grain { opacity: .05; }
+.cap-1 { stop-color: #141416; }
+.cap-2 { stop-color: #0d0d0f; }
+.deck-desk { fill: #08080a; }
+.deck-body { filter: drop-shadow(-6px 6px 20px #00000099); }
+.deck-chamfer { fill: none; stroke: #ffffff26; stroke-width: 1.2; }
+
+.deck-key-cut { fill: #050506; }
+.deck-key { fill: url(#deck-cap); stroke: #ffffff0a; stroke-width: .6; }
+.deck-key-rim { stroke: #ffffff12; stroke-width: .9; fill: none; stroke-linecap: round; }
+.deck-key-symbol {
+  fill: #c9cace;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 11px;
+}
+.deck-key-legend {
+  fill: #c9cace;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13.5px;
+  text-anchor: middle;
+}
+.deck-key-legend.is-small { font-size: 9px; }
+.deck-key-icon {
+  fill: none;
+  stroke: #a8a9af;
+  stroke-width: .85;
+}
+.deck-key-word {
+  fill: #a8a9af;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 9px;
+  text-anchor: middle;
+  letter-spacing: .01em;
+}
+.deck-lip { fill: #000; opacity: .55; }
+
+.deck-trackpad-edge { fill: none; stroke: #45454c; stroke-width: 1.2; }
+.deck-sticker-edge { fill: none; stroke: #ffffff14; stroke-width: 1; }
+.deck-sticker-dark { filter: drop-shadow(0 6px 14px #00000080); }
+
+.deck-sticker-light { display: none; }
+
+.canvas-folio[data-theme='dark'] .alu-2 { stop-color: #2b2b2f; }
+.canvas-folio[data-theme='dark'] .well-1 { stop-color: #131315; }
+.canvas-folio[data-theme='dark'] .pad-1 { stop-color: #2a2a2e; }
+.canvas-folio[data-theme='dark'] .deck-body { filter: drop-shadow(-6px 6px 20px #00000099); }
+.canvas-folio[data-theme='dark'] .deck-lip { fill: #000; opacity: .55; }
+.canvas-folio[data-theme='dark'] .deck-trackpad-edge { stroke: #3c3c41; }
+.canvas-folio[data-theme='dark'] .deck-sticker-dark { display: block; }
+
+/* Two-part cover. The laptop scene holds, then the sticker alone comes forward
+   on a pale field so its type can be read, then the scene returns. */
+.sticker-deck .deck-closeup {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: radial-gradient(120% 90% at 50% 35%, #ffffff, #f1f1f3 70%, #e9e9ec);
+  opacity: 0;
+  animation: deck-closeup 9s cubic-bezier(.4, 0, .2, 1) infinite;
+}
+.canvas-folio .widget-world .scatter .sticker-deck .deck-closeup img,
+.sticker-deck .deck-closeup img {
+  width: 64%; height: auto; max-width: none; aspect-ratio: 1; display: block;
+  filter: drop-shadow(0 1px 1px #0000002e) drop-shadow(0 18px 28px #1b1b2a40);
+  transform: scale(.965);
+  animation: deck-closeup-rise 9s cubic-bezier(.2, .7, .2, 1) infinite;
+}
+@keyframes deck-closeup { 0%, 44% { opacity: 0; } 50%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes deck-closeup-rise { 0%, 44% { transform: scale(.965); } 56%, 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .sticker-deck .deck-closeup, .sticker-deck .deck-closeup img { animation: none; }
+}
+

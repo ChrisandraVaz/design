@@ -1098,7 +1098,7 @@
   .se-hero-send-to-agent .agent-film .agent-reference.is-compact .agent-investigation-copy :is(p,ol) { font-size: 11px; }
 }
 
-/* Send to Agent — a product-system story, paced around decisions and evidence. */
+/* Send to Agent: a product-system story, paced around decisions and evidence. */
 .se-case-send-to-agent {
   --se-agent-accent: #7554ff;
   --se-agent-ink: #1f1d24;
@@ -1110,7 +1110,7 @@
   max-width: 17ch;
   text-wrap: balance;
 }
-.case-design .se-case-send-to-agent .trace-editorial-opening .se-opening-dek {
+.case-design .trace-editorial-opening .se-opening-dek {
   max-width: 620px;
   margin: 24px 0 0;
   font-size: clamp(17px, 1.7vw, 21px);
@@ -1497,7 +1497,7 @@
 }
 
 @media (max-width: 699px) {
-  .case-design .se-case-send-to-agent .trace-editorial-opening .se-opening-dek { margin-top: 18px; font-size: 16px; }
+  .case-design .trace-editorial-opening .se-opening-dek { margin-top: 18px; font-size: 16px; }
   .se-case-index { margin: 20px 0 48px; gap: 22px; }
   .se-agent-journey { margin: 48px 0 64px; padding: 24px 18px; border-radius: 20px; }
   .case-design .se-case-send-to-agent .se-agent-journey h2 { font-size: 29px; }

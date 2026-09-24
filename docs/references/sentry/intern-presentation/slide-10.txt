@@ -1,0 +1,8 @@
+PROBLEM
+Developers hit a wall in Seer.
+When Seer finished its investigation, devs needed to take that context into a coding agent (Cursor, Claude) to actually write the fix. But there was no designed way to do that.
+The only options were 
+manual workarounds:
+copy to clipboard 
+copy session link 
+copy block content 

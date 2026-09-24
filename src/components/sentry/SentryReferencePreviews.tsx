@@ -268,3 +268,21 @@ export function SplitPanelPreview({ paused = false }: { paused?: boolean }) {
     </div>
   );
 }
+
+export function RelativeTimeGallery() {
+  const [scene, setScene] = useState(0);
+  const move = (direction: number) => setScene(value => (value + direction + specimens.length) % specimens.length);
+  return <div className="rt-gallery" role="region" aria-label="Tooltip variants" tabIndex={0} onKeyDown={event => {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      event.preventDefault();
+      move(event.key === 'ArrowLeft' ? -1 : 1);
+    }
+  }}>
+    <div className="rt-gallery-stage"><RelativeTimeSpecimen scene={scene} /></div>
+    <div className="rt-gallery-controls">
+      <button type="button" aria-label="Previous tooltip" onClick={() => move(-1)}>←</button>
+      <span aria-live="polite" aria-atomic="true">{scene + 1} of {specimens.length}, {specimens[scene].title}</span>
+      <button type="button" aria-label="Next tooltip" onClick={() => move(1)}>→</button>
+    </div>
+  </div>;
+}

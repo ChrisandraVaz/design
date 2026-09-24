@@ -79,6 +79,10 @@
  .scatter-trace .trace-bento-watch { grid-row:1/3; }
  .widget-world .scatter-1{order:1}.widget-world .scatter-9{order:2}.widget-world .scatter-2{order:3}.widget-world .scatter-0{order:4}.widget-world .scatter-3{order:7}.widget-world .scatter-trace{order:5}.widget-world .scatter-5{order:6}.widget-world .scatter-12{order:8}.widget-world .scatter-10{order:9}
  .widget-world .scatter-paint{order:10}.widget-world .scatter-metallic{order:11}
+ .widget-world .scatter-edu{order:12}
+ .widget-world .scatter .scatter-edu { grid-column:1/-1; max-width:660px; }
+ .widget-world .scatter-flyers{order:13}.widget-world .scatter-deck{order:14}
+ .widget-world .scatter .scatter-deck { grid-column:1/-1; max-width:660px; }
  .widget-world .widget-label { align-items:center; height:44px; }
  .widget-world .widget-label button { opacity:1; min-width:44px; min-height:44px; display:grid; place-items:center; }
  .widget-world .card { padding:clamp(16px,3vw,24px); }

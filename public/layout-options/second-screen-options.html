@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Second screen: background options</title>
+<style>
+  body{margin:0;background:#f4f4f6;color:#1a1a1c;font:14px/1.45 Inter,system-ui,sans-serif;padding:32px 24px 80px}
+  h1{font-size:20px;font-weight:500;margin:0 0 6px}.lede{color:#77777f;margin:0 0 28px;max-width:70ch}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(560px,1fr));gap:34px 26px}
+  .label{font-size:13px;font-weight:500;margin:0 0 3px 4px}.note{color:#77777f;font-size:12.5px;margin:0 4px 10px;max-width:70ch}
+  .frame{position:relative;width:100%;aspect-ratio:1440/960;overflow:hidden;border-radius:14px;border:1px solid #e0e0e5;background:#fff}
+  .frame iframe{position:absolute;left:0;top:0;width:1440px;height:960px;border:0;transform-origin:0 0;pointer-events:none}
+  body.single{padding:0;background:#fff}body.single h1,body.single .lede,body.single .label,body.single .note{display:none}
+  body.single .grid{display:block}body.single .frame{border:0;border-radius:0;width:1440px}
+</style></head><body>
+<h1>Second screen: background options</h1>
+<p class="lede">Each frame is your real second screen, live, with only the Split Panel field changed (and, where noted, a tint on the Metallic card). Judge the whole screen, not the tile.</p>
+<div class="grid" id="grid"></div>
+<script>
+const field=(c1,c2,c3,l1,l2,l3)=>`radial-gradient(38% 60% at 50% 50%, ${c1}d9 0%, ${c1}00 70%),radial-gradient(45% 70% at 50% 50%, ${c2}d9 0%, ${c2}00 70%),radial-gradient(50% 75% at 50% 50%, ${c3}e6 0%, ${c3}00 72%),linear-gradient(155deg, ${l1} 0%, ${l2} 45%, ${l3} 100%)`;
+const OPTIONS=[
+ {name:'1 · Sentry violet, deepened',note:'Brand logic: violet means Sentry, green means TD. Puts the missing half of your violet and green pair back in the centre of the screen.',bg:field('#f3a6e4','#cdb8ff','#4a33d6','#7a5cf2','#6a4ce8','#9473ff')},
+ {name:'2 · Meadow',note:'Your 10. Fresh yellow-green. In context it joins TD and FigBuild, so the screen becomes a green family with Paint as the cool accent.',bg:field('#f0f7b8','#c5e08a','#6fae4a','#8fbf5a','#9ccc66','#b5d97a')},
+ {name:'3 · Claims sage',note:'The exact TD green, quieter than Meadow. Reads as one continuous band of sage running from Split Panel into TD.',bg:field('#f4f7e2','#bdd58e','#8aa652','#a3ba69','#abc172','#b6cf84')},
+ {name:'4 · Violet with a lime band',note:'Both halves of the palette in one field. Violet keeps the Sentry code, the lime band shakes hands with FigBuild and TD.',bg:field('#d8f58a','#b9a2ff','#4f37d8','#7a5cf2','#6d50ea','#8f6fff')},
+ {name:'5 · Periwinkle bridge',note:'Halfway between Sentry violet and Paint blue. Pulls the blue Paint card into the family instead of leaving it as the odd one out.',bg:field('#c7d0ff','#9aa6ff','#3a49c9','#6a78ee','#5c69e6','#8591f7')},
+ {name:'6 · Graphite with a violet glow',note:'A dark spine: Split Panel, the laptop and FigBuild all sit on charcoal, and colour comes only from the work. The most editorial option.',bg:field('#7a5cf2','#3b3560','#0e0e12','#1c1c21','#17171b','#24222e'),win:'#000'},
+ {name:'7 · Meadow, plus a sage tint on Metallic',note:'Same as 2, and the flat grey Metallic card picks up a faint sage cast so the left column stops being a grey slab.',bg:field('#f0f7b8','#c5e08a','#6fae4a','#8fbf5a','#9ccc66','#b5d97a'),tint:'#e6f0cf'},
+ {name:'8 · Sentry violet, plus a lilac tint on Metallic',note:'Same as 1, and Metallic picks up a faint lilac cast. Violet then appears left and centre, green and blue on the right: the rhythm of the first screen.',bg:field('#f3a6e4','#cdb8ff','#4a33d6','#7a5cf2','#6a4ce8','#9473ff'),tint:'#e9e0fb'},
+];
+const q=new URLSearchParams(location.search), only=q.get('opt');
+if(only) document.body.classList.add('single');
+const grid=document.getElementById('grid');
+OPTIONS.forEach((o,i)=>{ if(only && +only!==i+1) return;
+  const s=document.createElement('section');
+  s.innerHTML=`<p class="label">${o.name}</p><p class="note">${o.note}</p><div class="frame"><iframe src="/" loading="lazy" title="${o.name}"></iframe></div>`;
+  grid.appendChild(s);
+  const fr=s.querySelector('iframe'), box=s.querySelector('.frame');
+  const fit=()=>{fr.style.transform=`scale(${box.clientWidth/1440})`}; fit(); addEventListener('resize',fit);
+  fr.addEventListener('load',()=>{ const d=fr.contentDocument, w=fr.contentWindow; let n=0;
+    const st=d.createElement('style');
+    st.textContent=`.canvas-folio .widget-world .scatter-2 .split-reference-preview::before{background:${o.bg}!important;background-size:190% 190%,220% 220%,210% 210%,100% 100%!important}
+      ${o.tint?`.scatter-metallic .metallic-card::after{content:"";position:absolute;inset:var(--experiment-inset);border-radius:inherit;background:${o.tint};mix-blend-mode:multiply;pointer-events:none;z-index:2;border-radius:14px}`:''}
+      .view-toggle,[class*="view-switch"],[class*="canvas-toggle"]{}
+      .scatter-2 .sp-terminal-stage{opacity:1!important;visibility:visible!important;transform:none!important}
+      .scatter-2 .sp-panel-stage{opacity:0!important;visibility:hidden!important}
+      .scatter-2 .split-reference-preview::before{opacity:1!important}
+      .scatter-2 .split-reference-preview::after{opacity:.9!important}
+      .scatter-2 .sp-terminal-code pre{opacity:0!important}
+      .scatter-2 .sp-terminal-code pre:first-child{opacity:1!important;transform:none!important}
+      .sticker-deck .deck-closeup{animation:none!important;opacity:0!important}
+      html{scrollbar-width:none}::-webkit-scrollbar{display:none}`;
+    d.head.appendChild(st);
+    const go=()=>{ const el=d.querySelector('.scatter-metallic'); if(!el){ if(n++<80) setTimeout(go,150); return; }
+      w.scrollTo(0, el.getBoundingClientRect().top + w.scrollY - 64); };
+    go(); setTimeout(go,1500);
+  });
+});
+</script></body></html>

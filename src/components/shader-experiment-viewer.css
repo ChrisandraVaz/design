@@ -1,0 +1,142 @@
+.shader-viewer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  background: #0a0a0a;
+  color: #f4f4f4;
+  font-family: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.shader-viewer {
+  display: grid;
+  grid-template-rows: 72px minmax(0, 1fr) 64px;
+  width: min(100%, 880px);
+  min-height: 0;
+  padding-inline: clamp(16px, 3vw, 42px);
+}
+
+.shader-viewer-header,
+.shader-viewer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shader-viewer-header {
+  color: #b6b6b6;
+  font-size: 16px;
+  letter-spacing: -.02em;
+}
+
+.shader-viewer-header button,
+.shader-viewer-arrow {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid #4b4b4b;
+  border-radius: 50%;
+  background: #171717;
+  color: #f4f4f4;
+  cursor: pointer;
+}
+
+.shader-viewer-header button:hover,
+.shader-viewer-arrow:hover {
+  border-color: #a4a4a4;
+  background: #252525;
+}
+
+.shader-viewer-arrow {
+  border-color: #363636;
+  background: #141414;
+  color: #a3a3a3;
+}
+
+.shader-viewer-arrow:hover {
+  border-color: #747474;
+  background: #1d1d1d;
+  color: #e5e5e5;
+}
+
+.shader-viewer-header button:focus-visible,
+.shader-viewer-arrow:focus-visible {
+  outline: 2px solid #f4f4f4;
+  outline-offset: 3px;
+}
+
+.shader-viewer-header svg,
+.shader-viewer-arrow svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.6;
+}
+
+.shader-viewer-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 24px);
+  min-width: 0;
+  min-height: 0;
+}
+
+.shader-viewer-art {
+  position: relative;
+  justify-self: center;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 14px;
+  background: #09150b;
+}
+
+.shader-viewer-art--wind {
+  display: grid;
+  place-items: center;
+}
+
+.shader-viewer-art--wind img,
+.shader-viewer-art--wind iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.shader-viewer-art--wind img { object-fit: cover; }
+.shader-viewer-art--wind iframe { opacity: 0; transition: opacity 300ms ease; }
+.shader-viewer-art--wind[data-live="true"] iframe { opacity: 1; }
+
+.shader-viewer-art--square {
+  width: min(62dvh, 560px);
+  aspect-ratio: 1;
+}
+
+.shader-viewer-art--square .grass-study,
+.shader-viewer-art--square .grass-study canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.shader-viewer-footer {
+  gap: 20px;
+  font-size: 16px;
+}
+
+.shader-viewer-footer span { color: #969696; font-variant-numeric: tabular-nums; }
+.shader-viewer-footer strong { font-weight: 500; }
+
+@media (max-width: 600px) {
+  .shader-viewer { grid-template-rows: 64px minmax(0, 1fr) 64px; }
+  .shader-viewer-stage { gap: 6px; }
+  .shader-viewer-arrow { width: 36px; height: 36px; }
+  .shader-viewer-art--square { width: min(calc(100vw - 116px), 62dvh); }
+}

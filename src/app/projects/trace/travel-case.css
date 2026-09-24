@@ -148,12 +148,12 @@
 /* Resize the photograph itself so the zoom samples its source at each size. */
 .trace-zoom-watch{--trace-watch-width:min(51%,158px,calc(84cqh * 764 / 1204));width:var(--trace-watch-width);aspect-ratio:764/1204;animation:trace-photo-out 9.2s linear infinite both}
 .case-design .travel-case .trace-zoom-watch img{display:block;width:100%;height:auto;aspect-ratio:764/1204;object-fit:contain;border-radius:0}
-.trace-zoom-hero{width:min(78%,600px);opacity:0;clip-path:inset(0 50% 0 50% round 24px);animation:trace-component-in 9.2s linear infinite both}
+.trace-zoom-hero{width:min(78%,600px);opacity:0;animation:trace-component-in 9.2s linear infinite both}
 .trace-zoom-hero .trace-recreated{width:100%;height:auto;min-width:0;filter:drop-shadow(0 12px 16px #140a1e0c)}
 .trace-zoom-sequence>*{animation-play-state:paused}
 .trace-zoom-stage[data-playing=true] .trace-zoom-sequence>*{animation-play-state:running}
 @keyframes trace-photo-out{0%,4.5%{opacity:1;width:var(--trace-watch-width)}18%{opacity:1;width:calc(var(--trace-watch-width) * 1.16)}28%{opacity:1;width:calc(var(--trace-watch-width) * 1.16)}36%,100%{opacity:0;width:calc(var(--trace-watch-width) * 1.16)}}
-@keyframes trace-component-in{0%,28%{opacity:0;clip-path:inset(0 50% 0 50% round 24px);transform:scale(.985)}38%,100%{opacity:1;clip-path:inset(0 0 0 0 round 24px);transform:scale(1)}}
+@keyframes trace-component-in{0%,36%{opacity:0}39%,100%{opacity:1}}
 .trace-zoom-controls{position:absolute;z-index:2;right:12px;bottom:10px}
 .trace-zoom-controls button{width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:transparent;color:#7a7a80;cursor:pointer}
 .trace-zoom-controls button:hover{background:#00000006;color:#303037}

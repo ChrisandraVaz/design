@@ -1,0 +1,13 @@
+/* Keychain exploration, framed like the row-one cards: the label sits above
+   the card, and the artwork fills a cover card wearing the shared frame inset,
+   the same one Interest Claims and Font Context's media use. */
+.canvas-folio .widget-world .scatter .edu-merch {
+  padding: calc(var(--canvas-frame-inset) / var(--surface-scale) - 1px);
+}
+.edu-merch-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1020 / 1325;
+  object-fit: cover;
+}

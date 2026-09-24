@@ -61,6 +61,8 @@
   to { opacity: 0; transform: translateY(-5px) scale(.992); }
 }
 .rt-specimen {
+  font-family: var(--font-rubik), Rubik, Arial, sans-serif;
+  color: #302d38;
   position: relative;
   min-width: 0;
   max-width: 100%;
@@ -347,13 +349,10 @@
 .syntax-prop{color:#a989d7;}
 .syntax-equals{color:#d36c84;}
 .syntax-string{color:#80aee2;}
+/* No card of its own: the split surface sits straight on the cover's grey. */
 .sp-document-frame {
   width:100%;
-  padding:clamp(16px,5.4cqw,26px);
-  border:1px solid #e5e4e8;
-  border-radius:4px;
-  background:#fff;
-  box-shadow:0 1px 3px rgba(33,28,43,.05);
+  padding:0 clamp(10px,3.4cqw,18px);
 }
 .sp-reference-surface {
   width: 100%;
@@ -361,7 +360,12 @@
   max-height: 280px;
   min-height: 110px;
   display: grid;
-  grid-template-columns: minmax(0, var(--split-position)) 0 minmax(0, 1fr);
+  /* Neither pane may get narrower than its own label plus padding, so the
+     divider can run the full height without ever crossing the text. */
+  --sp-pane-min: calc(var(--sp-label-size, clamp(9px,3cqw,13px)) * 6.7 + 2 * var(--sp-label-pad, clamp(7px,2.6cqw,11px)));
+  grid-template-columns:
+    minmax(0, clamp(var(--sp-pane-min), var(--split-position), calc(100% - var(--sp-pane-min))))
+    0 minmax(0, 1fr);
   background: white;
   border: 1px solid #dedce4;
   border-radius: 4px;
@@ -395,10 +399,7 @@
 }
 .sp-reference-divider i {
   position: absolute;
-  /* Keep the structural divider below the pane labels so it does not cut
-     through the compact header row. The larger invisible drag target remains
-     full height. */
-  top:clamp(30px,6.2cqw,38px);
+  top: 0;
   bottom: 0;
   left: -1px;
   width: 1px;
@@ -434,3 +435,5 @@
     animation: none !important;
   }
 }
+
+.rt-scene-0 .rt-heading > :is(strong,span) { font-weight:600; }

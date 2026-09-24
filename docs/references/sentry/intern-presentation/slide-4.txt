@@ -1,0 +1,21 @@
+DECISIONS & TRADE-OFFS
+I explored and stress-tested multiple directions
+ENTRY POINTS
+Split button in toolbar - wrong visual hierarchy
+Slash command (/agent) - not discoverable enough; 3 structures explored
+Icon-based button (nav + message level) - matches autofix robot pattern
+PAYLOAD OPTIONS
+Single block only - too little context
+Full conversation - captures all telemetry; LLM weights most relevant section
+Range / up to this point - loses too much
+Spec: block + tool calls + last user message (not just agent reply)
+POST-HANDOFF UI
+Inline tool call update - easy to miss when scrolling back
+Autofix-style block - visible, surfaces key metadata, conversation can continue
+ENGINEERING CONSTRAINTS
+Fire-and-forget vs. polling
+Unresolved until deep into design; designed for both paths simultaneously, forcing decision via group chat with eng and PM
+Conflicting signals
+One engineer said card couldn't surface repo context or status; another said the opposite the day before. Had to navigate contradiction and push for written decision
+Hidden chat bubble
+Created on send (critical dev note: don't surface 'send to agent' in chat UI)

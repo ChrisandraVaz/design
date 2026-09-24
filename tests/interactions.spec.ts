@@ -23,14 +23,12 @@ test.describe('phone navigation and controls',()=>{
   const stage=page.locator('.trace-comparison-stage'),art=page.locator('.trace-annotated-product');
   const a=await art.boundingBox(),b=await stage.boundingBox();expect(a!.x).toBeGreaterThanOrEqual(b!.x);expect(a!.x+a!.width).toBeLessThanOrEqual(b!.x+b!.width);
  });
- test('theme toggle and widget inspector work on a small screen',async({page})=>{
+ test('theme toggle persists on a small screen',async({page})=>{
   await page.goto('/',{waitUntil:'domcontentloaded'});
   const theme=page.locator('.theme-control');const original=await theme.getAttribute('aria-label');await theme.tap();await expect(theme).not.toHaveAttribute('aria-label',original!);
-  await page.getByRole('button',{name:'Inspect News',exact:true}).tap();
-  const dialog=page.getByRole('dialog');await expect(dialog).toBeVisible();
-  await page.getByRole('button',{name:'Grid',exact:true}).tap();
-  expect(await dialog.evaluate(n=>n.scrollWidth<=n.clientWidth+1)).toBe(true);
-  await page.getByRole('button',{name:'All widgets',exact:true}).tap();await expect(dialog).not.toBeVisible();
+  const selectedTheme=await page.locator('html').getAttribute('data-theme');
+  await page.reload({waitUntil:'domcontentloaded'});
+  await expect(page.locator('html')).toHaveAttribute('data-theme',selectedTheme!);
  });
 });
 test('desktop drag reflows and resizing restores the authored layout',async({page})=>{

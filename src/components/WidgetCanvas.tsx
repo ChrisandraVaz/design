@@ -2,12 +2,14 @@
 /* Native images preserve the existing asset crops and OpenStreetMap tile sizing. */
 /* eslint-disable @next/next/no-img-element */
 import {
+  useCallback,
   useEffect,
   useId,
   useRef,
   useState,
   type CSSProperties,
   type ReactNode,
+  useSyncExternalStore,
 } from 'react';
 import { FiPause as Pause, FiPlay as Play, FiSkipBack as SkipBack, FiSkipForward as SkipForward, FiSearch as Search, FiMapPin as Footprints, FiX as X, FiGrid as Grid2X2, FiArrowLeft as ArrowLeft, FiMaximize2 as Maximize2 } from 'react-icons/fi';
 import SketchIntro from './SketchIntro';
@@ -17,8 +19,13 @@ import { TracePalette, OriginalTraceStudy } from './TraceStudies';
 import { useHydrated } from '@/hooks/useHydrated';
 import { useCanvasDrag } from '@/hooks/useCanvasDrag';
 import FontContextCardMedia from './FontContextCardMedia';
+import FigmaEduMerch from './FigmaEduMerch';
+import FigBuildFlyers from './FigBuildFlyers';
+import StickerDeck from './StickerDeck';
 import IndexCardLayout from './IndexCardLayout';
 import SentryCard from './sentry/SentryCard';
+import BotanicalStudy from './BotanicalStudy';
+import ShaderExperimentViewer from './ShaderExperimentViewer';
 import {sentryProjects,sentrySlots} from '@/lib/sentry/projects';
 import './portfolio-bento.css';
 
@@ -185,6 +192,8 @@ const messages = [
     unread: true,
   },
 ];
+const subscribeNever = () => () => {};
+const readRecordingPreview = () => new URLSearchParams(window.location.search).get('shaderPreview') === 'recordings';
 export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' | 'index' } = {}) {
   const indexLayout = layout === 'index';
   const Container = indexLayout ? 'div' : 'main';
@@ -205,7 +214,15 @@ export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' 
   const [day, setDay] = useState(3);
   const [fahrenheit, setFahrenheit] = useState(true);
   const [study, setStudy] = useState<number | null>(null);
+  const [shaderOpen, setShaderOpen] = useState(false);
+  /* Read once from the URL; false on the server so hydration matches. */
+  const recordingPreview = useSyncExternalStore(subscribeNever, readRecordingPreview, () => false);
+  const closeShaderViewer = useCallback(() => setShaderOpen(false), []);
   const closeRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const preview = new Image();
+    preview.src = '/widget-images/wind-field-square.jpg';
+  }, []);
   useEffect(() => {
     const saved = localStorage.getItem('widget-note');
     const frame = requestAnimationFrame(() => { if (saved) setNote(saved); });
@@ -526,17 +543,33 @@ export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' 
         return (
           <div className="card shader">
             <div className="grass-grid">
-              <Photo src="grass-waves" alt="Wind-swept green grass" />
-              <Photo src="grass-field" alt="Wind-swept green grass" />
-              <Photo src="grass-close" alt="Wind-swept green grass" />
+              <div className="photo wind-field-art">
+                <img src="/widget-images/wind-field.png" alt="Four figures in a wind-shaped field of grass" draggable={false} />
+              </div>
+              {recordingPreview ? (
+                <>
+                  <div className="shader-recording shader-recording--city">
+                    <video src="/layout-options/assets/city-study.mp4" poster="/layout-options/assets/city-study.jpg" autoPlay muted loop playsInline preload="metadata" onLoadedMetadata={event => { event.currentTarget.currentTime = 3.5; }} aria-label="Animated city lights study" />
+                  </div>
+                  <div className="shader-recording shader-recording--origami">
+                    <video src="/layout-options/assets/origami-study.mp4" poster="/layout-options/assets/origami-study.jpg" autoPlay muted playsInline preload="metadata" onLoadedMetadata={event => { event.currentTarget.currentTime = 7.5; }} onEnded={event => { event.currentTarget.currentTime = 7.5; void event.currentTarget.play(); }} aria-label="Animated origami folding study" />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <BotanicalStudy kind="flowers" />
+                  <BotanicalStudy kind="leaf" />
+                </>
+              )}
             </div>
             <div className="split collection-caption">
               <div>
-                <strong>Shader Experiments</strong>
-                <p>Grass in motion</p>
+                <strong>{recordingPreview ? 'Experiments' : 'Shader Experiments'}</strong>
+                <p>{recordingPreview ? 'Motion studies' : 'Field studies'}</p>
               </div>
               <span className="caption muted">3 studies</span>
             </div>
+            {!recordingPreview && <button className="shader-card-open" type="button" aria-label="Open Shader Experiments" onClick={() => setShaderOpen(true)} />}
           </div>
         );
     }
@@ -553,11 +586,11 @@ export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' 
           <div className="widget-label card-heading"><span>Font Context Plugin</span><CardArrow href="/fontcontext.html" label="Open Font Context Plugin"/></div>
           <Link className="portfolio-experiment-card fontcontext-card" href="/fontcontext.html" aria-label="Open Font Context Plugin case study">
             <FontContextCardMedia />
-            <span className="card-kind">Case study</span>
+            <span className="card-kind">Shipped · Case Study</span>
           </Link>
         </section>
-        {[3,5,12,10].map(i => i===3 ? <section key={i} {...movable(String(i))} className={`scatter-item scatter-3 scatter-sentry ${active==='3'?'is-active':''}`} aria-label="Relative Time case study" onPointerEnter={e=>{if(e.pointerType==='mouse'&&!isInteracting())setActive('3')}} onFocus={()=>setActive('3')}><div className="widget-label card-heading"><span>Relative Time</span><CardArrow href="/projects/sentry-relative-time" label="Open Relative Time"/></div><SentryCard kind="relative-time"/></section> : <section key={i} {...movable(String(i))} className={`scatter-item scatter-${i} ${active===String(i)?'is-active':''}`} aria-label={`${names[i]} widget`} onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive(String(i));}}  onFocus={()=>setActive(String(i))} >
-          <div className={`widget-label${i===10?'':' card-heading'}`}><span>{names[i]}</span><button disabled={!hydrated} aria-label={`Inspect ${names[i]}`} onClick={()=>{setSelected(i);setInspect(false);}}><Maximize2/></button></div>{indexLayout && i !== 10 ? <div className="index-component-frame">{widget(i)}</div> : widget(i)}
+        {[3,12].map(i => i===3 ? <section key={i} {...movable(String(i))} className={`scatter-item scatter-3 scatter-sentry ${active==='3'?'is-active':''}`} aria-label="Relative Time case study" onPointerEnter={e=>{if(e.pointerType==='mouse'&&!isInteracting())setActive('3')}} onFocus={()=>setActive('3')}><div className="widget-label card-heading"><span>Relative Time</span><CardArrow href="/projects/sentry-relative-time" label="Open Relative Time"/></div><SentryCard kind="relative-time"/></section> : <section key={i} {...movable(String(i))} className={`scatter-item scatter-${i} ${active===String(i)?'is-active':''}`} aria-label={`${names[i]} widget`} onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive(String(i));}}  onFocus={()=>setActive(String(i))} >
+          <div className={`widget-label${i===10?'':' card-heading'}`}><span>{i === 12 && recordingPreview ? 'Experiments' : names[i]}</span>{!(i === 12 && recordingPreview) && <button disabled={!hydrated} aria-label={`Inspect ${names[i]}`} onClick={()=>{if(i===12){setShaderOpen(true);}else{setSelected(i);setInspect(false);}}}><Maximize2/></button>}</div>{indexLayout && i !== 10 ? <div className="index-component-frame">{widget(i)}</div> : widget(i)}
         </section>)}
         <section {...movable('trace')} className={`scatter-item scatter-trace ${active==='trace'?'is-active':''}`} aria-label="Trace watchOS concept project" onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive('trace');}} onFocus={()=>setActive('trace')}>
           <div className="widget-label card-heading"><span>Apple Watch Trace</span><CardArrow href="/projects/trace" label="Open Apple Watch Trace"/></div>
@@ -567,28 +600,40 @@ export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' 
               <div className="trace-bento-widget"><div className="trace-project-widget"><OriginalTraceStudy label="Trace component study"/></div><span>Component study</span></div>
               <div className="trace-bento-state trace-color-study"><TracePalette/></div>
             </div>
-            <span className="card-kind">Concept • Case study</span>
+            <span className="card-kind">Concept · Case Study</span>
           </Link>
         </section>
         <section {...movable('metallic')} className="scatter-item scatter-metallic" aria-label="Liquid Metallic Button experiment">
           <div className="widget-label card-heading"><span>Liquid Metallic Button</span><CardArrow href="https://chrisandravaz.github.io/Liquid-Metallic-Button-/liquid-metal-button" label="Open Liquid Metallic Button" external/></div><a className="portfolio-experiment-card metallic-card" href="https://chrisandravaz.github.io/Liquid-Metallic-Button-/liquid-metal-button" target="_blank" rel="noreferrer" aria-label="Open Liquid Metallic Button">
-            <video src="/assets/metalicbutton1.mov" autoPlay loop muted playsInline preload="metadata" />
-            <span className="card-kind component-kind">Component</span>
+            <video src="/assets/metallic-button.mp4" autoPlay loop muted playsInline preload="metadata" />
+            <span className="card-kind component-kind">Experiment</span>
           </a>
         </section>
         <section {...movable('paint')} className="scatter-item scatter-paint" aria-label="Microsoft Paint recreation">
           <div className="widget-label card-heading"><span>Microsoft Paint Recreation</span><CardArrow href="https://chrisandravaz.github.io/Microsoft-Paint/" label="Open Microsoft Paint recreation" external/></div>
           <a className="portfolio-experiment-card paint-card" href="https://chrisandravaz.github.io/Microsoft-Paint/" target="_blank" rel="noreferrer" aria-label="Open Microsoft Paint recreation">
             <video src="/assets/microsoftpaint.mp4" autoPlay loop muted playsInline preload="metadata" />
-            <span className="card-kind component-kind">Component</span>
+            <span className="card-kind component-kind">Experiment</span>
           </a>
         </section>
+        <section {...movable('edu')} className={`scatter-item scatter-edu ${active==='edu'?'is-active':''}`} aria-label="Figma for Edu keychain exploration" onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive('edu');}} onFocus={()=>setActive('edu')}>
+          <div className="widget-label card-heading"><span>Figma for Edu Keychain Exploration</span><CardArrow href="/projects/figma-keychain" label="Open Figma for Edu keychain exploration"/></div>
+          <Link href="/projects/figma-keychain" className="widget-link" aria-label="Open Figma for Edu keychain exploration"><FigmaEduMerch /></Link>
+        </section>
+        <section {...movable('flyers')} className={`scatter-item scatter-flyers ${active==='flyers'?'is-active':''}`} aria-label="FigBuild 2025 campaign flyers" onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive('flyers');}} onFocus={()=>setActive('flyers')}>
+          <div className="widget-label card-heading"><span>FigBuild 2025</span><CardArrow href="/projects/figbuild" label="Open FigBuild 2025"/></div>
+          <Link href="/projects/figbuild" className="widget-link" aria-label="Open FigBuild 2025"><FigBuildFlyers /></Link>
+        </section>
+        <section {...movable('deck')} className={`scatter-item scatter-deck ${active==='deck'?'is-active':''}`} aria-label="Figma for Edu shortcut sticker on a MacBook" onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive('deck');}} onFocus={()=>setActive('deck')}>
+          <div className="widget-label card-heading"><span>Figma Shortcut Sticker</span><CardArrow href="/projects/figma-sticker" label="Open Figma Shortcut Sticker"/></div>
+          <Link href="/projects/figma-sticker" className="widget-link" aria-label="Open Figma Shortcut Sticker"><StickerDeck /></Link>
+        </section>
         <section {...movable('claims')} className={`scatter-item scatter-claims ${active==='claims'?'is-active':''}`} aria-label="TD Securities Interest Claims case study" onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive('claims');}} onFocus={()=>setActive('claims')}>
-          <div className="widget-label card-heading"><span>TD Securities Interest Claims</span><CardArrow href="/projects/td-bank-interest-claims" label="Open TD Securities Interest Claims"/></div>
-          <Link className="portfolio-experiment-card td-claims-card" href="/projects/td-bank-interest-claims" aria-label="Open TD Securities Interest Claims case study">
+          <div className="widget-label card-heading"><span>TD Securities Interest Claims</span></div>
+          <div className="portfolio-experiment-card td-claims-card" aria-label="TD Securities Interest Claims, case study coming soon">
             <span className="td-claims-media"><img src="/assets/tdinterestclaims.png" alt="Interest Claims workspace with regional upload status and claim opportunities" draggable={false}/></span>
-            <span className="card-kind">Case study</span>
-          </Link>
+            <span className="card-kind">TD Internship · Coming Soon</span>
+          </div>
         </section>
       </Scatter></div>
       {!indexLayout && <button disabled={!hydrated}
@@ -644,6 +689,7 @@ export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' 
           </nav>
         </div>
       )}
+      {shaderOpen && <ShaderExperimentViewer onClose={closeShaderViewer} />}
     </Container>
   );
 }

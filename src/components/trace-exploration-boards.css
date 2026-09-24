@@ -22,14 +22,14 @@
 .trace-approved-art .ts-widget-heading{font-size:7.1cqw;margin-bottom:8%;line-height:1.1}
 .trace-approved-art .ts-info{width:8.5cqw;height:8.5cqw;font-size:5cqw}
 .trace-approved-art .ts-widget-gauges{gap:7%}.trace-approved-art .ts-widget-gauges .ts-gauge{max-width:none}
-.trace-color-originals figcaption{padding:16px 2px 0;font-size:13px;color:#424248;line-height:1.5}
-.case-design .travel-case .trace-color-originals figcaption p{margin:5px 0 0;font-size:12px;color:#6d6d76;line-height:1.5}
+.trace-color-originals figcaption{padding:16px 2px 0;font-size:13px;color:var(--trace-ink,#424248);line-height:1.5}
+.case-design .travel-case .trace-color-originals figcaption p{margin:5px 0 0;font-size:12px;color:var(--trace-copy,#6d6d76);line-height:1.5}
 .trace-material-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:32px;border-top:0;padding-top:28px}
 .trace-material-strip article{margin:0;min-width:0}.trace-material-swatch{height:9px;width:100%;max-width:152px;border-radius:8px;margin-bottom:16px}
 .trace-material-swatch[data-tone=green]{background:linear-gradient(105deg,#d0ffb3,#63f32b 48%,#27ca06)}
 .trace-material-swatch[data-tone=amber]{background:linear-gradient(105deg,#fff6bd,#ffd447 48%,#ed8706)}
 .trace-material-swatch[data-tone=red]{background:linear-gradient(105deg,#ffb5bf,#ff425e 48%,#c30a39)}
-.trace-material-strip h4{font-size:15px;line-height:1.4;font-weight:500;letter-spacing:-.2px;color:#303037;margin:0 0 8px}.case-design .travel-case .trace-material-strip p{font-size:13px;line-height:1.6;color:#6d6d76;margin:0;max-width:290px}
+.trace-material-strip h4{font-size:15px;line-height:1.4;font-weight:500;letter-spacing:-.2px;color:var(--trace-ink,#303037);margin:0 0 8px}.case-design .travel-case .trace-material-strip p{font-size:13px;line-height:1.6;color:var(--trace-copy,#6d6d76);margin:0;max-width:290px}
 .case-design .travel-case .ts-color-bridge{max-width:650px;font-size:14px;line-height:1.65;margin:28px 0 0;color:#73737c}
 @media(max-width:900px){.case-design .travel-case .ts-variant-board{gap:28px 20px;padding:22px}.trace-study-legend{font-size:10px}.trace-study-legend>div{gap:12px}.trace-approved-art{min-height:200px;padding:22px 18px}}
 @media(max-width:699px){

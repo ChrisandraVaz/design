@@ -65,7 +65,7 @@ export const sentryStories: Record<SentryProjectId, SentryStory> = {
       {
         value: "38%",
         label: "of conversations included follow-ups",
-        note: "There was an existing behavior to support: continuing an investigation with another question.",
+        note: "There was an existing behavior to support: continuing an investigation with another question. Among conversations with a follow-up, 45% sent it within two minutes (median 138 seconds).",
       },
       {
         value: "90%",
@@ -165,7 +165,7 @@ export const sentryStories: Record<SentryProjectId, SentryStory> = {
   },
   "send-to-agent": {
     intro:
-      "Seer could explain why something broke. The next step—turning that investigation into a code change—still required a handoff. I designed Send to Agent to carry the right context into a developer’s configured coding agent.",
+      "Seer could explain why something broke. The next step, turning that investigation into a code change, still required a handoff. I designed Send to Agent to carry the right context into a developer’s configured coding agent.",
     role: "Product design · Workflow research, interaction design, handoff",
     team: "AI/ML · Seer",
     prompt:
@@ -198,7 +198,7 @@ export const sentryStories: Record<SentryProjectId, SentryStory> = {
         title: "Payload",
         before: "Copy an answer or a link without its supporting context.",
         after:
-          "Carry the response, tool calls, and question—or the full conversation.",
+          "Carry the response, tool calls, and question, or the full conversation.",
       },
       {
         title: "Confirmation",
@@ -448,7 +448,7 @@ export const sentryStories: Record<SentryProjectId, SentryStory> = {
     role: "Product design · Audit, engineer interviews, component design",
     team: "Design Foundations · Scraps",
     prompt:
-      "Change the timezone. Local time and UTC refer to the same instant—even when the calendar date changes.",
+      "Change the timezone. Local time and UTC refer to the same instant, even when the calendar date changes.",
     signals: [
       {
         value: "3",

@@ -578,8 +578,7 @@ function SplitCase() {
         <video
           controls
           playsInline
-          preload="none"
-          poster="/assets/sentry/split-replay.png"
+          preload="metadata"
           aria-label="Original Split Panel recording in Session Replay and Seer"
         >
           <source

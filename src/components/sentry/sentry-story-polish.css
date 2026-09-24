@@ -235,3 +235,11 @@ html[data-theme=dark] .case-design .trace-case.travel-case.se-story-polished .se
 .case-design .trace-case.travel-case.se-story-polished .se-handle-row.is-horizontal [data-state="1"] i, .case-design .trace-case.travel-case.se-story-polished .se-handle-row.is-horizontal [data-state="2"] i { height: 2px; }
 .case-design .trace-case.travel-case.se-story-polished .se-handle-row.is-horizontal [data-state="3"] i { height: 3px; }
 @media (max-width: 700px) { .case-design .trace-case.travel-case.se-story-polished .se-handle-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Figma proportions: two per row, about 2.5:1, and a hollow outline for focus. */
+.case-design .trace-case.travel-case.se-story-polished .se-handle-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 28px; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-row figure > div { height: 176px; font-size: 13px; grid-template-columns: 1fr 18px 1fr; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-row.is-horizontal figure > div { grid-template-columns: 1fr; grid-template-rows: 1fr 18px 1fr; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study [data-state="2"] i { width: 14px; height: calc(100% - 8px); align-self: center; background: transparent; border: 2px solid #7951ff; border-radius: 8px; box-shadow: none; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-row.is-horizontal [data-state="2"] i { width: calc(100% - 8px); height: 14px; justify-self: center; }
+@media (max-width: 600px) { .case-design .trace-case.travel-case.se-story-polished .se-handle-row { grid-template-columns: 1fr; } }

@@ -315,6 +315,5 @@ html[data-type] :is(.case-design,.case-standalone) { --case-heading-font: var(--
 html[data-type] :is(.case-design,.case-standalone) :is(h1,h2,h3,h4) { font-weight: var(--tt-heading-weight, 600) !important; font-style: var(--tt-heading-style, normal); }
 html[data-type] .case-design h1 { font-family: var(--tt-heading) !important; }
 
-/* Space Grotesk stays on every heading; the big h1 and h2 titles only get tighter tracking and a slightly smaller size. */
-html[data-type="spacegrotesk"] :is(.case-design,.case-standalone) { --case-title-size: clamp(34px, 3.8vw, 46px); --case-section-size: clamp(28px, 2.9vw, 34px); }
-html[data-type="spacegrotesk"] :is(.case-design,.case-standalone) :is(h1,h2) { letter-spacing: -.05em !important; word-spacing: -.06em; font-weight: 500 !important; }
+/* Space Grotesk on every heading, unchanged size and weight; only the big h1 and h2 titles get tighter tracking. */
+html[data-type="spacegrotesk"] :is(.case-design,.case-standalone) :is(h1,h2) { letter-spacing: -.05em !important; word-spacing: -.05em; }

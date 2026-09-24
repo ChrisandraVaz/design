@@ -883,7 +883,7 @@ const openings: Record<
       </>
     ),
     role: "Product & interaction design",
-    team: "AI and ML, Seer",
+    team: "AI/ML Seer Agent: 1 Design Advisor, 4 Engineers, 1 PM",
     next: "split-panel",
   },
   "split-panel": {

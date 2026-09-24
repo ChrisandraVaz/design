@@ -109,7 +109,7 @@ export default function SendToAgentCaseStudy() {
         <dl className="agent-story-facts">
           <div><dt>Role</dt><dd>Product designer</dd></div>
           <div><dt>Timeline</dt><dd>Summer 2026</dd></div>
-          <div><dt>Team</dt><dd>AI and ML, Seer<br />Design, engineering &amp; PM</dd></div>
+          <div><dt>Team</dt><dd>AI/ML Seer Agent<br />1 Design Advisor, 4 Engineers, 1 PM</dd></div>
           <div><dt>Skills</dt><dd>Interaction design<br />Product flows, Systems thinking</dd></div>
         </dl>
         <p className="agent-story-label">Overview</p>

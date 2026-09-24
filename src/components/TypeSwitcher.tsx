@@ -13,9 +13,14 @@ const notify = () => listeners.forEach(cb => cb());
 function readStored(): string {
   try {
     const params = new URLSearchParams(window.location.search);
-    if (params.has('typetest')) localStorage.setItem(KEY, params.get('typetest') === '0' ? '' : (localStorage.getItem(KEY) || 'crimson'));
+    const param = params.get('typetest');
+    if (param !== null) {
+      // ?typetest=1 turns it on, ?typetest=0 off, ?typetest=<variant id> jumps straight to that system.
+      const direct = typeVariants.find(v => v.id === param)?.id;
+      localStorage.setItem(KEY, param === '0' ? '' : (direct || localStorage.getItem(KEY) || 'crimson'));
+    }
     const stored = localStorage.getItem(KEY);
-    if (stored === null && /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return 'crimson'; // always on for local review
+    if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return stored || 'crimson'; // always on for local review
     return stored || '';
   } catch { return ''; }
 }

@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 
 export default function SketchIntro() {
   const [isDrawMode, setIsDrawMode] = useState(false);
-  const [showPencilIntro, setShowPencilIntro] = useState(false);
   const leftPanelRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const drawingRef = useRef(false);
@@ -30,15 +29,6 @@ export default function SketchIntro() {
     const observer = new ResizeObserver(resizeCanvas);
     if (leftPanelRef.current) observer.observe(leftPanelRef.current);
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const showTimer = setTimeout(() => setShowPencilIntro(true), 180);
-    const hideTimer = setTimeout(() => setShowPencilIntro(false), 14000);
-    return () => {
-      clearTimeout(showTimer);
-      clearTimeout(hideTimer);
-    };
   }, []);
 
   useEffect(() => {
@@ -105,7 +95,7 @@ export default function SketchIntro() {
     <canvas ref={canvasRef} className={`draw-layer ${isDrawMode ? "active" : ""}`} aria-label="Drawing canvas" onPointerDown={onDrawStart} onPointerMove={onDrawMove} onPointerUp={onDrawEnd} onPointerCancel={onDrawEnd}/>
     <h1 className="hero-headline">
       <span className="name-squiggle">Chrisandra</span>{" "}
-      <span className="pencil-wrap"><button type="button" onClick={toggleDrawMode} className={`inline-block twitch-symbol pencil-trigger pencil-attention ${isDrawMode ? "active" : ""}`} aria-label={isDrawMode ? "Disable drawing mode" : "Enable drawing mode"} aria-pressed={isDrawMode}>✐<span aria-hidden="true" className={`pencil-tooltip ${showPencilIntro ? "intro" : ""}`}>{isDrawMode ? "Draw here · Esc to finish" : "Click me to draw!"}</span></button></span>{" "}
+      <span className="pencil-wrap"><button type="button" onClick={toggleDrawMode} className={`inline-block twitch-symbol pencil-trigger pencil-attention ${isDrawMode ? "active" : ""}`} aria-label={isDrawMode ? "Disable drawing mode" : "Enable drawing mode"} aria-pressed={isDrawMode}>✐</button></span>{" "}
       is a product designer{" "}<span className="intro-details">at Waterloo who ships products that click{" "}<span className="inline-block">✦</span> builds agentic workflows and design systems in Figma and code{" "}<span className="inline-block">✧</span>.</span>
     </h1>
   </section>;

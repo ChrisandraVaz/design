@@ -67,7 +67,8 @@
 .agent-story-takeaway { max-width: 100%; }
 .agent-story-end { border-top: 1px solid var(--story-border); padding-top: 32px; display: flex; justify-content: space-between; gap: 24px; font-size: 14px; }
 .agent-story-end a { min-height: 44px; display: inline-flex; align-items: center; }
-@media(max-width:1279px) { .agent-story-tree { display: none; } }
+@media(max-width:1279px) { .agent-story-tree { left: 12px; width: 120px; } .agent-story-tree a { font-size: 9px; } }
+@media(max-width:1099px) { .agent-story-tree { display: none; } }
 @media(max-width:1024px) { .agent-story-content { width: min(900px, calc(100% - 32px)); } }
 @media(max-width:700px) {
   .agent-story-top { height: 112px; flex-direction: column; gap: 0; align-items: flex-start; padding: 0 16px 8px; }

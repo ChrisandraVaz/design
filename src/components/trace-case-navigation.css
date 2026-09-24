@@ -17,7 +17,8 @@
 .trace-contact-footer nav { display:flex; gap:24px; }
 .trace-contact-footer a { min-height:44px; display:inline-flex; text-decoration:none; }
 @media(min-width:1280px) { .trace-case.trace-has-navigation { width:calc(100% - 360px); padding-inline:0; } }
-@media(max-width:1279px) { .trace-case-tree { display:none; } }
+@media(max-width:1279px) { .trace-case-tree { left: 12px; width: 112px; } .trace-case-tree a { font-size: 9px; } }
+@media(max-width:1099px) { .trace-case-tree { display:none; } }
 @media(max-width:1100px) { .trace-case-top { height:128px; align-items:flex-end; padding-bottom:12px; }.trace-case-back { top:10px; }.trace-case.trace-has-navigation { padding-top:168px; }.trace-has-navigation [id] { scroll-margin-top:152px; } }
 @media(max-width:700px) { .trace-case-back { left:16px; font-size:12px; }.trace-case-tabs { gap:0; }.trace-case-tabs a { font-size:12px; padding-inline:12px; }.trace-contact-footer { flex-direction:column; gap:16px; } }
 @media(prefers-reduced-motion:reduce) { .trace-case-branches { transition:none; } }

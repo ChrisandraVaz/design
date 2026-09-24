@@ -629,16 +629,21 @@ function SplitCase() {
         <span className="se-contract-connector" aria-hidden="true">↔</span>
         <article><span className="trace-kicker">Drag handle</span><h3>How resizing behaves</h3><p>Rest + hover<br />Focus + active<br />Reusable across parent layouts</p></article>
       </div>
-      <div className="se-handle-study">
-        {["Rest", "Hover", "Focus", "Active"].map((state, i) => (
-          <figure key={state}>
-            <div data-state={i}>
-              <span>Sized pane</span>
-              <i />
-              <span>Fill pane</span>
-            </div>
-            <figcaption>{state}</figcaption>
-          </figure>
+      <div className="se-handle-study" aria-label="Drag handle states in both orientations">
+        {(["vertical", "horizontal"] as const).map((orientation) => (
+          <div className={`se-handle-row is-${orientation}`} key={orientation}>
+            <p className="se-handle-row-label">{orientation === "vertical" ? "Vertical handle · horizontal split" : "Horizontal handle · vertical split"}</p>
+            {[["Rest", 0], ["Hover", 1], ["Active", 3], ["Focus", 2]].map(([state, code]) => (
+              <figure key={`${orientation}-${state}`}>
+                <div data-state={code} data-orientation={orientation}>
+                  <span>Sized pane</span>
+                  <i />
+                  <span>Fill pane</span>
+                </div>
+                <figcaption>{state}</figcaption>
+              </figure>
+            ))}
+          </div>
         ))}
       </div>
       <Narrative

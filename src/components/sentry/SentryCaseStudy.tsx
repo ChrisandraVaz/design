@@ -29,7 +29,7 @@ const openingDeks: Record<SentryProjectId, string> = {
   "send-to-agent": "Designing the product contract between Sentry’s debugging agent and the coding agent where a developer continues the work.",
   "message-queuing": "",
   "split-panel": "",
-  "relative-time": "A shared way to read time across Sentry’s issues, traces, and logs, shipped to production at the end of the internship.",
+  "relative-time": "",
 };
 function Narrative({
   id,

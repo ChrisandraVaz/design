@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useSyncExternalStore } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import { applyTypeVariant, ensureTypeTestFonts, typeVariants } from '@/lib/typeVariants';
 import './type-switcher.css';
 
@@ -14,7 +14,9 @@ function readStored(): string {
   try {
     const params = new URLSearchParams(window.location.search);
     if (params.has('typetest')) localStorage.setItem(KEY, params.get('typetest') === '0' ? '' : (localStorage.getItem(KEY) || 'crimson'));
-    return localStorage.getItem(KEY) || '';
+    const stored = localStorage.getItem(KEY);
+    if (stored === null && /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return 'crimson'; // always on for local review
+    return stored || '';
   } catch { return ''; }
 }
 function write(next: string) { try { localStorage.setItem(KEY, next); } catch {} notify(); }
@@ -22,6 +24,7 @@ function write(next: string) { try { localStorage.setItem(KEY, next); } catch {}
 /** Type-system switcher for real pages. Open any case study with ?typetest=1; ?typetest=0 or the × turns it off. */
 export default function TypeSwitcher() {
   const id = useSyncExternalStore(subscribe, readStored, () => '');
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     if (!id) { applyTypeVariant(null); return; }
     ensureTypeTestFonts();
@@ -29,11 +32,13 @@ export default function TypeSwitcher() {
     return () => applyTypeVariant(null);
   }, [id]);
   if (!id) return null;
+  const current = typeVariants.find(v => v.id === id)?.name ?? id;
+  if (!open) return <button type="button" className="type-switcher-pill" onClick={() => setOpen(true)}>Type: {current}</button>;
   return (
     <aside className="type-switcher" aria-label="Type test">
-      <div className="type-switcher-head"><strong>Type test</strong><button type="button" onClick={() => write('')} aria-label="Close type test">×</button></div>
+      <div className="type-switcher-head"><strong>Type test</strong><span><button type="button" onClick={() => setOpen(false)} aria-label="Collapse">–</button><button type="button" onClick={() => write('')} aria-label="Turn off type test">×</button></span></div>
       <ul>
-        {typeVariants.map(v => <li key={v.id}><button type="button" aria-pressed={id === v.id} onClick={() => write(v.id)}>{v.name}</button></li>)}
+        {typeVariants.map(v => <li key={v.id}><button type="button" aria-pressed={id === v.id} onClick={() => { write(v.id); setOpen(false); }}>{v.name}</button></li>)}
       </ul>
     </aside>
   );

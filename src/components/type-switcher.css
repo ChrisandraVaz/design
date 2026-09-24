@@ -1,3 +1,4 @@
+.type-switcher-pill { position: fixed; right: 16px; bottom: 16px; z-index: 9999; padding: 8px 12px; border: 0; border-radius: 999px; background: #111; color: #f4f4f6; font: 12px/1.2 Inter, system-ui, sans-serif; cursor: pointer; box-shadow: 0 10px 30px -12px #000; }
 .type-switcher { position: fixed; right: 16px; bottom: 16px; z-index: 9999; width: 260px; max-height: 70vh; overflow: auto; padding: 10px 10px 8px; border-radius: 10px; background: #111; color: #f4f4f6; font: 12px/1.4 Inter, system-ui, sans-serif; box-shadow: 0 16px 40px -16px #000; }
 .type-switcher-head { display: flex; justify-content: space-between; align-items: center; padding: 2px 4px 8px; }
 .type-switcher-head button { background: none; border: 0; color: inherit; font-size: 16px; cursor: pointer; width: 28px; height: 28px; }

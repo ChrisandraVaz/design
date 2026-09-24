@@ -101,8 +101,8 @@ export default function SendToAgentCaseStudy() {
     </nav>
     <div className="agent-story-content">
       <header id="overview" className="agent-story-opening">
-        <p className="agent-story-label">Sentry, Product design internship, 2026</p>
-        <h1>Send to Agent</h1>
+        <p className="agent-story-label">Sentry AI/ML Rotation, 2026</p>
+        <h1>Seer Agent: Send to Agent Feature</h1>
         <figure className="agent-story-hero">
           <div className="agent-story-cover"><div className="agent-story-film"><AgentMotionPreview showCompletedQuery containFrame /></div></div>
         </figure>

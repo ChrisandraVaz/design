@@ -18,7 +18,7 @@ export default function SentryCard({ kind }: { kind: SentryProjectId }) {
         <div className="sentry-preview-art" aria-hidden="true">
           <SentryDemo kind={kind} compact />
         </div>
-        {kind !== "message-queuing" && <span className="card-kind">Sentry Internship</span>}
+        <span className="card-kind">Sentry Internship · Case Study</span>
       </Link>
     </div>
   );

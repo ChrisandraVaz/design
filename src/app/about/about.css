@@ -9,8 +9,8 @@ html[data-theme=dark] .about-page { --about-ink:#f4f4f6; --about-copy:#b4b4bc; -
 .about-hero { min-height:calc(100vh - 96px - 72px - 120px); display:grid; grid-template-columns:minmax(0,1.25fr) minmax(320px,.9fr); gap:48px; align-items:start; margin-bottom:24px; }
 .about-intro { max-width:680px; }
 .about-page { --about-display:"Helvetica Neue",Helvetica,Arial,sans-serif; }
-.about-page .about-kicker { font-family:var(--about-display); font-size:clamp(34px,4.4vw,56px); line-height:1.05; letter-spacing:-.03em; font-weight:700; color:var(--about-muted); margin:0; }
-.about-page h1 { font-family:var(--about-display); font-size:clamp(38px,4.4vw,56px); line-height:1.05; letter-spacing:-.03em; font-weight:700; margin:0 0 36px; }
+.about-page .about-kicker { font-family:var(--about-display); font-size:clamp(34px,4.4vw,56px); line-height:1.05; letter-spacing:-.03em; font-weight:600; color:var(--about-muted); margin:0; }
+.about-page h1 { font-family:var(--about-display); font-size:clamp(38px,4.4vw,56px); line-height:1.05; letter-spacing:-.03em; font-weight:600; margin:0 0 36px; }
 .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 .about-hero-pile { position:relative; min-height:560px; }
 .about-page .about-pile-label { font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--about-muted); text-align:right; margin:0 0 20px; }

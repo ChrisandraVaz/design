@@ -4,7 +4,7 @@ for(const width of [390,768,1440]) for(const route of ['/about','/projects/sentr
  await page.goto(route,{waitUntil:'domcontentloaded'});
  await expect(page.locator('h1')).toBeVisible();
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
- await expect(page.getByRole('navigation',{name:'Portfolio navigation'}).getByRole('link',{name:'About',exact:true})).toHaveAttribute('href','/about');
+ const siteNav=page.getByRole('navigation',{name:'Portfolio navigation'}); if(route==='/about'){await expect(siteNav.locator('[aria-current="page"]')).toHaveText('About');}else{await expect(siteNav.getByRole('link',{name:'About',exact:true})).toHaveAttribute('href','/about');}
  if(route!='/about'){
   // Takeaway articles (.story-lessons) intentionally reserve an icon column, so their paragraphs are excluded here.
   const narrowParagraphs=await page.locator('.se-narrative .trace-ecosystem-copy p,.se-chapter > p').evaluateAll(elements=>elements.filter(el=>Math.abs(el.getBoundingClientRect().width-el.parentElement!.getBoundingClientRect().width)>2).map(el=>el.textContent?.slice(0,60)));

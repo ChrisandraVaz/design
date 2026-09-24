@@ -29,7 +29,7 @@ test("Sentry replaces Location and keeps News in both views", async ({
     ).toHaveCount(0);
     await expect(page.locator('.scatter-3 .sentry-preview-relative-time')).toHaveCount(1);
     await expect(page.locator('.scatter-5 .news')).toContainText('News stories');
-    expect(await page.locator('.scatter-3 .relative-time-reference').evaluate(el=>getComputedStyle(el,'::before').backgroundImage)).toContain('send-to-agent-background.png');
+    expect(await page.locator('.scatter-3 .relative-time-reference').evaluate(el=>getComputedStyle(el,'::before').backgroundImage)).toContain('send-to-agent-background.jpg');
     await expect(page.locator('.scatter-sentry .card-kind')).toHaveCount(4);
     for (const badge of await page.locator('.scatter-sentry .card-kind').all())
       await expect(badge).toHaveText('Sentry Internship · Case Study');

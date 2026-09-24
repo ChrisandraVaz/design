@@ -1,5 +1,5 @@
 .queue-flow { margin-top:32px; }
-.qf-stage { padding:28px; background:#b99ae3 url('/assets/sentry/send-to-agent-background.png') center/cover; border-radius:4px; }
+.qf-stage { padding:28px; background:#b99ae3 url('/assets/sentry/send-to-agent-background.jpg') center/cover; border-radius:4px; }
 .qf-window { width:min(100%,520px); height:620px; margin:auto; background:white; color:#302d38; border:1px solid #e4e3e8; border-radius:4px; display:flex; flex-direction:column; font:12px/1.45 Arial,sans-serif; }
 .qf-header { display:flex; align-items:center; gap:8px; padding:12px; border-bottom:1px solid #ecebf0; flex-shrink:0; }
 .qf-header b { background:#ffdf00; font-size:10px; padding:1px 3px; border-radius:4px; }

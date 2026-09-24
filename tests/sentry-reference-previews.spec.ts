@@ -161,7 +161,7 @@ test('Relative Time uses the full image and balanced tooltip gutters',async({pag
   const css=getComputedStyle(el,'::before'),frame=el.getBoundingClientRect(),tip=el.querySelector('.is-current .rt-specimen')!.getBoundingClientRect();
   return {image:css.backgroundImage,filter:css.filter,rotation:css.transform,left:tip.left-frame.left,right:frame.right-tip.right,top:tip.top-frame.top,bottom:frame.bottom-tip.bottom};
  });
- expect(visual.image).toContain('send-to-agent-background.png');expect(visual.filter).not.toContain('blur');
+ expect(visual.image).toContain('send-to-agent-background.jpg');expect(visual.filter).not.toContain('blur');
  expect(visual.rotation).toBe('matrix(0, -1, 1, 0, 0, 0)');
  expect(Math.abs(visual.left-visual.right)).toBeLessThan(1);
  expect(Math.abs(visual.top-visual.bottom)).toBeLessThan(1);

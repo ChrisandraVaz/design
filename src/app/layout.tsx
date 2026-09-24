@@ -58,6 +58,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/assets/favicon.png" type="image/png" sizes="32x32" />
+        {/* The gradient sits behind every Sentry card and hero; fetch it before the stylesheet asks for it. */}
+        <link rel="preload" as="image" href="/assets/sentry/send-to-agent-background.jpg" fetchPriority="high" />
       </head>
       <body className={`${inter.variable} ${ibmPlexMono.variable} ${roboto.variable} ${rubik.variable} ${caveat.variable} antialiased`}>{children}</body>
     </html>

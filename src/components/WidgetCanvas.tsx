@@ -544,7 +544,7 @@ export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' 
           <div className="card shader">
             <div className="grass-grid">
               <div className="photo wind-field-art">
-                <img src="/widget-images/wind-field.png" alt="Four figures in a wind-shaped field of grass" draggable={false} />
+                <img src="/widget-images/wind-field.jpg" alt="Four figures in a wind-shaped field of grass" draggable={false} />
               </div>
               {recordingPreview ? (
                 <>
@@ -612,7 +612,7 @@ export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' 
         <section {...movable('paint')} className="scatter-item scatter-paint" aria-label="Microsoft Paint recreation">
           <div className="widget-label card-heading"><span>Microsoft Paint Recreation</span><CardArrow href="https://chrisandravaz.github.io/Microsoft-Paint/" label="Open Microsoft Paint recreation" external/></div>
           <a className="portfolio-experiment-card paint-card" href="https://chrisandravaz.github.io/Microsoft-Paint/" target="_blank" rel="noreferrer" aria-label="Open Microsoft Paint recreation">
-            <video src="/assets/microsoftpaint.mp4" autoPlay loop muted playsInline preload="metadata" />
+            <video src="/assets/microsoftpaint-540.mp4" autoPlay loop muted playsInline preload="metadata" />
             <span className="card-kind component-kind">Experiment</span>
           </a>
         </section>

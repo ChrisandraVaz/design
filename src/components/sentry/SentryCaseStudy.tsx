@@ -812,7 +812,7 @@ function TimeCase() {
         <p>I reviewed those patterns with design engineers and separated the shared structure from the content it hosts. The wrapper and pointer form the shell; header, body, and footer rows are composable primitives. Relative time is one composition. A chart or latency tooltip can reuse the same structure without inheriting fields it does not need.</p>
       </Narrative>
 
-      <Source file="time-figma-audit.png" width={12293} height={10104} caption="My working audit of timestamp and chart tooltips, including product captures and design notes. Open the image to inspect the board." />
+      <Source file="time-figma-audit.jpg" width={4000} height={3288} caption="My working audit of timestamp and chart tooltips, including product captures and design notes. Open the image to inspect the board." />
       <Narrative
         id="component-design" label="Component design"
         title="Building reusable tooltip rows"
@@ -831,7 +831,7 @@ function TimeCase() {
       <Chapter id="try-it" label="Component family" title="Explore the tooltip variants">
         <p>Browse the eight variants shown in the cover preview. Use the arrows below or the left and right keys while the viewer is focused.</p>
         <RelativeTimeGallery />
-        <Source file="time-figma-table.png" width={5063} height={6727} caption="Before-and-after explorations, organized by product surface with the reasoning for each variation. Open the board to inspect the details." />
+        <Source file="time-figma-table.jpg" width={3011} height={4000} caption="Before-and-after explorations, organized by product surface with the reasoning for each variation. Open the board to inspect the details." />
       </Chapter>
       <Narrative
         id="library-handoff" label="Design-system organization"

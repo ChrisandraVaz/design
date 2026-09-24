@@ -13,7 +13,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: url("/assets/sentry/send-to-agent-background.png") center / cover no-repeat;
+  background: url("/assets/sentry/send-to-agent-background.jpg") center / cover no-repeat;
   transform: translate3d(0, 0, 0);
 }
 .agent-film-camera {

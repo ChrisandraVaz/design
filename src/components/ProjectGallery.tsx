@@ -47,7 +47,7 @@ const projects = [
     title: "Microsoft Paint Recreation",
     subtitle: "A browser study in familiar tools and playful constraints.",
     tag: "Design engineering",
-    image: "/assets/microsoftpaint.mp4",
+    image: "/assets/microsoftpaint-540.mp4",
     bgColor: "#d9e6f5",
     href: "https://chrisandravaz.github.io/Microsoft-Paint/",
   },

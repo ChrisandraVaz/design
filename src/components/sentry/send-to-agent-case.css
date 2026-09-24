@@ -47,7 +47,7 @@
 .case-design .agent-story h3 { font-size: 20px; line-height: 1.4; margin: 32px 0 16px; }
 .agent-story-content > header > p:not(.agent-story-label), .agent-story-section > p:not(.agent-story-label), .agent-story-takeaway p { color: var(--story-copy); max-width: 100%; margin: 0 0 16px; font-size: 16px; line-height: 28px; }
 .agent-story-hero { margin: 0 0 32px; position: relative; }
-.agent-story-cover { height: clamp(240px, 40vw, 360px); display: flex; justify-content: center; overflow: hidden; border-radius: 4px; background: #ab88ed url("/assets/sentry/send-to-agent-background.png") center / cover no-repeat; }
+.agent-story-cover { height: clamp(240px, 40vw, 360px); display: flex; justify-content: center; overflow: hidden; border-radius: 4px; background: #ab88ed url("/assets/sentry/send-to-agent-background.jpg") center / cover no-repeat; }
 .agent-story-film { width: auto; height: 100%; aspect-ratio: 0.94; overflow: hidden; }
 .agent-story-film .agent-film { background: transparent; }
 .agent-story-film .agent-film-backdrop { background: none; }
@@ -127,7 +127,7 @@
 .case-design .agent-story .agent-solution-copy h3 { font-size: 26px; margin: 0 0 20px; line-height: 1.2; }
 .agent-solution-copy > p:not(.agent-story-label) { color: var(--story-copy); font-size: 15px; line-height: 1.75; margin: 0 0 16px; }
 .agent-solution-copy .agent-solution-detail { padding-top: 18px; margin-top: 24px; border-top: 0; font-size: 12px; }
-.agent-handoff-preview { padding: 26px; border-radius: 6px; background: #d8c9f1 url('/assets/sentry/send-to-agent-background.png') center / cover; overflow: hidden; }
+.agent-handoff-preview { padding: 26px; border-radius: 6px; background: #d8c9f1 url('/assets/sentry/send-to-agent-background.jpg') center / cover; overflow: hidden; }
 .agent-handoff-window { position: relative; height: 420px; border-radius: 6px; background: white; box-shadow: 0 12px 32px -16px #36225166; }
 .agent-handoff-window > .agent-reference { height: 100%; border-radius: 6px; }
 .agent-handoff-preview .agent-reference-window { height: 100%; }

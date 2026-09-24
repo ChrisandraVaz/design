@@ -1363,7 +1363,7 @@ export default function SeranoCafeCaseStudy() {
 
           <div className="hero-image">
             <Image
-              src="/assets/sernaobakerymockup.png"
+              src="/assets/sernaobakerymockup.jpg"
               alt="Serano Cafe website redesign mockup"
               width={800}
               height={450}
@@ -1422,7 +1422,7 @@ export default function SeranoCafeCaseStudy() {
             <div className="image-container">
               <p className="image-label">Final Homepage: Clear, Warm, and True to Serano</p>
               <Image
-                src="/assets/serano/seranobakerysolution.png"
+                src="/assets/serano/seranobakerysolution.jpg"
                 alt="Serano Cafe Final Solution"
                 width={800}
                 height={450}
@@ -1830,7 +1830,7 @@ export default function SeranoCafeCaseStudy() {
             <div className="image-container">
               <p className="image-label">Final High-Fidelity System: Cohesive, Warm, and Accessible</p>
               <Image
-                src="/assets/serano/All Screens Overview.png"
+                src="/assets/serano/all-screens-overview.jpg"
                 alt="All Screens Overview"
                 width={900}
                 height={600}
@@ -1840,7 +1840,7 @@ export default function SeranoCafeCaseStudy() {
 
             <div className="image-container">
               <Image
-                src="/assets/serano/seranobakerysolution.png"
+                src="/assets/serano/seranobakerysolution.jpg"
                 alt="Serano Cafe Homepage Design"
                 width={900}
                 height={600}

@@ -13,7 +13,7 @@ html[data-theme=dark] body:has(.se-story-polished) { background:#000; }
 .case-design .trace-case.travel-case.se-story-polished .trace-project-facts { margin:32px 0; color:var(--story-ink); }
 .case-design .trace-case.travel-case.se-story-polished .trace-project-facts dt { color:var(--story-muted); }
 .case-design .trace-case.travel-case.se-story-polished .trace-project-facts dd { color:var(--story-ink); }
-.case-design .trace-case.travel-case.se-story-polished .se-hero-art { min-height:0; padding:32px; border-radius:4px; background:#b391e9 url('/assets/sentry/send-to-agent-background.png') center/cover; }
+.case-design .trace-case.travel-case.se-story-polished .se-hero-art { min-height:0; padding:32px; border-radius:4px; background:#b391e9 url('/assets/sentry/send-to-agent-background.jpg') center/cover; }
 .case-design .trace-case.travel-case.se-story-polished .se-hero-relative-time { padding:0; }
 .se-story-polished .se-source { max-width:100%; margin:32px 0; }
 .se-story-polished .se-source img { width:100%; max-height:430px; object-fit:contain; }
@@ -157,7 +157,7 @@ html[data-theme=dark] .case-design:has(.se-story-polished) { background:#000; }
 .se-story-polished .se-hero-message-queuing .sentry-queue.is-compact :is(.queue-item,.queue-composer) { font-size:11px; }
 .se-story-polished .se-hero-message-queuing .queue-conversation { padding:16px; gap:16px; min-height:0; }
 .se-story-polished .se-hero-message-queuing .queue-bottom { padding:0 12px 12px; }
-.case-design .trace-case.travel-case.se-story-polished .se-live-message-queuing .sentry-live-demo { display:flex; justify-content:center; padding:28px; background:#b391e9 url('/assets/sentry/send-to-agent-background.png') center/cover; border:0; border-radius:4px; }
+.case-design .trace-case.travel-case.se-story-polished .se-live-message-queuing .sentry-live-demo { display:flex; justify-content:center; padding:28px; background:#b391e9 url('/assets/sentry/send-to-agent-background.jpg') center/cover; border:0; border-radius:4px; }
 .se-live-message-queuing .sentry-live-demo > .sentry-queue { width:100%; max-width:460px; height:480px; min-height:0; border-radius:4px; overflow:hidden; }
 .case-design .trace-case.travel-case.se-case-message-queuing .se-concept-decisions { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
 .case-design .trace-case.travel-case.se-case-message-queuing .se-concept-decisions figure { padding:28px; border:1px solid var(--story-border); border-radius:4px; background:var(--story-surface); }

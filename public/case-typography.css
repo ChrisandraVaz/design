@@ -315,7 +315,6 @@ html[data-type] :is(.case-design,.case-standalone) { --case-heading-font: var(--
 html[data-type] :is(.case-design,.case-standalone) :is(h1,h2,h3,h4) { font-weight: var(--tt-heading-weight, 600) !important; font-style: var(--tt-heading-style, normal); }
 html[data-type] .case-design h1 { font-family: var(--tt-heading) !important; }
 
-/* Space Grotesk sets wide, so long h1 and h2 titles use Instrument Sans with tight tracking for balance. h3 and takeaway headings keep Space Grotesk. */
+/* Space Grotesk stays on every heading; the big h1 and h2 titles only get tighter tracking and a slightly smaller size. */
 html[data-type="spacegrotesk"] :is(.case-design,.case-standalone) { --case-title-size: clamp(34px, 3.8vw, 46px); --case-section-size: clamp(28px, 2.9vw, 34px); }
-html[data-type="spacegrotesk"] :is(.case-design,.case-standalone) :is(h1,h2),
-html[data-type="spacegrotesk"] .case-design h1 { font-family: "Instrument Sans", "Hanken Grotesk", sans-serif !important; letter-spacing: -.035em !important; font-weight: 600 !important; }
+html[data-type="spacegrotesk"] :is(.case-design,.case-standalone) :is(h1,h2) { letter-spacing: -.05em !important; word-spacing: -.06em; font-weight: 500 !important; }

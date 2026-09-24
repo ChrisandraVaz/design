@@ -1994,7 +1994,8 @@
   </script>
 <link rel="stylesheet" href="/case-site-controls.css">
 <script src="/case-site-controls.js" defer></script>
-<link rel="stylesheet" href="/case-typography.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/case-typography.css">
 </head>
 <body class="case-standalone case-fontcontext">
   <div class="container">
@@ -3125,6 +3126,27 @@
 
     // Initial calls
     document.addEventListener('DOMContentLoaded', updateActiveLinks);
+  </script>
+
+  <script>
+  (function(){
+    var KEY='portfolio-typetest';
+    var V=[["helvetica","Helvetica Neue (previous)",'"Helvetica Neue",Helvetica,Arial,sans-serif','"Helvetica Neue",Helvetica,Arial,sans-serif','"IBM Plex Mono",monospace',700,0],["crimson","Crimson Text + Hanken (current)",'"Crimson Text",Georgia,serif','"Hanken Grotesk",sans-serif','"IBM Plex Mono",monospace',600,0],["instrument","Instrument Serif italic + Inter",'"Instrument Serif",Georgia,serif','Inter,sans-serif','"IBM Plex Mono",monospace',400,1],["geist","Geist + Geist Mono",'Geist,sans-serif','Geist,sans-serif','"Geist Mono",monospace',600,0],["newsreader","Newsreader + Inter + JetBrains Mono",'Newsreader,Georgia,serif','Inter,sans-serif','"JetBrains Mono",monospace',500,0],["spacegrotesk","Space Grotesk + Instrument Sans + Space Mono",'"Space Grotesk",sans-serif','"Instrument Sans",sans-serif','"Space Mono",monospace',600,0],["fraunces","Fraunces + Instrument Sans",'Fraunces,Georgia,serif','"Instrument Sans",sans-serif','"IBM Plex Mono",monospace',500,0],["hanken","Hanken Grotesk everywhere",'"Hanken Grotesk",sans-serif','"Hanken Grotesk",sans-serif','"IBM Plex Mono",monospace',600,0],["sentient","Sentient + Hanken",'Sentient,Georgia,serif','"Hanken Grotesk",sans-serif','"IBM Plex Mono",monospace',500,0],["redhat","Red Hat Display + Hanken",'"Red Hat Display",sans-serif','"Hanken Grotesk",sans-serif','"IBM Plex Mono",monospace',600,0],["editorialnew","Editorial New (local) + Hanken",'"PP Editorial New","Editorial New",Georgia,serif','"Hanken Grotesk",sans-serif','"IBM Plex Mono",monospace',400,0],["sfrounded","SF Pro Rounded (Mac) + Hanken",'"SF Pro Rounded",ui-rounded,-apple-system,sans-serif','"Hanken Grotesk",sans-serif','"IBM Plex Mono",monospace',600,0],["garamond","Apple Garamond (local) + Hanken",'"Apple Garamond","Garamond Becker No2",Garamond,"EB Garamond",Georgia,serif','"Hanken Grotesk",sans-serif','"IBM Plex Mono",monospace',400,0]];
+    var LINKS=['https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,wght@0,400;0,500;1,400&family=Space+Grotesk:wght@400;500;600&family=Space+Mono&family=Geist:wght@400;500;600&family=Geist+Mono&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,wght@0,400;0,500;1,400&family=Red+Hat+Display:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap','https://api.fontshare.com/v2/css?f[]=sentient@400,500&display=swap'];
+    var params=new URLSearchParams(location.search);
+    try{ if(params.has('typetest')) localStorage.setItem(KEY, params.get('typetest')==='0'?'':(localStorage.getItem(KEY)||'crimson')); }catch(e){}
+    var id; try{ id=localStorage.getItem(KEY); }catch(e){}
+    if(!id) return;
+    LINKS.forEach(function(h){ var l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); });
+    var root=document.documentElement;
+    function apply(v){ if(!v){ root.removeAttribute('data-type'); return; } root.dataset.type=v[0]; root.style.setProperty('--tt-heading',v[2]); root.style.setProperty('--tt-body',v[3]); root.style.setProperty('--tt-label',v[4]); root.style.setProperty('--tt-heading-weight',String(v[5])); root.style.setProperty('--tt-heading-style',v[6]?'italic':'normal'); }
+    function find(x){ for(var i=0;i<V.length;i++) if(V[i][0]===x) return V[i]; return null; }
+    apply(find(id));
+    var css='.type-switcher{position:fixed;right:16px;bottom:16px;z-index:9999;width:260px;max-height:70vh;overflow:auto;padding:10px 10px 8px;border-radius:10px;background:#111;color:#f4f4f6;font:12px/1.4 Inter,system-ui,sans-serif;box-shadow:0 16px 40px -16px #000}.type-switcher-head{display:flex;justify-content:space-between;align-items:center;padding:2px 4px 8px}.type-switcher-head button{background:none;border:0;color:inherit;font-size:16px;cursor:pointer;width:28px;height:28px}.type-switcher ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}.type-switcher li button{width:100%;text-align:left;background:none;border:0;color:inherit;padding:7px 8px;border-radius:6px;cursor:pointer;font:inherit}.type-switcher li button:hover{background:#222}.type-switcher li button[aria-pressed="true"]{background:#7951ff;color:#fff}';
+    var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
+    function render(){ var a=document.createElement('aside'); a.className='type-switcher'; a.innerHTML='<div class="type-switcher-head"><strong>Type test</strong><button type="button" aria-label="Close type test">×</button></div><ul>'+V.map(function(v){return '<li><button type="button" data-id="'+v[0]+'" aria-pressed="'+(v[0]===id)+'">'+v[1]+'</button></li>';}).join('')+'</ul>'; document.body.appendChild(a); a.querySelector('.type-switcher-head button').onclick=function(){ try{localStorage.setItem(KEY,'');}catch(e){} apply(null); a.remove(); }; a.querySelectorAll('li button').forEach(function(b){ b.onclick=function(){ id=b.dataset.id; try{localStorage.setItem(KEY,id);}catch(e){} apply(find(id)); a.querySelectorAll('li button').forEach(function(x){x.setAttribute('aria-pressed', String(x===b));}); }; }); }
+    if(document.body) render(); else document.addEventListener('DOMContentLoaded', render);
+  })();
   </script>
 </body>
 </html>

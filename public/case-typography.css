@@ -1,31 +1,35 @@
 /* Editorial typography only. Product previews retain their own type systems. */
 :is(.case-design, .case-standalone) {
-  --case-editorial-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --case-title-size: clamp(34px, 4vw, 48px);
-  --case-section-size: clamp(28px, 3vw, 36px);
+  --case-editorial-font: var(--font-hanken, "Hanken Grotesk"), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --case-heading-font: var(--font-crimson, "Crimson Text"), Georgia, "Times New Roman", serif;
+  --case-title-size: clamp(36px, 4.2vw, 52px);
+  --case-section-size: clamp(30px, 3.2vw, 38px);
 }
 :is(.case-design, .case-standalone) :is(h1,h2,h3,h4,p,li,dt,dd,figcaption,blockquote):not(:where(.sentry-demo *, .sentry-preview-card *, .agent-film *, .agent-handoff-preview *, .rt-specimen *, .queue-flow *, .queue-concept-sketch *, .travel-glance *, .trace-watch *, pre *, code *)) {
   font-family:var(--case-editorial-font)!important;
 }
 :is(.case-design, .case-standalone) h1 {
+  font-family:var(--case-heading-font)!important;
   font-size:var(--case-title-size)!important;
-  font-weight:700!important;
+  font-weight:600!important;
   line-height:1.1!important;
-  letter-spacing:-.03em!important;
+  letter-spacing:-.015em!important;
   text-wrap:balance;
 }
 :is(.case-design, .case-standalone) h2:not(:where(.sentry-demo *, .agent-handoff-preview *, .queue-flow *, .related-studies *)) {
+  font-family:var(--case-heading-font)!important;
   font-size:var(--case-section-size)!important;
-  font-weight:700!important;
-  line-height:1.1!important;
-  letter-spacing:-.03em!important;
+  font-weight:600!important;
+  line-height:1.12!important;
+  letter-spacing:-.015em!important;
   text-wrap:balance;
 }
 :is(.case-design, .case-standalone) :is(h3,h4):not(:where(.sentry-demo *, .agent-handoff-preview *, .queue-flow *, .rt-specimen *)) {
-  font-size:24px!important;
-  font-weight:700!important;
-  line-height:1.1!important;
-  letter-spacing:-.012em!important;
+  font-family:var(--case-heading-font)!important;
+  font-size:26px!important;
+  font-weight:600!important;
+  line-height:1.15!important;
+  letter-spacing:-.01em!important;
 }
 /* Reading copy fills the authored column; no new narrow text containers. */
 :is(.case-design, .case-standalone) :is(.section-text,.ibm-section-text,.td-section-text,.fb-text,.trace-ecosystem-copy > p,.agent-story-opening > p:not(.agent-story-label),.agent-story-section > p:not(.agent-story-label),.se-chapter > p,.story-queue-solution > div > p) {
@@ -153,7 +157,7 @@ html[data-theme=dark] .case-design .agent-story { --editorial-accent:#ff6b24; }
 .case-standalone { --editorial-accent:#e64800; }
 html[data-theme=dark] .case-standalone { --editorial-accent:#ff6b24; }
 :is(.case-design,.case-standalone) :is(.project-meta,.ibm-project-meta,.td-project-meta,.fb-meta,.section-label,.ibm-section-label,.td-section-label,.fb-label,.trace-kicker,.agent-story-label,.agent-segment-label,.info-item h4,.trace-project-facts dt,.agent-story-facts dt) {
-  font-family:var(--font-ibm-plex-mono,"IBM Plex Mono"),monospace!important;
+  font-family:var(--case-label-font,var(--font-ibm-plex-mono,"IBM Plex Mono")),monospace!important;
   font-size:11px!important; font-weight:500!important; line-height:1.5!important;
   letter-spacing:.08em!important; text-transform:uppercase!important;
   color:var(--editorial-muted)!important;
@@ -290,7 +294,12 @@ html[data-theme=dark] .case-design .agent-story { --editorial-accent:#b889ff; }
 
 /* FontContext uses bright orange for editorial marks, not card surfaces. */
 body.case-fontcontext,
-html[data-theme=dark] body.case-fontcontext { --editorial-accent:#ff5a00; }
+html[data-theme=dark] body.case-fontcontext {
+  --editorial-accent:#ff5a00;
+  /* One accent only: the Figma blue tokens resolve to the orange family so tiles, rules and buttons match the icons. */
+  --figma-blue:#ff5a00; --figma-blue-hover:#e04f00; --figma-blue-50:rgba(255,90,0,.5); --figma-blue-light:#fff1ea;
+}
+html[data-theme=dark] body.case-fontcontext { --figma-blue-light:rgba(255,90,0,.14); }
 .case-fontcontext .attempt-visual svg,
 .case-fontcontext :is(.stat-icon,.metric-icon,.bolt-icon,.decision-icon,.story-icon) {
   color:var(--editorial-accent)!important;
@@ -298,3 +307,8 @@ html[data-theme=dark] body.case-fontcontext { --editorial-accent:#ff5a00; }
 .case-fontcontext :is(.font-research-quote,.font-original-question) {
   border-left-color:var(--editorial-accent)!important;
 }
+
+/* In-page type test (?typetest=1): the switcher writes these variables on <html>. */
+html[data-type] :is(.case-design,.case-standalone) { --case-heading-font: var(--tt-heading); --case-editorial-font: var(--tt-body); --case-label-font: var(--tt-label); }
+html[data-type] :is(.case-design,.case-standalone) :is(h1,h2,h3,h4) { font-weight: var(--tt-heading-weight, 600) !important; font-style: var(--tt-heading-style, normal); }
+html[data-type] .case-design h1 { font-family: var(--tt-heading) !important; }

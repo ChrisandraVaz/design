@@ -486,7 +486,8 @@
 .case-design .agent-decision-pipeline li span { display:block; font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; letter-spacing:.08em; font-weight:500; color:#936ce7; margin-bottom:10px; }
 .case-design .agent-decision-pipeline li strong { display:block; font-size:18px; line-height:1.25; letter-spacing:-.01em; margin-bottom:6px; }
 .case-design .agent-decision-pipeline li p { margin:0; font-size:14px; line-height:1.5; color:var(--story-muted,#6a6a70); }
-.case-design .agent-pipeline-note { margin:0 0 40px; font-size:14px; line-height:1.6; color:var(--story-muted,#6a6a70); }
+.case-design .agent-pipeline-lead { margin:0 0 20px; }
+.case-design .agent-decision-pipeline { margin-bottom:40px; }
 /* Confirmation copy table. */
 .case-design .agent-copy-table { width:100%; border-collapse:collapse; margin:24px 0 8px; font-size:14px; line-height:1.5; }
 .case-design .agent-copy-table caption { text-align:left; font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; letter-spacing:.08em; font-weight:500; text-transform:uppercase; color:var(--story-muted,#6a6a70); padding-bottom:10px; }

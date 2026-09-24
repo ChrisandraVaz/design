@@ -215,3 +215,12 @@ html[data-theme=dark] .case-design .trace-case.travel-case.se-story-polished .se
 .case-design .trace-case.travel-case.se-story-polished .se-handle-study { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 28px; }
 .case-design .trace-case.travel-case.se-story-polished .se-handle-study figure > div { height: 200px; font-size: 13px; }
 @media (max-width: 600px) { .case-design .trace-case.travel-case.se-story-polished .se-handle-study { grid-template-columns: 1fr; } }
+
+/* Specimens follow the Figma component: one white card, a hairline divider, no thumb. */
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study figure > div { grid-template-columns: 1fr 12px 1fr; padding: 0; border: 1px solid #e3e3e7; background: #fff; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study figure span { border: 0; border-radius: 0; padding: 14px; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study i { width: 1px; height: 100%; border-radius: 0; background: #dcdcdf; box-shadow: none; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study [data-state="1"] i { width: 2px; background: #a78bff; box-shadow: 0 0 0 2px rgba(167, 139, 255, .32); }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study [data-state="2"] i { width: 2px; background: #7951ff; box-shadow: 0 0 0 2px #fff, 0 0 0 4px #7951ff; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study [data-state="3"] i { width: 3px; background: #7951ff; box-shadow: none; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study [data-state="3"] i::after { content: none; }

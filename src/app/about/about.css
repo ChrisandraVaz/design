@@ -6,7 +6,7 @@ html[data-theme=dark] .about-page { --about-ink:#f4f4f6; --about-copy:#b4b4bc; -
 .about-page a { color:inherit; text-decoration:none; min-height:44px; display:inline-flex; align-items:center; }
 .about-page a:focus-visible { outline:2px solid #888; outline-offset:4px; }
 .about-content { width:min(1120px,calc(100% - 48px)); margin:auto; padding:72px 0 32px; }
-.about-hero { min-height:calc(100vh - 96px - 72px - 120px); display:grid; grid-template-columns:minmax(0,1.25fr) minmax(320px,.9fr); gap:48px; align-items:start; margin-bottom:24px; }
+.about-hero { min-height:calc(100vh - 96px - 72px - 48px); display:grid; grid-template-columns:minmax(0,1.25fr) minmax(320px,.9fr); gap:48px; align-items:start; margin-bottom:24px; }
 .about-intro { max-width:720px; }
 .about-page { --about-display:"Helvetica Neue",Helvetica,Arial,sans-serif; }
 .about-page .about-kicker { font-family:var(--about-display); font-size:clamp(30px,3.5vw,48px); line-height:1.06; letter-spacing:-.025em; font-weight:400; color:var(--about-muted); margin:0; }
@@ -24,7 +24,4 @@ html[data-theme=dark] .about-page { --about-ink:#f4f4f6; --about-copy:#b4b4bc; -
 @media(max-width:1000px) { .about-hero { grid-template-columns:1fr; gap:24px; } .about-hero-pile { min-height:0; } .about-page .about-pile-label { text-align:left; } .about-page .about-pile-hint { justify-content:flex-start; transform-origin:left top; transform:rotate(-4deg); margin:0 0 0 8px; } .about-pile { height:380px; margin-top:8px; } .about-pile-card { width:min(240px,64%); margin:-120px 0 0 -120px; } }
 .about-page p { font-size:16px; line-height:1.8; color:var(--about-copy); margin:0 0 20px; }
 .about-page .about-label { font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--about-muted); margin-bottom:16px; }
-.about-footer { margin-top:64px; padding-top:24px; border-top:1px solid #80808030; display:flex; justify-content:space-between; gap:24px; }
-.about-footer p,.about-footer a { font-size:13px; }
-.about-footer nav { display:flex; gap:24px; }
-@media(max-width:700px) { .about-top { height:80px; padding-inline:16px; align-items:flex-end; padding-bottom:12px; }.about-top>a { font-size:13px; }.about-content { width:calc(100% - 32px); padding-top:48px; }.about-footer { flex-direction:column; gap:0; }.about-footer p { margin-bottom:8px; } }
+@media(max-width:700px) { .about-top { height:80px; padding-inline:16px; align-items:flex-end; padding-bottom:12px; }.about-top>a { font-size:13px; }.about-content { width:calc(100% - 32px); padding-top:48px; } }

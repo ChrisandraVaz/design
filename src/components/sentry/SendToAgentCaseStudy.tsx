@@ -123,12 +123,12 @@ export default function SendToAgentCaseStudy() {
       </Chapter>
 
       <aside className="agent-design-question" aria-label="Design question"><span>Design question</span><p>How might we transfer enough context for another agent to continue the investigation without making developers rebuild it by hand?</p></aside>
+      <p className="agent-pipeline-lead">Three structural questions came before styling a single component. Every answer had a design implication, and every implication had an engineering constraint.</p>
       <ol className="agent-decision-pipeline" aria-label="Decision order">
         <li><span>01</span><strong>Where does it live?</strong><p>Navigation, message level, or a slash command.</p></li>
         <li><span>02</span><strong>What does it send?</strong><p>A single block, the full conversation, or something in between.</p></li>
         <li><span>03</span><strong>What happens after?</strong><p>The agent doesn’t send results back, so the chat has to confirm the handoff.</p></li>
       </ol>
-      <p className="agent-pipeline-note">I answered these structural questions before styling a single component. Every answer had a design implication, and every implication had an engineering constraint.</p>
       <Chapter id="solution" label="The solution" title="Two ways to send context to a coding agent">
 
         <SolutionDemos />

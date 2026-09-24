@@ -111,7 +111,7 @@ html[data-theme=dark] .case-design:has(.se-story-polished) { background:#000; }
 }
 
 /* Queue demo follows the original slide's neutral surfaces and purple action. */
-.case-design .trace-case.travel-case.se-story-polished .se-live-message-queuing .sentry-live-demo { width:100%; max-width:none; margin-inline:0; }
+.case-design .trace-case.travel-case.se-story-polished :is(.se-live-message-queuing,.se-live-split-panel) .sentry-live-demo { width:100%; max-width:none; margin-inline:0; }
 .se-live-message-queuing .sentry-queue { --sentry-ink:#302d38; --sentry-muted:#868490; --sentry-line:#e5e4e9; --sentry-soft:#f0f0f2; --sentry-purple:#7553ff; background:#fff; }
 .se-live-message-queuing .queue-item { background:#f0f0f2; color:#868490; border-color:#e5e4e9; border-radius:4px; }
 .se-live-message-queuing .sentry-user-message { background:#fafafa; border-color:#e5e4e9; color:#302d38; border-radius:4px; }

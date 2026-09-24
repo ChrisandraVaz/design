@@ -297,9 +297,11 @@ body.case-fontcontext,
 html[data-theme=dark] body.case-fontcontext {
   --editorial-accent:#ff5a00;
   /* One accent only: the Figma blue tokens resolve to the orange family so tiles, rules and buttons match the icons. */
-  --figma-blue:#ff5a00; --figma-blue-hover:#e04f00; --figma-blue-50:rgba(255,90,0,.5); --figma-blue-light:#fff1ea;
+  --figma-blue:#ff5a00; --figma-blue-hover:#e04f00; --figma-blue-50:rgba(255,90,0,.5);
+  /* Tinted surfaces (icon tiles, research block) are neutral light grey, not an orange wash. */
+  --figma-blue-light:#f4f4f6;
 }
-html[data-theme=dark] body.case-fontcontext { --figma-blue-light:rgba(255,90,0,.14); }
+html[data-theme=dark] body.case-fontcontext { --figma-blue-light:rgba(255,255,255,.07); }
 .case-fontcontext .attempt-visual svg,
 .case-fontcontext :is(.stat-icon,.metric-icon,.bolt-icon,.decision-icon,.story-icon) {
   color:var(--editorial-accent)!important;

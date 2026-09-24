@@ -14,11 +14,11 @@ export const typeVariants: TypeVariant[] = [
   { id: 'redhat', name: 'Red Hat Display + Hanken', heading: '"Red Hat Display", sans-serif', body: '"Hanken Grotesk", sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 600 },
   { id: 'editorialnew', name: 'Editorial New (local) + Hanken', heading: '"PP Editorial New", "Editorial New", Georgia, serif', body: '"Hanken Grotesk", sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 400 },
   { id: 'sfrounded', name: 'SF Pro Rounded (Mac) + Hanken', heading: '"SF Pro Rounded", ui-rounded, -apple-system, sans-serif', body: '"Hanken Grotesk", sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 600 },
-  { id: 'garamond', name: 'Apple Garamond (local) + Hanken', heading: '"Apple Garamond", "Garamond Becker No2", Garamond, "EB Garamond", Georgia, serif', body: '"Hanken Grotesk", sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 400 },
+  { id: 'garamond', name: 'Apple Garamond (local) + Hanken', heading: '"Apple Garamond", "Garamond Becker No2", Garamond, "EB Garamond", Georgia, serif', body: '"Hanken Grotesk", sans-serif', label: '"IBM Plex Mono", monospace', headingWeight: 700 },
 ];
 
 export const typeTestFontLinks = [
-  'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,wght@0,400;0,500;1,400&family=Space+Grotesk:wght@400;500;600&family=Space+Mono&family=Geist:wght@400;500;600&family=Geist+Mono&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,wght@0,400;0,500;1,400&family=Red+Hat+Display:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap',
+  'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,wght@0,400;0,500;1,400&family=Space+Grotesk:wght@400;500;600&family=Space+Mono&family=Geist:wght@400;500;600&family=Geist+Mono&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,wght@0,400;0,500;1,400&family=Red+Hat+Display:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap',
   'https://api.fontshare.com/v2/css?f[]=sentient@400,500&display=swap',
 ];
 

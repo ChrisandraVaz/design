@@ -1006,7 +1006,7 @@
 .se-contract-connector { color: #aaa3b3; text-align: center; font-size: 28px; }
 .se-migration-plan { display: grid; margin: 32px 0 64px; }
 .se-migration-plan article {
-  display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1.6fr); gap: 24px;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 24px;
   padding: 24px 0; border-top: 1px solid var(--story-border, #e6e2eb); align-items: baseline;
 }
 .se-migration-plan article > span { color: #8e839e; font-size: 13px; font-variant-numeric: tabular-nums; }
@@ -1031,8 +1031,7 @@
   .se-handoff-states { grid-template-columns: 1fr; gap: 24px; }
   .se-component-contract { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
   .se-contract-connector { text-align: left; transform: rotate(90deg); transform-origin: 14px 50%; }
-  .se-migration-plan article { grid-template-columns: 40px 1fr; gap: 8px 16px; }
-  .se-migration-plan article p { grid-column: 2; }
+  .se-migration-plan article { grid-template-columns: 1fr; gap: 8px; }
   .se-time-family figure { display: block; }
   .se-time-family figcaption { margin-top: 18px; }
   .se-specimen-stage { min-height: 220px; }

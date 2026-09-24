@@ -1,0 +1,80 @@
+.tt { --ink:#111; --copy:#4a4a4f; --muted:#8a8a90; --line:#e6e6e8; max-width:900px; margin:0 auto; padding:96px 24px 120px; color:var(--ink); background:#fff; }
+html[data-theme=dark] .tt { --ink:#f4f4f6; --copy:#b4b4bc; --muted:#8c8c92; --line:#262626; background:#000; }
+.tt-intro { margin-bottom:64px; }
+.tt-intro h1 { font:600 32px/1.15 "Helvetica Neue",Helvetica,Arial,sans-serif; letter-spacing:-.02em; margin:12px 0; }
+.tt-intro p { font:16px/1.55 var(--font-inter),sans-serif; color:var(--copy); margin:0; }
+.tt-eyebrow { font:500 11px/1.5 var(--font-ibm-plex-mono),monospace; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0; }
+.tt-variant { padding:48px 0; border-top:1px solid var(--line); }
+.tt-meta { display:flex; gap:16px; align-items:baseline; margin-bottom:32px; font:13px/1.5 var(--font-inter),sans-serif; }
+.tt-meta strong { font-weight:600; white-space:nowrap; }
+.tt-meta span { color:var(--muted); }
+.tt-sample .tt-label, .tt-sample .tt-kicker, .tt-sample dt { font-size:11px; line-height:1.5; font-weight:500; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 14px; }
+.tt-sample .tt-h1 { font-size:48px; line-height:1.1; letter-spacing:-.03em; margin:0 0 16px; }
+.tt-sample .tt-dek { font-size:20px; line-height:1.4; color:var(--copy); margin:0 0 40px; max-width:620px; }
+.tt-sample .tt-h2 { font-size:32px; line-height:1.15; letter-spacing:-.025em; margin:0 0 16px; }
+.tt-sample .tt-body { font-size:16px; line-height:1.6; color:var(--copy); margin:0 0 16px; }
+.tt-sample .tt-facts { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; margin:32px 0; }
+.tt-sample dd { margin:0; font-size:14px; line-height:1.5; }
+.tt-sample .tt-caption { font-size:13px; line-height:1.6; color:var(--muted); margin:0; }
+
+/* 01 Current */
+.tt-v1 .tt-h1, .tt-v1 .tt-h2 { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-weight:700; }
+.tt-v1 .tt-body, .tt-v1 .tt-dek, .tt-v1 dd, .tt-v1 .tt-caption { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; }
+.tt-v1 .tt-label, .tt-v1 .tt-kicker, .tt-v1 dt { font-family:var(--font-ibm-plex-mono),monospace; }
+/* 02 Editorial italic */
+.tt-v2 .tt-h1, .tt-v2 .tt-h2 { font-family:var(--tt-instrument-serif),Georgia,serif; font-style:italic; font-weight:400; letter-spacing:-.01em; }
+.tt-v2 .tt-h1 { font-size:56px; }
+.tt-v2 .tt-body, .tt-v2 .tt-dek, .tt-v2 dd, .tt-v2 .tt-caption { font-family:var(--font-inter),sans-serif; }
+.tt-v2 .tt-label, .tt-v2 .tt-kicker, .tt-v2 dt { font-family:var(--font-ibm-plex-mono),monospace; }
+/* 03 Geist */
+.tt-v3 .tt-h1, .tt-v3 .tt-h2 { font-family:var(--tt-geist),sans-serif; font-weight:600; }
+.tt-v3 .tt-body, .tt-v3 .tt-dek, .tt-v3 dd, .tt-v3 .tt-caption { font-family:var(--tt-geist),sans-serif; }
+.tt-v3 .tt-label, .tt-v3 .tt-kicker, .tt-v3 dt { font-family:var(--tt-geist-mono),monospace; }
+/* 04 Newsreader */
+.tt-v4 .tt-h1, .tt-v4 .tt-h2 { font-family:var(--tt-newsreader),Georgia,serif; font-weight:500; letter-spacing:-.015em; }
+.tt-v4 .tt-h1 { font-size:52px; }
+.tt-v4 .tt-body, .tt-v4 .tt-dek, .tt-v4 dd, .tt-v4 .tt-caption { font-family:var(--font-inter),sans-serif; }
+.tt-v4 .tt-label, .tt-v4 .tt-kicker, .tt-v4 dt { font-family:var(--tt-jetbrains),monospace; }
+/* 05 Space Grotesk */
+.tt-v5 .tt-h1, .tt-v5 .tt-h2 { font-family:var(--tt-space-grotesk),sans-serif; font-weight:600; letter-spacing:-.02em; }
+.tt-v5 .tt-body, .tt-v5 .tt-dek, .tt-v5 dd, .tt-v5 .tt-caption { font-family:var(--tt-instrument-sans),sans-serif; }
+.tt-v5 .tt-label, .tt-v5 .tt-kicker, .tt-v5 dt { font-family:var(--tt-space-mono),monospace; letter-spacing:.04em; }
+/* 06 Fraunces */
+.tt-v6 .tt-h1, .tt-v6 .tt-h2 { font-family:var(--tt-fraunces),Georgia,serif; font-weight:500; letter-spacing:-.02em; }
+.tt-v6 .tt-body, .tt-v6 .tt-dek, .tt-v6 dd, .tt-v6 .tt-caption { font-family:var(--tt-instrument-sans),sans-serif; }
+.tt-v6 .tt-label, .tt-v6 .tt-kicker, .tt-v6 dt { font-family:var(--font-ibm-plex-mono),monospace; }
+@media (max-width:600px) { .tt { padding-top:64px; } .tt-sample .tt-h1 { font-size:36px; } .tt-v2 .tt-h1, .tt-v4 .tt-h1 { font-size:40px; } .tt-sample .tt-facts { grid-template-columns:1fr; gap:16px; } }
+
+/* 07 Hanken Grotesk */
+.tt-v7 .tt-h1, .tt-v7 .tt-h2 { font-family:var(--tt-hanken),sans-serif; font-weight:600; letter-spacing:-.025em; }
+.tt-v7 .tt-body, .tt-v7 .tt-dek, .tt-v7 dd, .tt-v7 .tt-caption { font-family:var(--tt-hanken),sans-serif; }
+.tt-v7 .tt-label, .tt-v7 .tt-kicker, .tt-v7 dt { font-family:var(--font-ibm-plex-mono),monospace; }
+/* 08 Sentient + Hanken */
+.tt-v8 .tt-h1, .tt-v8 .tt-h2 { font-family:"Sentient",Georgia,serif; font-weight:500; letter-spacing:-.015em; }
+.tt-v8 .tt-h1 { font-size:52px; }
+.tt-v8 .tt-body, .tt-v8 .tt-dek, .tt-v8 dd, .tt-v8 .tt-caption { font-family:var(--tt-hanken),sans-serif; }
+.tt-v8 .tt-label, .tt-v8 .tt-kicker, .tt-v8 dt { font-family:var(--font-ibm-plex-mono),monospace; }
+/* 09 Crimson Text + Hanken */
+.tt-v9 .tt-h1, .tt-v9 .tt-h2 { font-family:var(--tt-crimson),Georgia,serif; font-weight:600; letter-spacing:-.01em; }
+.tt-v9 .tt-h1 { font-size:54px; }
+.tt-v9 .tt-body, .tt-v9 .tt-dek, .tt-v9 dd, .tt-v9 .tt-caption { font-family:var(--tt-hanken),sans-serif; }
+.tt-v9 .tt-label, .tt-v9 .tt-kicker, .tt-v9 dt { font-family:var(--font-ibm-plex-mono),monospace; }
+/* 10 Red Hat Display + Hanken */
+.tt-v10 .tt-h1, .tt-v10 .tt-h2 { font-family:var(--tt-redhat),sans-serif; font-weight:600; letter-spacing:-.02em; }
+.tt-v10 .tt-body, .tt-v10 .tt-dek, .tt-v10 dd, .tt-v10 .tt-caption { font-family:var(--tt-hanken),sans-serif; }
+.tt-v10 .tt-label, .tt-v10 .tt-kicker, .tt-v10 dt { font-family:var(--font-ibm-plex-mono),monospace; }
+/* 11 Editorial New (local) + Hanken */
+.tt-v11 .tt-h1, .tt-v11 .tt-h2 { font-family:"PP Editorial New","Editorial New",Georgia,serif; font-weight:400; letter-spacing:-.01em; }
+.tt-v11 .tt-h1 { font-size:54px; }
+.tt-v11 .tt-body, .tt-v11 .tt-dek, .tt-v11 dd, .tt-v11 .tt-caption { font-family:var(--tt-hanken),sans-serif; }
+.tt-v11 .tt-label, .tt-v11 .tt-kicker, .tt-v11 dt { font-family:var(--font-ibm-plex-mono),monospace; }
+/* 12 SF Pro Rounded (local) + Hanken */
+.tt-v12 .tt-h1, .tt-v12 .tt-h2 { font-family:"SF Pro Rounded",ui-rounded,-apple-system,sans-serif; font-weight:600; letter-spacing:-.025em; }
+.tt-v12 .tt-body, .tt-v12 .tt-dek, .tt-v12 dd, .tt-v12 .tt-caption { font-family:var(--tt-hanken),sans-serif; }
+.tt-v12 .tt-label, .tt-v12 .tt-kicker, .tt-v12 dt { font-family:var(--font-ibm-plex-mono),monospace; }
+
+/* 13 Apple Garamond (local) + Hanken */
+.tt-v13 .tt-h1, .tt-v13 .tt-h2 { font-family:"Apple Garamond","Garamond Becker No2","Garamond",var(--tt-garamond),Georgia,serif; font-weight:400; letter-spacing:-.005em; }
+.tt-v13 .tt-h1 { font-size:56px; }
+.tt-v13 .tt-body, .tt-v13 .tt-dek, .tt-v13 dd, .tt-v13 .tt-caption { font-family:var(--tt-hanken),sans-serif; }
+.tt-v13 .tt-label, .tt-v13 .tt-kicker, .tt-v13 dt { font-family:var(--font-ibm-plex-mono),monospace; }

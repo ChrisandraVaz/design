@@ -678,7 +678,7 @@ function SplitCase() {
           ["03", "API decisions", "Resolve differences in the component contract before replacing callers."],
           ["04", "Shared hooks", "Unify the underlying resize behavior before moving dependent instances."],
           ["05", "Different domain", "Keep controls with a different purpose outside this migration."],
-        ].map(([tier, title, description]) => <article key={tier}><span>{tier}</span><h3>{title}</h3><p>{description}</p></article>)}
+        ].map(([tier, title, description]) => <article key={tier}><h3>{title}</h3><p>{description}</p></article>)}
       </div>
       <Narrative
         id="the-outcome"

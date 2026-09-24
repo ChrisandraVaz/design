@@ -28,7 +28,7 @@ import { RelativeTimeGallery, RelativeTimeSpecimen } from "./SentryReferencePrev
 const openingDeks: Record<SentryProjectId, string> = {
   "send-to-agent": "Designing the product contract between Sentry’s debugging agent and the coding agent where a developer continues the work.",
   "message-queuing": "",
-  "split-panel": "One resizable-panel contract for Sentry’s design system, replacing 25 one-off implementations, only one of which was accessible.",
+  "split-panel": "",
   "relative-time": "A shared way to read time across Sentry’s issues, traces, and logs, shipped to production at the end of the internship.",
 };
 function Narrative({
@@ -431,7 +431,7 @@ function AgentCase() {
           </article>
           <article className="is-note">
             <span>Research boundary</span>
-            <p>Block copying had only just launched, so its 45 events were not an equal comparison. Later weekly usage ranged from 114–336 events. The data supported the need to transfer context; it did not determine the interface by itself.</p>
+            <p>Block copying had only just launched, so its 45 events were not an equal comparison. Later weekly usage ranged from 114 to 336 events. The data supported the need to transfer context; it did not determine the interface by itself.</p>
           </article>
         </div>
       </Chapter>
@@ -561,7 +561,7 @@ function SplitCase() {
       <Narrative
         id="overview"
         label="Overview"
-        title="Twenty-five dividers, one contract"
+        title="One split panel the whole product can share"
       >
         <p>In Sentry, a split panel lets developers widen a replay or open Seer beside an issue list. Priscila had already merged a shared SplitPanel in code when I joined the Design Foundations rotation. Designers still needed a matching component and guidance for using it.</p>
         <p>I built the Figma counterpart, wrote the usage guidelines, extracted a reusable drag handle with the team, and audited existing implementations to plan and begin migration. My job was to connect the new code component to the way teams design and maintain the product.</p>
@@ -578,7 +578,7 @@ function SplitCase() {
         <video
           controls
           playsInline
-          preload="metadata"
+          preload="none"
           poster="/assets/sentry/split-replay.png"
           aria-label="Original Split Panel recording in Session Replay and Seer"
         >
@@ -660,13 +660,6 @@ function SplitCase() {
         Home and End move to the limits. Double-click to reset, or switch to a
         vertical layout.
       </LiveDemo>
-      <table className="se-spec-table"><caption>Interaction contract implemented in the demo</caption><thead><tr><th scope="col">Input</th><th scope="col">Behavior</th></tr></thead><tbody>
-        <tr><th scope="row">Drag the handle</th><td>Resizes the sized pane within its minimum and the fill pane’s minimum.</td></tr>
-        <tr><th scope="row">Arrow keys</th><td>Move the divider one step; Shift moves it by a larger increment.</td></tr>
-        <tr><th scope="row">Home / End</th><td>Jump to the smallest and largest allowed size.</td></tr>
-        <tr><th scope="row">Double-click</th><td>Resets to the default size.</td></tr>
-        <tr><th scope="row">Focus</th><td>Visible focus ring on the handle, with rest, hover, focus, and active treatments.</td></tr>
-      </tbody></table>
       <Narrative
         id="adoption"
         label="Adoption"
@@ -677,7 +670,7 @@ function SplitCase() {
       </Narrative>
       <div className="se-migration-plan" aria-label="Five-tier migration plan">
         {[
-          ["01–02", "Closest matches", "Start with instances that already fit the shared behavior."],
+          ["01 and 02", "Closest matches", "Start with instances that already fit the shared behavior."],
           ["03", "API decisions", "Resolve differences in the component contract before replacing callers."],
           ["04", "Shared hooks", "Unify the underlying resize behavior before moving dependent instances."],
           ["05", "Different domain", "Keep controls with a different purpose outside this migration."],

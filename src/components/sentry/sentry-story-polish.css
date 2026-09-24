@@ -194,7 +194,7 @@ html[data-theme=dark] .case-design:has(.se-story-polished) { background:#000; }
 
 /* Spec tables (interaction contracts). */
 .case-design .trace-case.travel-case.se-story-polished .se-spec-table { width:100%; border-collapse:collapse; margin:24px 0 48px; font-size:14px; line-height:1.5; }
-.case-design .trace-case.travel-case.se-story-polished .se-spec-table caption { text-align:left; font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:var(--story-muted); padding-bottom:10px; }
+.case-design .trace-case.travel-case.se-story-polished .se-spec-table caption { text-align:left; font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; letter-spacing:.08em; font-weight:500; text-transform:uppercase; color:var(--story-muted); padding-bottom:10px; }
 .case-design .trace-case.travel-case.se-story-polished .se-spec-table th,.case-design .trace-case.travel-case.se-story-polished .se-spec-table td { text-align:left; padding:10px 12px; border-top:1px solid var(--story-border,#e6e6e6); vertical-align:top; font-size:14px!important; line-height:1.5!important; }
 .case-design .trace-case.travel-case.se-story-polished .se-spec-table thead th { font-weight:500; color:var(--story-muted); border-top:0; }
 .case-design .trace-case.travel-case.se-story-polished .se-spec-table tbody th { font-weight:500; white-space:nowrap; }
@@ -202,3 +202,16 @@ html[data-theme=dark] .case-design:has(.se-story-polished) { background:#000; }
 .case-design .trace-case.travel-case.se-story-polished .se-delete-study > span { position:relative; align-self:flex-end; margin:6px 6px 0 0; padding:5px 8px; background:#1d1d1f; color:#fff; border:0; border-radius:4px; font-size:11px; line-height:1.4; box-shadow:0 4px 12px -6px #00000066; }
 .case-design .trace-case.travel-case.se-story-polished .se-delete-study > span::before { content:""; position:absolute; top:-4px; right:10px; width:8px; height:8px; background:#1d1d1f; transform:rotate(45deg); }
 html[data-theme=dark] .case-design .trace-case.travel-case.se-story-polished .se-delete-study > span,html[data-theme=dark] .case-design .trace-case.travel-case.se-story-polished .se-delete-study > span::before { background:#f4f4f6; color:#1d1d1f; }
+
+/* Handle-state specimens drawn like the real Scraps split panel: two bordered panes, a thin handle, purple on interaction. */
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study figure > div { grid-template-columns: 1fr 14px 1fr; height: 160px; padding: 6px; background: #fff; border: 1px solid #e3e3e7; border-radius: 6px; font: 500 12px/1.3 var(--font-inter), sans-serif; color: #2b2b2f; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study figure span { display: block; padding: 12px; border: 1px solid #ececef; border-radius: 4px; background: #fff; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study i { position: relative; justify-self: center; width: 2px; height: 100%; border-radius: 2px; background: #d6d3dc; box-shadow: none; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study [data-state="1"] i { width: 3px; background: #a78bff; box-shadow: 0 0 0 3px rgba(167, 139, 255, .28); }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study [data-state="2"] i { width: 3px; background: #7951ff; box-shadow: 0 0 0 2px #fff, 0 0 0 4px #7951ff; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study [data-state="3"] i { width: 3px; background: #7951ff; box-shadow: 0 0 0 3px rgba(121, 81, 255, .2); }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study [data-state="3"] i::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 28px; transform: translate(-50%, -50%); border-radius: 4px; background: #7951ff; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study figcaption { font-size: 14px; color: var(--story-muted); margin-top: 12px; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 28px; }
+.case-design .trace-case.travel-case.se-story-polished .se-handle-study figure > div { height: 200px; font-size: 13px; }
+@media (max-width: 600px) { .case-design .trace-case.travel-case.se-story-polished .se-handle-study { grid-template-columns: 1fr; } }

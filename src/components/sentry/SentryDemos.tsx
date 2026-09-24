@@ -303,6 +303,7 @@ export function SplitDemo({ compact = false, paused = false }: DemoProps) {
           onPointerDown={(e) => {
             if (compact) return;
             e.stopPropagation();
+            e.currentTarget.focus();
             active.current = true;
             setDragging(true);
             e.currentTarget.setPointerCapture(e.pointerId);

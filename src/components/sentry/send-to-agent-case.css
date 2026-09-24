@@ -483,13 +483,13 @@
 /* Decision order: the three structural questions answered before styling. */
 .case-design .agent-decision-pipeline { list-style:none; margin:0 0 12px; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
 .case-design .agent-decision-pipeline li { padding:20px; border:1px solid var(--story-border,#e6e6e6); border-radius:4px; background:var(--story-surface); }
-.case-design .agent-decision-pipeline li span { display:block; font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; letter-spacing:1.4px; color:#936ce7; margin-bottom:10px; }
+.case-design .agent-decision-pipeline li span { display:block; font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; letter-spacing:.08em; font-weight:500; color:#936ce7; margin-bottom:10px; }
 .case-design .agent-decision-pipeline li strong { display:block; font-size:18px; line-height:1.25; letter-spacing:-.01em; margin-bottom:6px; }
 .case-design .agent-decision-pipeline li p { margin:0; font-size:14px; line-height:1.5; color:var(--story-muted,#6a6a70); }
 .case-design .agent-pipeline-note { margin:0 0 40px; font-size:14px; line-height:1.6; color:var(--story-muted,#6a6a70); }
 /* Confirmation copy table. */
 .case-design .agent-copy-table { width:100%; border-collapse:collapse; margin:24px 0 8px; font-size:14px; line-height:1.5; }
-.case-design .agent-copy-table caption { text-align:left; font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:var(--story-muted,#6a6a70); padding-bottom:10px; }
+.case-design .agent-copy-table caption { text-align:left; font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; letter-spacing:.08em; font-weight:500; text-transform:uppercase; color:var(--story-muted,#6a6a70); padding-bottom:10px; }
 .case-design .agent-copy-table th,.case-design .agent-copy-table td { text-align:left; padding:10px 12px; border-top:1px solid var(--story-border,#e6e6e6); vertical-align:top; }
 .case-design .agent-copy-table thead th { font-weight:500; color:var(--story-muted,#6a6a70); border-top:0; }
 .case-design .agent-copy-table tbody th { font-weight:500; white-space:nowrap; }
@@ -499,7 +499,7 @@
 .case-design .agent-key-shift { font-size:clamp(19px,2vw,22px); line-height:1.4; letter-spacing:-.015em; color:var(--story-text); border-left:3px solid #936ce7; padding-left:20px; margin:32px 0; max-width:none; }
 .case-design .agent-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin:24px 0 32px; }
 .case-design .agent-options table { border-collapse:collapse; width:100%; font-size:13px; line-height:1.45; }
-.case-design .agent-options caption { text-align:left; font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:var(--story-muted,#6a6a70); padding-bottom:10px; }
+.case-design .agent-options caption { text-align:left; font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; letter-spacing:.08em; font-weight:500; text-transform:uppercase; color:var(--story-muted,#6a6a70); padding-bottom:10px; }
 .case-design .agent-options th,.case-design .agent-options td { display:block; text-align:left; padding:0; }
 .case-design .agent-options tr { display:block; padding:12px 0; border-top:1px solid var(--story-border,#e6e6e6); }
 .case-design .agent-options th { font-weight:500; margin-bottom:2px; }

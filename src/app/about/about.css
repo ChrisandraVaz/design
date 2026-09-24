@@ -13,7 +13,7 @@ html[data-theme=dark] .about-page { --about-ink:#f4f4f6; --about-copy:#b4b4bc; -
 .about-page h1 { font-family:var(--about-display); font-size:clamp(32px,3.5vw,48px); line-height:1.06; letter-spacing:-.025em; font-weight:400; margin:0 0 36px; }
 .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 .about-hero-pile { position:relative; min-height:560px; }
-.about-page .about-pile-label { font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--about-muted); text-align:right; margin:0 0 20px; }
+.about-page .about-pile-label { font-family:var(--font-ibm-plex-mono),monospace; font-size:11px; text-transform:uppercase; letter-spacing:.08em; font-weight:500; color:var(--about-muted); text-align:right; margin:0 0 20px; }
 .about-page .about-pile-hint { font-family:var(--font-caveat),cursive; font-size:24px; line-height:1.2; color:var(--about-copy); transform:rotate(-8deg); transform-origin:right top; text-align:right; margin:0 24px 0 0; display:flex; justify-content:flex-end; align-items:flex-start; gap:8px; }
 
 .about-pile { position:relative; height:440px; margin-top:24px; }

@@ -1007,7 +1007,7 @@
 .se-migration-plan { display: grid; margin: 32px 0 64px; }
 .se-migration-plan article {
   display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1.6fr); gap: 24px;
-  padding: 24px 0; border-top: 1px solid #e6e2eb; align-items: baseline;
+  padding: 24px 0; border-top: 1px solid var(--story-border, #e6e2eb); align-items: baseline;
 }
 .se-migration-plan article > span { color: #8e839e; font-size: 13px; font-variant-numeric: tabular-nums; }
 .se-time-family { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 36px 0; }

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import SocialLinks from "./SocialLinks";
 import SketchIntro from "./SketchIntro";
 import WidgetCanvas from "./WidgetCanvas";
@@ -13,7 +14,7 @@ export default function PortfolioIndex() {
       <div className="index-contact">
         <div><p>Interested in working together?</p>
         <p className="index-contact-note">Book a time <a href="https://calendly.com/chrisandravaz12/30min" target="_blank" rel="noreferrer">here</a> if you’d like to chat.</p></div>
-        <a className="index-about" href="/about">About Me</a>
+        <Link className="index-about" href="/about">About Me</Link>
       </div>
       <div className="index-experience">
         <h2>Current</h2>

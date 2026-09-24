@@ -487,3 +487,8 @@ body {
 @media (min-width: 1101px) {
   .canvas-folio:not(.index-folio) .original-intro { --pencil-hit-size: calc(44px / var(--canvas-scale) / .612); }
 }
+
+/* Soft entry when a route changes client-side. */
+@keyframes page-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.about-page, .case-design { animation: page-enter .32s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .about-page, .case-design { animation: none; } }

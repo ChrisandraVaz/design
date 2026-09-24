@@ -420,3 +420,11 @@
 @media(max-width:1100px) {
   .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-3 { order:3; }
 }
+
+/* TD Interest Claims is not clickable yet: say so on hover instead of looking broken. */
+.canvas-folio .widget-world .td-claims-card { position: relative; cursor: default; }
+.canvas-folio .widget-world .td-claims-card::after { content: "Case study coming soon"; z-index: 3; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(.96); padding: 10px 16px; border-radius: 999px; background: #111; color: #fff; font: 500 13px/1 var(--font-inter), sans-serif; letter-spacing: .01em; white-space: nowrap; opacity: 0; transition: opacity .18s ease, transform .18s ease; pointer-events: none; box-shadow: 0 8px 24px -10px #00000080; }
+.canvas-folio .widget-world .td-claims-card::before { content: ""; z-index: 2; position: absolute; inset: 0; background: #ffffff; opacity: 0; transition: opacity .18s ease; pointer-events: none; border-radius: inherit; }
+.canvas-folio .widget-world .td-claims-card:hover::after, .canvas-folio .widget-world .td-claims-card:focus-within::after { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.canvas-folio .widget-world .td-claims-card:hover::before, .canvas-folio .widget-world .td-claims-card:focus-within::before { opacity: .45; }
+.canvas-folio .widget-world .td-claims-card .card-kind { z-index: 4; }

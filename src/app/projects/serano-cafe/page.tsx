@@ -1270,11 +1270,7 @@ export default function SeranoCafeCaseStudy() {
 
       <div className="container" data-theme={theme}>
         <nav className="top-nav">
-          <Link href="/" className="back-link">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Back to Home
+          <Link href="/" className="back-link back-home"><span aria-hidden="true">‹</span>Back to Home
           </Link>
           <div className="nav-pills">
             <a onClick={() => scrollToSection("overview")} className={activeSection === "overview" ? "active" : ""}>Overview</a>

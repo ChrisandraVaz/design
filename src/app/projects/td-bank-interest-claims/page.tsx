@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaArrowLeft } from "react-icons/fa";
 import { useTheme } from "@/hooks/useTheme";
 
 export default function TDBankInterestClaimsCaseStudy() {
@@ -353,10 +352,8 @@ export default function TDBankInterestClaimsCaseStudy() {
 
       {/* Fixed Header with Pill Navigation */}
       <header className="fixed top-0 left-0 right-0 backdrop-blur-md z-50 border-b" style={{ background: 'var(--td-nav-bg)', borderColor: 'var(--td-border-subtle)' }}>
-        <div className="td-header-inner max-w-6xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
-          <Link href="/" className="td-back-link-wrapper flex items-center gap-2 text-sm hover:opacity-70 transition-opacity">
-            <FaArrowLeft className="w-3 h-3" />
-            Back to Home
+        <div className="td-header-inner w-full px-4 md:px-6 py-3 flex items-center justify-between">
+          <Link href="/" className="td-back-link-wrapper back-home"><span aria-hidden="true">‹</span>Back to Home
           </Link>
 
           {/* Pill Navigation */}

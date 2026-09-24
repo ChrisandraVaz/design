@@ -35,7 +35,7 @@ export default function MinimalWorkPage({ eyebrow, title, description, hero, met
   return (
     <article className="mw">
       <div className="mw-inner">
-        <Link href="/" className="mw-back">‹ Back to Home</Link>
+        <Link href="/" className="mw-back back-home"><span aria-hidden="true">‹</span>Back to Home</Link>
         <header className="mw-header">
           <span className="mw-kicker">{eyebrow}</span>
           <h1>{title}</h1>

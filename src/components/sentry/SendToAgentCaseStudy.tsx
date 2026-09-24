@@ -84,7 +84,7 @@ export default function SendToAgentCaseStudy() {
   const group = chapters.find(chapter => chapter.id === active)?.group;
   return <main className="agent-story" data-theme={theme}>
     <nav className="agent-story-top" aria-label="Case study navigation">
-      <Link className="agent-story-back" href="/"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>Back to Home</Link>
+      <Link className="agent-story-back back-home" href="/"><span aria-hidden="true">‹</span>Back to Home</Link>
       <div className="agent-story-tabs">
         {['Overview', 'Problem', 'Solution', 'Takeaways'].map(label => <a key={label} href={`#${label.toLowerCase()}`} aria-current={group === label.toLowerCase() ? 'location' : undefined}>{label}</a>)}
       </div>

@@ -437,3 +437,7 @@
 }
 
 .rt-scene-0 .rt-heading > :is(strong,span) { font-weight:600; }
+
+/* The local timezone is always the Sentry purple, wherever it appears in a tooltip. */
+.rt-zone-inline { color: #7951ff; font-weight: 500; }
+.rt-footer span { color: #7553f5; }

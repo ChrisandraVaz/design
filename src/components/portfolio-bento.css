@@ -428,3 +428,5 @@
 .canvas-folio .widget-world .td-claims-card:hover::after, .canvas-folio .widget-world .td-claims-card:focus-within::after { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 .canvas-folio .widget-world .td-claims-card:hover::before, .canvas-folio .widget-world .td-claims-card:focus-within::before { opacity: .45; }
 .canvas-folio .widget-world .td-claims-card .card-kind { z-index: 4; }
+.canvas-folio .widget-world .td-claims-card .card-kind { transition: opacity .18s ease; }
+.canvas-folio .widget-world .td-claims-card:hover .card-kind, .canvas-folio .widget-world .td-claims-card:focus-within .card-kind { opacity: 0; }

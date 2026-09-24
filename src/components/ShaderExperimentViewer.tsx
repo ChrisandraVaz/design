@@ -56,16 +56,18 @@ export default function ShaderExperimentViewer({ onClose }: { onClose: () => voi
     <div className="shader-viewer-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}>
       <div className="shader-viewer" role="dialog" aria-modal="true" aria-labelledby="shader-viewer-title">
         <header className="shader-viewer-header">
-          <span id="shader-viewer-title">Shader Experiments</span>
           <button ref={closeRef} type="button" onClick={onClose} aria-label="Close shader experiments"><FiX aria-hidden="true" /></button>
         </header>
         <div className="shader-viewer-stage">
           <button className="shader-viewer-arrow" type="button" onClick={() => setIndex(current => (current + titles.length - 1) % titles.length)} aria-label="Previous shader"><FiChevronLeft aria-hidden="true" /></button>
-          {index === 0 ? <WindField /> : (
-            <div className="shader-viewer-art shader-viewer-art--square" key={index}>
-              {index === 1 ? <BotanicalStudy kind="flowers" /> : <BotanicalStudy kind="leaf" />}
-            </div>
-          )}
+          <div className="shader-viewer-frame">
+            <span id="shader-viewer-title" className="shader-viewer-caption">Shader Experiments</span>
+            {index === 0 ? <WindField /> : (
+              <div className="shader-viewer-art shader-viewer-art--square" key={index}>
+                {index === 1 ? <BotanicalStudy kind="flowers" /> : <BotanicalStudy kind="leaf" />}
+              </div>
+            )}
+          </div>
           <button className="shader-viewer-arrow" type="button" onClick={() => setIndex(current => (current + 1) % titles.length)} aria-label="Next shader"><FiChevronRight aria-hidden="true" /></button>
         </div>
         <footer className="shader-viewer-footer">

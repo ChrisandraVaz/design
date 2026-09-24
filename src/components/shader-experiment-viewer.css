@@ -25,9 +25,28 @@
 }
 
 .shader-viewer-header {
+  justify-content: flex-end;
+}
+
+.shader-viewer-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
+}
+
+.shader-viewer-frame > .shader-viewer-art {
+  max-height: calc(100% - 38px);
+}
+
+.shader-viewer-caption {
   color: #b6b6b6;
   font-size: 16px;
   letter-spacing: -.02em;
+  line-height: 1.5;
 }
 
 .shader-viewer-header button,

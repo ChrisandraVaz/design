@@ -63,6 +63,8 @@ export default function RootLayout({
         <link rel="icon" href="/assets/favicon.png" type="image/png" sizes="32x32" />
         {/* The gradient sits behind every Sentry card and hero; fetch it before the stylesheet asks for it. */}
         <link rel="preload" as="image" href="/assets/sentry/send-to-agent-background.jpg" fetchPriority="high" />
+        {/* Seeds the canvas frame width in px before hydration. Safari mis-evaluates viewport units inside atan2(), so the CSS scale formula reads this instead. Mirrors the .scatter-viewport width rules. */}
+        <script dangerouslySetInnerHTML={{ __html: "(function(){var r=document.documentElement;function s(){var w=r.clientWidth,f=w>1100?Math.min(1600,w-2*Math.min(56,Math.max(24,.03*w))):w>760?Math.min(1200,w-96):w-40;r.style.setProperty('--frame-width',f+'px')}s();addEventListener('resize',s)})();" }} />
       </head>
       <body className={`${inter.variable} ${ibmPlexMono.variable} ${roboto.variable} ${rubik.variable} ${caveat.variable} ${spaceGrotesk.variable} ${instrumentSans.variable} ${spaceMono.variable} antialiased`}>{children}</body>
     </html>

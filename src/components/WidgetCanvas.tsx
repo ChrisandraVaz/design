@@ -219,6 +219,17 @@ export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' 
   const recordingPreview = useSyncExternalStore(subscribeNever, readRecordingPreview, () => false);
   const closeShaderViewer = useCallback(() => setShaderOpen(false), []);
   const closeRef = useRef<HTMLButtonElement>(null);
+  // Safari mis-evaluates viewport units inside atan2(), so the CSS scale formula reads the measured frame width in px.
+  useEffect(() => {
+    const frame = canvasRef.current;
+    const world = frame?.closest('.widget-world') as HTMLElement | null;
+    if (!frame || !world || typeof ResizeObserver === 'undefined') return;
+    const apply = () => world.style.setProperty('--frame-width', `${frame.getBoundingClientRect().width}px`);
+    apply();
+    const ro = new ResizeObserver(apply);
+    ro.observe(frame);
+    return () => ro.disconnect();
+  }, []);
   useEffect(() => {
     const preview = new Image();
     preview.src = '/widget-images/wind-field-square.jpg';
@@ -584,7 +595,7 @@ export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' 
         </section>)}
         <section {...movable('fontcontext')} className={`scatter-item scatter-0 scatter-fontcontext-slot ${active==='fontcontext'?'is-active':''}`} aria-label="Font Context Plugin case study" onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive('fontcontext');}} onFocus={()=>setActive('fontcontext')}>
           <div className="widget-label card-heading"><span>Font Context Plugin</span><CardArrow href="/fontcontext.html" label="Open Font Context Plugin"/></div>
-          <Link className="portfolio-experiment-card fontcontext-card" href="/fontcontext.html" aria-label="Open Font Context Plugin case study">
+          <Link className="portfolio-experiment-card fontcontext-card" href="/fontcontext.html" prefetch={false} aria-label="Open Font Context Plugin case study">
             <FontContextCardMedia />
             <span className="card-kind">Shipped · Case Study</span>
           </Link>

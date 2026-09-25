@@ -63,9 +63,9 @@
   .canvas-folio:not(.index-folio) .widget-world .scatter-viewport {
     --puzzle-width: 1250px;
     --puzzle-height: 1492px;
-    --canvas-design-scale: min(1.3333333333, tan(atan2(calc(100cqw - 2 * var(--folio-gutter)), 1200px)));
+    --canvas-design-scale: min(1.3333333333, tan(atan2(var(--frame-width, calc(100cqw - 2 * var(--folio-gutter))), 1200px)));
     --puzzle-top: calc(12px + 80px * var(--canvas-design-scale));
-    --canvas-scale: tan(atan2(min(1600px, calc(100cqw - 2 * var(--folio-gutter))), var(--puzzle-width)));
+    --canvas-scale: tan(atan2(var(--frame-width, min(1600px, calc(100cqw - 2 * var(--folio-gutter)))), var(--puzzle-width)));
     height: calc(16px + var(--puzzle-top) + var(--puzzle-height) * var(--canvas-scale));
     margin-bottom: 47px;
   }

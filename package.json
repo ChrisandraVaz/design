@@ -10,7 +10,8 @@
     "test:responsive": "playwright test",
     "test:report": "playwright show-report",
     "build:eval": "EVAL_BUILD_DIR=.next-eval next build",
-    "start:eval": "EVAL_BUILD_DIR=.next-eval next start --hostname 127.0.0.1 --port 3010"
+    "start:eval": "EVAL_BUILD_DIR=.next-eval next start --hostname 127.0.0.1 --port 3010",
+    "sweep": "node scripts/console-sweep.mjs http://127.0.0.1:3010"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.42.0",

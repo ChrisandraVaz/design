@@ -235,6 +235,7 @@ export default function IBMAccelerateCaseStudy() {
 
           <div className="ibm-hero-image">
             <Image
+              priority
               src="/assets/ibm.gif"
               alt="IBM Accelerate preview"
               width={1200}

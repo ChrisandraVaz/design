@@ -411,7 +411,8 @@ export default function TDDesignSystemCaseStudy() {
 
           <div className="td-hero-image">
           <Image
-            src="/assets/tds.png"
+            priority
+              src="/assets/tds.png"
             alt="TD Design System preview"
             width={1200}
             height={800}

@@ -462,6 +462,7 @@ export default function TDBankInterestClaimsCaseStudy() {
         <div className="max-w-6xl mx-auto mb-16">
           <div className="rounded-2xl overflow-hidden bg-[#e8f5e8]">
             <Image
+              priority
               src="/assets/tdinterestclaims.png"
               alt="TD Bank Interest Claims Tool"
               width={1200}

@@ -1359,6 +1359,7 @@ export default function SeranoCafeCaseStudy() {
 
           <div className="hero-image">
             <Image
+              priority
               src="/assets/sernaobakerymockup.jpg"
               alt="Serano Cafe website redesign mockup"
               width={800}

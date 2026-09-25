@@ -57,8 +57,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // suppressHydrationWarning: the inline frame-width script sets a style attribute on <html> before React hydrates.
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/assets/favicon.png" type="image/png" sizes="32x32" />
         {/* The gradient sits behind every Sentry card and hero; fetch it before the stylesheet asks for it. */}

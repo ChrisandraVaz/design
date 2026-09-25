@@ -8,6 +8,6 @@ const studies = [
 export default function RelatedCaseStudies({ current }: { current: string }) {
   return <nav className="related-studies" aria-label="More selected case studies">
     <h2>More selected work</h2>
-    <div className="related-studies-grid">{studies.filter(s => s.id !== current).map(s => <Link href={s.href} key={s.id}><span>{s.title}<span aria-hidden="true">↗</span></span><p>{s.description}</p></Link>)}</div>
+    <div className="related-studies-grid">{studies.filter(s => s.id !== current).map(s => <Link href={s.href} prefetch={s.href.endsWith('.html') ? false : undefined} key={s.id}><span>{s.title}<span aria-hidden="true">↗</span></span><p>{s.description}</p></Link>)}</div>
   </nav>;
 }

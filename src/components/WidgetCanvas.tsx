@@ -50,7 +50,7 @@ function CardArrow({href,label,external=false}:{href:string;label:string;externa
   const arrowLabel=label.replace(/^Open /,'Expand ');
   return external
     ? <a className="card-heading-action" href={href} target="_blank" rel="noreferrer" aria-label={arrowLabel}>{contents}</a>
-    : <Link className="card-heading-action" href={href} aria-label={arrowLabel}>{contents}</Link>;
+    : <Link className="card-heading-action" href={href} prefetch={href.endsWith('.html') ? false : undefined} aria-label={arrowLabel}>{contents}</Link>;
 }
 function Blueprint({ height }: { height: number }) {
   const id = useId().replace(/:/g, '');

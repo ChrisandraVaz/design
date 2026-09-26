@@ -62,6 +62,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/assets/favicon.png" type="image/png" sizes="32x32" />
+        {/* Dark is the site default. Apply the theme before paint so returning "light" visitors and the default dark both render without a flash. */}
+        <script dangerouslySetInnerHTML={{ __html: "(function(){try{var t=localStorage.getItem('portfolio-theme');t=t==='light'?'light':'dark';}catch(e){t='dark';}var r=document.documentElement;r.dataset.theme=t;r.style.colorScheme=t;})();" }} />
         {/* The gradient sits behind every Sentry card and hero; fetch it before the stylesheet asks for it. */}
         <link rel="preload" as="image" href="/assets/sentry/send-to-agent-background.jpg" fetchPriority="high" />
         {/* Seeds the canvas frame width in px before hydration. Safari mis-evaluates viewport units inside atan2(), so the CSS scale formula reads this instead. Mirrors the .scatter-viewport width rules. */}

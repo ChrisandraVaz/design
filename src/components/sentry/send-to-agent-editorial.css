@@ -1,0 +1,351 @@
+/* 1:1 with designengineer.xyz: pure black, neutral grotesk, one orange accent,
+   square cards and callouts, checklist rows, thin tables, a CTA-quality outcome.
+   Scoped to .agent-story.is-editorial so nothing else on the site is touched.
+   Tokens read straight off the reference: bg #000, surface #0d0d0d, border #202020,
+   heading #fafafa, body #d1d1d1, accent #ff4400. */
+
+.agent-story.is-editorial {
+  --e-bg: #000;
+  --e-surface: #0d0d0d;
+  --e-border: #202020;
+  --e-hairline: #191919;
+  --e-head: #fafafa;
+  --e-body: #d1d1d1;
+  --e-muted: #8a8a8a;
+  --e-accent: #ff4400;
+  --e-measure: 612px;
+  /* Compact scale (the 75% view baked in). case-typography sizes h1/h2 from these tokens with !important, so overriding them here is the clean lever. */
+  --case-title-size: clamp(27px, 3vw, 38px);
+  --case-section-size: clamp(21px, 2.25vw, 26px);
+
+  --story-bg: #000; --story-surface: #0d0d0d; --story-text: #fafafa; --story-copy: #d1d1d1; --story-muted: #8a8a8a; --story-border: #202020; --story-hairline: #191919;
+  /* case-typography.css keys its !important heading colours off these; the page is dark even when the site theme is light. */
+  --editorial-surface: #0d0d0d; --editorial-border: #202020; --editorial-copy: #d1d1d1; --editorial-ink: #fafafa; --editorial-accent: #ff4400;
+  background: #000;
+  color: var(--e-head);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* One calm column */
+.agent-story.is-editorial .agent-story-content {
+  width: min(var(--e-measure), calc(100% - 48px));
+  margin: 0 auto;
+  padding: 108px 0 100px;
+}
+
+/* Nav: transparent, links #fafafa, active link orange with an underline */
+.agent-story.is-editorial .agent-story-top { height: 60px; background: rgba(0,0,0,0.7); backdrop-filter: saturate(150%) blur(12px); border-bottom: 1px solid var(--e-hairline); }
+.agent-story.is-editorial .agent-story-back { font-size: 14px; color: var(--e-body); }
+.agent-story.is-editorial .agent-story-back:hover { color: var(--e-head); }
+.agent-story.is-editorial .agent-story-tabs { background: transparent; border: 0; gap: 32px; padding: 0; }
+.agent-story.is-editorial .agent-story-tabs a {
+  position: relative; font-family: var(--font-instrument-sans), sans-serif;
+  font-size: 14px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase;
+  color: #9d9d9d; padding: 6px 0; border: 0; border-radius: 0; min-height: 0;
+}
+.agent-story.is-editorial .agent-story-tabs a:hover { color: var(--e-head); }
+.agent-story.is-editorial .agent-story-tabs a[aria-current] { background: transparent; color: var(--e-accent); box-shadow: none; border: 0; }
+.agent-story.is-editorial .agent-story-tabs a[aria-current]::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 2px; background: var(--e-accent);
+}
+
+/* Left rail: quiet, orange on current */
+.agent-story.is-editorial .agent-story-tree a { color: var(--e-muted); letter-spacing: 0.06em; }
+.agent-story.is-editorial .agent-story-tree a[aria-current] { color: var(--e-accent); }
+.agent-story.is-editorial .agent-story-tree a:hover { color: var(--e-head); }
+
+/* Type. Neutral grotesk, bright headings, mid-grey body */
+.agent-story.is-editorial .agent-story-label,
+.agent-story.is-editorial .agent-story-facts dt {
+  font-family: var(--font-space-mono), var(--font-ibm-plex-mono), monospace;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--e-muted);
+}
+.case-design .agent-story.is-editorial h1 {
+  line-height: 1.04; letter-spacing: -0.03em; font-weight: 700; color: var(--e-head);
+  margin: 6px 0 0; text-wrap: balance;
+}
+.case-design .agent-story.is-editorial h2 {
+  line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; color: var(--e-head); margin: 0 0 16px; text-wrap: balance;
+}
+.case-design .agent-story.is-editorial h3 {
+  font-family: var(--font-instrument-sans), sans-serif;
+  font-size: 16px !important; line-height: 1.25; letter-spacing: -0.02em; font-weight: 700; color: var(--e-head); margin: 28px 0 11px;
+}
+.case-design .agent-story.is-editorial h4 {
+  font-family: var(--font-instrument-sans), sans-serif;
+  font-size: 16px; line-height: 1.3; letter-spacing: -0.02em; font-weight: 700; color: var(--e-head); margin: 0;
+}
+
+/* Narrative copy only. Never the demo mockups (.agent-film, .agent-handoff-preview, .agent-reference), which own their type. */
+.agent-story.is-editorial .agent-story-content > header > p:not(.agent-story-label),
+.agent-story.is-editorial .agent-story-section > p:not(.agent-story-label),
+.agent-story.is-editorial .agent-story-process-content > p,
+.agent-story.is-editorial .agent-solution-copy p,
+.agent-story.is-editorial .agent-pipeline-lead {
+  color: var(--e-body); font-size: 14.5px !important; line-height: 1.6; letter-spacing: -0.01em;
+}
+.agent-story.is-editorial .agent-story-section > p strong,
+.agent-story.is-editorial .agent-solution-copy p strong { color: var(--e-head); font-weight: 700; }
+
+/* Rhythm */
+.agent-story.is-editorial .agent-story-opening { margin-bottom: 8px; }
+.agent-story.is-editorial .agent-story-section { margin: 0 0 54px; }
+.agent-story.is-editorial .agent-story-section > p + p { margin-top: 14px; }
+
+/* Facts */
+.agent-story.is-editorial .agent-story-facts { gap: 20px 28px; margin: 30px 0; padding: 0; border: 0; }
+.agent-story.is-editorial .agent-story-facts dd { color: var(--e-body); font-size: 12.5px; line-height: 1.55; }
+
+/* Impact: a bright sub-head with orange-marked lines */
+.case-design .agent-story.is-editorial .agent-impact-label,
+.agent-story.is-editorial .e-list-head {
+  font-family: var(--font-instrument-sans), sans-serif !important;
+  font-size: 18px !important; font-weight: 700 !important; letter-spacing: -0.02em !important;
+  text-transform: none !important; line-height: 1.15 !important; color: var(--e-head) !important; margin: 8px 0 14px;
+}
+.agent-story.is-editorial .agent-impact { list-style: none; margin: 14px 0 40px; padding: 0; display: grid; gap: 14px; max-width: var(--e-measure); }
+.agent-story.is-editorial .agent-impact li {
+  position: relative; padding-left: 26px; color: var(--e-body);
+  font-family: var(--font-instrument-sans), sans-serif; font-size: 14px; line-height: 1.5;
+}
+.agent-story.is-editorial .agent-impact li::before {
+  content: "\2726"; position: absolute; left: 0; top: 1px; color: var(--e-accent); font-size: 13px; background: none; width: auto; height: auto; border-radius: 0;
+}
+
+/* Hero: framed film, square, subtle */
+.agent-story.is-editorial .agent-story-hero { margin: 0 0 56px; }
+.agent-story.is-editorial .agent-story-cover {
+  height: clamp(280px, 38vw, 380px);
+  background: radial-gradient(130% 130% at 50% 0%, #f1f1f1 0%, #e4e4e4 72%);
+  border: 1px solid var(--e-border); border-radius: 2px;
+}
+
+/* Key line: the reference info callout, dark box with an orange left rule */
+.agent-story.is-editorial .agent-key-shift {
+  position: relative; color: var(--e-head) !important; font-family: var(--font-instrument-sans), sans-serif;
+  font-size: 15px; line-height: 1.5; letter-spacing: -0.01em; font-weight: 500;
+  margin: 8px 0 32px; padding: 28px 32px; background: var(--e-surface);
+  border: 1px solid var(--e-border); border-radius: 4px; max-width: var(--e-measure);
+}
+.agent-story.is-editorial .agent-key-shift::before,
+.agent-story.is-editorial .agent-key-shift::after {
+  content: ""; position: absolute; width: 22px; height: 22px; border-color: var(--e-accent); border-style: solid;
+}
+.agent-story.is-editorial .agent-key-shift::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+.agent-story.is-editorial .agent-key-shift::after { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+/* Artifacts: light product shots framed on black */
+.agent-story.is-editorial .agent-story-artifact { margin: 40px 0; }
+.agent-story.is-editorial .agent-story-artifact > a { background: var(--e-surface); border: 1px solid var(--e-border); border-radius: 4px; padding: 10px; }
+.agent-story.is-editorial .agent-story-artifact img { border-radius: 2px; }
+.agent-story.is-editorial .agent-story-artifact figcaption { color: var(--e-muted); font-size: 12.5px; margin-top: 12px; }
+.agent-story.is-editorial .agent-story-artifact figcaption a { color: var(--e-body); }
+
+/* Design question: a large square callout with an orange eyebrow and a big question */
+.case-design .agent-story.is-editorial .agent-design-question {
+  background: var(--e-surface); border: 1px solid var(--e-border); border-radius: 2px;
+  position: relative; padding: 34px 36px; margin: 0 0 36px; display: block;
+}
+.case-design .agent-story.is-editorial .agent-design-question span {
+  display: block; font-family: var(--font-space-mono), monospace; font-size: 12px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--e-muted); margin-bottom: 16px;
+}
+.case-design .agent-story.is-editorial .agent-design-question p {
+  color: var(--e-head) !important; font-family: var(--font-instrument-sans), sans-serif;
+  font-size: clamp(19px, 2.15vw, 25px); line-height: 1.25; letter-spacing: -0.02em; font-weight: 500; margin: 0; max-width: none;
+}
+.agent-story.is-editorial .agent-design-question::before,
+.agent-story.is-editorial .agent-design-question::after {
+  content: ""; position: absolute; width: 22px; height: 22px; border-color: var(--e-accent); border-style: solid;
+}
+.agent-story.is-editorial .agent-design-question::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+.agent-story.is-editorial .agent-design-question::after { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+/* Three structural-question cards */
+.agent-story.is-editorial .agent-pipeline-lead { color: var(--e-body); font-size: 16px; line-height: 1.55; margin: 0 0 24px; max-width: var(--e-measure); }
+.case-design .agent-story.is-editorial .agent-decision-pipeline {
+  list-style: none; margin: 0 0 44px; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.case-design .agent-story.is-editorial .agent-decision-pipeline li {
+  background: var(--e-surface); border: 1px solid var(--e-border); border-radius: 2px; padding: 24px; display: block; counter-increment: none;
+}
+.case-design .agent-story.is-editorial .agent-decision-pipeline li span {
+  display: block; font-family: var(--font-space-mono), monospace; font-size: 13px; font-weight: 500;
+  letter-spacing: 0.06em; color: var(--e-muted); margin-bottom: 18px;
+}
+.case-design .agent-story.is-editorial .agent-decision-pipeline li span::before { content: "["; margin-right: 0.4em; }
+.case-design .agent-story.is-editorial .agent-decision-pipeline li span::after { content: "]"; margin-left: 0.4em; }
+.case-design .agent-story.is-editorial .agent-decision-pipeline li strong {
+  display: block; color: var(--e-head); font-family: var(--font-instrument-sans), sans-serif;
+  font-size: 15px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 7px;
+}
+.case-design .agent-story.is-editorial .agent-decision-pipeline li p { color: var(--e-muted) !important; font-size: 14px; line-height: 1.5; margin: 0; }
+
+/* Solution demos: side-by-side, alternating, in a wider band than the text measure */
+/* Solution demos: side by side and alternating, sized to the text column so they stay aligned. */
+.agent-story.is-editorial .agent-solution-feature {
+  display: grid; grid-template-columns: 288px minmax(0, 1fr); gap: 32px; align-items: center;
+  width: 100%; margin-left: 0; transform: none;
+}
+.agent-story.is-editorial .agent-solution-feature.is-reversed { grid-template-columns: minmax(0, 1fr) 288px; }
+/* Demo keeps its natural 440px layout, then the whole frame scales down so its proportions stay exact and it fits the column. */
+.case-design .agent-story.is-editorial .agent-handoff-preview { width: 440px; zoom: 0.62; }
+.agent-story.is-editorial .agent-solution-feature.is-reversed > :first-child { order: 2; }
+.agent-story.is-editorial .agent-solution-feature > :not(.agent-solution-copy) { min-width: 0; }
+.agent-story.is-editorial .agent-solution-copy h3 { margin-top: 6px; }
+.agent-story.is-editorial .agent-solution-copy .agent-story-label { color: var(--e-accent); }
+.agent-story.is-editorial .agent-solution-copy p { margin-top: 14px; }
+.case-design .agent-story.is-editorial .agent-solution-copy p { font-size: 13px !important; line-height: 1.55; }
+.case-design .agent-story.is-editorial .agent-solution-copy h3 { font-size: 14px !important; }
+.case-design .agent-story.is-editorial .agent-solution-copy .agent-story-label { font-size: 10.5px !important; }
+@media (max-width: 900px) {
+  .case-design .agent-story.is-editorial .agent-decision-pipeline { grid-template-columns: 1fr; }
+  .agent-story.is-editorial .agent-solution-feature,
+  .agent-story.is-editorial .agent-solution-feature.is-reversed { grid-template-columns: 1fr; gap: 20px; width: 100%; margin-left: 0; transform: none; }
+  .agent-story.is-editorial .agent-solution-feature.is-reversed > :first-child { order: 0; }
+  .agent-story.is-editorial .agent-solution-feature.is-reversed .agent-solution-copy { order: 0; }
+  .case-design .agent-story.is-editorial .agent-handoff-preview { width: 100%; zoom: 1; }
+}
+
+/* Two-developer cards: square, orange label, matching the reference concept cards */
+.agent-story.is-editorial .agent-segments { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0 8px; align-items: start; }
+.case-design .agent-story.is-editorial .agent-segment,
+.case-design .agent-story.is-editorial .agent-segment:nth-child(2) {
+  background: var(--e-surface) !important; border: 1px solid var(--e-border) !important; border-radius: 2px !important;
+  padding: 24px !important; box-shadow: none !important; transform: none !important; animation: none !important; color: var(--e-body) !important;
+}
+.case-design .agent-story.is-editorial .agent-segment-label { color: var(--e-accent) !important; }
+.case-design .agent-story.is-editorial .agent-segment p:not(.agent-segment-label) { color: var(--e-body) !important; }
+.case-design .agent-story.is-editorial .agent-segment h4 { color: var(--e-head) !important; margin: 8px 0 7px; }
+.agent-story.is-editorial .agent-segment dl { border-top: 0; margin-top: 14px; padding-top: 0; }
+.case-design .agent-story.is-editorial .agent-segment dt { color: var(--e-head) !important; font-size: 13px; font-weight: 700; }
+.case-design .agent-story.is-editorial .agent-segment dd { color: var(--e-body) !important; font-size: 14px; margin: 6px 0 0; }
+.case-design .agent-story.is-editorial .agent-segment-route { color: var(--e-muted) !important; border-top: 0; margin-top: 12px; padding-top: 0; }
+.case-design .agent-story.is-editorial .agent-segment-route strong { color: var(--e-head) !important; }
+
+/* Configuration stat: square callout, orange number */
+.agent-story.is-editorial .agent-configuration-stat { background: var(--e-surface); border: 1px solid var(--e-border); border-radius: 2px; padding: 28px; margin: 32px 0; }
+.case-design .agent-story.is-editorial .agent-configuration-stat h3 { margin: 0 0 10px; font-size: 18px; }
+.agent-story.is-editorial .agent-configuration-stat h3 span { color: var(--e-accent); font-size: 32px; font-weight: 700; margin-right: 10px; }
+.agent-story.is-editorial .agent-configuration-stat p { margin: 0; }
+
+/* Options: three stacked full-width tables */
+.case-design .agent-story.is-editorial .agent-options { display: block; margin: 12px 0 28px; }
+.agent-story.is-editorial .agent-options table { margin: 0 0 4px; }
+.case-design .agent-story.is-editorial .agent-options caption { color: var(--e-muted); font-family: var(--font-space-mono), monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; padding: 28px 0 8px; }
+.case-design .agent-story.is-editorial .agent-options tr { padding: 16px 0; border-top: 1px solid var(--e-border); }
+.case-design .agent-story.is-editorial .agent-options th { color: var(--e-head); font-weight: 700; font-size: 15px; margin-bottom: 6px; letter-spacing: -0.01em; }
+.case-design .agent-story.is-editorial .agent-options td { color: var(--e-body); font-size: 14px; line-height: 1.6; }
+.case-design .agent-story.is-editorial .agent-options tr.is-chosen { border-top-color: var(--e-accent); }
+.case-design .agent-story.is-editorial .agent-options tr.is-chosen th { color: var(--e-accent); }
+.case-design .agent-story.is-editorial .agent-options tr.is-chosen td { color: var(--e-head); }
+
+/* Copy table: reference table styling, header bottom rule, 12/16 cells */
+.agent-story.is-editorial .agent-copy-table { width: 100%; border-collapse: collapse; margin: 16px 0 20px; font-size: 14px; letter-spacing: -0.01em; }
+.agent-story.is-editorial .agent-copy-table caption { text-align: left; color: var(--e-muted); font-family: var(--font-space-mono), monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; padding: 0 0 12px; }
+.agent-story.is-editorial .agent-copy-table thead th { text-align: left; color: var(--e-head); font-weight: 700; font-size: 13px; padding: 0 16px 12px 0; border-bottom: 1px solid var(--e-border); }
+.agent-story.is-editorial .agent-copy-table th[scope=row] { text-align: left; font-weight: 700; color: var(--e-head); vertical-align: top; padding: 12px 16px 12px 0; border-top: 1px solid var(--e-hairline); width: 30%; }
+.agent-story.is-editorial .agent-copy-table td { color: var(--e-body); font-weight: 500; padding: 12px 16px 12px 0; border-top: 1px solid var(--e-hairline); vertical-align: top; }
+
+/* Edge rules: checklist rows with an orange check, bold title, muted description */
+.case-design .agent-story.is-editorial .agent-edge-rules { list-style: none; margin: 16px 0 8px; padding: 0; display: grid; gap: 18px; }
+.case-design .agent-story.is-editorial .agent-edge-rules li { position: relative; padding: 1px 0 0 36px; background: none; border-radius: 0; color: var(--e-body); font-size: 15px; line-height: 1.55; }
+.agent-story.is-editorial .agent-edge-rules li::before {
+  content: ""; position: absolute; left: 0; top: 1px;
+  width: 22px; height: 22px; border: 1.5px solid var(--e-accent); border-radius: 50%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff4400' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E") center / 12px 12px no-repeat;
+}
+.agent-story.is-editorial .agent-edge-rules strong { display: block; margin-bottom: 3px; color: var(--e-head); font-weight: 700; }
+
+/* Takeaways: reference "Key Takeaways", orange sparkle marker, bright title */
+.agent-story.is-editorial .agent-learning-list { display: grid; gap: 4px; margin-top: 24px; }
+.agent-story.is-editorial .agent-learning-list article { display: grid; grid-template-columns: 22px 1fr; gap: 16px; align-items: start; padding: 24px 0; border: 0; border-top: 1px solid var(--e-hairline); }
+.agent-story.is-editorial .agent-learning-list article > svg { color: var(--e-accent) !important; stroke: var(--e-accent) !important; width: 18px; height: 18px; margin-top: 4px; }
+.case-design .agent-story.is-editorial .agent-learning-list h3 { margin: 0 0 7px; font-size: 15px; color: var(--e-head); opacity: 1; }
+.agent-story.is-editorial .agent-learning-list p { margin: 0; color: var(--e-body); }
+
+/* Outcome / closing */
+.agent-story.is-editorial .agent-story-closing { margin-top: 8px; }
+.agent-story.is-editorial .agent-contact-footer { border-top: 1px solid var(--e-hairline); margin-top: 64px; padding-top: 28px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; color: var(--e-muted); font-size: 13px; }
+.agent-story.is-editorial .agent-contact-footer a { color: var(--e-body); }
+.agent-story.is-editorial .agent-contact-footer a:hover { color: var(--e-accent); }
+
+.agent-story.is-editorial .agent-story-process { margin: 0; }
+.agent-story.is-editorial .agent-story-process-content { margin: 0; }
+
+@media (max-width: 900px) {
+  .agent-story.is-editorial .agent-story-content { padding-top: 104px; }
+  .agent-story.is-editorial .agent-segments { grid-template-columns: 1fr; }
+}
+
+/* Two-developer cards as square sticky notes with a transparent tab (the category label lifts into a tab straddling the top edge). */
+.case-design .agent-story.is-editorial .agent-segment {
+  position: relative; overflow: visible; aspect-ratio: 1 / 1;
+  padding: 26px 20px 20px !important;
+  box-shadow: 0 14px 34px -24px #000;
+  display: flex; flex-direction: column;
+}
+.case-design .agent-story.is-editorial .agent-segment p { font-size: 12px !important; line-height: 1.5; }
+.case-design .agent-story.is-editorial .agent-segment h4 { font-size: 14px !important; }
+.case-design .agent-story.is-editorial .agent-segment dt { font-size: 11.5px !important; }
+.case-design .agent-story.is-editorial .agent-segment dd { font-size: 12px !important; }
+.case-design .agent-story.is-editorial .agent-segment-route { margin-top: auto !important; padding-top: 12px; font-size: 11px; }
+.case-design .agent-story.is-editorial .agent-segment-label { font-size: 10px !important; padding: 5px 9px; }
+.case-design .agent-story.is-editorial .agent-segment-label {
+  position: absolute; top: -12px; left: 22px; margin: 0;
+  background: rgba(255, 255, 255, 0.05); border: 1px solid var(--e-border);
+  border-radius: 5px; padding: 6px 11px; color: var(--e-muted) !important;
+  backdrop-filter: blur(2px);
+}
+
+/* Uniform block rhythm: every media block, stat and callout gets the same 28px above and below, so gaps never compound. */
+.agent-story.is-editorial .agent-story-artifact,
+.agent-story.is-editorial .agent-story-image-pair,
+.agent-story.is-editorial .agent-story-iterations,
+.agent-story.is-editorial .agent-journey-layout,
+.agent-story.is-editorial .agent-story-exploration-grid,
+.agent-story.is-editorial .agent-configuration-stat,
+.agent-story.is-editorial .agent-key-shift {
+  margin-block: 28px !important;
+}
+/* Artifacts inside a grid or pair must not add their own margin; the grid gap alone spaces them, so row gap equals column gap. */
+.agent-story.is-editorial .agent-story-image-pair .agent-story-artifact,
+.agent-story.is-editorial .agent-story-iterations .agent-story-artifact,
+.agent-story.is-editorial .agent-story-exploration-grid .agent-story-artifact,
+.agent-story.is-editorial .agent-journey-layout .agent-story-artifact {
+  margin-block: 0 !important;
+}
+/* Equal-height sticky notes (square-ish; content volume differs, so match heights rather than force 1:1 and clip). */
+.case-design .agent-story.is-editorial .agent-segments { align-items: stretch; }
+
+/* Grid image frames: flush, no inset border line at the top of the mockups. */
+.agent-story.is-editorial .agent-story-exploration-grid .agent-story-artifact > a,
+.agent-story.is-editorial .agent-story-iterations .agent-story-artifact > a,
+.agent-story.is-editorial .agent-story-image-pair .agent-story-artifact > a {
+  padding: 0 !important; border: 0 !important;
+}
+
+/* ---- Standardized vertical rhythm ----
+   One section gap, one block gap, one label-to-heading gap, applied everywhere so spacing is consistent. */
+.agent-story.is-editorial { --e-gap-section: 56px; --e-gap-block: 28px; }
+.agent-story.is-editorial .agent-story-section { margin: 0 0 var(--e-gap-section) !important; }
+.case-design .agent-story.is-editorial .agent-story-label { margin: 0 0 14px !important; }
+.case-design .agent-story.is-editorial .agent-story-label + h1,
+.case-design .agent-story.is-editorial .agent-story-label + h2,
+.case-design .agent-story.is-editorial .agent-story-label + h3 { margin-top: 0 !important; }
+.agent-story.is-editorial .agent-story-process { margin: var(--e-gap-section) 0 0; }
+.case-design .agent-story.is-editorial .agent-story-process-content > h3:first-child { margin-top: 0 !important; }
+.agent-story.is-editorial :is(
+  .agent-story-artifact, .agent-story-image-pair, .agent-story-iterations,
+  .agent-journey-layout, .agent-story-exploration-grid, .agent-configuration-stat,
+  .agent-key-shift, .agent-design-question, .agent-decision-pipeline,
+  .agent-segments, .agent-solution-feature, .agent-impact
+) { margin-block: var(--e-gap-block) !important; }
+/* Artifacts inside a grid still carry no margin of their own. */
+.agent-story.is-editorial .agent-story-image-pair .agent-story-artifact,
+.agent-story.is-editorial .agent-story-iterations .agent-story-artifact,
+.agent-story.is-editorial .agent-story-exploration-grid .agent-story-artifact,
+.agent-story.is-editorial .agent-journey-layout .agent-story-artifact { margin-block: 0 !important; }
+
+/* The editorial page is dark-only (like the reference), so hide the theme toggle here rather than leave a button that does nothing. */
+.case-design:has(.agent-story.is-editorial) .case-site-controls button { display: none; }

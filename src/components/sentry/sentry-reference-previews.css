@@ -125,17 +125,24 @@
 .rt-dates {
   padding: .7em .88em .78em;
   display: grid;
-  grid-template-columns: 2.55em minmax(0, 1fr) auto;
-  gap: .45em .55em;
+  gap: .45em;
 }
+/* Each row carries its own explicit column template (matching .time-tooltip
+   in sentry-ui.css) instead of `subgrid`. Safari <=17 mis-sizes subgrid
+   tracks nested inside a container-query context, which slid the time column
+   left over the date ("Jul 28, 2026" + "11:40 PM" overlapping). Both rows
+   share the same fixed zone column and right-anchored time column, so they
+   still line up identically without depending on subgrid. */
 .rt-dates > div {
   display: grid;
-  grid-column: 1 / -1;
-  grid-template-columns: subgrid;
+  grid-template-columns: 2.55em minmax(0, 1fr) auto;
   align-items: center;
   gap: .55em;
   white-space: nowrap;
 }
+/* Belt-and-braces: the date cell clips rather than overflowing, so nothing
+   can ever paint across the time column even if the row runs short. */
+.rt-dates > div > span:nth-child(2) { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .rt-zone {
   padding: .12em .32em;
   border-radius: 3px;
@@ -156,7 +163,6 @@
 }
 .rt-precision {
   padding-block: .74em .82em;
-  grid-template-columns: 2.55em minmax(0,1fr) auto;
   font-size: .92em;
 }
 .rt-detail-rows {

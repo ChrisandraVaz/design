@@ -349,3 +349,10 @@
 
 /* The editorial page is dark-only (like the reference), so hide the theme toggle here rather than leave a button that does nothing. */
 .case-design:has(.agent-story.is-editorial) .case-site-controls button { display: none; }
+
+/* Mobile: images and figures scale to the viewport; multi-column figure grids stack. */
+@media (max-width: 640px) {
+  .agent-story.is-editorial :is(img, video) { max-width: 100% !important; height: auto !important; }
+  .agent-story.is-editorial :is(.agent-story-exploration-grid, .agent-story-iterations, .agent-story-image-pair, .agent-decision-pipeline, .agent-segments) { grid-template-columns: 1fr !important; }
+  .agent-story.is-editorial .agent-story-artifact > a { max-width: 100% !important; overflow: hidden !important; }
+}

@@ -685,3 +685,16 @@ body.case-fontcontext .main-content { padding-top:88px !important; }
 /* Feature demos: top-align the text with the media so the spacing reads even. */
 body.case-fontcontext .feature-showcase { align-items:start !important; }
 body.case-fontcontext .feature-text { padding-top:8px !important; }
+
+/* ---- Mobile: FontContext meta and demos stack ---- */
+@media (max-width: 640px) {
+  body.case-fontcontext .project-info { grid-template-columns: 1fr 1fr !important; gap: 24px 20px !important; }
+  body.case-fontcontext .feature-showcase,
+  body.case-fontcontext .feature-showcase.reverse { grid-template-columns: 1fr !important; gap: 20px !important; }
+  body.case-fontcontext .feature-showcase.reverse .feature-image { order: 0 !important; }
+  body.case-fontcontext .feature-showcase.reverse .feature-text { order: 0 !important; }
+  body.case-fontcontext .two-bar-attempts-grid { grid-template-columns: 1fr !important; }
+  body.case-fontcontext .two-column { grid-template-columns: 1fr !important; }
+  body.case-fontcontext .stats-grid-simple { grid-template-columns: 1fr !important; }
+  body.case-fontcontext .pain-section-layout { grid-template-columns: 1fr !important; }
+}

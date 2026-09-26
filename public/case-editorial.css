@@ -1,0 +1,687 @@
+/* Case-editorial framework — a standalone, reusable editorial shell for a static
+   case-study HTML page. Neutral .ce-* class convention; the shared VISUAL system
+   only (nav, tree, callouts, cards, tables, figures). The writing inside each case
+   study stays unique — this file never dictates prose, only the chrome around it.
+
+   Usage: <body class="case-editorial" data-theme="dark"> with the Google Fonts link
+   in <head> for Space Grotesk, Instrument Sans, Space Mono, IBM Plex Mono, Source Serif 4.
+
+   Tokens mirror the Send to Agent editorial system exactly:
+   bg #000, surface #0d0d0d, border #202020, hairline #191919,
+   head #fafafa, body #d1d1d1, muted #8a8a8a, accent #ff4400, measure 612px. */
+
+/* ---- Tokens (dark editorial default) ---------------------------------- */
+.case-editorial {
+  --ce-bg: #000;
+  --ce-surface: #0d0d0d;
+  --ce-border: #202020;
+  --ce-hairline: #191919;
+  --ce-head: #fafafa;
+  --ce-body: #d1d1d1;
+  --ce-muted: #8a8a8a;
+  --ce-accent: #ff4400;
+  --ce-measure: 612px;
+
+  --ce-title-size: clamp(27px, 3vw, 38px);
+  --ce-section-size: clamp(21px, 2.25vw, 26px);
+
+  --ce-font-head: 'Instrument Sans', 'Space Grotesk', sans-serif;
+  --ce-font-body: 'Instrument Sans', 'Space Grotesk', sans-serif;
+  --ce-font-mono: 'Space Mono', 'IBM Plex Mono', monospace;
+  --ce-font-serif: 'Source Serif 4', Georgia, serif;
+
+  --ce-gap-section: 56px;
+  --ce-gap-block: 28px;
+
+  background: var(--ce-bg);
+  color: var(--ce-head);
+  min-height: 100vh;
+  font-family: var(--ce-font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Light-mode block, guarded: when data-theme="dark" is forced the page stays dark. */
+.case-editorial[data-theme="light"] {
+  --ce-bg: #fff;
+  --ce-surface: #f5f5f7;
+  --ce-border: #e5e5e5;
+  --ce-hairline: #ececec;
+  --ce-head: #111;
+  --ce-body: #555;
+  --ce-muted: #777;
+  --ce-accent: #ff4400;
+}
+
+/* ---- Base / reset ------------------------------------------------------ */
+.case-editorial * { box-sizing: border-box; }
+.case-editorial a { color: inherit; text-decoration: none; }
+.case-editorial :is(a, button):focus-visible { outline: 2px solid var(--ce-accent); outline-offset: 4px; }
+.case-editorial img { display: block; max-width: 100%; height: auto; }
+.case-editorial hr { display: none; }
+.case-editorial :is(section, header)[id] { scroll-margin-top: 96px; }
+
+/* ---- Top nav ----------------------------------------------------------- */
+.ce-top {
+  position: fixed; inset: 0 0 auto; z-index: 100;
+  height: 60px; display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: saturate(150%) blur(12px);
+  backdrop-filter: saturate(150%) blur(12px);
+  border-bottom: 1px solid var(--ce-hairline);
+}
+.ce-back {
+  position: absolute; left: 32px;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; color: var(--ce-body); min-height: 44px;
+}
+.ce-back:hover { color: var(--ce-head); }
+.ce-tabs { display: flex; gap: 32px; background: transparent; border: 0; padding: 0; }
+.ce-tabs a {
+  position: relative;
+  font-family: var(--ce-font-head);
+  font-size: 14px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase;
+  color: #9d9d9d; padding: 6px 0;
+}
+.ce-tabs a:hover { color: var(--ce-head); }
+.ce-tabs a[aria-current] { color: var(--ce-accent); }
+.ce-tabs a[aria-current]::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -3px;
+  height: 2px; background: var(--ce-accent);
+}
+
+/* ---- Side chapter tree ------------------------------------------------- */
+.ce-tree {
+  position: fixed; left: 32px; top: 50%; transform: translateY(-50%);
+  width: 160px; z-index: 50;
+}
+.ce-tree a {
+  display: block;
+  font-family: var(--ce-font-mono);
+  font-size: 11px; font-weight: 500; line-height: 1.5; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ce-muted);
+  padding: 4px 0; margin-bottom: 4px;
+}
+.ce-tree a:hover,
+.ce-tree a[aria-current] { color: var(--ce-head); }
+.ce-tree a[aria-current] { color: var(--ce-accent); }
+.ce-tree .ce-tree-child {
+  position: relative; padding: 2px 0 2px 16px;
+  font-size: 10px; margin-bottom: 2px;
+}
+.ce-tree .ce-tree-child::before {
+  content: ""; position: absolute; left: 0; top: 0;
+  width: 8px; height: 12px;
+  border-left: 1px solid var(--ce-muted);
+  border-bottom: 1px solid var(--ce-muted);
+  border-bottom-left-radius: 3px;
+}
+
+/* ---- Content column ---------------------------------------------------- */
+.ce-content {
+  width: min(var(--ce-measure), calc(100% - 48px));
+  margin: 0 auto;
+  padding: 108px 0 100px;
+}
+.ce-section { margin: 0 0 var(--ce-gap-section); }
+.ce-section > p + p { margin-top: 14px; }
+
+/* ---- Section eyebrow label --------------------------------------------- */
+.ce-label {
+  font-family: var(--ce-font-mono);
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ce-muted);
+  margin: 0 0 14px;
+}
+.ce-label + h1,
+.ce-label + h2,
+.ce-label + h3 { margin-top: 0; }
+
+/* ---- Headings ---------------------------------------------------------- */
+.case-editorial h1,
+.case-editorial h2,
+.case-editorial h3 {
+  font-family: var(--ce-font-head);
+  color: var(--ce-head); font-weight: 700; text-wrap: balance;
+}
+.case-editorial h1 {
+  font-size: var(--ce-title-size);
+  line-height: 1.04; letter-spacing: -0.03em; margin: 6px 0 0;
+}
+.case-editorial h2 {
+  font-size: var(--ce-section-size);
+  line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 16px;
+}
+.case-editorial h3 {
+  font-size: 16px; line-height: 1.25; letter-spacing: -0.02em;
+  margin: 28px 0 11px;
+}
+
+/* ---- Body copy --------------------------------------------------------- */
+.case-editorial p {
+  color: var(--ce-body);
+  font-size: 14.5px; line-height: 1.6; letter-spacing: -0.01em;
+  max-width: var(--ce-measure); margin: 0;
+}
+.case-editorial p strong { color: var(--ce-head); font-weight: 700; }
+
+/* ---- Impact block ------------------------------------------------------ */
+.ce-impact-label {
+  font-family: var(--ce-font-head);
+  font-size: 18px; font-weight: 700; letter-spacing: -0.02em;
+  line-height: 1.15; color: var(--ce-head); margin: 8px 0 14px;
+}
+.ce-impact {
+  list-style: none; margin: 14px 0 40px; padding: 0;
+  display: grid; gap: 14px; max-width: var(--ce-measure);
+}
+.ce-impact li {
+  position: relative; padding-left: 26px; color: var(--ce-body);
+  font-family: var(--ce-font-body); font-size: 14px; line-height: 1.5;
+}
+.ce-impact li::before {
+  content: "\2726"; position: absolute; left: 0; top: 1px;
+  color: var(--ce-accent); font-size: 13px;
+}
+
+/* ---- Corner-bracket callout -------------------------------------------- */
+.ce-callout {
+  position: relative;
+  background: var(--ce-surface);
+  border: 1px solid var(--ce-border); border-radius: 4px;
+  padding: 34px 36px; margin: var(--ce-gap-block) 0;
+  max-width: var(--ce-measure);
+}
+.ce-callout p {
+  color: var(--ce-head); font-family: var(--ce-font-head);
+  font-size: clamp(19px, 2.15vw, 25px); line-height: 1.25;
+  letter-spacing: -0.02em; font-weight: 500; margin: 0; max-width: none;
+}
+.ce-callout-eyebrow {
+  display: block;
+  font-family: var(--ce-font-mono);
+  font-size: 12px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ce-muted); margin-bottom: 16px;
+}
+.ce-callout::before,
+.ce-callout::after {
+  content: ""; position: absolute;
+  width: 22px; height: 22px;
+  border-color: var(--ce-accent); border-style: solid;
+}
+.ce-callout::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+.ce-callout::after { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+/* ---- Decision pipeline ------------------------------------------------- */
+.ce-pipeline-lead {
+  color: var(--ce-body); font-size: 16px; line-height: 1.55;
+  margin: 0 0 24px; max-width: var(--ce-measure);
+}
+.ce-pipeline {
+  list-style: none; margin: var(--ce-gap-block) 0 44px; padding: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.ce-pipeline li {
+  background: var(--ce-surface);
+  border: 1px solid var(--ce-border); border-radius: 2px;
+  padding: 24px;
+}
+.ce-pipeline li span {
+  display: block;
+  font-family: var(--ce-font-mono);
+  font-size: 13px; font-weight: 500; letter-spacing: 0.06em;
+  color: var(--ce-muted); margin-bottom: 18px;
+}
+.ce-pipeline li span::before { content: "["; margin-right: 0.4em; }
+.ce-pipeline li span::after { content: "]"; margin-left: 0.4em; }
+.ce-pipeline li strong {
+  display: block; color: var(--ce-head);
+  font-family: var(--ce-font-head);
+  font-size: 15px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 7px;
+}
+.ce-pipeline li p { color: var(--ce-muted); font-size: 14px; line-height: 1.5; margin: 0; max-width: none; }
+
+/* ---- Sticky-note segment cards ----------------------------------------- */
+.ce-segments {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  margin: 24px 0 8px; align-items: stretch;
+}
+.ce-segment {
+  position: relative; overflow: visible; aspect-ratio: 1 / 1;
+  background: var(--ce-surface);
+  border: 1px solid var(--ce-border); border-radius: 2px;
+  padding: 26px 20px 20px;
+  box-shadow: 0 14px 34px -24px #000;
+  display: flex; flex-direction: column;
+}
+.ce-segment-label {
+  position: absolute; top: -12px; left: 22px; margin: 0;
+  font-family: var(--ce-font-mono);
+  font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ce-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--ce-border); border-radius: 5px;
+  padding: 6px 11px;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.case-editorial .ce-segment h3,
+.case-editorial .ce-segment h4 {
+  font-family: var(--ce-font-head);
+  font-size: 14px; line-height: 1.3; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--ce-head); margin: 8px 0 7px;
+}
+.ce-segment p { color: var(--ce-body); font-size: 12px; line-height: 1.5; }
+.ce-segment dl { margin: 14px 0 0; padding: 0; border: 0; }
+.ce-segment dt { color: var(--ce-head); font-size: 11.5px; font-weight: 700; }
+.ce-segment dd { color: var(--ce-body); font-size: 12px; margin: 6px 0 0; }
+.ce-segment-route { color: var(--ce-muted); margin-top: auto; padding-top: 12px; font-size: 11px; }
+.ce-segment-route strong { color: var(--ce-head); }
+
+/* ---- Side-by-side feature demo ----------------------------------------- */
+.ce-feature {
+  display: grid; grid-template-columns: 288px minmax(0, 1fr); gap: 32px;
+  align-items: center; width: 100%; margin: var(--ce-gap-block) 0;
+}
+.ce-feature.is-reversed { grid-template-columns: minmax(0, 1fr) 288px; }
+.ce-feature.is-reversed .ce-feature-media { order: 2; }
+.ce-feature-media { min-width: 0; }
+.ce-feature-media img,
+.ce-feature-media > * { max-width: 100%; height: auto; }
+.ce-feature-copy h3 { margin-top: 6px; }
+.ce-feature-copy .ce-label { color: var(--ce-accent); font-size: 10.5px; }
+.ce-feature-copy h3 { font-size: 14px; }
+.ce-feature-copy p { font-size: 13px; line-height: 1.55; margin-top: 14px; }
+
+/* ---- Option table ------------------------------------------------------ */
+.ce-options { width: 100%; margin: 12px 0 28px; }
+.ce-options table { width: 100%; border-collapse: collapse; margin: 0 0 4px; }
+.ce-options caption {
+  text-align: left; color: var(--ce-muted);
+  font-family: var(--ce-font-mono);
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 28px 0 8px;
+}
+.ce-options tr { border-top: 1px solid var(--ce-border); }
+.ce-options th {
+  text-align: left; color: var(--ce-head); font-weight: 700; font-size: 15px;
+  letter-spacing: -0.01em; padding: 16px 16px 16px 0; vertical-align: top;
+}
+.ce-options td {
+  color: var(--ce-body); font-size: 14px; line-height: 1.6;
+  padding: 16px 0; vertical-align: top;
+}
+.ce-options tr.is-chosen { border-top-color: var(--ce-accent); }
+.ce-options tr.is-chosen th { color: var(--ce-accent); }
+.ce-options tr.is-chosen td { color: var(--ce-head); }
+
+/* ---- Edge rules: circled checkmarks ------------------------------------ */
+.ce-rules {
+  list-style: none; margin: 16px 0 8px; padding: 0;
+  display: grid; gap: 18px;
+}
+.ce-rules li {
+  position: relative; padding: 1px 0 0 36px;
+  color: var(--ce-body); font-size: 15px; line-height: 1.55;
+}
+.ce-rules li::before {
+  content: ""; position: absolute; left: 0; top: 1px;
+  width: 22px; height: 22px;
+  border: 1.5px solid var(--ce-accent); border-radius: 50%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff4400' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E") center / 12px 12px no-repeat;
+}
+.ce-rules strong { display: block; margin-bottom: 3px; color: var(--ce-head); font-weight: 700; }
+
+/* ---- Media / figures --------------------------------------------------- */
+.ce-figure { margin: var(--ce-gap-block) 0; }
+.ce-figure > a,
+.ce-figure-frame {
+  display: block; background: var(--ce-surface);
+  border: 1px solid var(--ce-border); border-radius: 4px;
+  padding: 10px; overflow: hidden;
+}
+.ce-figure img { border-radius: 2px; width: 100%; }
+.case-editorial figcaption { color: var(--ce-muted); font-size: 12.5px; line-height: 1.65; margin-top: 12px; }
+.case-editorial figcaption a { color: var(--ce-body); text-decoration: underline; text-underline-offset: 3px; }
+.case-editorial figcaption a:hover { color: var(--ce-accent); }
+.ce-figure-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px;
+  margin: var(--ce-gap-block) 0; align-items: start;
+}
+.ce-figure-grid .ce-figure { margin: 0; }
+.ce-figure-grid .ce-figure > a,
+.ce-figure-grid .ce-figure-frame { padding: 0; border: 0; }
+
+/* ---- Result line ------------------------------------------------------- */
+.ce-result {
+  margin: var(--ce-gap-block) 0;
+  padding-top: 20px; border-top: 1px solid var(--ce-hairline);
+}
+.ce-result .ce-label { margin-bottom: 8px; }
+.ce-result p { color: var(--ce-body); font-size: 14.5px; line-height: 1.6; }
+
+/* ---- Learnings --------------------------------------------------------- */
+.ce-learnings { display: grid; gap: 4px; margin-top: 24px; }
+.ce-learnings article {
+  display: grid; grid-template-columns: 22px 1fr; gap: 16px; align-items: start;
+  padding: 24px 0; border-top: 1px solid var(--ce-hairline);
+}
+.ce-learnings article > svg {
+  width: 18px; height: 18px; margin-top: 4px;
+  color: var(--ce-accent); stroke: var(--ce-accent);
+}
+.case-editorial .ce-learnings h3 { margin: 0 0 7px; font-size: 15px; color: var(--ce-head); }
+.ce-learnings p { margin: 0; color: var(--ce-body); }
+
+/* ---- Footer ------------------------------------------------------------ */
+.ce-footer {
+  border-top: 1px solid var(--ce-hairline);
+  margin-top: 64px; padding-top: 28px;
+  display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  color: var(--ce-muted); font-size: 13px;
+}
+.ce-footer p { margin: 0; color: var(--ce-muted); }
+.ce-footer nav { display: flex; gap: 24px; }
+.ce-footer a { color: var(--ce-body); display: inline-flex; align-items: center; min-height: 44px; }
+.ce-footer a:hover { color: var(--ce-accent); }
+
+/* ---- Responsive / mobile ----------------------------------------------- */
+@media (max-width: 1099px) {
+  .ce-tree { display: none; }
+}
+@media (max-width: 900px) {
+  .ce-pipeline { grid-template-columns: 1fr; }
+  .ce-segments { grid-template-columns: 1fr; }
+  .ce-feature,
+  .ce-feature.is-reversed { grid-template-columns: 1fr; gap: 20px; }
+  .ce-feature.is-reversed .ce-feature-media { order: 0; }
+  .ce-figure-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .ce-top { height: auto; flex-direction: column; gap: 8px; align-items: flex-start; padding: 12px 16px; }
+  .ce-back { position: static; }
+  .ce-tabs { align-self: center; gap: 20px; flex-wrap: wrap; justify-content: center; }
+  .ce-content { padding: 132px 0 72px; }
+  .ce-callout { padding: 28px 22px; }
+  .ce-options table { display: block; overflow-x: auto; }
+  .ce-footer { flex-direction: column; gap: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-editorial { scroll-behavior: auto; }
+}
+/* =====================================================================
+   FontContext adapter
+   ---------------------------------------------------------------------
+   Dresses the existing FontContext markup (public/fontcontext.html) in the
+   Send to Agent editorial system WITHOUT renaming its JS-hook classes and
+   WITHOUT touching its words. Dark-locked. Loaded after case-typography.css
+   so these win. Most surfaces reskin automatically because FontContext's
+   own CSS reads var(--bg-*) / var(--figma-blue*) tokens, which we redefine
+   to the exact Send to Agent values here.
+   ===================================================================== */
+
+/* Type scale + heading font: match Send to Agent via the tokens case-typography
+   already sizes h1/h2 from (h1 clamp 27-38, h2 clamp 21-26), heads in Instrument Sans. */
+body.case-fontcontext {
+  --content-max: 760px;      /* FontContext native width (matches the live layout) */
+  --text-max: 612px;         /* narrative line length matches Send to Agent's measure */
+}
+
+/* Exact Send to Agent dark tokens, dark-locked (win over inline :root and case-typography). */
+body.case-fontcontext,
+html[data-theme="dark"] body.case-fontcontext,
+body.case-fontcontext[data-theme="dark"] {
+  --bg-primary:#000; --bg-secondary:#0d0d0d; --bg-tertiary:#0d0d0d;
+  --text-primary:#fafafa; --text-secondary:#d1d1d1; --text-tertiary:#8a8a8a;
+  --border-light:#202020; --border-subtle:#191919;
+  --figma-blue:#0C8CE9; --figma-blue-hover:#0A7BD4; --figma-blue-50:rgba(12,140,233,.5);
+  --figma-blue-light:rgba(255,255,255,.06);
+  --editorial-accent:#0C8CE9; --editorial-surface:#0d0d0d; --editorial-border:#202020;
+  --editorial-ink:#fafafa; --editorial-copy:#d1d1d1; --editorial-muted:#a3a3a3;
+}
+body.case-fontcontext { background:#000 !important; color:#d1d1d1 !important; }
+
+/* Narrative copy at the Send to Agent measure. */
+body.case-fontcontext :is(.section-text, .subsection-header, p.key-shift, .research-block > p, .mvp-reflection-block p, .two-bar-resolution p) {
+  max-width:var(--text-max);
+}
+body.case-fontcontext .section-text { font-size:15px !important; line-height:1.6 !important; }
+
+/* ---- Top nav: pill tabs -> underline tabs -------------------------------- */
+body.case-fontcontext .top-nav {
+  background:rgba(0,0,0,0.7) !important;
+  -webkit-backdrop-filter:saturate(150%) blur(12px); backdrop-filter:saturate(150%) blur(12px);
+  border-bottom:1px solid var(--border-subtle) !important;
+}
+body.case-fontcontext .nav-links {
+  background:transparent !important; border:0 !important; padding:0 !important;
+  border-radius:0 !important; gap:32px !important; box-shadow:none !important;
+}
+body.case-fontcontext .nav-links a {
+  background:transparent !important; box-shadow:none !important; border-radius:0 !important;
+  padding:6px 0 !important; position:relative;
+  font-family:var(--case-editorial-font) !important;
+  font-size:14px !important; font-weight:500 !important; letter-spacing:1.4px !important;
+  text-transform:uppercase !important; color:#9d9d9d !important;
+}
+body.case-fontcontext .nav-links a:hover { color:#fafafa !important; }
+body.case-fontcontext .nav-links a.active { background:transparent !important; color:var(--editorial-accent) !important; box-shadow:none !important; }
+body.case-fontcontext .nav-links a.active::after {
+  content:""; position:absolute; left:0; right:0; bottom:-3px; height:2px; background:var(--editorial-accent);
+}
+
+/* ---- Key-shift + generic framing questions: left-line banner -> corner brackets ---- */
+body.case-fontcontext p.key-shift,
+body.case-fontcontext .user-quote-blue:not(.font-research-quote):not(.font-original-question) {
+  position:relative !important;
+  border-left:0 !important; border-radius:4px !important;
+  border:1px solid var(--editorial-border) !important;
+  background:var(--editorial-surface) !important;
+  padding:34px 36px !important; margin:28px 0 !important; max-width:var(--text-max) !important;
+  color:#fafafa !important;
+  font-family:var(--case-editorial-font) !important;
+  font-size:clamp(19px,2.15vw,25px) !important; line-height:1.25 !important;
+  letter-spacing:-0.02em !important; font-weight:500 !important;
+}
+body.case-fontcontext p.key-shift::before,
+body.case-fontcontext p.key-shift::after,
+body.case-fontcontext .user-quote-blue:not(.font-research-quote):not(.font-original-question)::before,
+body.case-fontcontext .user-quote-blue:not(.font-research-quote):not(.font-original-question)::after {
+  content:""; position:absolute; width:22px; height:22px; border-color:var(--editorial-accent); border-style:solid;
+}
+body.case-fontcontext p.key-shift::before,
+body.case-fontcontext .user-quote-blue:not(.font-research-quote):not(.font-original-question)::before { top:10px; left:10px; border-width:1px 0 0 1px; }
+body.case-fontcontext p.key-shift::after,
+body.case-fontcontext .user-quote-blue:not(.font-research-quote):not(.font-original-question)::after { bottom:10px; right:10px; border-width:0 1px 1px 0; }
+
+/* ---- Hardcoded light colors the tokens can't reach -------------------------- */
+body.case-fontcontext .two-bar-attempt,
+body.case-fontcontext .two-bar-attempt:nth-child(1),
+body.case-fontcontext .two-bar-attempt:nth-child(2),
+body.case-fontcontext .two-bar-attempt:nth-child(3) {
+  background:#0d0d0d !important; border:1px solid #202020 !important; box-shadow:none !important;
+}
+body.case-fontcontext .decision-item { background:none !important; border:0 !important; }
+body.case-fontcontext .gap-header, body.case-fontcontext .gap-row { background:#0d0d0d !important; border-color:#202020 !important; }
+body.case-fontcontext [data-theme="dark"] img, body.case-fontcontext img { opacity:1 !important; }
+
+/* Keep the two "Final UI" frames' deliberate contrasting backgrounds (do not flatten). */
+body.case-fontcontext .image-container[style] { border:1px solid #202020 !important; }
+
+/* Participant + HMW serif quotes keep their voice, just readable on dark. */
+body.case-fontcontext :is(.font-research-quote, .font-original-question) p { color:#fafafa !important; }
+
+/* Hide the light/dark toggle: this study is dark-only, like Send to Agent. */
+body.case-fontcontext .case-site-controls button[aria-label*="mode"],
+body.case-fontcontext #themeToggle { display:none !important; }
+
+/* ---------------------------------------------------------------------
+   FontContext spacing & measure: match the Send to Agent rhythm exactly.
+   Send to Agent: 612px measure, 108/100 content padding, 56px between
+   sections, 14px under labels, label+heading flush, 14px under paragraphs.
+   Wide blocks (2-col, grids, feature demos) break out to a centered band.
+   ------------------------------------------------------------------- */
+body.case-fontcontext .main-content {
+  padding-top:108px !important; padding-bottom:100px !important; max-width:none !important; margin:0 !important;
+}
+/* Narrative column = 612px, centered on the viewport (like Send to Agent). */
+body.case-fontcontext .main-content > *,
+body.case-fontcontext .main-content > section {
+  max-width:760px !important; margin-left:auto !important; margin-right:auto !important; width:100% !important;
+}
+/* Section rhythm. */
+body.case-fontcontext .main-content > section { margin-bottom:56px !important; }
+body.case-fontcontext .main-content > header { margin-bottom:56px !important; }
+/* Label -> heading -> body rhythm. */
+body.case-fontcontext :is(.section-label,.research-label,.project-meta) { margin:0 0 14px !important; }
+body.case-fontcontext :is(.section-label,.research-label,.project-meta) + :is(h1,h2,h3,h4,.section-title,.subsection-header,.project-title) { margin-top:0 !important; }
+body.case-fontcontext :is(h2,.section-title) { margin:0 0 16px !important; }
+body.case-fontcontext :is(.subsection-header) { margin:28px 0 11px !important; }
+body.case-fontcontext :is(.section-text, .research-block > p, .mvp-reflection-block > p, .two-bar-resolution p, .pain-text-content > p, section > p) {
+  margin:0 0 14px !important;
+}
+body.case-fontcontext .section-subtitle { margin:0 0 24px !important; }
+/* Everything stays inside the 612 measure, like Send to Agent (no breakout bands). */
+body.case-fontcontext :is(.two-column, .pain-section-layout, .stats-grid-simple,
+  .value-grid-container, .two-bar-attempts-grid, .roadmap-grid, .its-broken-grid, .two-bar-intro,
+  .gap-table, .comparison-container, .competitor-grid, .market-gap-grid, .research-block, .broken-problem-grid) {
+  width:100% !important; max-width:100% !important; margin-left:0 !important; margin-right:0 !important; transform:none !important;
+}
+/* Multi-column grids fit the 612 measure (small cards, like Send to Agent's pipeline/segments). */
+body.case-fontcontext .stats-grid-simple { display:grid !important; grid-template-columns:1fr !important; gap:12px !important; }
+body.case-fontcontext .two-bar-attempts-grid { display:grid !important; grid-template-columns:repeat(3,1fr) !important; gap:12px !important; }
+body.case-fontcontext .two-column { display:grid !important; grid-template-columns:1fr 1fr !important; gap:24px 28px !important; }
+body.case-fontcontext .gap-table { display:block !important; overflow-x:auto !important; }
+
+/* ---- Meta row (ROLE / TIMELINE / TEAM / SKILLS): match Send to Agent exactly ---- */
+body.case-fontcontext .project-info {
+  max-width:900px !important; margin:0 auto !important; width:100% !important;
+  display:grid !important; grid-template-columns:repeat(4,1fr) !important; gap:20px 28px !important;
+}
+body.case-fontcontext .info-item h4 {
+  font-family:'Space Mono',monospace !important; font-size:11px !important; font-weight:500 !important;
+  line-height:1.5 !important; letter-spacing:0.88px !important; text-transform:uppercase !important;
+  color:#a3a3a3 !important; margin:0 0 16px !important;
+}
+body.case-fontcontext .info-item p {
+  font-family:'Instrument Sans','Helvetica Neue',Helvetica,Arial,sans-serif !important;
+  font-size:15px !important; font-weight:400 !important; line-height:1.55 !important;
+  letter-spacing:normal !important; color:#d1d1d1 !important; margin:0 !important;
+}
+
+/* ---- Body copy + bold lead-ins: match Send to Agent's reading treatment ---- */
+body.case-fontcontext :is(.section-text, .research-block > p, .mvp-reflection-block > p,
+  .two-bar-resolution p, .pain-text-content > p, .two-bar-intro > p, section > p:not(.section-label):not(.section-subtitle)) {
+  font-size:16px !important; line-height:1.6 !important; letter-spacing:-0.01em !important;
+  margin:0 0 16px !important; max-width:none !important; color:#d1d1d1 !important;
+}
+/* Bold prefixes (e.g. a "Problem Statement:" style lead-in) read as heading ink at full weight. */
+body.case-fontcontext :is(.section-text, p) strong,
+body.case-fontcontext :is(.section-text, p) b {
+  color:#fafafa !important; font-weight:700 !important;
+}
+/* Section eyebrow labels sit above the heading in the lighter editorial grey. */
+body.case-fontcontext :is(.section-label, .research-label) { color:#a3a3a3 !important; }
+
+/* Heading to hero-demo spacing. */
+body.case-fontcontext .project-title { margin:0 0 28px !important; }
+body.case-fontcontext .hero-image { margin:0 0 40px !important; }
+
+/* Two-bar intro: balance the copy against the Font Preview mockup (inside the measure). */
+body.case-fontcontext .two-bar-intro { display:grid !important; grid-template-columns:minmax(0,1fr) 300px !important; gap:32px !important; align-items:center !important; }
+body.case-fontcontext .two-bar-intro :is(img,video) { width:100% !important; height:auto !important; }
+@media (max-width:760px){
+  body.case-fontcontext .two-bar-intro { grid-template-columns:1fr !important; gap:20px !important; }
+}
+
+
+/* Remove the collapsible chevron arrow (editorial pages read cleaner without it). */
+body.case-fontcontext .chevron { display:none !important; }
+/* Polaroids keep their original dark-frame square look (as live on production). */
+body.case-fontcontext .polaroid {
+  background:#171717 !important; border-color:rgba(255,255,255,0.06) !important;
+  box-shadow:0 2px 8px rgba(0,0,0,0.3) !important;
+}
+body.case-fontcontext .polaroid-caption { color:#ccc !important; }
+body.case-fontcontext .polaroid img { height:260px !important; object-fit:cover !important; opacity:1 !important; }
+
+/* Comparison-table column headers in the accent blue. */
+body.case-fontcontext .gap-header span { color:var(--editorial-accent) !important; }
+
+
+/* =====================================================================
+   Nav: match Send to Agent exactly (60px bar, centered, controls at 14px).
+   ===================================================================== */
+body.case-fontcontext .top-nav { height:60px !important; min-height:60px !important; }
+body.case-fontcontext .back-link {
+  font-weight:400 !important; min-height:44px !important; display:inline-flex !important; align-items:center !important;
+}
+body.case-fontcontext .case-site-controls { top:8px !important; right:32px !important; }
+body.case-fontcontext .case-site-controls :is(a,button) { font-size:14px !important; font-weight:400 !important; }
+
+/* =====================================================================
+   Compact headings: Send to Agent's scale (beat case-typography 24-26px).
+   ===================================================================== */
+
+
+/* Learnings body fills the content column (like live), so it wraps concisely instead of narrow. */
+body.case-fontcontext :is(.design-decisions, .decision-item, .decision-content, .story-lessons, .agent-learning-list) p { max-width:none !important; }
+
+
+/* Every narrative paragraph fills its column, so nothing stops short on the right. */
+body.case-fontcontext .main-content section p:not(.section-label):not(.section-subtitle) { max-width:none !important; }
+body.case-fontcontext :is(.numbered-feature, .mvp-reflection-block, .story-beat, .two-bar-resolution) p { max-width:none !important; font-size:16px !important; line-height:1.6 !important; }
+
+
+/* =====================================================================
+   MASTER TYPE SCALE — one consistent system across the whole case study.
+   Loaded last, high specificity, so it overrides every earlier size rule.
+   H1 clamp 36-52 · H2 clamp 30-38 · H3 24 · body 16 · label 11 · caption 13
+   ===================================================================== */
+/* H1 */
+body.case-fontcontext .project-title { font-size:clamp(36px,4.2vw,52px) !important; line-height:1.08 !important; font-weight:600 !important; }
+/* H2 — section headers */
+body.case-fontcontext :is(.section-title, .main-content section > h2) { font-size:clamp(30px,3.2vw,38px) !important; line-height:1.14 !important; font-weight:600 !important; }
+/* H3 — every sub-heading at one size */
+body.case-fontcontext :is(.subsection-header, .feature-text h3, .decision-item h3, .decision-item h4,
+  .two-bar-attempt h3, .two-bar-attempt h4, .column h3, .column h4, .roadmap-item h3, .roadmap-content h3,
+  .broken-problem h3, .broken-problem h4, .research-block h3, .stat-card-simple h3,
+  .main-content section h3, .main-content section h4):not(.section-label):not(.info-item h4) {
+  font-size:24px !important; line-height:1.22 !important; font-weight:600 !important; letter-spacing:-0.01em !important;
+}
+/* Body — all narrative + card copy at one size */
+body.case-fontcontext :is(.section-text, .section-subtitle, .feature-text p, .decision-item p,
+  .two-bar-attempt p, .attempt-summary, .attempt-body, .column p, .broken-problem p, .roadmap-item p, .roadmap-content p,
+  .numbered-feature p, .mvp-reflection-block p, .story-beat p, .two-bar-resolution p, .pain-text-content p,
+  .research-block p, .stat-desc, .stat-content-inline p) {
+  font-size:16px !important; line-height:1.6 !important; font-weight:400 !important; letter-spacing:-0.01em !important;
+}
+/* Labels — all mono uppercase eyebrows at one size */
+body.case-fontcontext :is(.section-label, .research-label, .image-label, .info-item h4, .gap-header span, .stat-label) {
+  font-size:11px !important; font-weight:500 !important; letter-spacing:0.08em !important; line-height:1.5 !important;
+}
+/* Meta values */
+body.case-fontcontext .info-item p { font-size:16px !important; line-height:1.5 !important; }
+/* Callout / key-shift statement */
+body.case-fontcontext p.key-shift { font-size:clamp(19px,2.15vw,25px) !important; line-height:1.3 !important; }
+/* Restore full-size layout tokens (undo the 75% shrink) */
+body.case-fontcontext {
+  --content-max: 760px !important;
+  --font-hero:48px; --font-section:28px; --font-subsection:20px; --font-body:16px; --font-small:14px; --font-caption:12px; --font-micro:11px;
+  --space-xs:4px; --space-sm:8px; --space-md:16px; --space-lg:24px; --space-xl:32px; --space-2xl:48px; --space-3xl:64px;
+}
+body.case-fontcontext .top-nav { height:60px !important; min-height:60px !important; }
+body.case-fontcontext .nav-links a, body.case-fontcontext .back-link, body.case-fontcontext .case-site-controls :is(a,button) { font-size:14px !important; }
+body.case-fontcontext .main-content { padding-top:108px !important; padding-bottom:100px !important; }
+body.case-fontcontext .main-content > section { margin-bottom:56px !important; }
+body.case-fontcontext .project-info { max-width:760px !important; }
+
+/* Hero demo shorter so the title, demo, and ROLE/TIMELINE/TEAM/SKILLS all show on load. */
+body.case-fontcontext .hero-image { height:380px !important; aspect-ratio:auto !important; min-height:0 !important; }
+body.case-fontcontext .hero-image video { width:100% !important; height:100% !important; object-fit:cover !important; }
+body.case-fontcontext .main-content { padding-top:88px !important; }
+/* Feature demos: top-align the text with the media so the spacing reads even. */
+body.case-fontcontext .feature-showcase { align-items:start !important; }
+body.case-fontcontext .feature-text { padding-top:8px !important; }

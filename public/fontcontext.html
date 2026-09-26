@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
+  <script>(function(){try{document.documentElement.dataset.theme="dark";}catch(e){}})();</script>
   <link rel="icon" href="/assets/favicon.png" type="image/png" sizes="32x32">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1980,7 +1981,6 @@
       .project-info { gap:24px; }
       .info-item p { font-size:14px; line-height:1.5; }
     }
-      h1.project-title { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important; }
     .section-header[role="button"]:focus-visible { outline:2px solid var(--figma-blue, #0099ff); outline-offset:6px; border-radius:4px; }
   </style>
   <script>
@@ -1997,8 +1997,9 @@
 <script src="/case-site-controls.js" defer></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="/case-typography.css">
+  <link rel="stylesheet" href="/case-editorial.css">
 </head>
-<body class="case-standalone case-fontcontext">
+<body class="case-standalone case-fontcontext case-editorial">
   <div class="container">
     <!-- Top Navigation -->
     <nav class="top-nav">
@@ -2126,7 +2127,7 @@
     <!-- Main Content -->
     <main class="main-content">
       <!-- Header -->
-      <p class="project-meta">FontContext · Shipped 2026</p>
+
       <h1 class="project-title">The Context Aware<br>Font Editor for Figma</h1>
 
       <!-- The same two-part product preview used by the portfolio card. -->

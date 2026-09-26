@@ -88,7 +88,7 @@
 .agent-story.is-editorial .agent-solution-copy p strong { color: var(--e-head); font-weight: 700; }
 
 /* Rhythm */
-.agent-story.is-editorial .agent-story-opening { margin-bottom: 8px; }
+.agent-story.is-editorial .agent-story-opening { margin-bottom: 56px; }
 .agent-story.is-editorial .agent-story-section { margin: 0 0 54px; }
 .agent-story.is-editorial .agent-story-section > p + p { margin-top: 14px; }
 

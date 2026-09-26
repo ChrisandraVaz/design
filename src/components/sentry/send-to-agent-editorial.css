@@ -356,3 +356,34 @@
   .agent-story.is-editorial :is(.agent-story-exploration-grid, .agent-story-iterations, .agent-story-image-pair, .agent-decision-pipeline, .agent-segments) { grid-template-columns: 1fr !important; }
   .agent-story.is-editorial .agent-story-artifact > a { max-width: 100% !important; overflow: hidden !important; }
 }
+
+/* =====================================================================
+   Mobile nav (<=700px): the editorial top bar packs Back + chapter tabs +
+   the fixed Work/About controls into one 60px row, so the tabs collide
+   with Work/About and run off the edge. Stack it like the pill case
+   studies: Back stays top-left, Work/About top-right, and the chapter
+   tabs drop to their own horizontally-scrollable row underneath.
+   ===================================================================== */
+@media (max-width: 700px) {
+  .agent-story.is-editorial .agent-story-top {
+    height: auto !important; min-height: 106px;
+    flex-direction: column; align-items: stretch; justify-content: flex-start;
+    gap: 14px; padding: 12px 16px 10px;
+  }
+  .agent-story.is-editorial .agent-story-back {
+    position: static; align-self: flex-start;
+    min-height: 36px; display: flex; align-items: center; max-width: calc(100% - 100px);
+  }
+  .agent-story.is-editorial .agent-story-tabs {
+    align-self: stretch; justify-content: flex-start;
+    gap: 22px; max-width: 100%;
+    flex-wrap: nowrap; overflow-x: auto;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .agent-story.is-editorial .agent-story-tabs::-webkit-scrollbar { display: none; }
+  .agent-story.is-editorial .agent-story-tabs a {
+    flex: 0 0 auto; white-space: nowrap; font-size: 12px; letter-spacing: 1px; padding: 4px 0;
+  }
+  .agent-story.is-editorial .agent-story-content { padding-top: 128px; }
+  .agent-story.is-editorial :is(section, header)[id] { scroll-margin-top: 116px; }
+}

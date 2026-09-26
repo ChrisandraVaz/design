@@ -698,3 +698,36 @@ body.case-fontcontext .feature-text { padding-top:8px !important; }
   body.case-fontcontext .stats-grid-simple { grid-template-columns: 1fr !important; }
   body.case-fontcontext .pain-section-layout { grid-template-columns: 1fr !important; }
 }
+
+/* =====================================================================
+   Mobile nav (<=700px): FontContext's fixed 60px bar packs Back + the
+   chapter links + the fixed Work/About controls into one row, so the
+   links collide with Work/About and run off the edge. Stack it to match
+   Send to Agent and the pill case studies: Back top-left, Work/About
+   top-right, chapter links on their own horizontally-scrollable row.
+   ===================================================================== */
+@media (max-width: 700px) {
+  body.case-fontcontext .top-nav {
+    height: auto !important; min-height: 100px !important;
+    flex-direction: column !important; align-items: stretch !important;
+    justify-content: center !important; gap: 8px !important;
+    padding: 10px 16px !important; overflow: visible !important;
+  }
+  body.case-fontcontext .back-link {
+    display: inline-flex !important; position: static !important; left: auto !important;
+    align-self: flex-start !important; max-width: calc(100% - 100px) !important;
+  }
+  body.case-fontcontext .nav-links {
+    align-self: stretch !important; justify-content: flex-start !important;
+    gap: 22px !important; max-width: 100% !important;
+    flex-wrap: nowrap !important; overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  body.case-fontcontext .nav-links::-webkit-scrollbar { display: none; }
+  body.case-fontcontext .nav-links a {
+    flex: 0 0 auto !important; white-space: nowrap !important;
+    font-size: 12px !important; letter-spacing: 1px !important; padding: 4px 0 !important;
+  }
+  body.case-fontcontext .case-site-controls { top: 12px !important; right: 16px !important; }
+  body.case-fontcontext .main-content { padding-top: 128px !important; }
+}

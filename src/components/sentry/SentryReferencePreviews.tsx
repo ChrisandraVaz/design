@@ -102,8 +102,8 @@ export function RelativeTimeSpecimen({ scene = 0 }: { scene?: number }) {
         <>
           <div className="rt-heading"><strong>Latency</strong><span>12 seconds</span></div>
           <div className="rt-detail-rows">
-            <div><strong>Occurred</strong><span>Jul 20, 2026</span><time>2:25:50 PM <span className="rt-zone-inline">PDT</span></time></div>
-            <div><strong>Received</strong><span>Jul 20, 2026</span><time>2:26:02 PM <span className="rt-zone-inline">PDT</span></time></div>
+            <div><strong>Occurred</strong><span>Jul 20, 2026&nbsp; 2:25:50 PM <span className="rt-zone-inline">UTC</span></span></div>
+            <div><strong>Received</strong><span>Jul 20, 2026&nbsp; 2:26:02 PM <span className="rt-zone-inline">PDT</span></span></div>
           </div>
         </>
       ) : index === 4 ? (
@@ -112,7 +112,7 @@ export function RelativeTimeSpecimen({ scene = 0 }: { scene?: number }) {
             <div><strong>Occurred</strong><span>Jul 29, 2026&nbsp; 11:46:52.998 PM UTC</span><time>(1785368812998)</time></div>
             <div><strong>Received</strong><span>Jul 29, 2026&nbsp; 4:46:52.998 PM <span className="rt-zone-inline">PDT</span></span><time>(1785368812998)</time></div>
           </div>
-          <div className="rt-footer"><span>Add your local timezone</span></div>
+          <div className="rt-footer"><span className="rt-add-local">Add your local timezone</span></div>
         </>
       ) : index === 5 ? (
         <>
@@ -154,8 +154,8 @@ export function RelativeTimeSpecimen({ scene = 0 }: { scene?: number }) {
             ))}
           </div>
           <div className="rt-footer">
-            <span>Jul 22, 2026 9:30 PM UTC</span>
-            {index === 6 && <span>Add your local timezone</span>}
+            <span>Jul 22, 2026 2:30 PM PDT</span>
+            {index === 6 && <span className="rt-add-local">Add your local timezone</span>}
           </div>
         </>
       )}

@@ -36,6 +36,7 @@
 .rt-preview-layer {
   grid-area: 1/1;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   width: 100%;
   opacity: 0;
@@ -77,9 +78,16 @@
   letter-spacing: -.008em;
   transform-origin: 50% calc(100% + 6px);
 }
-.rt-small { --rt-width: 76%; }
+/* The plain date/time tooltips (First Seen, Events, precision) size to their
+   own content and are centred, so they always fit their text — whatever font
+   size Safari ends up using — rather than being pinned to a fixed % width that
+   the text can outgrow. Other specimens keep a fixed width because they rely on
+   it for ellipsis (email, long metric labels). rt-scene-2 comes after rt-medium
+   on purpose so its width wins by source order. */
+.rt-small { --rt-width: fit-content; }
 .rt-medium { --rt-width: 89%; }
 .rt-wide { --rt-width: 100%; font-size: clamp(9px, 3.45cqw, 12px); }
+.rt-scene-2, .rt-scene-3, .rt-scene-4 { --rt-width: fit-content; }
 .rt-specimen::after {
   content: "";
   position: absolute;
@@ -127,22 +135,25 @@
   display: grid;
   gap: .45em;
 }
-/* Each row carries its own explicit column template (matching .time-tooltip
-   in sentry-ui.css) instead of `subgrid`. Safari <=17 mis-sizes subgrid
-   tracks nested inside a container-query context, which slid the time column
-   left over the date ("Jul 28, 2026" + "11:40 PM" overlapping). Both rows
-   share the same fixed zone column and right-anchored time column, so they
-   still line up identically without depending on subgrid. */
+/* Flex rows, not `subgrid` (which Safari mis-sizes in a container-query
+   context) and not a fixed grid (whose date column truncated or collided with
+   the time when Safari rendered the text larger than Chrome — e.g. a "minimum
+   font size" preference or page zoom). The chip is a fixed width so both rows'
+   dates align; the date never wraps mid-word; the time is pushed right and, if
+   the whole row can't fit the card, drops to its own line instead of being cut
+   off. Nothing ever overlaps, truncates, or spills past the card. */
 .rt-dates > div {
-  display: grid;
-  grid-template-columns: 2.55em minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: .55em;
-  white-space: nowrap;
+  column-gap: .55em;
+  row-gap: .1em;
 }
-/* Belt-and-braces: the date cell clips rather than overflowing, so nothing
-   can ever paint across the time column even if the row runs short. */
-.rt-dates > div > span:nth-child(2) { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.rt-dates > div > .rt-zone { flex: 0 0 auto; min-width: 2.55em; }
+.rt-dates > div > span:nth-child(2) { flex: 1 1 auto; white-space: nowrap; }
+.rt-dates > div > time { flex: 0 0 auto; margin-left: auto; white-space: nowrap; }
+/* Chip tooltips (First Seen, Events, precision, person): PDT (local) chip is
+   purple, UTC chip is neutral grey. */
 .rt-zone {
   padding: .12em .32em;
   border-radius: 3px;
@@ -170,20 +181,26 @@
   gap: .52em;
   padding: .72em .88em .78em;
 }
-.rt-detail-rows > div {
+/* Latency rows: the label, then the date and time together as one timestamp,
+   side by side. The timestamp sits in its own column and only wraps (as a
+   whole) if the card is genuinely too narrow — it never overlaps the label. */
+.rt-detail-rows:not(.rt-event-rows) > div {
   display: grid;
-  grid-template-columns: auto minmax(0,1fr) auto;
-  align-items: center;
-  gap: .62em;
-  white-space: nowrap;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: .1em .62em;
 }
 .rt-detail-rows strong { font-size: .88em; font-weight: 600; }
 .rt-detail-rows time { color: #696371; font-variant-numeric: tabular-nums; }
 .rt-event-rows { font-size: .86em; gap:.62em; }
+/* Event-timing rows keep their two-row grid, but the long timestamp may wrap
+   instead of overflowing the card. */
 .rt-event-rows > div {
-  grid-template-columns:auto minmax(0,1fr);
+  display: grid;
+  grid-template-columns:auto minmax(0, 1fr);
   gap:.08em .62em;
 }
+.rt-event-rows > div > span { white-space: normal; }
 .rt-event-rows strong { grid-row:1 / span 2; align-self:start; padding-top:.08em; }
 .rt-event-rows span,
 .rt-event-rows time { grid-column:2; text-align:right; }
@@ -210,6 +227,7 @@
   overflow:hidden;
   text-overflow:ellipsis;
   font-size:.86em;
+  font-weight:400;
   color:#696371;
 }
 .rt-scene-5 { font-size:clamp(9px,3.35cqw,11.5px); }
@@ -245,11 +263,17 @@
   color: #746e7b;
   font-size: .84em;
 }
-.rt-footer span:last-child:not(:first-child) {
+/* Only the "Add your local timezone" prompt is ever purple. */
+.rt-footer .rt-add-local {
   color: #7951ff;
 }
 .relative-time-reference .rt-specimen { font-variant-numeric: tabular-nums; }
-.relative-time-reference .rt-dates > div > span:nth-child(2) { color: #696371; }
+/* Date and time both read in the same light grey across every tooltip; only
+   the bold labels (Latency, Occurred/Received, the chip) stay darker. */
+.relative-time-reference .rt-dates > div > span:nth-child(2),
+.relative-time-reference .rt-dates time,
+.relative-time-reference .rt-detail-rows > div > span,
+.relative-time-reference .rt-event-rows > div > span { color: #696371; }
 @media (prefers-reduced-motion: reduce) {
   .rt-preview-layer.is-current { animation: none !important; }
 }
@@ -445,5 +469,7 @@
 .rt-scene-0 .rt-heading > :is(strong,span) { font-weight:600; }
 
 /* The local timezone is always the Sentry purple, wherever it appears in a tooltip. */
-.rt-zone-inline { color: #7951ff; font-weight: 500; }
-.rt-footer span { color: #7553f5; }
+/* Inline PDT/UTC labels (Latency, Event timing) are neutral grey, and the
+   footer timestamp is grey — only .rt-add-local stays purple. */
+.rt-zone-inline { color: #696574; font-weight: 400; }
+.rt-footer span { color: #696574; }

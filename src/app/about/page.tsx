@@ -18,9 +18,9 @@ export default function AboutPage(){return <SelectedPageShell active="about">
     <h1 id="about-heading">I&apos;m a product designer with more than 3 years of experience in a variety of domains.</h1>
    </header>
    <div className="about-copy">
-    <p>I’m driven by curiosity: complex UX problems, pushing boundaries and collaborating with creative people.</p>
+    <p>I’m interested in solving hard design problems across agents, data, infrastructure, and complex enterprise services. I’m growing my product and systems thinking, with an interest in design systems that help teams build cohesive experiences.</p>
     <p>I’m a Design &amp; Business student at the University of Waterloo, where I build the design community as a Campus Leader @ Figma.</p>
-    <p>I design with purpose and I give back by mentoring and speaking at hackathons and DEI initiatives for young teens.</p>
+    <p>In my free time, I like giving back by mentoring or judging at hackathons and supporting DEI tech initiatives.</p>
    </div>
   </section>
  </main>

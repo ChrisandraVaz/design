@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 export default function FigmaStickerPage() {
   return (
     <MinimalWorkPage
-      eyebrow="Figma shortcut sticker, FigBuild 2026, shipped"
       title="Figma shortcut sticker"
       description="A laptop sticker that puts Figma’s keyboard shortcuts within reach: tools, edit, view, text, selection, components, arrange, and transform, in dark and light versions."
       meta={[

@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 export default function FigmaKeychainPage() {
   return (
     <MinimalWorkPage
-      eyebrow="Keychain exploration, Figma for Edu, 2025"
       title="Figma for Edu keychain exploration"
       description="Three merch directions for Figma for Edu: knotted cord charms in six colours, braided lanyards with clover enamel tags, and an embroidered black tag with a flower charm."
       hero={{ src: '/assets/figma-edu/keychain-braids.jpg', alt: 'Three braided cord keychains with purple clover Figma for Edu enamel tags', width: 1020, height: 602 }}

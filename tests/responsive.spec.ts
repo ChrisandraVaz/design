@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { readdirSync } from 'node:fs';
 const routes = [
  '/',
+ '/about',
  ...readdirSync('src/app/projects', {withFileTypes:true}).filter(d=>d.isDirectory()).map(d=>`/projects/${d.name}`),
  '/fontcontext.html',
  '/serano.html',

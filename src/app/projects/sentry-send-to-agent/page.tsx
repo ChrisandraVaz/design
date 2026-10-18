@@ -1,3 +1,4 @@
+import "../../../../public/editorial-tokens.css";
 import type { Metadata } from "next";
 import SendToAgentCaseStudy from "@/components/sentry/SendToAgentCaseStudy";
 import { Instrument_Sans, Source_Serif_4, Newsreader } from "next/font/google";

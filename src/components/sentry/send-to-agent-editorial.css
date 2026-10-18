@@ -13,10 +13,10 @@
   --e-body: #d1d1d1;
   --e-muted: #8a8a8a;
   --e-accent: #ff4400;
-  --e-measure: 612px;
+  --e-measure: var(--reading-measure);
   /* Compact scale (the 75% view baked in). case-typography sizes h1/h2 from these tokens with !important, so overriding them here is the clean lever. */
-  --case-title-size: clamp(27px, 3vw, 38px);
-  --case-section-size: clamp(21px, 2.25vw, 26px);
+  --case-title-size: var(--reading-title);
+  --case-section-size: var(--reading-section);
 
   --story-bg: #000; --story-surface: #0d0d0d; --story-text: #fafafa; --story-copy: #d1d1d1; --story-muted: #8a8a8a; --story-border: #202020; --story-hairline: #191919;
   /* case-typography.css keys its !important heading colours off these; the page is dark even when the site theme is light. */
@@ -387,3 +387,21 @@
   .agent-story.is-editorial .agent-story-content { padding-top: 128px; }
   .agent-story.is-editorial :is(section, header)[id] { scroll-margin-top: 116px; }
 }
+
+@media(max-width:420px) {
+ .agent-story.is-editorial .agent-segment { min-width:0;overflow-wrap:anywhere; }
+}
+@media(max-width:420px) {
+ .case-design .agent-story.is-editorial .agent-segment { transform:none!important;width:100%;max-width:100%; }
+}
+
+/* Portfolio navigation shares the homepage's type, spacing, and icon size. */
+.case-design:has(.agent-story.is-editorial) .case-site-controls {
+ gap:24px;right:var(--page-gutter,32px);
+ font:400 16px/1.5 var(--font-inter),Inter,Arial,sans-serif;
+}
+.case-design:has(.agent-story.is-editorial) .case-site-controls a { font:inherit;opacity:1;color:#76776f; }
+.case-design:has(.agent-story.is-editorial) .case-site-controls[data-theme=dark] a { color:#aaa99f; }
+.case-design:has(.agent-story.is-editorial) .case-site-controls a:hover { color:inherit; }
+.case-design:has(.agent-story.is-editorial) .case-site-controls svg { width:17px;height:17px;stroke-width:1.3; }
+@media(max-width:700px) { .case-design:has(.agent-story.is-editorial) .case-site-controls { font-size:16px;gap:24px;right:20px; } }

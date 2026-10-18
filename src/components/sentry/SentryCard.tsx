@@ -6,20 +6,19 @@ import "./sentry-covers.css";
 
 export default function SentryCard({ kind }: { kind: SentryProjectId }) {
   const project = sentryProjects[kind];
+  const comingSoon = kind !== "send-to-agent";
+  const artwork = <div className="sentry-preview-art" aria-hidden="true"><SentryDemo kind={kind} compact /></div>;
   return (
     <div
-      className={`sentry-preview-card sentry-preview-${kind}`}
+      className={`sentry-preview-card sentry-preview-${kind}${comingSoon ? " coming-soon-card" : ""}`}
+      tabIndex={comingSoon ? 0 : undefined}
+      aria-label={comingSoon ? `${project.title}, case study coming soon` : undefined}
     >
-      <Link
-        href={`/projects/sentry-${kind}`}
-        className="sentry-preview-link"
-        aria-label={`Read ${project.title} case study`}
-      >
-        <div className="sentry-preview-art" aria-hidden="true">
-          <SentryDemo kind={kind} compact />
-        </div>
-        <span className="card-kind">Sentry Internship · Case Study</span>
-      </Link>
+      {comingSoon ? <div className="sentry-preview-link">{artwork}</div> : (
+        <Link href={`/projects/sentry-${kind}`} className="sentry-preview-link" aria-label={`Read ${project.title} case study`}>
+          {artwork}
+        </Link>
+      )}
     </div>
   );
 }

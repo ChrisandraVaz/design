@@ -316,3 +316,6 @@ html[data-type] :is(.case-design,.case-standalone) { --case-heading-font: var(--
 html[data-type] :is(.case-design,.case-standalone) :is(h1,h2,h3,h4) { font-weight: var(--tt-heading-weight, 600) !important; font-style: var(--tt-heading-style, normal); }
 html[data-type] .case-design h1 { font-family: var(--tt-heading) !important; }
 
+
+/* Contact links stand alone, without a credit line or decorative divider. */
+.portfolio-contact-footer { border-top:0!important;justify-content:flex-end!important; }

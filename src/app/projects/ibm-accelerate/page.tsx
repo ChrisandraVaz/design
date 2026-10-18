@@ -397,8 +397,7 @@ export default function IBMAccelerateCaseStudy() {
           </section>
 
           {/* Footer */}
-          <footer className="ibm-footer">
-            <p className="ibm-footer-credit">Crafted by Chrisandra Vaz</p>
+          <footer className="ibm-footer portfolio-contact-footer">
             <div className="ibm-footer-links">
               <a href="https://ca.linkedin.com/in/chrisandra-vaz" target="_blank" rel="noopener noreferrer">LinkedIn</a>
               <a href="mailto:chrisandravaz12@gmail.com">Email</a>

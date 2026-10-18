@@ -50,6 +50,25 @@ export default function AgentMotionPreview({paused = false, showCompletedQuery =
     // Pan the whole window until its header clears the stage, without fading it.
     // Match the purple right and bottom gutters at both camera scales.
     const cameraFrames = (): Keyframe[] => {
+      if (containFrame) {
+        const scale = Math.min(element.clientWidth / 560, element.clientHeight / 460) * .86;
+        const radius = parseFloat(getComputedStyle(element).getPropertyValue("--home-chat-radius")) || 6;
+        camera.style.borderRadius = `${radius / scale}px`;
+        const overview = `translate(-50%, -50%) scale(${scale})`;
+        const detailScale = scale * 1.32;
+        const gutter = Math.min(element.clientWidth, element.clientHeight) * .07;
+        const detailX = element.clientWidth / 2 - gutter - 560 * detailScale / 2;
+        const detailY = element.clientHeight / 2 - gutter - 460 * detailScale / 2;
+        const detail = `translate(calc(-50% + ${detailX}px), calc(-50% + ${detailY}px)) scale(${detailScale})`;
+        return [
+          {transform: overview, opacity: 1, offset: 0},
+          {transform: overview, offset: 6000 / duration, easing: ease},
+          {transform: detail, offset: 7400 / duration},
+          {transform: detail, offset: 9190 / duration, easing: ease},
+          {transform: overview, offset: 10390 / duration},
+          {transform: overview, opacity: 1, offset: 1},
+        ];
+      }
       const openingView = containFrame ? "translate(0,0) scale(.84)" : opening;
       const landscapeCorrection = Math.max(0, element.offsetWidth - element.offsetHeight) * .96;
       const closeUpGutter = Math.max(5, Math.min(element.offsetWidth, element.offsetHeight) * .13 - landscapeCorrection);

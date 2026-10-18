@@ -970,7 +970,7 @@ export default function SentryCaseStudy({ kind }: { kind: SentryProjectId }) {
       ) : (
         <TimeCase />
       )}
-      {revised ? <footer className="story-contact-footer"><p>Designed + Coded with ♡ by Chrisandra</p><nav aria-label="Contact links"><a href="https://ca.linkedin.com/in/chrisandra-vaz">LinkedIn</a><a href="mailto:chrisandravaz12@gmail.com">Email</a><a href="https://github.com/ChrisandraVaz">GitHub</a></nav></footer> : <footer className="trace-end">
+      {revised ? <footer className="story-contact-footer portfolio-contact-footer"><nav aria-label="Contact links"><a href="https://ca.linkedin.com/in/chrisandra-vaz">LinkedIn</a><a href="mailto:chrisandravaz12@gmail.com">Email</a><a href="https://github.com/ChrisandraVaz">GitHub</a></nav></footer> : <footer className="trace-end">
         <Link href="/">← Back to the canvas</Link>
         <Link href={`/projects/sentry-${opening.next}`}>
           {sentryProjects[opening.next].title} →

@@ -926,8 +926,7 @@ export default function TDDesignSystemCaseStudy() {
             </div>
         </section>
 
-          <footer className="td-footer">
-            <p className="td-footer-credit">Crafted by Chrisandra Vaz</p>
+          <footer className="td-footer portfolio-contact-footer">
             <div className="td-footer-links">
               <a href="https://ca.linkedin.com/in/chrisandra-vaz" target="_blank" rel="noopener noreferrer">LinkedIn</a>
               <a href="mailto:chrisandravaz12@gmail.com">Email</a>

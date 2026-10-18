@@ -421,12 +421,21 @@
   .canvas-folio:not(.index-folio) .widget-world .scatter .scatter-3 { order:3; }
 }
 
-/* TD Interest Claims is not clickable yet: say so on hover instead of looking broken. */
-.canvas-folio .widget-world .td-claims-card { position: relative; cursor: default; }
-.canvas-folio .widget-world .td-claims-card::after { content: "Case study coming soon"; z-index: 3; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(.96); padding: 10px 16px; border-radius: 999px; background: #111; color: #fff; font: 500 13px/1 var(--font-inter), sans-serif; letter-spacing: .01em; white-space: nowrap; opacity: 0; transition: opacity .18s ease, transform .18s ease; pointer-events: none; box-shadow: 0 8px 24px -10px #00000080; }
-.canvas-folio .widget-world .td-claims-card::before { content: ""; z-index: 2; position: absolute; inset: 0; background: #ffffff; opacity: 0; transition: opacity .18s ease; pointer-events: none; border-radius: inherit; }
-.canvas-folio .widget-world .td-claims-card:hover::after, .canvas-folio .widget-world .td-claims-card:focus-within::after { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-.canvas-folio .widget-world .td-claims-card:hover::before, .canvas-folio .widget-world .td-claims-card:focus-within::before { opacity: .45; }
-.canvas-folio .widget-world .td-claims-card .card-kind { z-index: 4; }
-.canvas-folio .widget-world .td-claims-card .card-kind { transition: opacity .18s ease; }
-.canvas-folio .widget-world .td-claims-card:hover .card-kind, .canvas-folio .widget-world .td-claims-card:focus-within .card-kind { opacity: 0; }
+/* Pending case studies share the existing TD Interest Claims hover treatment. */
+.canvas-folio .widget-world .coming-soon-card { position: relative; cursor: default; }
+.canvas-folio .widget-world .coming-soon-card::after { content: "Case study coming soon"; z-index: 3; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(calc(.96 / var(--badge-scale))); box-sizing:border-box; width:192px; height:36px; display:grid; place-items:center; padding:0; border-radius:999px; background:#111; color: #fff; font: 500 13px/1 var(--font-inter), sans-serif; letter-spacing: .01em; white-space: nowrap; opacity: 0; transition: opacity .18s ease, transform .18s ease; pointer-events: none; box-shadow: 0 8px 24px -10px #00000080; }
+.canvas-folio .widget-world .coming-soon-card::before { content: ""; z-index: 2; position: absolute; inset: 0; background: #ffffff; opacity: 0; transition: opacity .18s ease; pointer-events: none; border-radius: inherit; }
+.canvas-folio .widget-world .coming-soon-card:hover::after, .canvas-folio .widget-world .coming-soon-card:focus-within::after { opacity: 1; transform: translate(-50%, -50%) scale(calc(1 / var(--badge-scale))); }
+.canvas-folio .widget-world .coming-soon-card:hover::before, .canvas-folio .widget-world .coming-soon-card:focus-within::before { opacity: .45; }
+.canvas-folio .widget-world .coming-soon-card:hover .card-kind, .canvas-folio .widget-world .coming-soon-card:focus-within .card-kind { opacity: 0; }
+
+/* Neutral preview stages; the product artwork keeps its authored colors. */
+.canvas-folio .widget-world .sentry-preview-send-to-agent .agent-film,
+.canvas-folio .widget-world .sentry-preview-send-to-agent .agent-film-backdrop,
+.canvas-folio .widget-world .sentry-preview-relative-time .relative-time-reference { background:#fafafa; }
+.canvas-folio .widget-world .sentry-preview-relative-time .relative-time-reference::before { display:none; }
+.canvas-folio .widget-world .coming-soon-card:focus-visible { outline:2px solid #ab3982;outline-offset:4px; }
+@media(prefers-reduced-motion:reduce) {
+ .canvas-folio .widget-world .coming-soon-card::before,
+ .canvas-folio .widget-world .coming-soon-card::after { transition:none; }
+}

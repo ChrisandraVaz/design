@@ -20,10 +20,10 @@
   --ce-body: #d1d1d1;
   --ce-muted: #8a8a8a;
   --ce-accent: #ff4400;
-  --ce-measure: 612px;
+  --ce-measure: var(--reading-measure,612px);
 
-  --ce-title-size: clamp(27px, 3vw, 38px);
-  --ce-section-size: clamp(21px, 2.25vw, 26px);
+  --ce-title-size: var(--reading-title,38px);
+  --ce-section-size: var(--reading-section,26px);
 
   --ce-font-head: 'Instrument Sans', 'Space Grotesk', sans-serif;
   --ce-font-body: 'Instrument Sans', 'Space Grotesk', sans-serif;
@@ -731,3 +731,33 @@ body.case-fontcontext .feature-text { padding-top:8px !important; }
   body.case-fontcontext .case-site-controls { top: 12px !important; right: 16px !important; }
   body.case-fontcontext .main-content { padding-top: 128px !important; }
 }
+
+/* Font Context follows the rendered Send to Agent reading scale. */
+body.case-fontcontext { --content-max:612px!important; }
+body.case-fontcontext .main-content { padding:108px 24px 100px!important; }
+body.case-fontcontext .main-content > *,
+body.case-fontcontext .main-content > section,
+body.case-fontcontext .project-info { max-width:612px!important; }
+body.case-fontcontext .project-title {
+ font-size:var(--reading-title)!important;line-height:1.1!important;
+ font-weight:600!important;letter-spacing:-.03em!important;
+}
+body.case-fontcontext :is(.section-title,.main-content section > h2) {
+ font-size:var(--reading-section)!important;line-height:1.12!important;
+}
+body.case-fontcontext :is(.subsection-header,.feature-title,.main-content section h3) {
+ font-size:16px!important;line-height:1.25!important;
+}
+body.case-fontcontext .hero-image {
+ height:auto!important;aspect-ratio:1236 / 708!important;
+}
+body.case-fontcontext .hero-image video { object-fit:contain!important; }
+body.case-fontcontext .case-site-controls :is(a,button) {
+ font:400 16px/1.5 Inter,Arial,sans-serif!important;letter-spacing:0!important;
+}
+@media(max-width:1100px) {
+ body.case-fontcontext .main-content { padding-top:128px!important; }
+}
+body.case-fontcontext .case-site-controls a { color:#aaa99f!important;opacity:1!important; }
+body.case-fontcontext .case-site-controls a:hover { color:#e8e8e3!important; }
+body.case-fontcontext .project-info { margin-bottom:56px!important; }

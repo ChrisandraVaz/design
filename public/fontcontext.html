@@ -1988,11 +1988,12 @@
     (function() {
       var theme = localStorage.getItem('portfolio-theme');
       if (!theme) {
-        theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        theme = 'light';
       }
       document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
+<link rel="stylesheet" href="/editorial-tokens.css">
 <link rel="stylesheet" href="/case-site-controls.css">
 <script src="/case-site-controls.js" defer></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap">
@@ -2859,8 +2860,7 @@
       </section>
 
       <!-- Footer -->
-      <footer>
-        <p class="footer-credit">Designed + Coded with ♡ by Chrisandra</p>
+      <footer class="portfolio-contact-footer">
         <div class="footer-links">
           <a href="https://ca.linkedin.com/in/chrisandra-vaz" target="_blank">LinkedIn</a>
           <a href="mailto:chrisandravaz12@gmail.com">Email</a>

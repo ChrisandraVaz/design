@@ -20,7 +20,6 @@ const flyers = [
 export default function FigBuildPage() {
   return (
     <MinimalWorkPage
-      eyebrow="FigBuild 2025, Figma for Edu, shipped"
       title="FigBuild 2025 campaign assets"
       description="Campaign and content assets for Figma’s inaugural designathon, run across eight universities."
       hero={{ src: '/assets/figbuild-overview.jpg', alt: 'FigBuild 2025 campaign assets overview', width: 1800, height: 1100 }}

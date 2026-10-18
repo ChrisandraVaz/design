@@ -269,7 +269,7 @@ export default function SendToAgentCaseStudy() {
         </div>
       </Chapter>
       </div>
-      <footer className="agent-contact-footer"><p>Designed + Coded with ♡ by Chrisandra</p><nav aria-label="Contact"><a href="https://ca.linkedin.com/in/chrisandra-vaz" target="_blank" rel="noreferrer">LinkedIn</a><a href="mailto:chrisandravaz12@gmail.com">Email</a><a href="https://github.com/ChrisandraVaz" target="_blank" rel="noreferrer">GitHub</a></nav></footer>
+      <footer className="agent-contact-footer portfolio-contact-footer"><nav aria-label="Contact"><a href="https://ca.linkedin.com/in/chrisandra-vaz" target="_blank" rel="noreferrer">LinkedIn</a><a href="mailto:chrisandravaz12@gmail.com">Email</a><a href="https://github.com/ChrisandraVaz" target="_blank" rel="noreferrer">GitHub</a></nav></footer>
     </div>
   </main>;
 }

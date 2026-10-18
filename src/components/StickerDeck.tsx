@@ -266,7 +266,6 @@ export default function StickerDeck() {
           <img src="/assets/figma-edu/sticker-dark.png" alt="" draggable={false} />
         </div>
       </div>
-      <span className="card-kind">FigBuild 2026 Merch · Shipped</span>
     </div>
   );
 }

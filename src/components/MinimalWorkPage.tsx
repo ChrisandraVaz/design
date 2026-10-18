@@ -14,7 +14,6 @@ export type MinimalWorkImage = {
 };
 
 export type MinimalWorkProps = {
-  eyebrow: string;
   title: string;
   description: string;
   /** Optional lead image between the title and the facts row. */
@@ -31,13 +30,12 @@ function Frame({ image, eager = false }: { image: MinimalWorkImage; eager?: bool
   );
 }
 
-export default function MinimalWorkPage({ eyebrow, title, description, hero, meta, images }: MinimalWorkProps) {
+export default function MinimalWorkPage({ title, description, hero, meta, images }: MinimalWorkProps) {
   return (
     <article className="mw">
       <div className="mw-inner">
         <Link href="/" className="mw-back back-home"><span aria-hidden="true">‹</span>Back to Home</Link>
         <header className="mw-header">
-          <span className="mw-kicker">{eyebrow}</span>
           <h1>{title}</h1>
         </header>
         {hero && (
@@ -65,8 +63,7 @@ export default function MinimalWorkPage({ eyebrow, title, description, hero, met
             </li>
           ))}
         </ol>
-        <footer className="mw-footer">
-          <p>Designed + Coded with ♡ by Chrisandra</p>
+        <footer className="mw-footer portfolio-contact-footer">
           <nav aria-label="Contact links">
             <a href="https://ca.linkedin.com/in/chrisandra-vaz">LinkedIn</a>
             <a href="mailto:chrisandravaz12@gmail.com">Email</a>

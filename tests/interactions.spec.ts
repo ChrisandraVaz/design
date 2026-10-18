@@ -9,9 +9,8 @@ test.describe('phone navigation and controls',()=>{
   const home=page.locator('a[href="/"]:visible').first();
   await expect(home).toBeVisible();await home.tap();await expect(page).toHaveURL('/');
  });
- test('Trace opens on tap, keeps its image visible, and toggles annotations',async({page})=>{
-  await page.goto('/',{waitUntil:'domcontentloaded'});
-  await page.getByRole('link',{name:'Explore Trace'}).tap();
+ test('Trace case study keeps its image visible and toggles annotations',async({page})=>{
+  await page.goto('/projects/trace',{waitUntil:'domcontentloaded'});
   await expect(page).toHaveURL('/projects/trace');
   const image=page.locator('.trace-opening-image');await expect(image).toBeInViewport();
   await expect(image.locator('.trace-watch-anchor')).toBeVisible();

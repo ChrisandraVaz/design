@@ -97,7 +97,6 @@ export default function FigBuildFlyers() {
           </div>
         </div>
       </div>
-      <span className="card-kind">FigBuild 2025 · Shipped Assets</span>
     </div>
   );
 }

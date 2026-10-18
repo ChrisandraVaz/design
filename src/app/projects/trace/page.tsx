@@ -39,5 +39,5 @@ export default function TracePage(){return <main className="trace-case travel-ca
   <article><h3>Recreate the grid before designing on it</h3><p>Rebuilding watchOS layout families, safe areas, and the circular grid made every dimension explicit. Calling them drawing measurements rather than Apple’s points keeps the concept honest about what a device test still has to confirm.</p></article>
  </div></section>
 
- <footer className="trace-contact-footer"><p>Designed + Coded with ♡ by Chrisandra</p><nav aria-label="Contact"><a href="https://ca.linkedin.com/in/chrisandra-vaz" target="_blank" rel="noreferrer">LinkedIn</a><a href="mailto:chrisandravaz12@gmail.com">Email</a><a href="https://github.com/ChrisandraVaz" target="_blank" rel="noreferrer">GitHub</a></nav></footer>
+ <footer className="trace-contact-footer portfolio-contact-footer"><nav aria-label="Contact"><a href="https://ca.linkedin.com/in/chrisandra-vaz" target="_blank" rel="noreferrer">LinkedIn</a><a href="mailto:chrisandravaz12@gmail.com">Email</a><a href="https://github.com/ChrisandraVaz" target="_blank" rel="noreferrer">GitHub</a></nav></footer>
  </main>}

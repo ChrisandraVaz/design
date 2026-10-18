@@ -591,40 +591,36 @@ export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' 
       <Scatter onDragStart={event=>event.preventDefault()} onPointerLeave={()=>{if(!isInteracting())setActive(null);}} className={`scatter ${active ? 'has-active' : ''}`}>
         {!indexLayout && <div className="scatter-intro"><SketchIntro /></div>}
         {(indexLayout ? [1,9,2] : [9,1,2]).map(i => <section key={i} {...movable(String(i))} className={`scatter-item scatter-${i} scatter-sentry ${active===String(i)?'is-active':''}`} aria-label={`${sentryProjects[sentrySlots[i]].title} case study`} onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive(String(i));}} onFocus={()=>setActive(String(i))}>
-          <div className="widget-label card-heading"><span>{sentryProjects[sentrySlots[i]].title}</span><CardArrow href={`/projects/sentry-${sentrySlots[i]}`} label={`Open ${sentryProjects[sentrySlots[i]].title}`}/></div><SentryCard kind={sentrySlots[i]}/>
+          <div className="widget-label card-heading"><span>{sentryProjects[sentrySlots[i]].title}</span>{sentrySlots[i] === 'send-to-agent' && <CardArrow href="/projects/sentry-send-to-agent" label="Open Send to Agent"/>}</div><SentryCard kind={sentrySlots[i]}/>
         </section>)}
         <section {...movable('fontcontext')} className={`scatter-item scatter-0 scatter-fontcontext-slot ${active==='fontcontext'?'is-active':''}`} aria-label="Font Context Plugin case study" onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive('fontcontext');}} onFocus={()=>setActive('fontcontext')}>
           <div className="widget-label card-heading"><span>Font Context Plugin</span><CardArrow href="/fontcontext.html" label="Open Font Context Plugin"/></div>
           <Link className="portfolio-experiment-card fontcontext-card" href="/fontcontext.html" prefetch={false} aria-label="Open Font Context Plugin case study">
             <FontContextCardMedia />
-            <span className="card-kind">Shipped · Case Study</span>
           </Link>
         </section>
-        {[3,12].map(i => i===3 ? <section key={i} {...movable(String(i))} className={`scatter-item scatter-3 scatter-sentry ${active==='3'?'is-active':''}`} aria-label="Relative Time case study" onPointerEnter={e=>{if(e.pointerType==='mouse'&&!isInteracting())setActive('3')}} onFocus={()=>setActive('3')}><div className="widget-label card-heading"><span>Relative Time</span><CardArrow href="/projects/sentry-relative-time" label="Open Relative Time"/></div><SentryCard kind="relative-time"/></section> : <section key={i} {...movable(String(i))} className={`scatter-item scatter-${i} ${active===String(i)?'is-active':''}`} aria-label={`${names[i]} widget`} onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive(String(i));}}  onFocus={()=>setActive(String(i))} >
+        {[3,12].map(i => i===3 ? <section key={i} {...movable(String(i))} className={`scatter-item scatter-3 scatter-sentry ${active==='3'?'is-active':''}`} aria-label="Relative Time case study" onPointerEnter={e=>{if(e.pointerType==='mouse'&&!isInteracting())setActive('3')}} onFocus={()=>setActive('3')}><div className="widget-label card-heading"><span>Relative Time</span></div><SentryCard kind="relative-time"/></section> : <section key={i} {...movable(String(i))} className={`scatter-item scatter-${i} ${active===String(i)?'is-active':''}`} aria-label={`${names[i]} widget`} onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive(String(i));}}  onFocus={()=>setActive(String(i))} >
           <div className={`widget-label${i===10?'':' card-heading'}`}><span>{i === 12 && recordingPreview ? 'Experiments' : names[i]}</span>{!(i === 12 && recordingPreview) && <button disabled={!hydrated} aria-label={`Inspect ${names[i]}`} onClick={()=>{if(i===12){setShaderOpen(true);}else{setSelected(i);setInspect(false);}}}><Maximize2/></button>}</div>{indexLayout && i !== 10 ? <div className="index-component-frame">{widget(i)}</div> : widget(i)}
         </section>)}
         <section {...movable('trace')} className={`scatter-item scatter-trace ${active==='trace'?'is-active':''}`} aria-label="Trace watchOS concept project" onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive('trace');}} onFocus={()=>setActive('trace')}>
-          <div className="widget-label card-heading"><span>Apple Watch Trace</span><CardArrow href="/projects/trace" label="Open Apple Watch Trace"/></div>
-          <Link href="/projects/trace" className="trace-project-link" aria-label="Explore Trace">
+          <div className="widget-label card-heading"><span>Apple Watch Trace</span></div>
+          <div className="trace-project-link coming-soon-card" tabIndex={0} aria-label="Apple Watch Trace, case study coming soon">
             <div className="trace-project-art">
               <div className="trace-bento-watch"><TraceWatchAnchor/></div>
               <div className="trace-bento-widget"><div className="trace-project-widget"><OriginalTraceStudy label="Trace component study"/></div><span>Component study</span></div>
               <div className="trace-bento-state trace-color-study"><TracePalette/></div>
             </div>
-            <span className="card-kind">Concept · Case Study</span>
-          </Link>
+          </div>
         </section>
         <section {...movable('metallic')} className="scatter-item scatter-metallic" aria-label="Liquid Metallic Button experiment">
           <div className="widget-label card-heading"><span>Liquid Metallic Button</span><CardArrow href="https://chrisandravaz.github.io/Liquid-Metallic-Button-/liquid-metal-button" label="Open Liquid Metallic Button" external/></div><a className="portfolio-experiment-card metallic-card" href="https://chrisandravaz.github.io/Liquid-Metallic-Button-/liquid-metal-button" target="_blank" rel="noreferrer" aria-label="Open Liquid Metallic Button">
             <video src="/assets/metallic-button.mp4" autoPlay loop muted playsInline preload="metadata" />
-            <span className="card-kind component-kind">Experiment</span>
           </a>
         </section>
         <section {...movable('paint')} className="scatter-item scatter-paint" aria-label="Microsoft Paint recreation">
           <div className="widget-label card-heading"><span>Microsoft Paint Recreation</span><CardArrow href="https://chrisandravaz.github.io/Microsoft-Paint/" label="Open Microsoft Paint recreation" external/></div>
           <a className="portfolio-experiment-card paint-card" href="https://chrisandravaz.github.io/Microsoft-Paint/" target="_blank" rel="noreferrer" aria-label="Open Microsoft Paint recreation">
             <video src="/assets/microsoftpaint-540.mp4" autoPlay loop muted playsInline preload="metadata" />
-            <span className="card-kind component-kind">Experiment</span>
           </a>
         </section>
         <section {...movable('edu')} className={`scatter-item scatter-edu ${active==='edu'?'is-active':''}`} aria-label="Figma for Edu keychain exploration" onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive('edu');}} onFocus={()=>setActive('edu')}>
@@ -641,9 +637,8 @@ export default function WidgetCanvas({ layout = 'canvas' }: { layout?: 'canvas' 
         </section>
         <section {...movable('claims')} className={`scatter-item scatter-claims ${active==='claims'?'is-active':''}`} aria-label="TD Securities Interest Claims case study" onPointerEnter={e=>{if(e.pointerType==='mouse' && !isInteracting())setActive('claims');}} onFocus={()=>setActive('claims')}>
           <div className="widget-label card-heading"><span>TD Securities Interest Claims</span></div>
-          <div className="portfolio-experiment-card td-claims-card" aria-label="TD Securities Interest Claims, case study coming soon">
+          <div className="portfolio-experiment-card td-claims-card coming-soon-card" tabIndex={0} aria-label="TD Securities Interest Claims, case study coming soon">
             <span className="td-claims-media"><img src="/assets/tdinterestclaims.png" alt="Interest Claims workspace with regional upload status and claim opportunities" draggable={false}/></span>
-            <span className="card-kind">TD Internship · Coming Soon</span>
           </div>
         </section>
       </Scatter></div>

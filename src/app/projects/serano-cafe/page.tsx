@@ -2010,8 +2010,7 @@ export default function SeranoCafeCaseStudy() {
 
           </section>
 
-          <footer className="footer">
-            <p className="footer-credit">Crafted by Chrisandra Vaz</p>
+          <footer className="footer portfolio-contact-footer">
             <div className="footer-links">
               <a href="https://ca.linkedin.com/in/chrisandra-vaz" target="_blank" rel="noopener noreferrer">LinkedIn</a>
               <a href="mailto:chrisandravaz12@gmail.com">Email</a>

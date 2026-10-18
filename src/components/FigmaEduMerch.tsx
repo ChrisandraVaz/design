@@ -14,7 +14,6 @@ export default function FigmaEduMerch() {
         alt="Figma for Edu keychain exploration: six knot colourways, a black strap with a clover charm, and braided paracord keychains with clover tags"
         draggable={false}
       />
-      <span className="card-kind">Exploration Concept</span>
     </div>
   );
 }

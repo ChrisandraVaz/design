@@ -1,0 +1,13 @@
+/* Shared Send to Agent editorial measurements, used by React and static studies. */
+:root {
+ --reading-measure:612px;
+ --reading-title:clamp(27px,3vw,38px);
+ --reading-section:clamp(21px,2.25vw,26px);
+ --reading-subhead:16px;
+ --reading-body:14.5px;
+ --reading-leading:1.6;
+ --reading-section-gap:56px;
+ --reading-block-gap:28px;
+ --reading-top:108px;
+ --reading-accent:#ff4400;
+}

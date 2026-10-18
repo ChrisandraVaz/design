@@ -1,15 +1,27 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import CaseStudyControls from '@/components/CaseStudyControls';
-import AboutPhotoPile, { type PilePhoto } from '@/components/AboutPhotoPile';
+import type {Metadata} from 'next';
+import SelectedPageShell from '@/components/SelectedPageShell';
+import AboutPhotoStrip,{type AboutPhoto} from '@/components/AboutPhotoStrip';
 import './about.css';
 export const metadata:Metadata={title:'About Chrisandra Vaz',description:'Product designer, Design and Business student at Waterloo, and Figma Campus Leader.'};
-const pilePhotos:PilePhoto[]=[
- {src:'/assets/about/about-4-community.jpg',alt:'Group photograph from a Figma community event',rotate:-7,x:-70,y:40},
- {src:'/assets/about/about-3-mewtwo.jpg',alt:'Chrisandra beside a Mewtwo statue',rotate:5,x:40,y:-30},
- {src:'/assets/about/about-2-golden-gate.jpg',alt:'Chrisandra in front of the Golden Gate Bridge',rotate:-3,x:-30,y:-60},
- {src:'/assets/about/about-1-installation.jpg',alt:'Chrisandra under a colourful textile installation',rotate:3,x:20,y:20},
+const photos:AboutPhoto[]=[
+ {src:'/assets/about/about-1-installation.jpg',alt:'Chrisandra under a colourful textile installation'},
+ {src:'/assets/about/about-4-community.jpg',alt:'Group photograph from a Figma community event'},
+ {src:'/assets/about/about-2-golden-gate.jpg',alt:'Chrisandra in front of the Golden Gate Bridge'},
+ {src:'/assets/about/about-3-mewtwo.jpg',alt:'Chrisandra beside a Mewtwo statue'},
 ];
-export default function AboutPage(){return <main className="about-page"><header className="about-top"><Link href="/" className="about-back back-home"><span aria-hidden="true">‹</span>Back to Home</Link><CaseStudyControls /></header><div className="about-content"><section className="about-hero"><header className="about-intro"><p className="about-kicker" aria-hidden="true">About me.</p><h1><span className="sr-only">About me. </span>I&apos;m a product designer with more than 3 years of experience in a variety of domains.</h1><p>I’m driven by curiosity: complex UX problems, pushing boundaries and collaborating with creative people.</p><p>I’m a Design &amp; Business student at the University of Waterloo, where I build the design community as a Campus Leader @ Figma.</p><p>I design with purpose and I give back by mentoring and speaking at hackathons and DEI initiatives for young teens.</p></header>
-<div className="about-hero-pile"><p className="about-pile-label">Gotcha I see you 👀</p><p className="about-pile-hint">Pssst...You can drag the photographs</p><AboutPhotoPile photos={pilePhotos}/></div></section>
-</div></main>}
+export default function AboutPage(){return <SelectedPageShell active="about">
+ <main id="about-content" className="about-page">
+  <AboutPhotoStrip photos={photos}/>
+  <section className="about-content about-story" aria-labelledby="about-heading">
+   <header className="about-intro">
+    <p className="about-kicker">About me</p>
+    <h1 id="about-heading">I&apos;m a product designer with more than 3 years of experience in a variety of domains.</h1>
+   </header>
+   <div className="about-copy">
+    <p>I’m driven by curiosity: complex UX problems, pushing boundaries and collaborating with creative people.</p>
+    <p>I’m a Design &amp; Business student at the University of Waterloo, where I build the design community as a Campus Leader @ Figma.</p>
+    <p>I design with purpose and I give back by mentoring and speaking at hackathons and DEI initiatives for young teens.</p>
+   </div>
+  </section>
+ </main>
+ </SelectedPageShell>}
